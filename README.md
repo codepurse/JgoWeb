@@ -69,6 +69,17 @@ When the user type the needed details in `/delivery` the data will be thrown in 
     localStorage.setItem("dropofflng", coordinatesDrop.lng);
 ```
 
+Since NextJs is SSR the localstorage will be undefined in every run, because localstorage is a DOM of the browser not the NextJs itself. So to make it work I put a conditional statement.
+
+``if (process.browser) {
+    if (global.config.place.deliver.refresh === "") {
+    // All localstorage goes here.    
+    }
+  } else {
+  }
+
+```
+
 ##### Module export
 I used module export for global variables. So everytime the client changes the dropoff and pickoff the data will throw in global config.
 ```javascript
