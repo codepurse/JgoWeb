@@ -1,0 +1,653 @@
+@font-face {
+    font-family: ProximaNovaBlack;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
+}
+
+@font-face {
+    font-family: Proxima;
+    src: url(../Font/proxima_ssv/ProximaNova-Regular.otf);
+}
+
+@font-face {
+    font-family: GilroyExtraBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-ExtraBold.otf);
+}
+
+@font-face {
+    font-family: GilroyBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Bold.ttf);
+}
+
+@font-face {
+    font-family: GilroyMedium;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Medium.ttf);
+}
+
+:root {
+    --maincolor: #FFE900;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #1A1A1A;
+}
+
+#__next {
+    height: 100%;
+}
+
+.mainCon {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.mainCon2 {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg2.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.mainCon3 {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg3.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.nav-link {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: white;
+    margin-right: 15px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--maincolor) !important;
+}
+
+.activeNav {
+    color: var(--maincolor) !important;
+}
+
+/* index */
+
+.pText {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: white;
+    font-size: 5.5rem;
+    text-align: center;
+    line-height: 0.9em;
+}
+
+.pText>span {
+    color: var(--maincolor);
+}
+
+.btnBook {
+    font-family: 'GilroyExtraBold';
+    color: white;
+    background-color: #EDC728;
+    border: 0px;
+    border-radius: 13px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pDefault {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.imgGps {
+    width: 35px;
+}
+
+.imgBox {
+    width: 350px;
+}
+
+/* Login */
+
+.colLogin {
+    display: none;
+}
+
+.pLogin {
+    font-family: 'GilroyExtraBold';
+    color: white;
+    font-size: 2rem;
+}
+
+.box {
+    background-color: rgba(59, 56, 52, 0.8);
+    border-radius: 25px;
+    padding: 25px;
+    width: 100%;
+    margin-top: -5px;
+}
+
+.txt {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #707070;
+    background-color: transparent;
+    font-weight: 400;
+    width: 100%;
+    margin: 5px 0px;
+    outline: var(--maincolor);
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #1A1A1A;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
+}
+
+.pForgot {
+    font-family: 'Raleway';
+    color: #FAFAFA;
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 40px;
+}
+
+.pForgot:hover {
+    color: var(--maincolor);
+}
+
+.btnSubmit {
+    font-family: 'GilroyBold';
+    color: white;
+    background-color: #EDC728;
+    border: 0px;
+    border-radius: 43px;
+    padding: 8px;
+    width: 120px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 0px;
+    float: right;
+}
+
+hr {
+    color: white;
+    background-color: white;
+    width: 100%;
+    text-align: left;
+    margin-left: 0px;
+}
+
+.pOr {
+    font-family: 'Raleway';
+    color: var(--maincolor);
+}
+
+.btnFacebook {
+    font-family: "GilroyMedium";
+    color: #fafafa;
+    font-size: 1rem;
+    background: #4267B2 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 6px #00000029;
+    border-radius: 6px;
+    border: 0px;
+    padding: 8px;
+    width: 240px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 5px;
+    display: block;
+}
+
+.btnGoogle {
+    font-family: "GilroyMedium";
+    color: #1A1A1A;
+    font-size: 1rem;
+    background: #EFEFEF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 6px #00000029;
+    border-radius: 6px;
+    border: 0px;
+    padding: 8px;
+    width: 240px;
+    margin: 0 auto;
+    margin-top: 15px;
+    display: block;
+}
+
+.pDont {
+    font-family: "GilroyMedium";
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.pSignup {
+    font-family: "GilroyMedium";
+    color: var(--maincolor);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: -15px;
+    text-decoration: underline;
+}
+
+/* Deliver */
+
+.colDeliver {
+    display: none;
+}
+
+.pTitle {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+
+.location-search-input {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    background-color: transparent;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.input-suggestion {
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-bottom: 1px solid dotted;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    padding-left: 10px;
+}
+
+.autocomplete-dropdown-container {
+    margin-top: 5px;
+    border-radius: 10px !important;
+    position: absolute;
+    z-index: 1000;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+/* map */
+
+.imgLogo {
+    width: 150px;
+}
+
+.my-row li {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: nowrap;
+    display: inline;
+    padding: 5px 20px;
+}
+
+.conMap {
+    background-color: #1C1C1C;
+    position: relative;
+    padding-left: 50px !important;
+}
+
+.colLeft {
+    background-color: #1C1C1C;
+    padding-right: 50px !important;
+}
+
+.pPick {
+    font-family: 'GilroyMedium';
+    color: var(--maincolor);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.pPick-up, .pDrop-off {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: underline;
+    margin-left: 25px;
+    display: none;
+}
+
+.pAdd {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1rem;
+    margin-top: 8px;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
+.txtName {
+    font-family: 'GilroyMedium';
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    border-radius: 3px;
+    margin-top: 8px;
+    border: 0px;
+}
+
+.txtNumber, .txtAdd {
+    font-family: 'GilroyMedium';
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: 0px;
+}
+
+.divAdd {
+    display: none;
+    transition: all 0.2s;
+}
+
+.divCategory {
+    margin-top: 5%;
+}
+
+.boxCategory {
+    height: 85px;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid var(--maincolor);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.imgCategory {
+    width: 20px;
+}
+
+.pBoxCategory {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.hover {
+    position: relative;
+}
+
+.hover:hover .hover__no-hover {
+    opacity: 0;
+}
+
+.hover:hover .hover__hover {
+    opacity: 1;
+}
+
+.hover__hover {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+}
+
+.hover__no-hover {
+    opacity: 1;
+}
+
+.pNote {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    text-decoration: underline;
+}
+
+.pAdditional {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--maincolor);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.boxAdditional {
+    height: auto;
+    width: 150px;
+    background-color: transparent;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid var(--maincolor);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 7px;
+}
+
+.pAdditonalBox {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.pCardNumber {
+    font-family: 'Proxima', sans-serif;
+    color: var(--maincolor);
+    font-size: 1rem;
+    margin-bottom: 0px;
+    font-weight: 600;
+    margin-left: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.navbarMaps {
+    position: absolute;
+}
+
+.navText {
+    font-family: 'Open Sans', sans-serif;
+    color: #1A1A1A;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0px 10px;
+    display: inline;
+    cursor: pointer;
+}
+
+.divMap {
+    left: 50% !important;
+    top: 0%;
+    width: 50%;
+    height: 100vh;
+}
+
+.colMap {
+    -webkit-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+    padding: 0px !important;
+}
+
+.txtPickup, .txtDropoff {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: transparent;
+    padding: 5px;
+    width: 400px;
+    border: 0px;
+    border-bottom: 1px solid white;
+    margin-left: 30px;
+    outline: none;
+    margin-top: -5px;
+    display: none;
+}
+
+.location-search-input-map {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: transparent;
+    padding: 5px;
+    width: 400px;
+    border: 0px;
+    border-bottom: 1px solid white;
+    margin-left: 30px;
+    outline: none;
+    margin-top: -5px;
+}
+
+.black {
+    filter: brightness(0) !important;
+}
+
+.imgInstant {
+    width: 250px;
+    margin-top: 5px;
+}
+
+.pNext {
+    font-family: 'GilroyBold';
+    color: var(--maincolor);
+    font-size: 1.1rem;
+    float: right;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal-content {
+    border-radius: 20px !important;
+    padding: 30px !important;
+}
+
+.modal-content {
+    background-color: black !important;
+}
+
+.modal-header, .modal-body, .modal-footer {
+    background-color: black;
+    border: 0px !important;
+}
+
+.modal-title {
+    font-family: 'GilroyBold';
+    color: white;
+    color: 0.9rem;
+}
+
+.btnBookModal {
+    font-family: 'GilroyBold';
+    color: black;
+    font-size: 0.9rem;
+    background-color: #EDC728;
+    border: 0px;
+    border-radius: 13px;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    float: right;
+}
+
+.pCardNumberModal {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.formCard {
+    margin-top: 10px;
+}
+
+.blur {
+    filter: blur(13px) !important;
+}
+
+.css-yk16xz-control {
+    margin-top: 10px;
+    width: 100% !important;
+}
+
+.css-2b097c-container {
+    width: 90% !important;
+}
+
+.imgMap {
+    margin-left: 10px !important;
+}
+
+.leaflet-container {
+    height: 60vh;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.swal-modal {
+    width: 1000px;
+}
+
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #4962B3;
+    font-size: 12px;
+    border: 1px solid #3e549a;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+    display: none;
+  }
+
+.pAddStopoff {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
