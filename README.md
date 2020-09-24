@@ -8,8 +8,8 @@ You might want to install the below plugins to completely run the web app.
 
 `npm install --save react-google-maps` - **For the map** \
 `npm install --save react-google-places-autocomplete`  - **For the autosearch places** \
-`npm install --save react-geocode`  - **To get the address based on lat and lng**
-`npm install react-leaflet`  - **React laeflet**
+`npm install --save react-geocode`  - **To get the address based on lat and lng**\
+`npm install react-leaflet`  - **React laeflet**\
 `npm install leaflet`  - **React leaflet dependency**
 
 ### Autoplace search
