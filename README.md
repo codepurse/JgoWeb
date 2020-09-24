@@ -43,9 +43,29 @@ If the address is not available in the autosearch the user can click the map ico
     };
 ```
 
+Im using react-google-maps, so the issue is it cannot render 2 maps in the same page. So in custom search in  `/map` I used react-leaflet. The map component was rendered using 
+`Dynamic from "next/dynamic` since NextJs is SSR.
+
+```javscript
+const Leaflet = dynamic(
+    () => import('../map/leafletmap'),
+    { ssr: false }
+  )
+```
+
 ### Storage
 
 Everthing including lat, lng, address ,dropoff and pickoff are thrown in config.js. It holds the array of lat  lng and the  address `coordinate = [];`
+When the user type the needed details in `/delivery` the data will be thrown in localstorage.
+
+```javacript
+    localStorage.setItem("address", address.label);
+    localStorage.setItem("addressDrop", addressDrop.label);
+    localStorage.setItem("pickofflat", coordinates.lat);
+    localStorage.setItem("pickofflng",coordinates.lng);
+    localStorage.setItem("dropofflat",coordinatesDrop.lat);
+    localStorage.setItem("dropofflng", coordinatesDrop.lng);
+```
 
 ##### Module export
 I used module export for global variables. So everytime the client changes the dropoff and pickoff the data will throw in global config.
@@ -64,3 +84,19 @@ module.exports = global.config = {
 }
 
 ```
+
+### Map
+
+The coordinates given by the user will automatically render the driver route in the map. The destination will be on **alphabetical letters**. The map can render 15 routes but for now the maximus is 3 routes. **Since the map needs coordinates before its load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map are already have a value.** Check the storage section of this readme.
+
+![alt text](https://i.ibb.co/jbKSnj3/2020-09-24-13-22-00-localhost-59bc89e112d8.png)
+
+
+#### Additonal details
+Per destination the user can add another details like `{name,contact_number,blk_add}`
+
+#### Addtional Stopoff
+The client can add 10 stop destination but he needs to fill up the current stopoff before adding a new one. 
+
+#### Category / Addtional Service
+The client can choose only one.
