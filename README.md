@@ -71,7 +71,8 @@ When the user type the needed details in `/delivery` the data will be thrown in 
 
 Since NextJs is SSR the localstorage will be undefined in every run, because localstorage is a DOM of the browser not the NextJs itself. So to make it work I put a conditional statement.
 
-``if (process.browser) {
+```
+if (process.browser) {
     if (global.config.place.deliver.refresh === "") {
     // All localstorage goes here.    
     }
