@@ -4,18 +4,21 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 import "../component/map/config";
 import Geocode from "react-geocode";
 
+const defaultMapOptions = {
+    fullscreenControl: false,
+  };
+
 const MyMapComponent = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
+        containerElement: <div style={{ height: `500px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     lifecycle({
         componentWillMount() {
             Geocode.setApiKey("AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4");
             const refs = {}
-
             this.setState({
                 position: null,
                 onMarkerMounted: ref => {
@@ -45,7 +48,7 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )((props) =>
-    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 14.6091, lng: 121.0223 }}>
+    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 14.6091, lng: 121.0223 }} defaultOptions={{fullscreenControl: false, mapTypeControl: false, scaleControl: false, streetViewControl: false,}}>
         {props.isMarkerShown && <Marker position={{ lat: 14.6091, lng: 121.0223 }} draggable={true} ref={props.onMarkerMounted} onPositionChanged={props.onPositionChanged} />}
     </GoogleMap>
     )

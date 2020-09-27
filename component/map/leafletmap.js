@@ -68,7 +68,9 @@ class MapExample extends Component {
         zoom={this.props.zoom}
         onClick={this.handleClick}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+        <TileLayer    attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+          url='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
+        />
         {this.state.currentPos && (
           <MyMarker position={this.state.currentPos}>
             <Popup position={this.state.currentPos}>

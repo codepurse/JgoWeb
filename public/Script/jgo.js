@@ -1,6 +1,5 @@
 $(document).ready(function () {
- 
-
+ var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
     if (scroll < 10) {
@@ -25,8 +24,20 @@ $(document).ready(function () {
   });
 
   
-  $(".pAddStopoff").click(function () {
-    $(".divStopoff1").css("display", "block");
+  $(".btnAddStopoff").click(function () {
+    if (x === 1) 
+    {
+      $(".divStopoff1").css("display", "block");
+      x = 2;
+    }
+    else if (x === 2) {
+      $(".divStopoff2").css("display", "block");
+      x = 3;
+    }
+  });
+  
+  $(".imgDelete").click(function () {
+    $(this).closest(".divStopOff").css("display", "none");
   });
 
 });

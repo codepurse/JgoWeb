@@ -6,7 +6,7 @@ import GooglePlacesAutocomplete, {
   getLatLng,
 } from "react-google-places-autocomplete";
 import Custommap from "../component/custommap";
-
+import swal from "@sweetalert/with-react";
 export default function App() {
   var click;
 
@@ -20,6 +20,7 @@ export default function App() {
       coordinatesDrop.lat = global.config.place.deliver.pickofflat;
       coordinatesDrop.lng = global.config.place.deliver.dropofflang;
     }
+    swal.close()
   }
 
   function clickSubmit(e) {
@@ -86,17 +87,26 @@ export default function App() {
     setCoordinatesDrop(latLng);
   };
 
+  function opensweetalert() {
+    swal(
+      <div style = {{borderRadius: "10px",overflow: "hidden", position: "relative"}}>
+        <p className = "pDrag">Drag the marker to set location</p>
+        <button className = "btnDone" onClick = {getAdd}>Done</button>
+          <Custommap></Custommap>
+      </div>
+    );
+  }
+
   return (
     <div className="col-lg-6 colDeliver">
       <p className="pTitle">Book your delivery now!</p>
       <div className="box">
-        <div className="form-inline">
+        <div className="form-inline"  onClick={() => (click = 0)}>
           <img
             src="Image/maps.png"
             className="img-fluid"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-            onClick={() => (click = 0)}
+            onClick={opensweetalert}
+           
           ></img>
           <GooglePlacesAutocomplete
             selectProps={{
@@ -112,13 +122,11 @@ export default function App() {
             }}
           />
         </div>
-        <div className="form-inline">
+        <div className="form-inline" onClick={() => (click = 1)}>
           <img
             src="Image/maps.png"
             className="img-fluid"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-            onClick={() => (click = 1)}
+            onClick={opensweetalert}
           ></img>
           <GooglePlacesAutocomplete
             selectProps={{
@@ -143,30 +151,6 @@ export default function App() {
           onClick={clickSubmit}
         ></input>
       </Link>
-      <div
-        className="modal fade"
-        id="exampleModalCenter"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-dialog-centered modal-lg"
-          role="document"
-        >
-          <div className="modal-content" >
-            <div className="modal-body" >
-              <Custommap></Custommap>
-              <Link href="/">
-                <button onClick={getAdd} data-dismiss="modal">
-                  set
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

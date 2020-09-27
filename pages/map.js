@@ -17,6 +17,9 @@ export default function map() {
   var places_data = coordinate;
   var click;
 
+  {
+    /* Passing localstorage value in pickoff, dropoff and map */
+  }
   if (process.browser) {
     if (global.config.place.deliver.refresh === "") {
       global.config.place.deliver.pickofflat = localStorage.getItem(
@@ -49,19 +52,31 @@ export default function map() {
   } else {
   }
 
+  {
+    /* Modal for custom map */
+  }
   function opensweetalert() {
     swal(
-      <div>
-        <div className="divLeaflet">
-          <Leaflet></Leaflet>
-        </div>
-        <button onClick={setAdd}>SET</button>
+      <div
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: "5px",
+        }}
+      >
+        <Leaflet></Leaflet>
+        <p className="pDrag">Click the map to set location</p>
+        <button className="btnSet" onClick={setAdd}>
+          SET
+        </button>
       </div>
     );
   }
 
+  {
+    /* Setting the address of pickoff and dropoff after the page loaded */
+  }
   useEffect(() => {
-    console.log(localStorage.getItem("pickofflng"));
     setAddress({
       value: localStorage.getItem("address"),
       label: localStorage.getItem("address"),
@@ -72,9 +87,13 @@ export default function map() {
     });
   }, []);
 
+  {
+    /* All array and variables needed */
+  }
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressDrop1, setAddressDrop1] = React.useState("");
+  const [addressDrop2, setAddressDrop2] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null,
@@ -87,7 +106,14 @@ export default function map() {
     lat: null,
     lng: null,
   });
+  const [coordinatesDrop2, setCoordinatesDrop2] = React.useState({
+    lat: null,
+    lng: null,
+  })
 
+  {
+    /* Pickoff setting and passing data to array and to the component itself */
+  }
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
@@ -113,6 +139,9 @@ export default function map() {
     }
   };
 
+  {
+    /* Dropoff setting and passing data to array and to the component itself */
+  }
   const handleChangeDrop = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
@@ -135,6 +164,9 @@ export default function map() {
     }
   };
 
+  {
+    /* Stopoff #1 setting and passing data to array and to the component itself */
+  }
   const handleChangeDrop1 = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
@@ -157,8 +189,34 @@ export default function map() {
     }
   };
 
+   {
+    /* Stopoff #2 setting and passing data to array and to the component itself */
+  }
+  const handleChangeDrop2 = async (value) => {
+    const results = await geocodeByAddress(value.label);
+    const latLng = await getLatLng(results[0]);
+    setAddressDrop2(value);
+    setCoordinatesDrop2(latLng);
+    try {
+      var objIndex = places_data.findIndex((obj) => obj.id == click);
+      (places_data[objIndex].lat = latLng.lat),
+        (places_data[objIndex].lng = latLng.lng),
+        console.log(coordinate);
+      router.push("");
+    } catch (err) {
+      const destination = {
+        lat: latLng.lat,
+        lng: latLng.lng,
+        id: "4",
+      };
+      coordinate.push(destination);
+      router.push("");
+    }
+  };
 
-
+  {
+    /* Passing name in additional details based on click value */
+  }
   function updateInputValue(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -169,6 +227,9 @@ export default function map() {
     }
   }
 
+  {
+    /* Passing number in additional details based on click value */
+  }
   function updateInputValueNumber(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -179,6 +240,9 @@ export default function map() {
     }
   }
 
+  {
+    /* Passing address in additional details based on click value */
+  }
   function updateInputValueAdd(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -189,6 +253,9 @@ export default function map() {
     }
   }
 
+  {
+    /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
+  }
   function setAdd() {
     if (click === 1) {
       coordinates.lat = global.config.place.deliver.pickofflat;
@@ -218,13 +285,18 @@ export default function map() {
     swal.close();
   }
 
-  function trylang() {
-    var objIndex = places_data.findIndex((obj) => obj.id == 1);
-    (places_data[objIndex].lat = 14.5176),
-      (places_data[objIndex].lng = 121.0509),
-      console.log(coordinate);
+  {/* Function to delete index in array */}
+  function deleteAdd() {
+    var index = places_data
+      .map((x) => {
+        return x.id;
+      })
+      .indexOf(click);
+    places_data.splice(index, 1);
+    console.log(places_data);
     router.push("");
   }
+
   return (
     <>
       <Header></Header>
@@ -249,6 +321,8 @@ export default function map() {
                 </ul>
               </div>
             </div>
+
+            {/* Pick off */}
             <p className="pPick">
               {" "}
               <img
@@ -259,7 +333,10 @@ export default function map() {
               Pick Up Location
             </p>
             <div onClick={() => (click = 1)}>
-              <div className="form-inline">
+              <div
+                className="form-inline"
+                style={{ width: "95%", marginLeft: "5%" }}
+              >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "1",
@@ -310,7 +387,8 @@ export default function map() {
                 </div>
               </div>
             </div>
-            <p className="pPick-up"></p>
+
+            {/* Stop off number 1 */}
             <p className="pPick" style={{ marginTop: "30px" }}>
               {" "}
               <img
@@ -321,7 +399,10 @@ export default function map() {
               Drop Off Location
             </p>
             <div onClick={() => (click = 2)}>
-              <div className="form-inline">
+              <div
+                className="form-inline"
+                style={{ width: "95%", marginLeft: "5%" }}
+              >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "2",
@@ -372,12 +453,27 @@ export default function map() {
                 </div>
               </div>
             </div>
+
+            {/* Stop off number 2 */}
             <div
               onClick={() => (click = 3)}
               style={{ display: "none" }}
-              className="divStopoff1"
+              className="divStopoff1 divStopOff"
             >
-              <div className="form-inline">
+              <p className="pPick" style={{ marginTop: "30px" }}>
+                {" "}
+                <img
+                  src="Image/mapgps.svg"
+                  className="img-fluid"
+                  style={{ marginRight: "15px" }}
+                ></img>
+                Stop Off Location
+              </p>
+
+              <div
+                className="form-inline"
+                style={{ width: "95%", marginLeft: "5%" }}
+              >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "3",
@@ -393,8 +489,11 @@ export default function map() {
                 <img
                   src="Image/google-maps.png"
                   className="img-fluid imgMap"
-                  data-toggle="modal"
-                  data-target="#custommap"
+                ></img>
+                <img
+                  src="Image/remove.png"
+                  className="img-fluid  imgDelete"
+                  onClick={deleteAdd}
                 ></img>
               </div>
               <div className="divHide">
@@ -429,7 +528,82 @@ export default function map() {
                 </div>
               </div>
             </div>
-            <p className="pAddStopoff">&#x2b; Add another stop-off</p>
+
+               {/* Stop off number 3 */}
+            <div
+              onClick={() => (click = 4)}
+              style={{ display: "none" }}
+              className="divStopoff2 divStopOff"
+            >
+              <p className="pPick" style={{ marginTop: "30px" }}>
+                {" "}
+                <img
+                  src="Image/mapgps.svg"
+                  className="img-fluid"
+                  style={{ marginRight: "15px" }}
+                ></img>
+                Stop Off Location
+              </p>
+
+              <div
+                className="form-inline"
+                style={{ width: "95%", marginLeft: "5%" }}
+              >
+                <GooglePlacesAutocomplete
+                  selectProps={{
+                    instanceId: "4",
+                    value: addressDrop2,
+                    onChange: handleChangeDrop2,
+                  }}
+                  autocompletionRequest={{
+                    componentRestrictions: {
+                      country: ["ph"],
+                    },
+                  }}
+                />
+                <img
+                  src="Image/google-maps.png"
+                  className="img-fluid imgMap"
+                ></img>
+                <img
+                  src="Image/remove.png"
+                  className="img-fluid  imgDelete"
+                  onClick={deleteAdd}
+                ></img>
+              </div>
+              <div className="divHide">
+                <p className="pAdd">&#x2b; Add details</p>
+                <div className="divAdd">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <input
+                        type="text"
+                        onChange={(evt) => updateInputValue(evt)}
+                        className="txtName"
+                        placeholder="Name"
+                      ></input>
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtNumber"
+                        onChange={(evt) => updateInputValueNumber(evt)}
+                        placeholder="Contact Number"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtAdd"
+                        onChange={(evt) => updateInputAdd(evt)}
+                        placeholder="Blk/Floor/Unit"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button className="btnAddStopoff">Add Stop-off</button>
             <p className="pNote">Note: Delivery only within Metro Manila</p>
             <div className="divCategory">
               <p className="pPick" style={{ fontSize: "1rem" }}>
@@ -562,9 +736,7 @@ export default function map() {
                 </div>
                 <div className="col-lg-12">
                   <Link href="">
-                    <p className="pNext" onClick={trylang}>
-                      Next >>
-                    </p>
+                    <p className="pNext">Next >></p>
                   </Link>
                 </div>
               </div>

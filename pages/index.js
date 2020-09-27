@@ -5,6 +5,7 @@ import Navbar from "../component/navbar";
 import Login from "../component/login";
 import Deliver from "../component/deliver";
 import Componentdidmount from "../component/componentdidmount";
+import swal from "@sweetalert/with-react";
 function index() {
   return (
     <>

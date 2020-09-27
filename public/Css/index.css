@@ -35,6 +35,7 @@ body, html {
 
 #__next {
     height: 100%;
+    background-color: #1A1A1A;
 }
 
 .mainCon {
@@ -357,7 +358,10 @@ hr {
     margin-top: 8px;
     cursor: pointer;
     margin-bottom: 0px;
+    margin-left: 5%;
 }
+
+
 
 .txtName {
     font-family: 'GilroyMedium';
@@ -382,6 +386,8 @@ hr {
 .divAdd {
     display: none;
     transition: all 0.2s;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .divCategory {
@@ -441,6 +447,7 @@ hr {
     margin-top: 20px;
     margin-bottom: 0px;
     text-decoration: underline;
+    margin-left: 5%;
 }
 
 .pAdditional {
@@ -610,17 +617,31 @@ hr {
     filter: blur(13px) !important;
 }
 
+
+
 .css-yk16xz-control {
-    margin-top: 10px;
+    margin-top: 10px !important;
     width: 100% !important;
+    color: white;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .css-2b097c-container {
-    width: 90% !important;
+    width: 87% !important;
 }
+
 
 .imgMap {
     margin-left: 10px !important;
+    margin-top: 5px;
+}
+
+.imgDelete {
+    margin-left: 10px !important;
+    margin-top: 7px;
+    width: 30px;
+    cursor: pointer;
 }
 
 .leaflet-container {
@@ -630,7 +651,9 @@ hr {
 }
 
 .swal-modal {
-    width: 1000px;
+    width: 800px;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 .swal-button {
@@ -641,13 +664,93 @@ hr {
     border: 1px solid #3e549a;
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
     display: none;
-  }
+}
 
-.pAddStopoff {
+.swal-content {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.swal-footer {
+    display: none;
+}
+
+.btnAddStopoff {
     font-family: 'GilroyBold';
     color: white;
-    font-size: 1.1rem;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    background-color: transparent;
+    margin-top: 15px;
     cursor: pointer;
     margin-bottom: 0px;
+    border: 1px solid #EDC728;
+    border-radius: 20px;
+    padding: 10px;
+    width: 200px;
+    outline: none !important;
+    margin-left: 5%;
+    transition: all 0.1s;
+}
+
+.btnAddStopoff:hover {
+    background-color: #EDC728;
+}
+
+.pDrag {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999999;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btnDone {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    background-color: #69BBE4;
+    padding: 10px 15px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 99999;
+    border: 0px;
+}
+
+.btnSet {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    background-color: #69BBE4;
+    padding: 10px 15px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 99999;
+    border: 0px;
+}
+
+.leaflet-control-attribution {
+    display: none;
+}
+
+.leaflet-control-container {
+    position: absolute;
+    right: 56px;
+    bottom: 100px;
+}
+
+.form-inline {
+    margin-top: -10px;
+}
+
+.divStopOff {
+    margin-top: 10px;
 }
