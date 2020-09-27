@@ -33,7 +33,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _this = undefined,
-    _jsxFileName = "C:\\Users\\Alfon\\Documents\\Work Projects\\Bitbucket\\Jgo\\component\\map\\leafletmap.js";
+    _jsxFileName = "C:\\Users\\Alfon\\Documents\\Work Projects\\Github\\JgoWeb\\component\\map\\leafletmap.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 

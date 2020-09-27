@@ -1,0 +1,1 @@
+{"ast":null,"code":"coordinate = [];\nmodule.exports = global.config = {\n  place: {\n    deliver: {\n      pickoff: \"\",\n      dropoff: \"\",\n      pickofflat: \"\",\n      pickofflang: \"\",\n      dropofflat: \"\",\n      dropofflang: \"\",\n      refresh: \"\"\n    }\n  }\n};","map":null,"metadata":{},"sourceType":"script"}
