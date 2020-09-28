@@ -134,6 +134,7 @@ body, html {
     background-color: rgba(59, 56, 52, 0.8);
     border-radius: 25px;
     padding: 25px;
+    padding-right: 10px;
     width: 100%;
     margin-top: -5px;
 }
@@ -305,6 +306,17 @@ hr {
     z-index: 1000;
     overflow: hidden;
     perspective: 1px;
+}
+
+.pError {
+    font-family: 'GilroyMedium';
+    color: #1A1A1A;
+    font-size: 1.3rem;
+    margin-bottom: 0px;
+}
+
+.pErrorSub {
+    margin-bottom: 0px;
 }
 
 /* map */
@@ -620,7 +632,7 @@ hr {
 
 
 .css-yk16xz-control {
-    margin-top: 10px !important;
+ 
     width: 100% !important;
     color: white;
     outline: none !important;
@@ -629,12 +641,17 @@ hr {
 
 .css-2b097c-container {
     width: 87% !important;
+ 
+}
+.css-2b097c-container:active , .css-yk16xz-control:active {
+    margin-top: 0px !important;
 }
 
 
 .imgMap {
     margin-left: 10px !important;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 .imgDelete {
@@ -651,7 +668,7 @@ hr {
 }
 
 .swal-modal {
-    width: 800px;
+    width: auto;
     padding: 0px !important;
     margin: 0px !important;
 }

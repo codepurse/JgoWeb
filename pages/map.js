@@ -62,6 +62,7 @@ export default function map() {
           position: "relative",
           overflow: "hidden",
           borderRadius: "5px",
+          width: "800px",
         }}
       >
         <Leaflet></Leaflet>
@@ -109,7 +110,7 @@ export default function map() {
   const [coordinatesDrop2, setCoordinatesDrop2] = React.useState({
     lat: null,
     lng: null,
-  })
+  });
 
   {
     /* Pickoff setting and passing data to array and to the component itself */
@@ -117,25 +118,50 @@ export default function map() {
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    setAddress(value);
-    setCoordinates(latLng);
-    try {
-      var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].lat = latLng.lat),
-        (places_data[objIndex].lng = latLng.lng),
-        (places_data[objIndex].address = value.label),
+    var str = value.label;
+    var n = str.includes("Metro Manila");
+    if (n === true) {
+      setAddress(value);
+      setCoordinates(latLng);
+      try {
+        var objIndex = places_data.findIndex((obj) => obj.id == click);
+        (places_data[objIndex].lat = latLng.lat),
+          (places_data[objIndex].lng = latLng.lng),
+          (places_data[objIndex].address = value.label),
+          console.log(coordinate);
+        router.push("");
+      } catch (err) {
+        const destination = {
+          address: value.label,
+          lat: latLng.lat,
+          lng: latLng.lng,
+          id: "1",
+        };
+        coordinate.push(destination);
         console.log(coordinate);
-      router.push("");
-    } catch (err) {
-      const destination = {
-        address: value.label,
-        lat: latLng.lat,
-        lng: latLng.lng,
-        id: "1",
-      };
-      coordinate.push(destination);
-      console.log(coordinate);
-      router.push("");
+        router.push("");
+      }
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  The entered address is not yet in our service area.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -145,6 +171,8 @@ export default function map() {
   const handleChangeDrop = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
+    var str = value.label;
+    var n = str.includes("Metro Manila");
     setAddressDrop(value);
     setCoordinatesDrop(latLng);
     try {
@@ -189,7 +217,7 @@ export default function map() {
     }
   };
 
-   {
+  {
     /* Stopoff #2 setting and passing data to array and to the component itself */
   }
   const handleChangeDrop2 = async (value) => {
@@ -285,7 +313,9 @@ export default function map() {
     swal.close();
   }
 
-  {/* Function to delete index in array */}
+  {
+    /* Function to delete index in array */
+  }
   function deleteAdd() {
     var index = places_data
       .map((x) => {
@@ -529,7 +559,7 @@ export default function map() {
               </div>
             </div>
 
-               {/* Stop off number 3 */}
+            {/* Stop off number 3 */}
             <div
               onClick={() => (click = 4)}
               style={{ display: "none" }}

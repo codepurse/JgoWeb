@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Link from "next/link";
 import Header from "../component/header";
 import Navbar from "../component/navbar";
 import Login from "../component/login";
 import Deliver from "../component/deliver";
 import Componentdidmount from "../component/componentdidmount";
-import swal from "@sweetalert/with-react";
 function index() {
+ 
   return (
     <>
       <div className="container-fluid mainCon h-100">
