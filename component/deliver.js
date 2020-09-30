@@ -158,10 +158,31 @@ export default function App() {
     const latLng = await getLatLng(results[0]);
     var str = value.label;
     var n = str.includes("Metro Manila");
-    setAddressDrop(value);
-    setCoordinatesDrop(latLng);
+
     if (n === true) {
-      alert("asdas");
+      setAddressDrop(value);
+      setCoordinatesDrop(latLng);
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  The entered address is not yet in our service area.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   };
 

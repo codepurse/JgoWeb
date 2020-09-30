@@ -23,6 +23,12 @@
     src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Medium.ttf);
 }
 
+@media (min-width: 1200px) {
+    .con {
+        max-width: 1220px !important;
+    }
+}
+
 :root {
     --maincolor: #FFE900;
 }
@@ -373,8 +379,6 @@ hr {
     margin-left: 5%;
 }
 
-
-
 .txtName {
     font-family: 'GilroyMedium';
     width: 100%;
@@ -629,10 +633,7 @@ hr {
     filter: blur(13px) !important;
 }
 
-
-
 .css-yk16xz-control {
- 
     width: 100% !important;
     color: white;
     outline: none !important;
@@ -641,12 +642,11 @@ hr {
 
 .css-2b097c-container {
     width: 87% !important;
- 
-}
-.css-2b097c-container:active , .css-yk16xz-control:active {
-    margin-top: 0px !important;
 }
 
+.css-2b097c-container:active, .css-yk16xz-control:active {
+    margin-top: 0px !important;
+}
 
 .imgMap {
     margin-left: 10px !important;
@@ -770,4 +770,164 @@ hr {
 
 .divStopOff {
     margin-top: 10px;
+}
+
+/* Driver */
+
+.mainConDriver {
+    height: 80vh;
+}
+
+.conDriver {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/Image/bgdriver1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    top: 0px !important;
+    left: 0px;
+    height: 620px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 56%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+}
+
+.pComing {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.divButton {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #FFE900;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.imgPhone {
+    width: 90%;
+    z-index: 9999999;
+    position: relative;
+}
+
+.imgDel {
+    width: 95%;
+    z-index: 9999999;
+    position: relative;
+    margin-top: 20px;
+}
+
+.pDownload {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    line-height: 1.4rem;
+    margin-left: 5px;
+    margin-bottom: 0px;
+}
+
+.pDownload>span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.imgDownload {
+    width: 35px;
+}
+
+.pFully {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 15px;
+}
+
+.rowGray {
+    background-color: #323232;
+    margin-top: -25px;
+    transform: skew(0deg, -4.5deg);
+    padding: 10px;
+    padding-bottom: 0px;
+    margin-top: -105px;
+    height: 120px;
+}
+
+.divService {
+    margin: 0 auto;
+    width: max-content;
+    z-index: 99999999999999;
+    position: absolute;
+    bottom: -20px;
+    transform: skew(0deg, -4.5deg);
+}
+
+.pService {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 15px;
+    background-color: #1a1a1a;
+    padding: 5px;
+    z-index: 99999999999999;
+    position: relative;
+}
+
+.conRoad {
+    background-color: #1A1A1A;
+    z-index: 99999999999999999999999999999;
+}
+
+.imgRoad {
+    width: 50%;
+    margin-top: 70px;
+    -moz-transform: translate(0px, -3px) skew(-2deg, 2deg);
+    -webkit-transform: translate(0px, -3px) skew(-2deg, 2deg);
+    -o-transform: translate(0px, -3px) skew(-2deg, 2deg);
+    -ms-transform: translate(0px, -3px) skew(-2deg, 2deg);
+    transform: translate(0px, -3px) skew(-2deg, 2deg);
+}
+
+.pRate {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transform: translate(0px, -3px) skew(0deg, -6.5deg);
+    width: max-content;
+    background-color: #1C1C1C;
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.img2 {
+    margin-top: -40px;
+}
+
+.img3 {
+    margin-top: -80px;
+}
+
+.pSafety {
+    font-family: 'Proxima', sans-serif;
+    color: #FFE900;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transform: translate(0px, -3px) skew(0deg, -7deg);
+    background-color: #1C1C1C;
+    padding: 5px;
+    text-align: right;
+    margin-right: 0px;
+    margin-top: -50px;
 }

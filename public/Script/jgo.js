@@ -5,7 +5,8 @@ $(document).ready(function () {
     if (scroll < 10) {
       $(".fixed-top").css("background", "transparent");
     } else {
-      $(".fixed-top").css("background", "black");
+      $(".fixed-top").css("background", "#1A1A1A");
+      $(".fixed-top").css("z-index", "99999999999999999999999999");
     }
   });
 
