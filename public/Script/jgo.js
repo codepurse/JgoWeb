@@ -1,5 +1,5 @@
 $(document).ready(function () {
- var x = 1;
+  var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
     if (scroll < 10) {
@@ -24,21 +24,34 @@ $(document).ready(function () {
     $(this).closest(".divHide").find(".divAdd").css("display", "block");
   });
 
-  
   $(".btnAddStopoff").click(function () {
-    if (x === 1) 
-    {
+    if (x === 1) {
       $(".divStopoff1").css("display", "block");
       x = 2;
-    }
-    else if (x === 2) {
+    } else if (x === 2) {
       $(".divStopoff2").css("display", "block");
       x = 3;
     }
   });
-  
+
   $(".imgDelete").click(function () {
     $(this).closest(".divStopOff").css("display", "none");
   });
 
+  var i = 0;
+  var imghead = [
+    "url(/Image/bgdriver2.jpg)",
+    "url(/Image/bgdriver3.jpg)",
+    "url(/Image/bgdriver1.jpg)",
+  ]; 
+
+  function slideimg() {
+    setTimeout(function () {
+      $(".conDriver").css("background-image", imghead[i]);
+      i++;
+      if (i == imghead.length) i = 0;
+      slideimg();
+    }, 6000);
+  }
+  slideimg();
 });
