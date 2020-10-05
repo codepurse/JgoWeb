@@ -13,6 +13,7 @@ export default function navbar() {
   function loginForm(e) {
     $(".colMain").hide();
     $(".colLogin").show();
+    $(".colDeliver").hide();
   }
 
   function deliverForm(e) {

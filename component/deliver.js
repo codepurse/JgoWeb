@@ -212,6 +212,7 @@ export default function App() {
         <div className="form-inline" onClick={() => (click = 0)}>
           <GooglePlacesAutocomplete
             selectProps={{
+              placeholder: "Pick-up Location",
               value: address,
               instanceId: "1",
               onChange: handleChange,
@@ -235,6 +236,7 @@ export default function App() {
         >
           <GooglePlacesAutocomplete
             selectProps={{
+              placeholder: "Drop-off Location",
               instanceId: "2",
               value: addressDrop,
               onChange: handleChangeDrop,
@@ -258,6 +260,7 @@ export default function App() {
         className="btnSubmit"
         value="SUBMIT"
         onClick={clickSubmit}
+         style ={{marginTop: "10px"}}
       ></input>
     </div>
   );

@@ -74,6 +74,72 @@ export default function map() {
     );
   }
 
+  function opensweetalertcard() {
+    swal(
+      <div className="divCard" style={{ width: " 450px" }}>
+        <div className="container" style={{ borderRadius: "25px" }}>
+          <div className="row">
+            <div className="col-lg-12">
+              <p className="pMode">Mode of Payment</p>
+            </div>
+          </div>
+          <div className="row" style={{ marginTop: "5px", padding: "0px" }}>
+            <div className="col-lg-7">
+              <div className="form-inline formCard">
+                <img
+                  src="Image/mastercard.svg"
+                  className="img-fluid"
+                  style={{ width: "35px" }}
+                ></img>
+                <p className="pCardNumberModal">Mastercard 8278</p>
+              </div>
+            </div>
+            <div className="col-lg-7">
+              <div className="form-inline formCard">
+                <img
+                  src="Image/visa.png"
+                  className="img-fluid"
+                  style={{ width: "35px" }}
+                ></img>
+                <p
+                  className="pCardNumberModal"
+                  data-toggle="modal"
+                  data-target="#exampleModalCenter"
+                >
+                  Visa 8278
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-7">
+              <div className="form-inline formCard">
+                <img
+                  src="Image/cash.png"
+                  className="img-fluid"
+                  style={{ width: "35px" }}
+                ></img>
+                <p
+                  className="pCardNumberModal"
+                  data-toggle="modal"
+                  data-target="#exampleModalCenter"
+                >
+                  Cash on delivery
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row align-items-center" style = {{marginTop: "20px"}}>
+            <div className="col-lg-6">
+              <img src="Image/instant.svg" className="img-fluid" />
+            </div>
+            <div className="col-lg-6">
+              <button className="btnBookModal">BOOK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
@@ -173,22 +239,46 @@ export default function map() {
     const latLng = await getLatLng(results[0]);
     var str = value.label;
     var n = str.includes("Metro Manila");
-    setAddressDrop(value);
-    setCoordinatesDrop(latLng);
-    try {
-      var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].lat = latLng.lat),
-        (places_data[objIndex].lng = latLng.lng),
-        console.log(coordinate);
-      router.push("");
-    } catch (err) {
-      const destination = {
-        lat: latLng.lat,
-        lng: latLng.lng,
-        id: "2",
-      };
-      coordinate.push(destination);
-      router.push("");
+
+    if (n === true) {
+      try {
+        setAddressDrop(value);
+        setCoordinatesDrop(latLng);
+        var objIndex = places_data.findIndex((obj) => obj.id == click);
+        (places_data[objIndex].lat = latLng.lat),
+          (places_data[objIndex].lng = latLng.lng),
+          console.log(coordinate);
+        router.push("");
+      } catch (err) {
+        const destination = {
+          lat: latLng.lat,
+          lng: latLng.lng,
+          id: "2",
+        };
+        coordinate.push(destination);
+        router.push("");
+      }
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  The entered address is not yet in our service area.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -749,11 +839,7 @@ export default function map() {
                       className="img-fluid"
                       style={{ width: "50px" }}
                     ></img>
-                    <p
-                      className="pCardNumber"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
-                    >
+                    <p className="pCardNumber" onClick={opensweetalertcard}>
                       Mastercard 8278
                     </p>
                   </div>

@@ -5,7 +5,7 @@ export class login extends Component {
     return (
       <div className="col-lg-6 colLogin">
         <p className="pLogin">Log-in</p>
-        <div className="box">
+        <div className="boxLogin">
           <input type="text" className="txt" placeholder="email"></input>
           <input type="password" className="txt" placeholder="password"></input>
         </div>

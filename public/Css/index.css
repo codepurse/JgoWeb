@@ -76,7 +76,7 @@ body, html {
 }
 
 .fixed-top {
-    transition:  all 0.2s;
+    transition: all 0.2s;
 }
 
 .nav-link {
@@ -151,10 +151,19 @@ body, html {
 }
 
 .box {
-    background-color: rgba(59, 56, 52, 0.8);
+    background-color: rgba(59, 56, 52, 0.7);
     border-radius: 25px;
-    padding: 25px;
-    padding-right: 10px;
+    padding: 30px;
+    padding-right: 0px;
+    padding-bottom: 25px;
+    width: 100%;
+    margin-top: -5px;
+}
+
+.boxLogin {
+    background-color: rgba(59, 56, 52, 0.7);
+    border-radius: 25px;
+    padding: 30px;
     width: 100%;
     margin-top: -5px;
 }
@@ -507,6 +516,23 @@ hr {
     text-align: center;
 }
 
+.divCard {
+    padding: 20px 20px;
+    background-color: #1A1A1A;
+    overflow: "hidden";
+    border-radius: "25px";
+    width: "500px";
+    position: "relative";
+    z-index: "99999999999999"
+}
+
+.pMode {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+}
+
 .pCardNumber {
     font-family: 'Proxima', sans-serif;
     color: var(--maincolor);
@@ -642,7 +668,7 @@ hr {
 }
 
 .formCard {
-    margin-top: 10px;
+    margin-top: 10px !important;
 }
 
 .blur {
@@ -795,9 +821,8 @@ hr {
 }
 
 .conDriver {
- 
-	transition: all 1.5s;
-    background-image:url('/Image/bgdriver1.jpg');
+    transition: all 1.5s;
+    background-image: url('/Image/bgdriver1.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -811,7 +836,7 @@ hr {
     filter: blur(1px);
     -webkit-filter: blur(1px);
     overflow: hidden;
-	opacity: 1.0;
+    opacity: 1.0;
 }
 
 .imgGif {
@@ -848,7 +873,6 @@ hr {
 }
 
 .imgPhone {
-
     z-index: 99999999;
     position: relative;
 }
@@ -973,7 +997,7 @@ hr {
     font-size: 2.5rem;
 }
 
-.pBe > span {
+.pBe>span {
     color: var(--maincolor);
 }
 
@@ -1009,7 +1033,7 @@ hr {
 
 .pFooter {
     font-family: 'ProximaNova', sans-serif;
-    color:white;
+    color: white;
     font-size: 1.2rem;
 }
 
@@ -1046,19 +1070,17 @@ hr {
 .pAccount {
     font-family: 'ProximaNovaBold', sans-serif;
     color: #1A1A1A;
-    font-size: 1.5rem;  
+    font-size: 1.5rem;
 }
 
 .p1 {
     font-family: 'GilroyMedium', sans-serif;
     color: #323232;
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
     margin-bottom: 0px;
     margin-top: 2px;
 }
 
-
-    
 .txtModal {
     font-family: 'GilroyMedium', sans-serif;
     color: #323232;
@@ -1077,7 +1099,7 @@ hr {
     font-family: 'GilroyMedium', sans-serif;
     color: #707070;
     line-height: 1.3rem;
-    font-size: 1rem; 
+    font-size: 1rem;
     margin-top: 5px;
 }
 
@@ -1085,7 +1107,7 @@ input[type="file"] {
     position: absolute;
     left: 55px;
     top: 15px;
-    width: 100%;    
+    width: 100%;
     z-index: 1;
     outline: none !important;
     box-shadow: none !important;
@@ -1102,16 +1124,14 @@ input[type="file"] {
     margin-top: 5px;
     cursor: pointer;
     position: relative;
-  z-index: 99;
+    z-index: 99;
 }
 
 .pImage {
     font-family: 'GilroyMedium', sans-serif;
     color: red;
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
     margin-bottom: 0px;
     margin-top: 2px;
     font-style: italic;
 }
-
-
