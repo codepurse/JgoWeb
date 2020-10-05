@@ -1057,10 +1057,13 @@ hr {
     border: 0px !important;
 }
 
-.btnSubmit {
+.btnSubmitModal {
     font-family: 'ProximaNova', sans-serif;
     color: white;
     font-size: 1.2rem;
+    background-color: #EDC728;
+    border: 0px;
+    border-radius: 43px;
     padding: 10px;
     width: 140px;
     margin: 0 auto;

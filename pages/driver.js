@@ -478,7 +478,7 @@ function driver() {
               </div>
             </div>
             <div className="modal-footer text-center mx-auto d-flex">
-              <button type="button" className="btnSubmit" onClick={trylang}>
+              <button type="button" className="btnSubmitModal" onClick={trylang}>
                 Submit
               </button>
             </div>
