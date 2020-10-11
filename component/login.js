@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
 import Select from "react-select";
-
+import Router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
 const province = require("philippines/provinces");
 const cities = require("philippines/cities");
+
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -41,12 +42,16 @@ function successMessage() {
   );
 }
 
+function btntry() {
+  document.getElementById("aUsername").innerHTML = "ASdas";
+}
+
 export class login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Email: "",
-      Passoword: "",
+      Password: "",
       regions_api: {
         value: "",
         name: "",
@@ -78,6 +83,7 @@ export class login extends Component {
       errorEmail: "",
       errorFname: "",
       errorLname: "",
+      activeEmail: "",
     };
 
     this.login = this.login.bind(this);
@@ -96,9 +102,9 @@ export class login extends Component {
             </div>
             <div className="col-lg-10" style={{ textAlign: "left" }}>
               <p className="pError">Error</p>
-              <p className="pErrorSub">{this.state.errorFname}</p>
-              <p className="pErrorSub">{this.state.errorLname}</p>
-              <p className="pErrorSub">{this.state.errorEmail}</p>
+              <p className="pErrorSub">
+                  The information you entered is not recognized.
+                </p>
             </div>
           </div>
         </div>
@@ -122,27 +128,32 @@ export class login extends Component {
   }
 
   login(event) {
-    fetch("http://localhost:8000/api/auth/login", {
-      method: "post",
+    const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
-      body: JSON.stringify({
-        email: this.state.Email,
-        password: this.state.Password,
-      }),
-    })
-      .then((Response) => Response.json())
+    };
+    const apiUrl = "http://localhost:8000/api/auth/login";
+    axios
+      .post(
+        apiUrl,
+        { email: this.state.Email, password: this.state.Password },
+        options
+      )
       .then((result) => {
-        console.log(result);
-        if (result.status == "error") {
-          alert(result.message);
-        } else if (result.status == "success") {
-          alert(result.status);
-        } else if (result.status == "fail") {
-          alert(result.status);
+        if (result.request.status == "200") {
+          localStorage.setItem('token', JSON.stringify(result.data.data));
+          console.log(result);
+          document.getElementById("username").innerHTML = result.data.data.user.name;
+          $(".colMain").hide();
+          $(".colLogin").hide();
+          $(".colDeliver").show();
         }
+      })
+      .catch((err) => {
+ 
+        console.log(err);
       });
   }
 
@@ -338,13 +349,13 @@ export class login extends Component {
           <div className="boxLogin">
             <input
               type="text"
-              className="txt"
+              className="txt txtEmail"
               placeholder="email"
               onChange={this.Email.bind(this)}
             ></input>
             <input
               type="password"
-              className="txt"
+              className="txt txtPassword"
               placeholder="password"
               onChange={this.Password.bind(this)}
             ></input>
@@ -370,7 +381,7 @@ export class login extends Component {
               <hr></hr>
             </div>
           </div>
-          <button className="btnFacebook">
+          <button className="btnFacebook" onClick={btntry}>
             <img
               src="Image/facebook.png"
               style={{ width: "15px", marginRight: "5px" }}

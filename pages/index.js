@@ -1,16 +1,34 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Header from "../component/header";
 import Navbar from "../component/navbar";
 import Login from "../component/login";
 import Deliver from "../component/deliver";
+import AuthService from "../services/auth.service";
+import axios from "axios";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
- 
+
+  const [user, setUser] = React.useState("");
+  const [fname, setFname] = React.useState("");
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      
+      $(".colMain").hide();
+      $(".colLogin").hide();
+      $(".colDeliver").show();
+      console.log(foundUser);
+      
+    }
+  }, []);
+
   return (
     <>
       <div className="container-fluid mainCon h-100">
         <Header></Header>
-        <Navbar></Navbar>
+        <Navbar ></Navbar>
         <Componentdidmount></Componentdidmount>
         <div className="container h-100">
           <div className="row h-100 align-items-center">

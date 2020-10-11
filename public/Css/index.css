@@ -181,13 +181,6 @@ body, html {
     outline: var(--maincolor);
 }
 
-::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #1A1A1A;
-    opacity: 1;
-    /* Firefox */
-}
-
 :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: white;
@@ -1148,3 +1141,94 @@ input[type="file"] {
     margin-bottom: 0px;
     display: none;
 }
+
+/* Profile */
+
+.conProfile {
+    position: relative;
+}
+
+.divSidebar {
+    border-right: 2px solid #414141;
+    background-color: #2C2C2C;
+    width: 50px;
+    height: 100vh;
+    position: absolute;
+    left: 0px;
+}
+
+.divMenu {
+    position: relative;
+    height: 98%;
+}
+
+.divIcon {
+    position: absolute;
+    top: 38.5%;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.no-bullets>li {
+    padding: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    border-radius: 5px;
+}
+
+ul.no-bullets>li:hover {
+    background-color: #1C1C1C;
+}
+
+.divUserNav {
+    float: right;
+    margin-top: 0px;
+}
+
+.circle {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.circle > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.pFullname {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.btnLogout {
+    font-family: 'Proxima', sans-serif;
+    color: white;
+    border: 0px;
+    background-color: #EDC728;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin-right: 10px;
+    box-shadow: 0px 5px 20px rgba(237, 199, 40, 0.1);
+}
+
+.vl {
+    border: 1px solid #414141;
+    height: 30px;
+    width: 2px;
+    margin-right: 10px;
+  }

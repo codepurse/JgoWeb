@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import AuthService from "../services/auth.service";
 
 export default function navbar() {
   const router = useRouter();
@@ -9,11 +10,16 @@ export default function navbar() {
   const contact = router.pathname === "/contact" ? "activeNav" : "";
   const faq = router.pathname === "/faq" ? "activeNav" : "";
   const login = router.pathname === "/login" ? "activeNav" : "";
+  const [fname, setFname] = React.useState("");
 
   function loginForm(e) {
-    $(".colMain").hide();
-    $(".colLogin").show();
-    $(".colDeliver").hide();
+    if (localStorage.getItem("token")) {
+      router.push("/profile");
+    } else {
+      $(".colMain").hide();
+      $(".colLogin").show();
+      $(".colDeliver").hide();
+    }
   }
 
   function deliverForm(e) {
@@ -22,6 +28,19 @@ export default function navbar() {
     $(".colDeliver").show();
   }
 
+  useEffect(() => {
+    if(localStorage.getItem("token")) {
+      return (
+        setFname(AuthService.getCurrentUser())
+      )
+    }
+    else {
+      setFname("LOGIN");
+    }
+  }, []);
+
+
+ 
   return (
     <div className="container">
       <nav
@@ -69,8 +88,12 @@ export default function navbar() {
                   </a>
                 </li>
                 <li className={login} onClick={loginForm}>
-                  <a className="nav-link" style={{ color: "white" }}>
-                    LOG-IN
+                  <a
+                    className="nav-link"
+                    id="username"
+                    style={{ color: "white" }}
+                  >
+                    {fname}
                   </a>
                 </li>
               </ul>
