@@ -57,7 +57,14 @@ export default function profile() {
             </div>
           </div>
         </div>
-        <div className="container"></div>
+       <div className = "row" style = {{paddingLeft: "55px", marginTop: "40px"}}>
+         <div className = "col-lg-12">
+           <p className = "pDashboard">Dashboard</p>
+         </div>
+         <div className = "col-lg-12">
+           
+         </div>
+       </div>
       </div>
     </>
   );

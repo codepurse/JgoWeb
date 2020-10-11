@@ -1202,14 +1202,14 @@ ul.no-bullets>li:hover {
     margin-right: 10px;
 }
 
-.circle > img {
+.circle>img {
     height: 100%;
     width: 100%;
     object-fit: contain;
 }
 
 .pFullname {
-    font-family: 'Proxima', sans-serif;
+    font-family: "GilroyMedium";
     color: white;
     font-size: 0.9rem;
     margin-right: 10px;
@@ -1231,4 +1231,83 @@ ul.no-bullets>li:hover {
     height: 30px;
     width: 2px;
     margin-right: 10px;
-  }
+}
+
+.pDashboard {
+    font-family: "GilroyMedium";
+    color: white;
+    font-size: 1.7rem;
+}
+
+@keyframes stretch {
+    0% {
+        transform: scale(0.5);
+        background-color: white;
+    }
+    50% {
+        background-color: white
+    }
+    100% {
+        transform: scale(1);
+        background-color: #FFFFFF;
+    }
+}
+
+.btn {
+    font-family: "Proxima" !important;
+    align-items: center;
+    background-color: #EDC728 !important;
+    color: white !important;
+    cursor: pointer;
+    display: inline-flex;
+    height: 36px;
+    justify-content: center;
+    min-width: 90px;
+    border-radius: 25px !important;
+}
+
+.btn.btn--loading {
+    font-size: 0;
+}
+
+.btn.btn--loading span {
+    display: flex;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 25px;
+}
+
+.btn.btn--loading span b {
+    animation-direction: alternate;
+    animation-duration: .5s;
+    animation-fill-mode: none;
+    animation-iteration-count: infinite;
+    animation-name: stretch;
+    animation-play-state: running;
+    animation-timing-function: ease-out;
+    border-radius: 100%;
+    display: block;
+    height: 10px;
+    margin: 0 1px;
+    width: 10px;
+    animation-delay: .1s;
+    margin: 0 5px;
+}
+
+.btn.btn--loading span b:first-child {
+    animation-delay: 0s;
+    margin: 0;
+}
+
+.btn.btn--loading span b:last-child {
+    animation-delay: .2s;
+    margin: 0;
+}
+
+.btn b {
+    font-weight: normal;
+}
+
+.btn span {
+    display: none;
+}

@@ -54,4 +54,6 @@ $(document).ready(function () {
     }, 6000);
   }
   slideimg();
+
+
 });

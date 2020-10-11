@@ -103,8 +103,8 @@ export class login extends Component {
             <div className="col-lg-10" style={{ textAlign: "left" }}>
               <p className="pError">Error</p>
               <p className="pErrorSub">
-                  The information you entered is not recognized.
-                </p>
+                The information you entered is not recognized.
+              </p>
             </div>
           </div>
         </div>
@@ -128,6 +128,7 @@ export class login extends Component {
   }
 
   login(event) {
+    $(event.currentTarget).addClass('btn--loading');
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -143,17 +144,19 @@ export class login extends Component {
       )
       .then((result) => {
         if (result.request.status == "200") {
-          localStorage.setItem('token', JSON.stringify(result.data.data));
+          localStorage.setItem("token", JSON.stringify(result.data.data));
           console.log(result);
-          document.getElementById("username").innerHTML = result.data.data.user.name;
+          document.getElementById("username").innerHTML =
+            result.data.data.user.name;
           $(".colMain").hide();
           $(".colLogin").hide();
           $(".colDeliver").show();
+          $(".btn").removeClass('btn--loading');
         }
       })
       .catch((err) => {
- 
-        console.log(err);
+        $(".btn").removeClass('btn--loading');
+        this.messageError();
       });
   }
 
@@ -252,6 +255,7 @@ export class login extends Component {
 
   register(e) {
     e.preventDefault();
+    $(e.currentTarget).addClass('btn--loading');
     if (this.state.fname == "") {
       $(".pFname").show();
     }
@@ -326,10 +330,12 @@ export class login extends Component {
         .then((result) => {
           $("#exampleModal").modal("hide");
           if (result.status == "201") {
+            $(".btn").removeClass('btn--loading');
             successMessage();
           }
         })
         .catch((err) => {
+          $(".btn").removeClass('btn--loading');
           try {
             $("#exampleModal").css("z-index", "1");
             $(".modal-backdrop").hide();
@@ -365,9 +371,14 @@ export class login extends Component {
               <p className="pForgot">forgot password?</p>
             </div>
             <div className="col-lg-6 text-center">
-              <button className="btnSubmit" onClick={this.login}>
-                SUBMIT
-              </button>
+              <a className="btn btnSubmit" onClick={this.login}>
+                Login
+                <span>
+                  <b></b>
+                  <b></b>
+                  <b></b>
+                </span>
+              </a>
             </div>
           </div>
           <div className="row">
@@ -593,13 +604,14 @@ export class login extends Component {
                 </div>
               </div>
               <div className="modal-footer text-center mx-auto d-flex">
-                <button
-                  type="button"
-                  className="btnSubmitModal"
-                  onClick={this.register.bind(this)}
-                >
-                  Submit
-                </button>
+                <a className="btn btnSubmitModal" onClick={this.register.bind(this)}>
+                      SIGNUP
+                <span>
+                  <b></b>
+                  <b></b>
+                  <b></b>
+                </span>
+              </a>
               </div>
             </div>
           </div>
