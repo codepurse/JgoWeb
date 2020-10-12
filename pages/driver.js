@@ -1,9 +1,73 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
 import Componentdidmount from "../component/componentdidmount";
 import Select from "react-select";
+import axios from "axios";
 
 function driver() {
+  var clear = 0;
+  const [fname, setfname] = React.useState("");
+  const [lname, setlname] = React.useState("");
+  const [mname, setmname] = React.useState("");
+  const [email, setemail] = React.useState("");
+  const [mobile, setmobile] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [passwordconfirm, setpasswordconfirm] = React.useState("");
+  const [lisencenumber, setlisencenumber] = React.useState("");
+  const [vehicle, setvehicle] = React.useState("");
+  const [zip, setzip] = React.useState("");
+  const [provinced, setprovinced] = React.useState("");
+  const [city, setcity] = React.useState("");
+  const [plateenumber, setplatenumber] = React.useState("");
+  const [profile, setprofile] = React.useState("");
+  const [driver, setDriver] = React.useState("");
+  const [nbi, setNbi] = React.useState("");
+  const [ocr, setOcr] = React.useState("");
+
+  const [profile_name, setProfilename] = React.useState("");
+  const [driver_lisence, setDriverlisence] = React.useState("");
+  const [nbi_clearance, setNbiclearance] = React.useState("");
+  const [ocr_clearance, setOcrclearance] = React.useState("");
+
+  const inputFileRef = useRef(null);
+  const inputFileRef1 = useRef(null);
+  const inputFileRef2 = useRef(null);
+  const inputFileRef3 = useRef(null);
+
+  const onBtnClick = () => {
+    inputFileRef.current.click();
+  };
+  const onBtnClick1 = () => {
+    inputFileRef1.current.click();
+  };
+  const onBtnClick2 = () => {
+    inputFileRef2.current.click();
+  };
+  const onBtnClick3 = () => {
+    inputFileRef3.current.click();
+  };
+
+  function handleFile(e) {
+    let file = e.target.files[0];
+    setProfilename(file.name);
+    setprofile(file);
+  }
+  function handleFile1(e) {
+    let file = e.target.files[0];
+    setDriverlisence(file.name);
+    setDriver(file);
+  }
+  function handleFile2(e) {
+    let file = e.target.files[0];
+    setNbiclearance(file.name);
+    setNbi(file);
+  }
+  function handleFile3(e) {
+    let file = e.target.files[0];
+    setOcrclearance(file.name);
+    setOcr(file);
+  }
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -13,6 +77,29 @@ function driver() {
       width: "115%",
       padding: "4.5px",
       marginTop: "5px",
+    }),
+  };
+
+  const customStyles1 = {
+    control: (base, state) => ({
+      ...base,
+      background: "rgb(28, 30, 33)",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "115%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
     }),
   };
 
@@ -50,6 +137,7 @@ function driver() {
   }
 
   function HandleChangeProvince(e) {
+    setprovinced(e.label);
     setProvinceChange(e.value);
     const data = cities
       .filter((person) => person.province === e.id)
@@ -58,6 +146,10 @@ function driver() {
         label: d.name,
       }));
     setCities(data);
+  }
+
+  function HandleChangeCity(e) {
+    setcity(e.label);
   }
 
   function getData() {
@@ -75,6 +167,166 @@ function driver() {
   function trylang() {
     province.forEach((val, index) => val.data.splice(3));
     console.log("gumana");
+  }
+
+  function fname_change(e) {
+    setfname(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function mname_change(e) {
+    setmname(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function lname_change(e) {
+    setlname(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function email_change(e) {
+    setemail(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function mobile_change(e) {
+    setmobile(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function password_change(e) {
+    setpassword(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function passwordconfirm_change(e) {
+    setpasswordconfirm(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function lisence_change(e) {
+    setlisencenumber(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function zip_change(e) {
+    setzip(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function plate_change(e) {
+    setplatenumber(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function vehicle_change(e) {
+    setvehicle(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+
+  function submit(e) {
+    e.preventDefault();
+    if (fname == "") {
+      $(".pFname").css("color", "#d32f2f");
+      $(".txtFname").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (lname == "") {
+      $(".pLname").css("color", "#d32f2f");
+      $(".txtLname").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (email == "") {
+      $(".pEmail").css("color", "#d32f2f");
+      $(".txtEmail").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (mobile == "") {
+      $(".pMobile").css("color", "#d32f2f");
+      $(".txtMobile").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (password == "") {
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (passwordconfirm == "") {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (passwordconfirm == "") {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (lisencenumber == "") {
+      $(".pLisence").css("color", "#d32f2f");
+      $(".txtLisence").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (plateenumber == "") {
+      $(".pPlate").css("color", "#d32f2f");
+      $(".txtPlate").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (profile == "") {
+      $(".divProfile").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (driver == "") {
+      $(".divDriver").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (nbi == "") {
+      $(".divNbi").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+    if (ocr == "") {
+      $(".divOcr").css("borderColor", "#d32f2f");
+      clear = 1;
+    }
+
+    if (clear == 0) {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+
+      let formdata = new FormData();
+      try {
+        formdata.set("fname", fname);
+        formdata.set("lname", lname);
+        formdata.set("mname", mname);
+        formdata.append("profile_pic", profile, profile.name);
+        formdata.set("email", email);
+        formdata.set("mobile_no", mobile);
+        formdata.set("address", address);
+        formdata.set("city", city);
+        formdata.set("state", provinced);
+        formdata.set("country", "Philippines");
+        formdata.set("zip", zip);
+        formdata.set("password", password);
+        formdata.set("password_confirmation", password);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 
   return (
@@ -118,7 +370,7 @@ function driver() {
                     className="nav-link nav-driver"
                     style={{ color: "white" }}
                     data-toggle="modal"
-                    data-target="#exampleModal"
+                    data-target="#driverModal"
                   >
                     Book a Delivery
                   </a>
@@ -140,14 +392,12 @@ function driver() {
               className="col-lg-3"
               style={{ marginTop: "150px", position: "relative" }}
             >
-              <div style={{ position: "relative"}} >
+              <div style={{ position: "relative" }}>
                 <img
                   src="Image/phone1.png"
                   className="img-fluid imgPhone"
-                >
-                  
-                </img>
-                <img src = "Image/phone.gif" className = "img-fluid imgGif"></img>
+                ></img>
+                <img src="Image/phone.gif" className="img-fluid imgGif"></img>
               </div>
             </div>
             <div
@@ -333,7 +583,11 @@ function driver() {
                 </div>
                 <div className="col-lg-4">
                   <p className="p1">City/Municipality</p>
-                  <Select options={cities_api} styles={customStyles} />
+                  <Select
+                    options={cities_api}
+                    styles={customStyles}
+                    onChange={HandleChangeCity}
+                  />
                 </div>
               </div>
               <div className="row" style={{ marginTop: "8px" }}>
@@ -478,9 +732,271 @@ function driver() {
               </div>
             </div>
             <div className="modal-footer text-center mx-auto d-flex">
-              <button type="button" className="btnSubmitModal" onClick={trylang}>
+              <button
+                type="button"
+                className="btnSubmitModal"
+                onClick={trylang}
+              >
                 Submit
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="driverModal"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        style={{ zIndex: "99999999999999999999999999999999" }}
+      >
+        <div
+          className="modal-dialog modal-dialog-driver modal-lg"
+          role="document"
+        >
+          <div className="modal-content">
+            <div className="modal-body modalDriver">
+              <p className="pModalTitle">Jgo - Driver registration form</p>
+              <p className="pModalTitleSub">
+                Fill-up all the requird fields. After you submit we will send a
+                link to your email for driver online test.
+              </p>
+              <hr
+                style={{
+                  backgroundColor: "#414141",
+                  boder: "1px solid #414141",
+                }}
+              ></hr>
+              <div className="row" style={{ marginTop: "20px" }}>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pFname">First Name</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtFname"
+                    onChange={fname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Middle Name</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    onChange={mname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pLname">Last Name</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtLname"
+                    onChange={lname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pEmail">Email</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtEmail"
+                    onChange={email_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pMobile">Mobile Number</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtMobile"
+                    onChange={mobile_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Address</p>
+                  <input type="text" className="txtDriver"></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Region</p>
+                  <Select
+                    options={regions_api}
+                    onChange={HandleChangeRegion}
+                    styles={customStyles1}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Province</p>
+                  <Select
+                    options={province_api}
+                    onChange={HandleChangeProvince}
+                    styles={customStyles1}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">City/Municipality</p>
+                  <Select options={cities_api} styles={customStyles1} />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Country</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    value="Philippines"
+                    disabled
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Zip Code</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    onChange={zip_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <p className="pTxtDriver pPassword">Password</p>
+                  <input
+                    type="password"
+                    className="txtDriver txtPassword"
+                    onChange={password_change}
+                  ></input>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver pConfirmPass">Confirm Password</p>
+                  <input
+                    type="password"
+                    className="txtDriver txtConfirmPass"
+                    onChange={passwordconfirm_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Vehicle Type</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    onChange={vehicle_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pPlate">Plate Number</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtPlate"
+                    onChange={plate_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pLisence">Lisence Number</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtLisence"
+                    onChange={lisence_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">Profile Picture</p>
+                  <input
+                    onChange={(e) => handleFile(e)}
+                    ref={inputFileRef}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divProfile text-center"
+                    onClick={onBtnClick}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{profile_name}</p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">Driver License</p>
+                  <input
+                    onChange={(e) => handleFile1(e)}
+                    ref={inputFileRef1}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divDriver text-center"
+                    onClick={onBtnClick1}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{driver_lisence}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">NBI Clearance</p>
+                  <input
+                    onChange={(e) => handleFile2(e)}
+                    ref={inputFileRef2}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divNbi text-center"
+                    onClick={onBtnClick2}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{nbi_clearance}</p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">ORCR</p>
+                  <input
+                    onChange={(e) => handleFile3(e)}
+                    ref={inputFileRef3}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divOcr text-center"
+                    onClick={onBtnClick3}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{ocr_clearance}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" style={{ marginTop: "20px" }}>
+                <div className="col-lg-12">
+                  <button className="btnSubmitDriver" onClick={submit}>
+                    Submit
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

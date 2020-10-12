@@ -7,7 +7,15 @@ export default function profile() {
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
   useEffect(() => {
-    setFull_name(AuthService.getFullname());
+    if (AuthService.getFullname()) {
+      setFull_name(AuthService.getFullname());
+      $(".conProfile").show();
+    }
+    else {
+      router.push("/");
+    }
+
+    
   }, []);
 
   function logout() {
@@ -36,7 +44,7 @@ export default function profile() {
             </div>
           </div>
         </div>
-        <div className="row" style={{ paddingTop: "20px" }}>
+        <div className="row rowTop">
           <div className="col-lg-6">
             <img
               src="Image/logo.png"
@@ -62,7 +70,18 @@ export default function profile() {
            <p className = "pDashboard">Dashboard</p>
          </div>
          <div className = "col-lg-12">
-           
+          <ul className = "ulDashboard">
+            <li>Bookings</li>
+            <li>Profile</li>
+            <li>Settings</li>
+          </ul>
+          <hr  className = "hrDashboard"></hr>
+         </div>
+         <div className = "col-lg-12">
+           <p className = "pTitleDashboard">General Information</p>
+           <div className = "row">
+             
+           </div>
          </div>
        </div>
       </div>

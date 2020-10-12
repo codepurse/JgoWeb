@@ -258,18 +258,23 @@ export class login extends Component {
     $(e.currentTarget).addClass('btn--loading');
     if (this.state.fname == "") {
       $(".pFname").show();
+      $(".btn").removeClass('btn--loading');
     }
     if (this.state.lname == "") {
       $(".pLname").show();
+      $(".btn").removeClass('btn--loading');
     }
     if (this.state.mobile == "") {
       $(".pMobile").show();
+      $(".btn").removeClass('btn--loading');
     }
     if (this.state.email == "") {
       $(".pEmail").show();
+      $(".btn").removeClass('btn--loading');
     }
     if (this.state.password == "") {
       $(".pPassword").show();
+      $(".btn").removeClass('btn--loading');
     } else {
       const options = {
         headers: {
@@ -606,7 +611,7 @@ export class login extends Component {
               <div className="modal-footer text-center mx-auto d-flex">
                 <a className="btn btnSubmitModal" onClick={this.register.bind(this)}>
                       SIGNUP
-                <span>
+                <span style = {{marginLeft: "40px"}}>
                   <b></b>
                   <b></b>
                   <b></b>
