@@ -907,7 +907,7 @@ hr {
 .divStep {
     background-color: #9A9A9A;
     border-radius: 20px;
-    width: 100%;  
+    width: 100%;
     padding: 25px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
@@ -926,6 +926,77 @@ hr {
     text-align: center;
     margin-top: -5px;
 }
+
+.divAbout {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.pAboutus {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: #FFFF3B;
+    font-size: 3rem;
+}
+
+.pAboutusSub {
+    font-family: 'ProximaNova', sans-serif;
+    color: #FFFF3B;
+    font-size: 1rem;
+}
+
+.imgArtwork {
+    border-radius: 25px;
+}
+
+.conAbout {
+    padding-bottom: 5%;
+    padding-top: 5%;
+    background-color: #4B4B4B;
+}
+
+.pArtwork {
+    font-family: 'ProximaNova', sans-serif;
+    color: #FFFF3B;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.conFooter {
+    background-color: #121212;
+    padding: 15px 40px;
+}
+
+.ulFooter {
+    list-style-type: none;
+    overflow: hidden;
+    float:right;
+}
+
+.liFooter {
+    float: left;
+}
+
+.liFooter a {
+    font-family: 'ProximaNovaBold', sans-serif;
+    color: white;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none !important;
+}
+
+.liFooter a:hover {
+    color: #EDC728;
+}
+
+.pFooter {
+    font-family: 'ProximaNova', sans-serif;
+    color: white;
+    font-size: 1rem;
+}
+
+
 
 .modal-header {
     background-color: #1A1A1A;
@@ -1328,5 +1399,5 @@ ul.no-bullets>li:hover {
     width: 150px;
     float: right;
     box-shadow: 0px 5px 20px rgba(237, 199, 40, 0.1);
-    outline: none !important; 
+    outline: none !important;
 }

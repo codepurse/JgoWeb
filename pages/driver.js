@@ -568,7 +568,7 @@ function driver() {
               <div className="divStep">
                 <img src="Image/step1.jpg" className="img-fluid imgStep"></img>
                 <p className="pStepTitle">RIDER</p>
-                <p className = "pStepsub">
+                <p className="pStepsub">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor.
                 </p>
@@ -578,7 +578,7 @@ function driver() {
               <div className="divStep">
                 <img src="Image/step2.jpg" className="img-fluid imgStep"></img>
                 <p className="pStepTitle">DELIVER</p>
-                <p className = "pStepsub">
+                <p className="pStepsub">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor.
                 </p>
@@ -588,7 +588,7 @@ function driver() {
               <div className="divStep">
                 <img src="Image/step1.jpg" className="img-fluid imgStep"></img>
                 <p className="pStepTitle">FAQS</p>
-                <p className = "pStepsub">
+                <p className="pStepsub">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor.
                 </p>
@@ -597,7 +597,62 @@ function driver() {
           </div>
         </div>
       </div>
-
+      <div className="container-fluid conAbout">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <img
+                src="Image/artwork.jpg"
+                className="img-fluid imgArtwork"
+              ></img>
+              <p className="pArtwork">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </div>
+            <div className="col-lg-6">
+              <div className="divAbout">
+                <p className="pAboutus">ABOUT US</p>
+                <p className="pAboutusSub">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid conFooter">
+        <div className="row align-items-center">
+          <div className="col-lg-6">
+            <img src="Image/logo.png" className="img-fluid imgLogo"></img>
+          </div>
+          <div className="col-lg-6">
+            <ul className = "ulFooter">
+              <li className = "liFooter">
+                <a href="#home">COMPANY</a>
+              </li>
+              <li className = "liFooter">
+                <a href="#news">CONTACT US</a>
+              </li>
+              <li className = "liFooter">
+                <a href="#contact">POLICIES</a>
+              </li>
+              <li className = "liFooter">
+                <a href="#contact">TERM & CONDITION</a>
+              </li>
+            </ul>
+          </div>
+          <div className = "col-lg-12">
+            <p className = "text-center pFooter">© 2020 JGO Philippines. - All Rights</p>
+          </div>
+        </div>
+      </div>
       <div
         className="modal fade"
         id="driverModal"
