@@ -3,6 +3,7 @@ import Header from "../component/header";
 import Componentdidmount from "../component/componentdidmount";
 import Select from "react-select";
 import axios from "axios";
+import swal from "@sweetalert/with-react";
 
 function driver() {
   var clear = 0;
@@ -11,6 +12,7 @@ function driver() {
   const [mname, setmname] = React.useState("");
   const [email, setemail] = React.useState("");
   const [mobile, setmobile] = React.useState("");
+  const [address, setaddress] = React.useState("");
   const [password, setpassword] = React.useState("");
   const [passwordconfirm, setpasswordconfirm] = React.useState("");
   const [lisencenumber, setlisencenumber] = React.useState("");
@@ -18,11 +20,12 @@ function driver() {
   const [zip, setzip] = React.useState("");
   const [provinced, setprovinced] = React.useState("");
   const [city, setcity] = React.useState("");
+  const [city_dropdown, setcitydropdown] = React.useState("");
   const [plateenumber, setplatenumber] = React.useState("");
   const [profile, setprofile] = React.useState("");
   const [driver, setDriver] = React.useState("");
   const [nbi, setNbi] = React.useState("");
-  const [ocr, setOcr] = React.useState("");
+  const [orcr, setOcr] = React.useState("");
 
   const [profile_name, setProfilename] = React.useState("");
   const [driver_lisence, setDriverlisence] = React.useState("");
@@ -51,21 +54,25 @@ function driver() {
     let file = e.target.files[0];
     setProfilename(file.name);
     setprofile(file);
+    $(".divProfile").css("borderColor", "#2c2c2c");
   }
   function handleFile1(e) {
     let file = e.target.files[0];
     setDriverlisence(file.name);
     setDriver(file);
+    $(".divDriver").css("borderColor", "#2c2c2c");
   }
   function handleFile2(e) {
     let file = e.target.files[0];
     setNbiclearance(file.name);
     setNbi(file);
+    $(".divNbi").css("borderColor", "#2c2c2c");
   }
   function handleFile3(e) {
     let file = e.target.files[0];
     setOcrclearance(file.name);
     setOcr(file);
+    $(".divOcr").css("borderColor", "#2c2c2c");
   }
 
   const customStyles = {
@@ -149,6 +156,7 @@ function driver() {
   }
 
   function HandleChangeCity(e) {
+    setcitydropdown(e.value.label);
     setcity(e.label);
   }
 
@@ -164,15 +172,13 @@ function driver() {
     getData();
   }, []);
 
-  function trylang() {
-    province.forEach((val, index) => val.data.splice(3));
-    console.log("gumana");
-  }
-
   function fname_change(e) {
     setfname(e.target.value);
+    $(".pFname").css("color", "white");
+    $(".txtFname").css("borderColor", "#2c2c2c");
     if (e.target.value) {
       clear = 0;
+    } else {
     }
   }
   function mname_change(e) {
@@ -182,36 +188,48 @@ function driver() {
     }
   }
   function lname_change(e) {
+    $(".pLname").css("color", "white");
+    $(".txtLname").css("borderColor", "#2c2c2c");
     setlname(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function email_change(e) {
+    $(".pEmail").css("color", "white");
+    $(".txtEmail").css("borderColor", "#2c2c2c");
     setemail(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function mobile_change(e) {
+    $(".pMobile").css("color", "white");
+    $(".txtMobile").css("borderColor", "#2c2c2c");
     setmobile(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function password_change(e) {
+    $(".pPassword").css("color", "white");
+    $(".txtPassword").css("borderColor", "#2c2c2c");
     setpassword(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function passwordconfirm_change(e) {
+    $(".pConfirmPass").css("color", "white");
+    $(".txtConfirmPass").css("borderColor", "#2c2c2c");
     setpasswordconfirm(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function lisence_change(e) {
+    $(".pLisence").css("color", "white");
+    $(".txtLisence").css("borderColor", "#2c2c2c");
     setlisencenumber(e.target.value);
     if (e.target.value) {
       clear = 0;
@@ -224,13 +242,23 @@ function driver() {
     }
   }
   function plate_change(e) {
+    $(".pPlate").css("color", "white");
+    $(".txtPlate").css("borderColor", "#2c2c2c");
     setplatenumber(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
   }
   function vehicle_change(e) {
+    $(".pVehicle").css("color", "white");
+    $(".txtVehicle").css("borderColor", "#2c2c2c");
     setvehicle(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function address_change(e) {
+    setaddress(e.target.value);
     if (e.target.value) {
       clear = 0;
     }
@@ -238,66 +266,92 @@ function driver() {
 
   function submit(e) {
     e.preventDefault();
+    $(e.currentTarget).addClass("btn--loading");
     if (fname == "") {
       $(".pFname").css("color", "#d32f2f");
       $(".txtFname").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (lname == "") {
       $(".pLname").css("color", "#d32f2f");
       $(".txtLname").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (email == "") {
       $(".pEmail").css("color", "#d32f2f");
       $(".txtEmail").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (mobile == "") {
       $(".pMobile").css("color", "#d32f2f");
       $(".txtMobile").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (password == "") {
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
+
     if (passwordconfirm == "") {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       clear = 1;
-    }
-    if (passwordconfirm == "") {
-      $(".pConfirmPass").css("color", "#d32f2f");
-      $(".txtConfirmPass").css("borderColor", "#d32f2f");
-      clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (lisencenumber == "") {
       $(".pLisence").css("color", "#d32f2f");
       $(".txtLisence").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (plateenumber == "") {
       $(".pPlate").css("color", "#d32f2f");
       $(".txtPlate").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (profile == "") {
       $(".divProfile").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (driver == "") {
       $(".divDriver").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
     if (nbi == "") {
       $(".divNbi").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
-    if (ocr == "") {
+    if (orcr == "") {
       $(".divOcr").css("borderColor", "#d32f2f");
       clear = 1;
+      $(".btn").removeClass("btn--loading");
+    }
+
+    if (vehicle == "") {
+      $(".pVehicle").css("color", "#d32f2f");
+      $(".txtVehicle").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+    }
+
+    if (password == passwordconfirm) {
+    } else {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
     }
 
     if (clear == 0) {
@@ -309,24 +363,89 @@ function driver() {
       };
 
       let formdata = new FormData();
-      try {
-        formdata.set("fname", fname);
-        formdata.set("lname", lname);
-        formdata.set("mname", mname);
-        formdata.append("profile_pic", profile, profile.name);
-        formdata.set("email", email);
-        formdata.set("mobile_no", mobile);
-        formdata.set("address", address);
-        formdata.set("city", city);
-        formdata.set("state", provinced);
-        formdata.set("country", "Philippines");
-        formdata.set("zip", zip);
-        formdata.set("password", password);
-        formdata.set("password_confirmation", password);
-      } catch (e) {
-        console.log(e);
-      }
+
+      formdata.set("fname", fname);
+      formdata.set("lname", lname);
+      formdata.set("mname", mname);
+      formdata.append("profile_pic", profile, profile.name);
+      formdata.set("email", email);
+      formdata.set("mobile_no", mobile);
+      formdata.set("address", address);
+      formdata.set("city", provinced);
+      formdata.set("state", city);
+      formdata.set("country", "Philippines");
+      formdata.set("zip", zip);
+      formdata.set("password", password);
+      formdata.set("password_confirmation", passwordconfirm);
+      formdata.set("driver_license", driver, driver.name);
+      formdata.set("vehicle_type", vehicle);
+      formdata.set("plate_no", plateenumber);
+      formdata.set("license_no", lisencenumber);
+      formdata.set("nbi_clearance", nbi, nbi.name);
+      formdata.set("orcr", orcr, orcr.name);
+
+      const apiUrl = "http://localhost:8000/api/auth/register-driver";
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          $("#driverModal").modal("hide");
+          successMessage();
+          $(".btn").removeClass("btn--loading");
+        })
+        .catch((err) => {
+          console.log(err);
+          $("#driverModal").css("z-index", "1");
+          $(".modal-backdrop").hide();
+          errorMessage();
+          $(".btn").removeClass("btn--loading");
+        });
     }
+  }
+
+  function successMessage() {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #00C853" }}
+          >
+            <div className="col-lg-2">
+              <img src="Image/success.png" style={{ width: "32px" }}></img>
+            </div>
+            <div className="col-lg-10" style={{ textAlign: "left" }}>
+              <p className="pError">Success</p>
+              <p className="pErrorSub">
+                Account succesfully created. You may now login.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function errorMessage() {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #00C853" }}
+          >
+            <div className="col-lg-2">
+              <img src="Image/error.png" style={{ width: "32px" }}></img>
+            </div>
+            <div className="col-lg-10" style={{ textAlign: "left" }}>
+              <p className="pError">Error</p>
+              <p className="pErrorSub">
+                Email is not available or already registered.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -389,24 +508,12 @@ function driver() {
         <div className="container con">
           <div className="row" style={{ marginLeft: "50px" }}>
             <div
-              className="col-lg-3"
-              style={{ marginTop: "150px", position: "relative" }}
-            >
-              <div style={{ position: "relative" }}>
-                <img
-                  src="Image/phone1.png"
-                  className="img-fluid imgPhone"
-                ></img>
-                <img src="Image/phone.gif" className="img-fluid imgGif"></img>
-              </div>
-            </div>
-            <div
               className="col-lg-4"
               style={{ marginTop: "150px", position: "relative" }}
             >
               <p className="pComing">COMING SOON</p>
               <div className="row">
-                <div className="col-lg-6" style={{ padding: "2px" }}>
+                <div className="col-lg-12" style={{ padding: "2px" }}>
                   <div className="divButton form-inline">
                     <img src="Image/apple.png" className="imgDownload"></img>
                     <p className="pDownload">
@@ -415,7 +522,7 @@ function driver() {
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-6" style={{ padding: "2px" }}>
+                <div className="col-lg-12" style={{ padding: "2px" }}>
                   <div className="divButton form-inline">
                     <img
                       src="Image/playstore.png"
@@ -428,11 +535,20 @@ function driver() {
                   </div>
                 </div>
               </div>
-              <div className="divService">
-                <p className="pFully">FULLY FILIPINO OWNED COMPANY</p>
-                <p className="pService">MAAASANG SERBISYO!</p>
+            </div>
+            <div
+              className="col-lg-3"
+              style={{ marginTop: "150px", position: "relative" }}
+            >
+              <div style={{ position: "relative" }}>
+                <img
+                  src="Image/phone1.png"
+                  className="img-fluid imgPhone"
+                ></img>
+                <img src="Image/phone.gif" className="img-fluid imgGif"></img>
               </div>
             </div>
+
             <div
               className="col-lg-5"
               style={{ marginTop: "150px", position: "relative" }}
@@ -444,305 +560,44 @@ function driver() {
             </div>
           </div>
         </div>
-        <div className="row rowGray">
-          <div className="col-lg-12 col"></div>
-        </div>
       </div>
-      <div className="container-fluid conRoad">
-        <div className="row">
-          <div className="col-lg-12">
-            <img src="Image/road1.png" className="img-fluid imgRoad"></img>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            <p className="pRate">
-              LOWEST RATE AT PHP 6/KM WITH A FLAT FEE OF PHP60
-            </p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-4 p-0">
-            <img src="Image/img1.png" className="img-fluid"></img>
-          </div>
-          <div className="col-lg-4 p-0">
-            <img src="Image/img2.png" className="img-fluid img2"></img>
-          </div>
-          <div className="col-lg-4 p-0">
-            <img src="Image/img3.png" className="img-fluid img3"></img>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-12">
-            <p className="pSafety">
-              SAFETY AND ACCESSIBILITY IS OUR PRIMARY CONCERN
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid">
-        <div className="container" style={{ marginTop: "200px" }}>
+      <div className="container-fluid conStep">
+        <div className="container">
           <div className="row">
-            <div className="col-lg-6"></div>
-            <div className="col-lg-6 text-center">
-              <p className="pBe">
-                BE A <span>JGO DRIVER</span>
-              </p>
-              <button className="btnSignup">Sign up now!</button>
+            <div className="col-lg-4">
+              <div className="divStep">
+                <img src="Image/step1.jpg" className="img-fluid imgStep"></img>
+                <p className="pStepTitle">RIDER</p>
+                <p className = "pStepsub">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor.
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="row" style={{ marginTop: "-20px" }}>
-          <div className="col-lg-5"></div>
-          <div className="col-lg-7 text-center">
-            <img src="Image/road1.png" className="img-fluid"></img>
-            <p className="pCome">COME RIDE WITH US</p>
-          </div>
-        </div>
-        <div
-          className="row rowFooter"
-          style={{ backgroundColor: "#373735" }}
-        ></div>
-        <div className="row rowGrayFooter">
-          <div className="col-lg-12 text-center align-self-end">
-            <p className="pFooter">@ 2020 JGO Philippines. - All Rights</p>
+            <div className="col-lg-4">
+              <div className="divStep">
+                <img src="Image/step2.jpg" className="img-fluid imgStep"></img>
+                <p className="pStepTitle">DELIVER</p>
+                <p className = "pStepsub">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor.
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="divStep">
+                <img src="Image/step1.jpg" className="img-fluid imgStep"></img>
+                <p className="pStepTitle">FAQS</p>
+                <p className = "pStepsub">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        style={{ zIndex: "99999999999999999999999999999999" }}
-      >
-        <div className="modal-dialog modal-lg" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                JGO DRIVER - Registration Form
-              </h5>
-            </div>
-            <div className="modal-body">
-              <p className="pAccount">ACCOUNT INFORMATION</p>
-              <div className="row">
-                <div className="col-lg-4">
-                  <p className="p1">First Name</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Middle Name</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Last Name</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-4">
-                  <p className="p1">Address 1</p>
-                  <input type="text" className="txt txtModal"></input>
-                  <p className="txtInfo">
-                    <i>House/Unit Number, Building Name, Street Name</i>
-                  </p>
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Address 2</p>
-                  <input type="text" className="txt txtModal"></input>
-                  <p className="txtInfo">
-                    <i>Subdivision/Village</i>
-                  </p>
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Barangay</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: "-8px" }}>
-                <div className="col-lg-4">
-                  <p className="p1">Region</p>
-                  <Select
-                    options={regions_api}
-                    onChange={HandleChangeRegion}
-                    styles={customStyles}
-                  />
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Province</p>
-                  <Select
-                    options={province_api}
-                    onChange={HandleChangeProvince}
-                    styles={customStyles}
-                  />
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">City/Municipality</p>
-                  <Select
-                    options={cities_api}
-                    styles={customStyles}
-                    onChange={HandleChangeCity}
-                  />
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: "8px" }}>
-                <div className="col-lg-4">
-                  <p className="p1">Postal</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-4">
-                  <p className="p1">Country</p>
-                  <input
-                    type="text"
-                    className="txt txtModal"
-                    value="Philippines"
-                    disabled
-                  ></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="p1">Lisence Number</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Mobile Number</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="p1">Email Address</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Confirm Email Address</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="p1">Password</p>
-                  <input type="password" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Confirm Password</p>
-                  <input type="password" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: "10px" }}>
-                <div className="col-lg-12">
-                  <p className="pAccount">VEHICLE INFORMATION</p>
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: "-10px" }}>
-                <div className="col-lg-6">
-                  <p className="p1">Vehicle Type</p>
-                  <input
-                    type="text"
-                    className="txt txtModal"
-                    value="Motor"
-                    disabled
-                  ></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Vehicle Brand</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="p1">Vehicle Model</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Plate Number</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="p1">Engine Number</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Chasis Number</p>
-                  <input type="text" className="txt txtModal"></input>
-                </div>
-              </div>
-              <div className="row" style={{ marginTop: "10px" }}>
-                <div className="col-lg-12">
-                  <p className="pAccount" style={{ marginBottom: "-5px" }}>
-                    REQUIREMENTS NEEDED
-                  </p>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Driver Lisence (Photo)</p>
-                  <div
-                    style={{
-                      border: "1px solid #707070",
-                      borderRadius: "10px",
-                      padding: "5px 8px",
-                      marginTop: "5px",
-                      position: "relative",
-                    }}
-                  >
-                    <label for="file-upload" className="custom-file-upload">
-                      <i class="fa fa-cloud-upload"></i> Choose File
-                    </label>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      accept=".jpg, .png, .jpeg|image"
-                    />
-                  </div>
-                  <p className="pImage">
-                    Note: Only .jpg, .jpeg and .png files are allowed
-                  </p>
-                </div>
-                <div className="col-lg-6">
-                  <p className="p1">Vehicle's OR/CR (Photo)</p>
-                  <div
-                    style={{
-                      border: "1px solid #707070",
-                      borderRadius: "10px",
-                      padding: "5px 8px",
-                      marginTop: "5px",
-                      position: "relative",
-                    }}
-                  >
-                    <label for="file-upload" className="custom-file-upload">
-                      <i class="fa fa-cloud-upload"></i> Choose File
-                    </label>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      accept=".jpg, .png, .jpeg|image"
-                    />
-                  </div>
-                  <p className="pImage">
-                    Note: Only .jpg, .jpeg and .png files are allowed
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer text-center mx-auto d-flex">
-              <button
-                type="button"
-                className="btnSubmitModal"
-                onClick={trylang}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
       <div
         className="modal fade"
         id="driverModal"
@@ -750,7 +605,6 @@ function driver() {
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        style={{ zIndex: "99999999999999999999999999999999" }}
       >
         <div
           className="modal-dialog modal-dialog-driver modal-lg"
@@ -815,7 +669,11 @@ function driver() {
               <div className="row" style={{ marginTop: "10px" }}>
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Address</p>
-                  <input type="text" className="txtDriver"></input>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    onChange={address_change}
+                  ></input>
                 </div>
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Region</p>
@@ -835,7 +693,12 @@ function driver() {
                 </div>
                 <div className="col-lg-4">
                   <p className="pTxtDriver">City/Municipality</p>
-                  <Select options={cities_api} styles={customStyles1} />
+                  <Select
+                    options={cities_api}
+                    styles={customStyles1}
+                    onChange={HandleChangeCity}
+                    value={city_dropdown}
+                  />
                 </div>
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Country</p>
@@ -877,10 +740,10 @@ function driver() {
 
               <div className="row">
                 <div className="col-lg-4">
-                  <p className="pTxtDriver">Vehicle Type</p>
+                  <p className="pTxtDriver pVehicle">Vehicle Type</p>
                   <input
                     type="text"
-                    className="txtDriver"
+                    className="txtDriver txtVehicle"
                     onChange={vehicle_change}
                   ></input>
                 </div>
@@ -992,9 +855,14 @@ function driver() {
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
-                  <button className="btnSubmitDriver" onClick={submit}>
-                    Submit
-                  </button>
+                  <a className="btn btnSubmitDriver" onClick={submit}>
+                    SIGNUP
+                    <span style={{ marginLeft: "40px" }}>
+                      <b></b>
+                      <b></b>
+                      <b></b>
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
