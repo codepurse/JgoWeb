@@ -118,4 +118,12 @@ The client can choose only one.
 
 # Driver
 
-Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )
+Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
+**The process of sending the application will be denied if you meet the following.**
+
+  - If the required fields is null
+  - If the email is already used.
+  - IF the password did not match.
+  - If the password is less than 6 and greater than 16
+ 
+ if the validation is okay all state will be reset.
