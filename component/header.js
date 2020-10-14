@@ -50,6 +50,7 @@ export class header extends Component {
           integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
           crossorigin=""
         ></script>
+  
         <script src="go.js"></script>
       </Head>
     );
