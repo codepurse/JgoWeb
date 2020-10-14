@@ -103,7 +103,7 @@ module.exports = global.config = {
 
 The coordinates given by the user will automatically render the driver route in the map. The destination will be on **alphabetical letters**. The map can render 15 routes but for now the maximus is 3 routes. **Since the map needs coordinates before its load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map are already have a value.** Check the storage section of this readme.
 
-![alt text](https://i.ibb.co/jbKSnj3/2020-09-24-13-22-00-localhost-59bc89e112d8.png)
+![alt text](https://i.ibb.co/C8HDLxL/2020-10-14-14-20-44-localhost-fe21694942f5.png)
 
 
 #### Additonal details
