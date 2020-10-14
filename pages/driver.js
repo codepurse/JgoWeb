@@ -354,6 +354,18 @@ function driver() {
       $(".btn").removeClass("btn--loading");
     }
 
+    if (password.length < 6 || password.length > 16) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      $(".pError").show();
+    } else {
+      $(".pError").hide();
+    }
+
     if (clear == 0) {
       const options = {
         headers: {
@@ -390,6 +402,7 @@ function driver() {
         .then((result) => {
           $("#driverModal").modal("hide");
           successMessage();
+          resetValue();
           $(".btn").removeClass("btn--loading");
         })
         .catch((err) => {
@@ -423,6 +436,29 @@ function driver() {
         </div>
       </div>
     );
+  }
+
+  function resetValue() {
+    setfname("");
+    setmname("");
+    setlname("");
+    setemail("");
+    setmobile("");
+    setaddress("");
+    setzip("");
+    setpassword("");
+    setpasswordconfirm("");
+    setvehicle("");
+    setplatenumber("");
+    setlisencenumber("");
+    setProfilename("");
+    setprofile("");
+    setDriverlisence("");
+    setDriver("");
+    setNbiclearance("");
+    setNbi("");
+    setOcrclearance("");
+    setOcr("");
   }
 
   function errorMessage() {
@@ -480,17 +516,17 @@ function driver() {
             <div className="col2 ml-auto">
               <ul className="nav navbar-nav">
                 <li>
-                  <a className="nav-link nav-driver" style={{ color: "white" }}>
+                  <a
+                    className="nav-link nav-driver"
+                    data-toggle="modal"
+                    data-target="#driverModal"
+                    style={{ color: "white" }}
+                  >
                     Be a JGO Driver
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="nav-link nav-driver"
-                    style={{ color: "white" }}
-                    data-toggle="modal"
-                    data-target="#driverModal"
-                  >
+                  <a className="nav-link nav-driver" style={{ color: "white" }}>
                     Book a Delivery
                   </a>
                 </li>
@@ -508,7 +544,7 @@ function driver() {
         <div className="container con">
           <div className="row" style={{ marginLeft: "50px" }}>
             <div
-              className="col-lg-4"
+              className="col-lg-4 align-self-top"
               style={{ marginTop: "150px", position: "relative" }}
             >
               <p className="pComing">COMING SOON</p>
@@ -547,6 +583,7 @@ function driver() {
                 ></img>
                 <img src="Image/phone.gif" className="img-fluid imgGif"></img>
               </div>
+              <p className="pMaasahan">MAAASAHAN</p>
             </div>
 
             <div
@@ -563,11 +600,11 @@ function driver() {
       </div>
 
       <div className="container-fluid conDriver2">
-      <img src = "Image/bar.png" className= "imgBar"></img>
+        <img src="Image/bar.png" className="imgBar"></img>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7">
-              <div style = {{marginRight: "0px"}}>
+              <div style={{ marginRight: "0px" }}>
                 <img
                   src="Image/logoblack.png"
                   className="img-fluid"
@@ -603,7 +640,7 @@ function driver() {
                   <div className="carousel-inner">
                     <div className="carousel-item active">
                       <p className="pCarouselTitle">Step 1</p>
-                      <p className = "pCarouselContent">
+                      <p className="pCarouselContent">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -615,7 +652,7 @@ function driver() {
                     </div>
                     <div className="carousel-item">
                       <p className="pCarouselTitle">Step 2</p>
-                      <p className = "pCarouselContent">
+                      <p className="pCarouselContent">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -627,7 +664,7 @@ function driver() {
                     </div>
                     <div className="carousel-item">
                       <p className="pCarouselTitle">Step 3</p>
-                      <p className = "pCarouselContent">
+                      <p className="pCarouselContent">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -641,8 +678,11 @@ function driver() {
                 </div>
               </div>
             </div>
-            <div className = "col-lg-5">
-              <img src = "Image/phonehand.png" className = "img-fluid mx-auto d-flex"></img>
+            <div className="col-lg-5">
+              <img
+                src="Image/phonehand.png"
+                className="img-fluid mx-auto d-flex"
+              ></img>
             </div>
           </div>
         </div>
@@ -773,6 +813,7 @@ function driver() {
                   <input
                     type="text"
                     className="txtDriver txtFname"
+                    value = {fname}
                     onChange={fname_change}
                   ></input>
                 </div>
@@ -781,6 +822,7 @@ function driver() {
                   <input
                     type="text"
                     className="txtDriver"
+                    value = {mname}
                     onChange={mname_change}
                   ></input>
                 </div>
@@ -788,6 +830,7 @@ function driver() {
                   <p className="pTxtDriver pLname">Last Name</p>
                   <input
                     type="text"
+                    value = {lname}
                     className="txtDriver txtLname"
                     onChange={lname_change}
                   ></input>
@@ -796,6 +839,7 @@ function driver() {
                   <p className="pTxtDriver pEmail">Email</p>
                   <input
                     type="text"
+                    value = {email}
                     className="txtDriver txtEmail"
                     onChange={email_change}
                   ></input>
@@ -804,6 +848,7 @@ function driver() {
                   <p className="pTxtDriver pMobile">Mobile Number</p>
                   <input
                     type="text"
+                    value = {mobile}
                     className="txtDriver txtMobile"
                     onChange={mobile_change}
                   ></input>
@@ -815,6 +860,7 @@ function driver() {
                   <p className="pTxtDriver">Address</p>
                   <input
                     type="text"
+                    value = {address}
                     className="txtDriver"
                     onChange={address_change}
                   ></input>
@@ -822,6 +868,7 @@ function driver() {
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Region</p>
                   <Select
+                  
                     options={regions_api}
                     onChange={HandleChangeRegion}
                     styles={customStyles1}
@@ -856,6 +903,7 @@ function driver() {
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Zip Code</p>
                   <input
+                  value = {zip}
                     type="text"
                     className="txtDriver"
                     onChange={zip_change}
@@ -867,15 +915,18 @@ function driver() {
                 <div className="col-lg-6">
                   <p className="pTxtDriver pPassword">Password</p>
                   <input
+                  value = {password}
                     type="password"
                     className="txtDriver txtPassword"
                     onChange={password_change}
                   ></input>
+                  <p className="pError">Password must be 6-16 characters.</p>
                 </div>
                 <div className="col-lg-6">
                   <p className="pTxtDriver pConfirmPass">Confirm Password</p>
                   <input
                     type="password"
+                    value = {passwordconfirm}
                     className="txtDriver txtConfirmPass"
                     onChange={passwordconfirm_change}
                   ></input>
@@ -887,6 +938,7 @@ function driver() {
                   <p className="pTxtDriver pVehicle">Vehicle Type</p>
                   <input
                     type="text"
+                    value = {vehicle}
                     className="txtDriver txtVehicle"
                     onChange={vehicle_change}
                   ></input>
@@ -895,6 +947,7 @@ function driver() {
                   <p className="pTxtDriver pPlate">Plate Number</p>
                   <input
                     type="text"
+                    value = {plateenumber}
                     className="txtDriver txtPlate"
                     onChange={plate_change}
                   ></input>
@@ -903,6 +956,7 @@ function driver() {
                   <p className="pTxtDriver pLisence">Lisence Number</p>
                   <input
                     type="text"
+                    value = {lisencenumber}
                     className="txtDriver txtLisence"
                     onChange={lisence_change}
                   ></input>

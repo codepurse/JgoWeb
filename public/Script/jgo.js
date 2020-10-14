@@ -6,7 +6,7 @@ $(document).ready(function () {
       $(".fixed-top").css("background", "transparent");
     } else {
       $(".fixed-top").css("background", "#1A1A1A");
-      $(".fixed-top").css("z-index", "99999999999999999999999999");
+      $(".fixed-top").css("z-index", "9");
     }
   });
 
