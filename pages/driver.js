@@ -7,6 +7,7 @@ import swal from "@sweetalert/with-react";
 
 function driver() {
   var clear = 0;
+  var submitClick = 0;
   const [fname, setfname] = React.useState("");
   const [lname, setlname] = React.useState("");
   const [mname, setmname] = React.useState("");
@@ -132,6 +133,7 @@ function driver() {
   const [cities_change, setCitiesChange] = React.useState("");
 
   function HandleChangeRegion(e) {
+   try {
     setRegionChange(e.value);
     const data = province
       .filter((person) => person.region === e.value)
@@ -141,23 +143,34 @@ function driver() {
         label: d.name,
       }));
     setProvince(data);
+   } catch(e) {
+
+   }
   }
 
   function HandleChangeProvince(e) {
-    setprovinced(e.label);
-    setProvinceChange(e.value);
-    const data = cities
-      .filter((person) => person.province === e.id)
-      .map((d) => ({
-        value: d.name,
-        label: d.name,
-      }));
-    setCities(data);
+    try {
+      setprovinced(e.label);
+      setProvinceChange(e.value);
+      const data = cities
+        .filter((person) => person.province === e.id)
+        .map((d) => ({
+          value: d.name,
+          label: d.name,
+        }));
+      setCities(data);
+    } catch(e) {
+      console.log(e); 
+    }
   }
 
   function HandleChangeCity(e) {
+   try {
     setcitydropdown(e.value.label);
     setcity(e.label);
+   }catch(e) {
+    console.log(e); 
+   }
   }
 
   function getData() {
@@ -204,12 +217,16 @@ function driver() {
     }
   }
   function mobile_change(e) {
+    const re = /^[0-9\b]+$/;
     $(".pMobile").css("color", "white");
     $(".txtMobile").css("borderColor", "#2c2c2c");
-    setmobile(e.target.value);
-    if (e.target.value) {
-      clear = 0;
-    }
+    if (e.target.value === '' || re.test(e.target.value)) {
+      setmobile(e.target.value);
+      if (e.target.value) {
+        clear = 0;
+      }
+   }
+   
   }
   function password_change(e) {
     $(".pPassword").css("color", "white");
@@ -266,36 +283,45 @@ function driver() {
 
   function submit(e) {
     e.preventDefault();
+   
+    if (submitClick == 1) {
+      return false;
+    }
     $(e.currentTarget).addClass("btn--loading");
     if (fname == "") {
       $(".pFname").css("color", "#d32f2f");
       $(".txtFname").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (lname == "") {
       $(".pLname").css("color", "#d32f2f");
       $(".txtLname").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (email == "") {
       $(".pEmail").css("color", "#d32f2f");
       $(".txtEmail").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (mobile == "") {
       $(".pMobile").css("color", "#d32f2f");
       $(".txtMobile").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (password == "") {
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
 
     if (passwordconfirm == "") {
@@ -303,38 +329,45 @@ function driver() {
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (lisencenumber == "") {
       $(".pLisence").css("color", "#d32f2f");
       $(".txtLisence").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (plateenumber == "") {
       $(".pPlate").css("color", "#d32f2f");
       $(".txtPlate").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (profile == "") {
       $(".divProfile").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (driver == "") {
       $(".divDriver").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (nbi == "") {
       $(".divNbi").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
     if (orcr == "") {
       $(".divOcr").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
 
     if (vehicle == "") {
@@ -342,6 +375,7 @@ function driver() {
       $(".txtVehicle").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
 
     if (password == passwordconfirm) {
@@ -352,6 +386,7 @@ function driver() {
       $(".txtPassword").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
+      submitClick = 0;
     }
 
     if (password.length < 6 || password.length > 16) {
@@ -362,11 +397,15 @@ function driver() {
       clear = 1;
       $(".btn").removeClass("btn--loading");
       $(".pError").show();
+      submitClick = 0;
     } else {
       $(".pError").hide();
+      submitClick = 0;
     }
 
     if (clear == 0) {
+      submitClick = 1;
+      console.log("submitting");
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -404,13 +443,15 @@ function driver() {
           successMessage();
           resetValue();
           $(".btn").removeClass("btn--loading");
+          submitClick = 0;
         })
         .catch((err) => {
           console.log(err);
-          $("#driverModal").css("z-index", "1");
+          $("#driverModal").css("z-index", "99");
           $(".modal-backdrop").hide();
           errorMessage();
           $(".btn").removeClass("btn--loading");
+          submitClick = 0;
         });
     }
   }
