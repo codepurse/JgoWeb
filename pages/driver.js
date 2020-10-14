@@ -799,7 +799,7 @@ function driver() {
               <p className="pModalTitle">Jgo - Driver registration form</p>
               <p className="pModalTitleSub">
                 Fill-up all the requird fields. After you submit we will send a
-                link to your email for driver online test.
+                link to your email for driver online training.
               </p>
               <hr
                 style={{
