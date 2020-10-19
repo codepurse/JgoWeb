@@ -76,17 +76,6 @@ function driver() {
     $(".divOcr").css("borderColor", "#2c2c2c");
   }
 
-  const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      border: "1px solid #707070",
-      boxShadow: "none",
-      borderRadius: "10px",
-      width: "115%",
-      padding: "4.5px",
-      marginTop: "5px",
-    }),
-  };
 
   const customStyles1 = {
     control: (base, state) => ({
@@ -585,7 +574,7 @@ function driver() {
         <div className="container con">
           <div className="row" style={{ marginLeft: "50px" }}>
             <div
-              className="col-lg-4 align-self-top"
+              className="col-lg-4 col-sm-12 col-12 align-self-top order-sm-2"
               style={{ marginTop: "150px", position: "relative" }}
             >
               <p className="pComing">COMING SOON</p>
@@ -614,7 +603,7 @@ function driver() {
               </div>
             </div>
             <div
-              className="col-lg-3"
+              className="col-lg-3 col-sm-12 col-12 order-sm-1"
               style={{ marginTop: "150px", position: "relative" }}
             >
               <div style={{ position: "relative" }}>
@@ -628,7 +617,7 @@ function driver() {
             </div>
 
             <div
-              className="col-lg-5"
+              className="col-lg-5 colDelivery "
               style={{ marginTop: "150px", position: "relative" }}
             >
               <img

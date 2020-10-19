@@ -145,7 +145,7 @@ export class login extends Component {
       .then((result) => {
         if (result.request.status == "200") {
           localStorage.setItem("token", JSON.stringify(result.data.data));
-          console.log(result);
+          console.log(result.data);
           document.getElementById("username").innerHTML =
             result.data.data.user.name;
           $(".colMain").hide();

@@ -1,3 +1,15 @@
+@media screen and (max-width: 500px) {
+    .imgDel, .colDelivery {
+        display: none !important;
+    }
+    .mainConDriver, .conDriver {
+        height: auto !important;
+    }
+
+    
+
+}
+
 @font-face {
     font-family: ProximaNovaBlack;
     src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
@@ -345,7 +357,8 @@ hr {
 /* map */
 
 .imgLogo {
-    width: 150px;
+    width: 120px;
+    margin-top: -15px;
 }
 
 .my-row li {
@@ -356,17 +369,25 @@ hr {
     white-space: nowrap;
     display: inline;
     padding: 5px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    float: right;
+}
+
+.my-row li:hover {
+    color: var(--maincolor);
 }
 
 .conMap {
-    background-color: #1C1C1C;
+    background-color: transparent;
     position: relative;
     padding-left: 50px !important;
 }
 
 .colLeft {
-    background-color: #1C1C1C;
+    background-color: transparent;
     padding-right: 50px !important;
+    padding-bottom: 40px;
 }
 
 .pPick {
@@ -396,25 +417,32 @@ hr {
     margin-left: 5%;
 }
 
-.txtName {
-    font-family: 'GilroyMedium';
+
+
+.txtAdditional  {
+    font-family: "GilroyMedium" !important;
+    color: white;
+    padding: 8px;
     width: 100%;
-    padding: 5px;
-    outline: none;
-    border-radius: 3px;
+    background-color: transparent;
+    border: 1px solid #2c2c2c;
+    border-radius: 5px;
     margin-top: 8px;
-    border: 0px;
+    outline: none !important;
+    caret-color: white;
+ 
+}
+
+.txtAdditional:focus {
+    border-color: #EDC728 !important;
+    background-color: #202225;
 }
 
 .txtNumber, .txtAdd {
-    font-family: 'GilroyMedium';
-    width: 100%;
-    padding: 5px;
-    outline: none;
     margin-top: 10px;
-    border-radius: 3px;
-    border: 0px;
 }
+
+
 
 .divAdd {
     display: none;
@@ -428,24 +456,25 @@ hr {
 }
 
 .boxCategory {
-    height: 85px;
+    height: 65px;
     width: 100%;
-    background-color: transparent;
+    background-color: #252424;
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid var(--maincolor);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
+    padding: 5px;
 }
 
 .imgCategory {
-    width: 20px;
+    width: 17px;
 }
 
 .pBoxCategory {
     font-family: 'Proxima', sans-serif;
     color: white;
-    font-size: 13px;
+    font-size: 0.7rem;
     margin-top: 10px;
     margin-bottom: 0px;
 }
@@ -484,16 +513,16 @@ hr {
 }
 
 .pAdditional {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'GilroyMedium';
     color: var(--maincolor);
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 400;
 }
 
 .boxAdditional {
     height: auto;
-    width: 150px;
-    background-color: transparent;
+    width: 100%;
+    background-color: #252424;
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid var(--maincolor);
     border-radius: 15px;
@@ -553,9 +582,9 @@ hr {
 }
 
 .divMap {
-    left: 50% !important;
+    left: 42% !important;
     top: 0%;
-    width: 50%;
+    width: 60%;
     height: 100vh;
 }
 
@@ -601,6 +630,27 @@ hr {
     filter: brightness(0) !important;
 }
 
+.pPayment {
+    font-family: 'GilroyMedium';
+    color: var(--maincolor);
+    font-size: 0.9rem;
+
+}
+
+.pPrice {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 2rem;
+    margin: 0px;
+    margin-top: -10px;
+}
+
+.pPriceSub {
+    font-family: 'GilroyMedium';
+    color: white;
+    margin-bottom: 0px;
+}
+
 .imgInstant {
     width: 250px;
     margin-top: 5px;
@@ -613,6 +663,17 @@ hr {
     float: right;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.btnBook {
+    font-family: 'GilroyMedium';
+    font-size: 0.9rem;
+    color: white;
+    border: 1px solid #FFFE00;
+    padding: 8px;
+    width: 170px;
+    border-radius: 25px;
+    background-color: transparent;
 }
 
 /*
@@ -690,6 +751,12 @@ hr {
     cursor: pointer;
 }
 
+.imgMap1 {
+    margin-left: -15px !important;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
 .imgDelete {
     margin-left: 10px !important;
     margin-top: 7px;
@@ -732,14 +799,14 @@ hr {
     font-family: 'GilroyBold';
     color: white;
     font-size: 0.9rem;
-    background-color: transparent;
+    background-color: #252424;
     margin-top: 15px;
     cursor: pointer;
     margin-bottom: 0px;
     border: 1px solid #EDC728;
     border-radius: 20px;
     padding: 10px;
-    width: 200px;
+    width: 170px;
     outline: none !important;
     margin-left: 5%;
     transition: all 0.1s;
@@ -842,7 +909,7 @@ hr {
     color: #FFFF3B;
     font-size: 3.4rem;
     text-align: center;
-    margin-left: -10%;   
+    margin-left: -10%;
 }
 
 .imgGif {
@@ -908,7 +975,6 @@ hr {
     width: 35px;
 }
 
-
 .conDriver2 {
     padding-bottom: 5%;
     padding-top: 5%;
@@ -949,10 +1015,9 @@ hr {
     width: 15px !important;
     height: 15px !important;
     border-radius: 50%;
-
 }
 
-.carousel-indicators .active{
+.carousel-indicators .active {
     background-color: #EDC728 !important;
 }
 
@@ -1031,7 +1096,7 @@ hr {
 .ulFooter {
     list-style-type: none;
     overflow: hidden;
-    float:right;
+    float: right;
 }
 
 .liFooter {
@@ -1057,8 +1122,6 @@ hr {
     color: white;
     font-size: 1rem;
 }
-
-
 
 .modal-header {
     background-color: #1A1A1A;

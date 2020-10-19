@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "../component/map/config";
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
@@ -7,9 +7,22 @@ import GooglePlacesAutocomplete, {
 import Custommap from "../component/custommap";
 import swal from "@sweetalert/with-react";
 import { useRouter } from "next/router";
+import axios from "axios";
+import AuthService from "../services/auth.service";
+
 export default function App() {
   const router = useRouter();
   var click;
+  const [tokenuser, setTokenuser] = React.useState("");
+  const [price, setPrice] = React.useState("");
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      const foundUser = JSON.parse(loggedInUser);
+      setTokenuser(foundUser.token);
+    }
+  }, []);
 
   function getAdd() {
     if (global.config.place.deliver.pickoff.includes("Metro Manila") === true) {
@@ -106,7 +119,60 @@ export default function App() {
       global.config.place.deliver.dropofflat = coordinatesDrop.lat;
       global.config.place.deliver.dropofflang = coordinatesDrop.lng;
       global.config.place.deliver.refresh = 1;
-      router.push("/map");
+
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          Authorization: "Bearer " + tokenuser,
+        },
+      };
+
+      let ratedata = new FormData();
+      ratedata.set("pick_up_latitude", coordinates.lat);
+      ratedata.set("pick_up_longitude", coordinates.lng)
+      ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinatesDrop.lat);
+      ratedata.set("drop_off_locations[0][drop_off_longitude]", coordinatesDrop.lng);
+      ratedata.set("drop_off_locations[0][booking_order]", "1");
+      ratedata.set("additional_services[0]", "1");
+
+      let formdata = new FormData();
+      formdata.set("customer_id", AuthService.getId());
+      formdata.set("booking_type_id", "2");
+      formdata.set("contact_name", "Alfon");
+      formdata.set("contact_number", "312321");
+      formdata.set("pick_up_address", address.label);
+      formdata.set("pick_up_latitude", coordinates.lat);
+      formdata.set("pick_up_longitude", coordinates.lng);
+  
+      formdata.set("drop_off_locations[0][drop_off_address]", addressDrop.label);
+      formdata.set("drop_off_locations[0][drop_off_latitude]", coordinatesDrop.lat);
+      formdata.set("drop_off_locations[0][drop_off_longitude]", coordinatesDrop.lng);
+      formdata.set("drop_off_locations[0][booking_order]", "1");
+      formdata.set("drop_off_locations[0][contact_name]", "karen");
+      formdata.set("drop_off_locations[0][contact_number]", "12321");
+      formdata.set("drop_off_locations[0][category_id]","1");
+      formdata.set("drop_off_locations[0][distance]", "5.382620231139828");
+      formdata.set("additional_services[0]", "1");
+
+      const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
+      const apiUrl = "http://localhost:8000/api/auth/booking";
+      
+      axios
+        .post(apiUrl_rate, ratedata, options)
+        .then((result) => {
+         formdata.set("price",result.data.price);
+         localStorage.setItem("price", result.data.price);
+         axios
+         .post(apiUrl, formdata, options)
+         .then((result) => {
+          
+         })
+         .catch((err) => {});
+        })
+        .catch((err) => {});
+        
+        
     }
   }
 
@@ -260,7 +326,7 @@ export default function App() {
         className="btnSubmit"
         value="SUBMIT"
         onClick={clickSubmit}
-         style ={{marginTop: "10px"}}
+        style={{ marginTop: "10px" }}
       ></input>
     </div>
   );

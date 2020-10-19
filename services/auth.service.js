@@ -25,6 +25,15 @@ class AuthService {
     }
   }
 
+  getId() {
+    const loggedInUser = localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      const foundUser = JSON.parse(loggedInUser);
+      const fname = foundUser.user.id;
+      return fname;
+    }
+  }
+
   checkLogin() {
     const loggedInUser = localStorage.getItem("token");
     if (loggedInUser) {

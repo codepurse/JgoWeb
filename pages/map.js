@@ -11,11 +11,60 @@ import GooglePlacesAutocomplete, {
 import Componentdidmount from "../component/componentdidmount";
 import Leaflet from "../component/map/leaflet";
 import swal from "@sweetalert/with-react";
+import AuthService from "../services/auth.service";
+import axios from "axios";
 
 export default function map() {
+  const [tokenuser, setTokenuser] = React.useState("");
   const router = useRouter();
   var places_data = coordinate;
   var click;
+
+  const customStyles1 = {
+    control: (base, state) => ({
+      ...base,
+      background: "transparent",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
+
+  const customStyles2 = {
+    control: (base, state) => ({
+      ...base,
+      background: "transparent",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "95%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
 
   {
     /* Passing localstorage value in pickoff, dropoff and map */
@@ -127,7 +176,7 @@ export default function map() {
               </div>
             </div>
           </div>
-          <div className="row align-items-center" style = {{marginTop: "20px"}}>
+          <div className="row align-items-center" style={{ marginTop: "20px" }}>
             <div className="col-lg-6">
               <img src="Image/instant.svg" className="img-fluid" />
             </div>
@@ -144,6 +193,11 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      const foundUser = JSON.parse(loggedInUser);
+      setTokenuser(foundUser.token);
+    }
     setAddress({
       value: localStorage.getItem("address"),
       label: localStorage.getItem("address"),
@@ -152,11 +206,15 @@ export default function map() {
       value: localStorage.getItem("addressDrop"),
       label: localStorage.getItem("addressDrop"),
     });
+    var price_total = localStorage.getItem("price");
+    setPrice(Number(price_total).toFixed(2));
+    console.log(localStorage.getItem("price"));
   }, []);
 
   {
     /* All array and variables needed */
   }
+  const [price, setPrice] = React.useState("");
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressDrop1, setAddressDrop1] = React.useState("");
@@ -195,6 +253,7 @@ export default function map() {
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
+          getRate();
         router.push("");
       } catch (err) {
         const destination = {
@@ -205,6 +264,7 @@ export default function map() {
         };
         coordinate.push(destination);
         console.log(coordinate);
+        getRate();
         router.push("");
       }
     } else {
@@ -249,6 +309,7 @@ export default function map() {
           (places_data[objIndex].lng = latLng.lng),
           console.log(coordinate);
         router.push("");
+        getRate();
       } catch (err) {
         const destination = {
           lat: latLng.lat,
@@ -256,6 +317,7 @@ export default function map() {
           id: "2",
         };
         coordinate.push(destination);
+        getRate();
         router.push("");
       }
     } else {
@@ -417,6 +479,162 @@ export default function map() {
     router.push("");
   }
 
+
+  function getRate() {
+    let ratedata = new FormData();
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
+    ratedata.set(
+      "drop_off_locations[0][drop_off_longitude]",
+      coordinate[1].lng
+    );
+    ratedata.set("drop_off_locations[0][booking_order]", "1");
+    ratedata.set("additional_services[0]", "");
+
+    if (coordinate[2]) {
+      ratedata.set(
+        "drop_off_locations[1][drop_off_latitude]",
+        coordinate[2].lat
+      );
+      ratedata.set(
+        "drop_off_locations[1][drop_off_longitude]",
+        coordinate[2].lng
+      );
+      ratedata.set("drop_off_locations[1][booking_order]", "");
+      ratedata.set("additional_services[1]", "");
+    }
+    if (coordinate[3]) {
+      ratedata.set(
+        "drop_off_locations[2][drop_off_latitude]",
+        coordinate[3].lat
+      );
+      ratedata.set(
+        "drop_off_locations[2][drop_off_longitude]",
+        coordinate[3].lng
+      );
+      ratedata.set("drop_off_locations[2][booking_order]", "");
+      ratedata.set("additional_services[2]", "");
+    }
+
+    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + tokenuser,
+      },
+    };
+    
+    axios
+      .post(apiUrl_rate, ratedata, options)
+      .then((result) => {
+        var price = result.data.price;
+        setPrice(Number(price).toFixed(2));
+     
+      })
+      .catch((err) => {});
+  }
+
+  function btnPlaceorder() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + tokenuser,
+      },
+    };
+
+    let ratedata = new FormData();
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
+    ratedata.set(
+      "drop_off_locations[0][drop_off_longitude]",
+      coordinate[1].lng
+    );
+    ratedata.set("drop_off_locations[0][booking_order]", "1");
+    ratedata.set("additional_services[0]", "");
+
+    if (coordinate[2]) {
+      ratedata.set(
+        "drop_off_locations[1][drop_off_latitude]",
+        coordinate[2].lat
+      );
+      ratedata.set(
+        "drop_off_locations[1][drop_off_longitude]",
+        coordinate[2].lng
+      );
+      ratedata.set("drop_off_locations[1][booking_order]", "");
+      ratedata.set("additional_services[1]", "");
+    }
+    if (coordinate[3]) {
+      ratedata.set(
+        "drop_off_locations[2][drop_off_latitude]",
+        coordinate[3].lat
+      );
+      ratedata.set(
+        "drop_off_locations[2][drop_off_longitude]",
+        coordinate[3].lng
+      );
+      ratedata.set("drop_off_locations[2][booking_order]", "");
+      ratedata.set("additional_services[2]", "");
+      
+    }
+
+    let formdata = new FormData();
+    formdata.set("customer_id", AuthService.getId());
+    formdata.set("booking_type_id", "2");
+    formdata.set("contact_name", "Alfon");
+    formdata.set("contact_number", "312321");
+    formdata.set("pick_up_address", address.label);
+    formdata.set("pick_up_latitude", coordinate[0].lat);
+    formdata.set("pick_up_longitude", coordinate[0].lng);
+
+    formdata.set("drop_off_locations[0][drop_off_address]", addressDrop.label);
+    formdata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
+    formdata.set(
+      "drop_off_locations[0][drop_off_longitude]",
+      coordinate[1].lng
+    );
+    formdata.set("drop_off_locations[0][booking_order]", "1");
+    formdata.set("drop_off_locations[0][contact_name]", "karen");
+    formdata.set("drop_off_locations[0][contact_number]", "12321");
+    formdata.set("drop_off_locations[0][category_id]", "1");
+    formdata.set("drop_off_locations[0][distance]", "5.382620231139828");
+    formdata.set("additional_services[0]", "1");
+
+    if (coordinate[2]) {
+      formdata.set("drop_off_locations[1][drop_off_address]", addressDrop1.label);
+      formdata.set("drop_off_locations[1][drop_off_latitude]", coordinate[2].lat);
+      formdata.set(
+        "drop_off_locations[1][drop_off_longitude]",
+        coordinate[2].lng
+      );  
+      formdata.set("drop_off_locations[1][booking_order]", "2");
+      formdata.set("drop_off_locations[1][contact_name]", "Mark");
+      formdata.set("drop_off_locations[1][contact_number]", "12321");
+      formdata.set("drop_off_locations[1][category_id]", "1");
+      formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
+      formdata.set("additional_services[1]", "1");
+    }
+
+    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
+    const apiUrl = "http://localhost:8000/api/auth/booking";
+
+    axios
+      .post(apiUrl_rate, ratedata, options)
+      .then((result) => {
+        formdata.set("price",result.data.price);
+        var price = result.data.price;
+        setPrice(Number(price).toFixed(2));
+        axios
+          .post(apiUrl, formdata, options)
+          .then((result) => {})
+          .catch((err) => {});
+      })
+      .catch((err) => {});
+  }
   return (
     <>
       <Header></Header>
@@ -424,7 +642,7 @@ export default function map() {
         <Componentdidmount></Componentdidmount>
 
         <div className="row">
-          <div className="col-lg-6 colLeft">
+          <div className="col-lg-5 colLeft">
             <div
               className="row align-items-center"
               style={{ padding: "40px 0px" }}
@@ -434,10 +652,8 @@ export default function map() {
               </div>
               <div className="col-lg-8">
                 <ul className="my-row">
-                  <li>HOME</li>
-                  <li>DELIVER</li>
-                  <li>CONTACT</li>
                   <li>LOGIN</li>
+                  <li>HOME</li>
                 </ul>
               </div>
             </div>
@@ -448,9 +664,9 @@ export default function map() {
               <img
                 src="Image/mapgps.svg"
                 className="img-fluid"
-                style={{ marginRight: "10px" }}
+                style={{ marginRight: "10px", width: "18px" }}
               ></img>{" "}
-              Pick Up Location
+              Pickup
             </p>
             <div onClick={() => (click = 1)}>
               <div
@@ -462,6 +678,7 @@ export default function map() {
                     instanceId: "1",
                     value: address,
                     onChange: handleChange,
+                    styles: customStyles1,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -476,13 +693,12 @@ export default function map() {
                 ></img>
               </div>
               <div className="divHide">
-                <p className="pAdd">&#x2b; Add details</p>
                 <div className="divAdd">
                   <div className="row">
                     <div className="col-lg-12">
                       <input
                         type="text"
-                        className="txtName"
+                        className="txtName txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -490,7 +706,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber"
+                        className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -498,13 +714,14 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber"
+                        className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueAdd(evt)}
                         placeholder="Blk/Floor/Unit"
                       />
                     </div>
                   </div>
                 </div>
+                <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
 
@@ -516,7 +733,7 @@ export default function map() {
                 className="img-fluid"
                 style={{ marginRight: "15px" }}
               ></img>
-              Drop Off Location
+              Dropoff
             </p>
             <div onClick={() => (click = 2)}>
               <div
@@ -528,6 +745,7 @@ export default function map() {
                     instanceId: "2",
                     value: addressDrop,
                     onChange: handleChangeDrop,
+                    styles: customStyles1,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -542,21 +760,20 @@ export default function map() {
                 ></img>
               </div>
               <div className="divHide">
-                <p className="pAdd">&#x2b; Add details</p>
                 <div className="divAdd">
                   <div className="row">
                     <div className="col-lg-12">
                       <input
                         type="text"
                         onChange={(evt) => updateInputValue(evt)}
-                        className="txtName"
+                        className="txtName txtAdditional"
                         placeholder="Name"
                       ></input>
                     </div>
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber"
+                        className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -564,13 +781,14 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtAdd"
+                        className="txtAdd txtAdditional"
                         onChange={(evt) => updateInputAdd(evt)}
                         placeholder="Blk/Floor/Unit"
                       />
                     </div>
                   </div>
                 </div>
+                <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
 
@@ -592,13 +810,14 @@ export default function map() {
 
               <div
                 className="form-inline"
-                style={{ width: "95%", marginLeft: "5%" }}
+                style={{ width: "100%", marginLeft: "5%" }}
               >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "3",
                     value: addressDrop1,
                     onChange: handleChangeDrop1,
+                    styles: customStyles2,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -608,7 +827,7 @@ export default function map() {
                 />
                 <img
                   src="Image/google-maps.png"
-                  className="img-fluid imgMap"
+                  className="img-fluid imgMap1"
                 ></img>
                 <img
                   src="Image/remove.png"
@@ -667,13 +886,14 @@ export default function map() {
 
               <div
                 className="form-inline"
-                style={{ width: "95%", marginLeft: "5%" }}
+                style={{ width: "100%", marginLeft: "5%" }}
               >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "4",
                     value: addressDrop2,
                     onChange: handleChangeDrop2,
+                    styles: customStyles2,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -683,7 +903,7 @@ export default function map() {
                 />
                 <img
                   src="Image/google-maps.png"
-                  className="img-fluid imgMap"
+                  className="img-fluid imgMap1"
                 ></img>
                 <img
                   src="Image/remove.png"
@@ -724,13 +944,15 @@ export default function map() {
               </div>
             </div>
             <button className="btnAddStopoff">Add Stop-off</button>
-            <p className="pNote">Note: Delivery only within Metro Manila</p>
+            <p className="pNote" style={{ display: "none" }}>
+              Note: Delivery only within Metro Manila
+            </p>
             <div className="divCategory">
-              <p className="pPick" style={{ fontSize: "1rem" }}>
+              <p className="pPick" style={{ fontSize: "0.9rem" }}>
                 Category
               </p>
               <div className="row">
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -741,7 +963,7 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -752,7 +974,7 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -763,7 +985,7 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -774,7 +996,7 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -785,7 +1007,7 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
                       <img
@@ -805,32 +1027,56 @@ export default function map() {
               </div>
               <div className="row" style={{ marginTop: "30px" }}>
                 <div className="col-lg-12">
-                  <p className="pAdditional">Additional Services</p>
+                  <p className="pAdditional" style={{ fontSize: "0.9rem" }}>
+                    Additional Services
+                  </p>
                 </div>
-                <div className="col-lg-3 p-1">
+                <div className="col-lg-3">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox">Insulated Box</p>
                   </div>
                 </div>
-                <div className="col-lg-3 p-1">
+                <div className="col-lg-3 ">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox">Cash Handling</p>
                   </div>
                 </div>
-                <div className="col-lg-3 p-1">
+                <div className="col-lg-3 ">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox">Queueing Service</p>
+                    <p className="pAdditonalBox">Queueing</p>
                   </div>
                 </div>
-                <div className="col-lg-3 p-1">
+                <div className="col-lg-3 ">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox">Pabili Service</p>
                   </div>
                 </div>
               </div>
+              <div className="row " style={{ marginTop: "20px" }}>
+                <div className="col-lg-12">
+                  <p className="pPayment">Payment</p>
+                </div>
+                <div className="col-lg-2">
+                  <img
+                    src="Image/credit-card.png"
+                    className="img-fluid"
+                    style={{ width: "30px", marginLeft: "18px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10">
+                  <p className="pPrice">&#8369;{price}</p>
+                  <p className="pPriceSub">
+                    This is your final payment, please confirm your destination
+                    and go proceed to payment page.
+                  </p>
+                  <button className="btnBook" onClick={btnPlaceorder}>
+                    Place order
+                  </button>
+                </div>
+              </div>
               <div
                 className="row"
-                style={{ marginTop: "25px", padding: "0px" }}
+                style={{ marginTop: "25px", padding: "0px", display: "none" }}
               >
                 <div className="col-lg-6" style={{ paddingLeft: "0px;" }}>
                   <div className="form-inline">
@@ -858,7 +1104,7 @@ export default function map() {
               </div>
             </div>
           </div>
-          <div className="col-lg-6 colMap">
+          <div className="col-lg-7 colMap">
             <div className="divMap fixed-top">
               <Googlemap></Googlemap>
             </div>
