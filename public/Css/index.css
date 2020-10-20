@@ -1024,7 +1024,7 @@ hr {
 .conStep {
     padding-bottom: 5%;
     padding-top: 5%;
-    background-color: #747474;
+    background-color: #F0F0F0;
 }
 
 .imgStep {
@@ -1032,16 +1032,17 @@ hr {
 }
 
 .divStep {
-    background-color: #9A9A9A;
+    background-color: white;
     border-radius: 20px;
     width: 100%;
     padding: 25px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #323232;
 }
 
 .pStepTitle {
     font-family: 'ProximaNovaBlack', sans-serif;
-    color: #FFFF3B;
+    color: #898989;
     font-size: 2rem;
     text-align: center;
     margin-top: 20px;
@@ -1049,7 +1050,7 @@ hr {
 
 .pStepsub {
     font-family: 'ProximaNova', sans-serif;
-    color: white;
+    color: #898989;
     text-align: center;
     margin-top: -5px;
 }
@@ -1061,7 +1062,7 @@ hr {
 
 .pAboutus {
     font-family: 'ProximaNovaBlack', sans-serif;
-    color: #FFFF3B;
+    color: #898989;
     font-size: 3rem;
 }
 

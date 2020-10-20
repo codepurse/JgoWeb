@@ -539,6 +539,7 @@ export default function map() {
   }
 
   function btnPlaceorder() {
+    console.log(coordinate[0].detailsname);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -585,11 +586,9 @@ export default function map() {
 
     let formdata = new FormData();
     formdata.set("customer_id", AuthService.getId());
-    formdata.set("booking_type_id", "2");
-    try {
-      formdata.set("contact_name", coordinate[0].detailsname);
-      formdata.set("contact_number", coordinate[0].detailsnumber);
-    } catch (e) {}
+    formdata.set("booking_type_id", "1");
+    formdata.set("contact_name", coordinate[0].detailsname);
+    formdata.set("contact_number", coordinate[0].detailsnumber);
     formdata.set("pick_up_address", address.label);
     formdata.set("pick_up_latitude", coordinate[0].lat);
     formdata.set("pick_up_longitude", coordinate[0].lng);
@@ -601,10 +600,10 @@ export default function map() {
       coordinate[1].lng
     );
     formdata.set("drop_off_locations[0][booking_order]", "1");
-    formdata.set("drop_off_locations[0][contact_name]", "karen");
-    formdata.set("drop_off_locations[0][contact_number]", "12321");
+    formdata.set("drop_off_locations[0][contact_name]", coordinate[1].detailsname);
+    formdata.set("drop_off_locations[0][contact_number]", coordinate[1].detailsnumber);
     formdata.set("drop_off_locations[0][category_id]", "1");
-    formdata.set("drop_off_locations[0][distance]", "5.382620231139828");
+    formdata.set("drop_off_locations[0][distance]", "5.4");
     formdata.set("additional_services[0]", "1");
 
     if (coordinate[2]) {
@@ -621,8 +620,29 @@ export default function map() {
         coordinate[2].lng
       );
       formdata.set("drop_off_locations[1][booking_order]", "2");
-      formdata.set("drop_off_locations[1][contact_name]", "Mark");
-      formdata.set("drop_off_locations[1][contact_number]", "12321");
+      formdata.set("drop_off_locations[1][contact_name]", coordinate[2].detailsname);
+      formdata.set("drop_off_locations[1][contact_number]", coordinate[2].detailsnumber);
+      formdata.set("drop_off_locations[1][category_id]", "1");
+      formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
+      formdata.set("additional_services[1]", "1");
+    }
+
+    if (coordinate[3]) {
+      formdata.set(
+        "drop_off_locations[1][drop_off_address]",
+       addressDrop2.label
+      );
+      formdata.set(
+        "drop_off_locations[1][drop_off_latitude]",
+        coordinate[3].lat
+      );
+      formdata.set(
+        "drop_off_locations[1][drop_off_longitude]",
+        coordinate[3].lng
+      );
+      formdata.set("drop_off_locations[1][booking_order]", "3");
+      formdata.set("drop_off_locations[1][contact_name]", coordinate[3].detailsname);
+      formdata.set("drop_off_locations[1][contact_number]", coordinate[3].detailsnumber);
       formdata.set("drop_off_locations[1][category_id]", "1");
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
       formdata.set("additional_services[1]", "1");
@@ -845,21 +865,21 @@ export default function map() {
                 ></img>
               </div>
               <div className="divHide">
-                <p className="pAdd">&#x2b; Add details</p>
+                
                 <div className="divAdd">
                   <div className="row">
                     <div className="col-lg-12">
                       <input
                         type="text"
                         onChange={(evt) => updateInputValue(evt)}
-                        className="txtName"
+                        className="txtName txtAdditional"
                         placeholder="Name"
                       ></input>
                     </div>
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber"
+                        className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -867,13 +887,14 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtAdd"
+                        className="txtAdd txtAdditional"
                         onChange={(evt) => updateInputAdd(evt)}
                         placeholder="Blk/Floor/Unit"
                       />
                     </div>
                   </div>
                 </div>
+                <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
 
@@ -928,22 +949,22 @@ export default function map() {
                       <input
                         type="text"
                         onChange={(evt) => updateInputValue(evt)}
-                        className="txtName"
+                        className="txtName txtAdditional"
                         placeholder="Name"
                       ></input>
                     </div>
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber"
+                        className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number"
+                        placeholder="Contact Number txtAdditional"
                       />
                     </div>
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtAdd"
+                        className="txtAdd txtAdditional"
                         onChange={(evt) => updateInputAdd(evt)}
                         placeholder="Blk/Floor/Unit"
                       />

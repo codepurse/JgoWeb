@@ -613,7 +613,7 @@ function driver() {
                 ></img>
                 <img src="Image/phone.gif" className="img-fluid imgGif"></img>
               </div>
-              <p className="pMaasahan">MAAASAHAN</p>
+             
             </div>
 
             <div
