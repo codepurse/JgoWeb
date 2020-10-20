@@ -568,7 +568,7 @@ export default function map() {
         "drop_off_locations[1][drop_off_longitude]",
         coordinate[2].lng
       );
-      ratedata.set("drop_off_locations[1][booking_order]", "");
+      ratedata.set("drop_off_locations[1][booking_order]", "2");
       ratedata.set("additional_services[1]", "");
     }
     if (coordinate[3]) {
@@ -580,7 +580,7 @@ export default function map() {
         "drop_off_locations[2][drop_off_longitude]",
         coordinate[3].lng
       );
-      ratedata.set("drop_off_locations[2][booking_order]", "");
+      ratedata.set("drop_off_locations[2][booking_order]", "3");
       ratedata.set("additional_services[2]", "");
     }
 
@@ -629,23 +629,23 @@ export default function map() {
 
     if (coordinate[3]) {
       formdata.set(
-        "drop_off_locations[1][drop_off_address]",
+        "drop_off_locations[2][drop_off_address]",
        addressDrop2.label
       );
       formdata.set(
-        "drop_off_locations[1][drop_off_latitude]",
+        "drop_off_locations[2][drop_off_latitude]",
         coordinate[3].lat
       );
       formdata.set(
-        "drop_off_locations[1][drop_off_longitude]",
+        "drop_off_locations[2][drop_off_longitude]",
         coordinate[3].lng
       );
-      formdata.set("drop_off_locations[1][booking_order]", "3");
-      formdata.set("drop_off_locations[1][contact_name]", coordinate[3].detailsname);
-      formdata.set("drop_off_locations[1][contact_number]", coordinate[3].detailsnumber);
-      formdata.set("drop_off_locations[1][category_id]", "1");
-      formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
-      formdata.set("additional_services[1]", "1");
+      formdata.set("drop_off_locations[2][booking_order]", "3");
+      formdata.set("drop_off_locations[2][contact_name]", coordinate[3].detailsname);
+      formdata.set("drop_off_locations[2][contact_number]", coordinate[3].detailsnumber);
+      formdata.set("drop_off_locations[2][category_id]", "1");
+      formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
+      formdata.set("additional_services[2]", "1");
     }
 
     const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";

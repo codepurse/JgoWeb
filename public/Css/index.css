@@ -58,12 +58,12 @@
 body, html {
     width: 100%;
     height: 100%;
-    background-color: #1A1A1A;
+    background-color: #1E2025;
 }
 
 #__next {
     height: 100%;
-    background-color: #1A1A1A;
+    background-color: #1E2025;
 }
 
 .mainCon {
@@ -584,7 +584,7 @@ hr {
 .divMap {
     left: 42% !important;
     top: 0%;
-    width: 60%;
+    width: 58%;
     height: 100vh;
 }
 
@@ -1258,14 +1258,14 @@ input[type="file"] {
 
 .rowTop {
     padding-top: 20px;
-    background-color: #2c2c2c;
+    background-color: #1E2025;
     padding-bottom: 20px;
-    border-bottom: 2px solid #414141;
+    border-bottom: 1px solid #414141;
 }
 
 .divSidebar {
     border-right: 2px solid #414141;
-    background-color: #2C2C2C;
+    background-color: #1E2025;
     width: 50px;
     height: 100vh;
     position: absolute;
@@ -1333,9 +1333,9 @@ ul.no-bullets>li:hover {
 .btnLogout {
     font-family: 'Proxima', sans-serif;
     color: white;
-    border: 0px;
-    background-color: #EDC728;
-    border-radius: 5px;
+    border: 1px solid #FFE900;
+    background-color: transparent;
+    border-radius: 8px;
     padding: 5px 15px;
     margin-right: 10px;
     box-shadow: 0px 5px 20px rgba(237, 199, 40, 0.1);
@@ -1353,6 +1353,16 @@ ul.no-bullets>li:hover {
     color: white;
     font-size: 2rem;
 }
+
+.rowBooking {
+    padding-left: 55px;
+}
+
+
+
+
+
+
 
 @keyframes stretch {
     0% {

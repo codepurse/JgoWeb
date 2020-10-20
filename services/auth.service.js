@@ -16,6 +16,15 @@ class AuthService {
     }
   }
 
+  getImage() {
+    const loggedInUser = localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      const foundUser = JSON.parse(loggedInUser);
+      const fname = foundUser.user.fname;
+      return fname;
+    }
+  }
+
   getFullname() {
     const loggedInUser = localStorage.getItem("token");
     if (localStorage.getItem("token")) {

@@ -77,7 +77,9 @@ export default function profile() {
           </ul>
           <hr  className = "hrDashboard"></hr>
          </div>
-         <div className = "col-lg-12">
+       </div>
+       <div className = "row rowBooking">
+       <div className = "col-lg-12">
            <p className = "pTitleDashboard">General Information</p>
            <div className = "row">
              
