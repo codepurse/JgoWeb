@@ -76,7 +76,6 @@ function driver() {
     $(".divOcr").css("borderColor", "#2c2c2c");
   }
 
-
   const customStyles1 = {
     control: (base, state) => ({
       ...base,
@@ -122,19 +121,17 @@ function driver() {
   const [cities_change, setCitiesChange] = React.useState("");
 
   function HandleChangeRegion(e) {
-   try {
-    setRegionChange(e.value);
-    const data = province
-      .filter((person) => person.region === e.value)
-      .map((d) => ({
-        id: d.key,
-        value: d.key,
-        label: d.name,
-      }));
-    setProvince(data);
-   } catch(e) {
-
-   }
+    try {
+      setRegionChange(e.value);
+      const data = province
+        .filter((person) => person.region === e.value)
+        .map((d) => ({
+          id: d.key,
+          value: d.key,
+          label: d.name,
+        }));
+      setProvince(data);
+    } catch (e) {}
   }
 
   function HandleChangeProvince(e) {
@@ -148,18 +145,18 @@ function driver() {
           label: d.name,
         }));
       setCities(data);
-    } catch(e) {
-      console.log(e); 
+    } catch (e) {
+      console.log(e);
     }
   }
 
   function HandleChangeCity(e) {
-   try {
-    setcitydropdown(e.value.label);
-    setcity(e.label);
-   }catch(e) {
-    console.log(e); 
-   }
+    try {
+      setcitydropdown(e.value.label);
+      setcity(e.label);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function getData() {
@@ -209,13 +206,12 @@ function driver() {
     const re = /^[0-9\b]+$/;
     $(".pMobile").css("color", "white");
     $(".txtMobile").css("borderColor", "#2c2c2c");
-    if (e.target.value === '' || re.test(e.target.value)) {
+    if (e.target.value === "" || re.test(e.target.value)) {
       setmobile(e.target.value);
       if (e.target.value) {
         clear = 0;
       }
-   }
-   
+    }
   }
   function password_change(e) {
     $(".pPassword").css("color", "white");
@@ -272,7 +268,7 @@ function driver() {
 
   function submit(e) {
     e.preventDefault();
-   
+
     if (submitClick == 1) {
       return false;
     }
@@ -613,7 +609,6 @@ function driver() {
                 ></img>
                 <img src="Image/phone.gif" className="img-fluid imgGif"></img>
               </div>
-             
             </div>
 
             <div
@@ -723,32 +718,47 @@ function driver() {
           <div className="row">
             <div className="col-lg-4">
               <div className="divStep">
-                <img src="Image/step1.jpg" className="img-fluid imgStep"></img>
-                <p className="pStepTitle">RIDER</p>
-                <p className="pStepsub">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor.
-                </p>
+                <div className="divInside">
+                  <img
+                    src="Image/step1.jpg"
+                    className="img-fluid imgStep"
+                  ></img>
+                  <p className="pStepTitle">RIDER</p>
+                  <p className="pStepsub">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor.
+                  </p>
+                </div>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="divStep">
-                <img src="Image/step2.jpg" className="img-fluid imgStep"></img>
-                <p className="pStepTitle">DELIVER</p>
-                <p className="pStepsub">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor.
-                </p>
+                <div className="divInside">
+                  <img
+                    src="Image/step2.jpg"
+                    className="img-fluid imgStep"
+                  ></img>
+                  <p className="pStepTitle">DELIVER</p>
+                  <p className="pStepsub">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor.
+                  </p>
+                </div>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="divStep">
-                <img src="Image/step3.jpg" className="img-fluid imgStep"></img>
-                <p className="pStepTitle">FAQS</p>
-                <p className="pStepsub">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor.
-                </p>
+                <div className="divInside">
+                  <img
+                    src="Image/step3.jpg"
+                    className="img-fluid imgStep"
+                  ></img>
+                  <p className="pStepTitle">FAQS</p>
+                  <p className="pStepsub">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -843,7 +853,7 @@ function driver() {
                   <input
                     type="text"
                     className="txtDriver txtFname"
-                    value = {fname}
+                    value={fname}
                     onChange={fname_change}
                   ></input>
                 </div>
@@ -852,7 +862,7 @@ function driver() {
                   <input
                     type="text"
                     className="txtDriver"
-                    value = {mname}
+                    value={mname}
                     onChange={mname_change}
                   ></input>
                 </div>
@@ -860,7 +870,7 @@ function driver() {
                   <p className="pTxtDriver pLname">Last Name</p>
                   <input
                     type="text"
-                    value = {lname}
+                    value={lname}
                     className="txtDriver txtLname"
                     onChange={lname_change}
                   ></input>
@@ -869,7 +879,7 @@ function driver() {
                   <p className="pTxtDriver pEmail">Email</p>
                   <input
                     type="text"
-                    value = {email}
+                    value={email}
                     className="txtDriver txtEmail"
                     onChange={email_change}
                   ></input>
@@ -878,7 +888,7 @@ function driver() {
                   <p className="pTxtDriver pMobile">Mobile Number</p>
                   <input
                     type="text"
-                    value = {mobile}
+                    value={mobile}
                     className="txtDriver txtMobile"
                     onChange={mobile_change}
                   ></input>
@@ -890,7 +900,7 @@ function driver() {
                   <p className="pTxtDriver">Address</p>
                   <input
                     type="text"
-                    value = {address}
+                    value={address}
                     className="txtDriver"
                     onChange={address_change}
                   ></input>
@@ -898,7 +908,6 @@ function driver() {
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Region</p>
                   <Select
-                  
                     options={regions_api}
                     onChange={HandleChangeRegion}
                     styles={customStyles1}
@@ -933,7 +942,7 @@ function driver() {
                 <div className="col-lg-4">
                   <p className="pTxtDriver">Zip Code</p>
                   <input
-                  value = {zip}
+                    value={zip}
                     type="text"
                     className="txtDriver"
                     onChange={zip_change}
@@ -945,7 +954,7 @@ function driver() {
                 <div className="col-lg-6">
                   <p className="pTxtDriver pPassword">Password</p>
                   <input
-                  value = {password}
+                    value={password}
                     type="password"
                     className="txtDriver txtPassword"
                     onChange={password_change}
@@ -956,7 +965,7 @@ function driver() {
                   <p className="pTxtDriver pConfirmPass">Confirm Password</p>
                   <input
                     type="password"
-                    value = {passwordconfirm}
+                    value={passwordconfirm}
                     className="txtDriver txtConfirmPass"
                     onChange={passwordconfirm_change}
                   ></input>
@@ -968,7 +977,7 @@ function driver() {
                   <p className="pTxtDriver pVehicle">Vehicle Type</p>
                   <input
                     type="text"
-                    value = {vehicle}
+                    value={vehicle}
                     className="txtDriver txtVehicle"
                     onChange={vehicle_change}
                   ></input>
@@ -977,7 +986,7 @@ function driver() {
                   <p className="pTxtDriver pPlate">Plate Number</p>
                   <input
                     type="text"
-                    value = {plateenumber}
+                    value={plateenumber}
                     className="txtDriver txtPlate"
                     onChange={plate_change}
                   ></input>
@@ -986,7 +995,7 @@ function driver() {
                   <p className="pTxtDriver pLisence">Lisence Number</p>
                   <input
                     type="text"
-                    value = {lisencenumber}
+                    value={lisencenumber}
                     className="txtDriver txtLisence"
                     onChange={lisence_change}
                   ></input>

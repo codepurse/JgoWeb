@@ -56,6 +56,12 @@ $(document).ready(function () {
   slideimg();
 
 
-    
+  $(".divStep").click(function () {
+    $(".divStep").removeClass("divStepActive");
+    $(".divStep").find(".divInside").removeClass("divInsideActive");
+    $(this).addClass("divStepActive");
+    $(this).find(".divInside").addClass("divInsideActive");
+  });
+
 
 });
