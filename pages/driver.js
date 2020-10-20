@@ -574,7 +574,7 @@ function driver() {
         <div className="container con">
           <div className="row" style={{ marginLeft: "50px" }}>
             <div
-              className="col-lg-4 col-sm-12 col-12 align-self-top order-sm-2"
+              className="col-lg-4 col-sm-12 col-12 align-self-top "
               style={{ marginTop: "150px", position: "relative" }}
             >
               <p className="pComing">COMING SOON</p>
@@ -603,7 +603,7 @@ function driver() {
               </div>
             </div>
             <div
-              className="col-lg-3 col-sm-12 col-12 order-sm-1"
+              className="col-lg-3 col-sm-12 col-12"
               style={{ marginTop: "150px", position: "relative" }}
             >
               <div style={{ position: "relative" }}>
@@ -621,7 +621,7 @@ function driver() {
               style={{ marginTop: "150px", position: "relative" }}
             >
               <img
-                src="Image/deliveryguy.png"
+                src="Image/boy.png"
                 className="img-fluid imgDel mx-auto d-flex"
               ></img>
             </div>

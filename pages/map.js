@@ -253,8 +253,8 @@ export default function map() {
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
-          getRate();
         router.push("");
+        getRate();
       } catch (err) {
         const destination = {
           address: value.label,
@@ -264,8 +264,8 @@ export default function map() {
         };
         coordinate.push(destination);
         console.log(coordinate);
-        getRate();
         router.push("");
+        getRate();
       }
     } else {
       swal(
@@ -358,6 +358,7 @@ export default function map() {
         (places_data[objIndex].lng = latLng.lng),
         console.log(coordinate);
       router.push("");
+      getRate();
     } catch (err) {
       const destination = {
         lat: latLng.lat,
@@ -366,6 +367,7 @@ export default function map() {
       };
       coordinate.push(destination);
       router.push("");
+      getRate();
     }
   };
 
@@ -383,6 +385,7 @@ export default function map() {
         (places_data[objIndex].lng = latLng.lng),
         console.log(coordinate);
       router.push("");
+      getRate();
     } catch (err) {
       const destination = {
         lat: latLng.lat,
@@ -391,6 +394,7 @@ export default function map() {
       };
       coordinate.push(destination);
       router.push("");
+      getRate();
     }
   };
 
@@ -479,7 +483,6 @@ export default function map() {
     router.push("");
   }
 
-
   function getRate() {
     let ratedata = new FormData();
     ratedata.set("pick_up_latitude", coordinate[0].lat);
@@ -501,7 +504,7 @@ export default function map() {
         "drop_off_locations[1][drop_off_longitude]",
         coordinate[2].lng
       );
-      ratedata.set("drop_off_locations[1][booking_order]", "");
+      ratedata.set("drop_off_locations[1][booking_order]", "2");
       ratedata.set("additional_services[1]", "");
     }
     if (coordinate[3]) {
@@ -513,7 +516,7 @@ export default function map() {
         "drop_off_locations[2][drop_off_longitude]",
         coordinate[3].lng
       );
-      ratedata.set("drop_off_locations[2][booking_order]", "");
+      ratedata.set("drop_off_locations[2][booking_order]", "3");
       ratedata.set("additional_services[2]", "");
     }
 
@@ -525,13 +528,12 @@ export default function map() {
         Authorization: "Bearer " + tokenuser,
       },
     };
-    
+
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
-     
       })
       .catch((err) => {});
   }
@@ -579,14 +581,15 @@ export default function map() {
       );
       ratedata.set("drop_off_locations[2][booking_order]", "");
       ratedata.set("additional_services[2]", "");
-      
     }
 
     let formdata = new FormData();
     formdata.set("customer_id", AuthService.getId());
     formdata.set("booking_type_id", "2");
-    formdata.set("contact_name", "Alfon");
-    formdata.set("contact_number", "312321");
+    try {
+      formdata.set("contact_name", coordinate[0].detailsname);
+      formdata.set("contact_number", coordinate[0].detailsnumber);
+    } catch (e) {}
     formdata.set("pick_up_address", address.label);
     formdata.set("pick_up_latitude", coordinate[0].lat);
     formdata.set("pick_up_longitude", coordinate[0].lng);
@@ -605,12 +608,18 @@ export default function map() {
     formdata.set("additional_services[0]", "1");
 
     if (coordinate[2]) {
-      formdata.set("drop_off_locations[1][drop_off_address]", addressDrop1.label);
-      formdata.set("drop_off_locations[1][drop_off_latitude]", coordinate[2].lat);
+      formdata.set(
+        "drop_off_locations[1][drop_off_address]",
+        addressDrop1.label
+      );
+      formdata.set(
+        "drop_off_locations[1][drop_off_latitude]",
+        coordinate[2].lat
+      );
       formdata.set(
         "drop_off_locations[1][drop_off_longitude]",
         coordinate[2].lng
-      );  
+      );
       formdata.set("drop_off_locations[1][booking_order]", "2");
       formdata.set("drop_off_locations[1][contact_name]", "Mark");
       formdata.set("drop_off_locations[1][contact_number]", "12321");
@@ -625,7 +634,7 @@ export default function map() {
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
-        formdata.set("price",result.data.price);
+        formdata.set("price", result.data.price);
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
         axios
