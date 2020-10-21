@@ -5,9 +5,6 @@
     .mainConDriver, .conDriver {
         height: auto !important;
     }
-
-    
-
 }
 
 @font-face {
@@ -71,27 +68,6 @@ body, html {
     background-color: #1E2025;
 }
 
-.mainCon {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg1.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-.mainCon2 {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg2.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-.mainCon3 {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url('/Image/bg3.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
 .fixed-top {
     transition: all 0.2s;
 }
@@ -113,6 +89,10 @@ body, html {
 }
 
 /* index */
+
+.mainCon {
+    background-color: #262626;
+}
 
 .pText {
     font-family: 'ProximaNovaBlack', sans-serif;
@@ -140,21 +120,132 @@ body, html {
     transition: all 0.2s;
 }
 
-.pDefault {
-    font-family: 'Raleway', sans-serif;
+.conServices {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5)), url('/Image/bgcon2.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.divBox {
+    background-color: #E2E2E2;
+    padding: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+}
+
+.divBox1 {
+    background-color: rgba(226, 226, 226, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+}
+
+.boxIcon {
+    background-color: #1A1A1A;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    border-radius: 8px;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+    -moz-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+    box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+    transition: all 0.2s;
+}
+
+.imgIcon {
+    width: 20px;
+}
+
+.imgIconLarge {
+    width: 80px;
+    filter: invert(1) brightness(500%);
+}
+
+.pIcon {
+    font-family: 'GilroyMedium';
     color: white;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 15px;
 }
 
-.imgGps {
-    width: 35px;
+.pWhat {
+    font-family: 'ProximaNovaBlack';
+    color: #1A1A1A;
+    font-size: 2.5rem;
+    width: max-content;
+    border-radius: 20px;
+    background-color: rgba(226, 226, 226, 0.8);
+    padding: 10px 20px;
+    text-align: center;
+    margin: 0 auto;
 }
 
-.imgBox {
-    width: 350px;
+.pIconText {
+    font-family: 'GilroyMedium';
+    color: #1A1A1A;
+    font-size: 2.5rem;
+    margin-top: 10px;
 }
 
+.pDesc {
+    font-family: 'GilroyMedium';
+    color: #1A1A1A;
+    width: 450px;
+    margin: 0 auto;
+}
+
+.btnBookServices {
+    font-family: 'GilroyBold';
+    background-color: #FFFE00;
+    color: #454542;
+    text-align: center;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 10px;
+    padding: 8px 20px;
+    margin-top: 20px;
+    -webkit-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+    -moz-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+    box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
+}
+
+.con3 {
+    background-color: #454542;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.pOntime {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    font-size: 3rem;
+    color: #FFFE00;
+    line-height: 3rem;
+}
+
+.divBoxCheck {
+    background-color: #2B2B2A;
+    border-radius: 25px;
+    padding: 35px;
+}
+
+.pCheck {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1.2rem;
+}
 /* Login */
 
 .colLogin {
@@ -422,9 +513,7 @@ hr {
     margin-left: 5%;
 }
 
-
-
-.txtAdditional  {
+.txtAdditional {
     font-family: "GilroyMedium" !important;
     color: white;
     padding: 8px;
@@ -435,7 +524,6 @@ hr {
     margin-top: 8px;
     outline: none !important;
     caret-color: white;
- 
 }
 
 .txtAdditional:focus {
@@ -446,8 +534,6 @@ hr {
 .txtNumber, .txtAdd {
     margin-top: 10px;
 }
-
-
 
 .divAdd {
     display: none;
@@ -554,8 +640,6 @@ hr {
     z-index: "99999999999999"
 }
 
-
-
 .navbarMaps {
     position: absolute;
 }
@@ -623,7 +707,6 @@ hr {
     font-family: 'GilroyMedium';
     color: var(--maincolor);
     font-size: 0.9rem;
-
 }
 
 .pPrice {
@@ -640,8 +723,6 @@ hr {
     margin-bottom: 0px;
 }
 
-
-
 .btnBook {
     font-family: 'GilroyMedium';
     font-size: 0.9rem;
@@ -656,6 +737,7 @@ hr {
 .modal-header, .modal-footer, .modal-body {
     border: 0px !important;
 }
+
 .modal-header {
     display: block !important;
 }
@@ -739,7 +821,6 @@ hr {
     padding: 12px;
     margin-top: 5px;
 }
-
 
 .blur {
     filter: blur(13px) !important;
@@ -1058,7 +1139,7 @@ hr {
 }
 
 .divStepActive {
-    background-color: rgb(255,254,59) !important;
+    background-color: rgb(255, 254, 59) !important;
     border: 0px;
 }
 
@@ -1072,7 +1153,6 @@ hr {
 
 .divInsideActive {
     background-color: #FFFE8B !important;
-
 }
 
 .pStepTitle {
@@ -1158,7 +1238,6 @@ hr {
     color: white;
     font-size: 1rem;
 }
-
 
 .btnSubmitModal {
     font-family: 'ProximaNova', sans-serif;
@@ -1359,12 +1438,6 @@ ul.no-bullets>li:hover {
 .rowBooking {
     padding-left: 55px;
 }
-
-
-
-
-
-
 
 @keyframes stretch {
     0% {

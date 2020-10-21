@@ -42,12 +42,12 @@ export default function navbar() {
 
  
   return (
-    <div className="container">
+    <div className="container-fluid">
       <nav
         className="navbar navbar-expand-md fixed-top"
         style={{ padding: "20px 20px" }}
       >
-        <div className="container">
+        <div className="container-fluid">
           <button
             className="navbar-toggler"
             data-toggle="collapse"

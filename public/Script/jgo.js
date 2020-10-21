@@ -43,7 +43,7 @@ $(document).ready(function () {
     "url(/Image/bgdriver2.jpg)",
     "url(/Image/bgdriver3.jpg)",
     "url(/Image/bgdriver1.jpg)",
-  ]; 
+  ];
 
   function slideimg() {
     setTimeout(function () {
@@ -55,7 +55,6 @@ $(document).ready(function () {
   }
   slideimg();
 
-
   $(".divStep").click(function () {
     $(".divStep").removeClass("divStepActive");
     $(".divStep").find(".divInside").removeClass("divInsideActive");
@@ -63,5 +62,30 @@ $(document).ready(function () {
     $(this).find(".divInside").addClass("divInsideActive");
   });
 
+  $(".boxIcon").click(function () {
+    $(".boxIcon").css("background-color", "#1a1a1a");
+    $(".boxIcon").find(".divBoxIcon").css("filter", "none");
+    $(this).css("background-color", "#FFFE00");
+    $(this).find(".divBoxIcon").css("filter", "invert(1) brightness(500%)");
+  });
 
+  $(".BoxFood").click(function () {
+    $(".divBox1").hide();
+    $(".divFood").fadeIn(200);
+  });
+
+  $(".BoxDocu").click(function () {
+    $(".divBox1").hide();
+    $(".divDocu").fadeIn(200);
+  });
+
+   $(".BoxCloth").click(function () {
+    $(".divBox1").hide();
+    $(".divCloth").fadeIn(200);
+  });
+
+  $(".BoxMedic").click(function () {
+    $(".divBox1").hide();
+    $(".divMedic").fadeIn(200);
+  });
 });
