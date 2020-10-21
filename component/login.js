@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
 import Select from "react-select";
@@ -16,6 +16,29 @@ const customStyles = {
     width: "115%",
     padding: "4.5px",
     marginTop: "5px",
+  }),
+};
+
+const customStyles1 = {
+  control: (base, state) => ({
+    ...base,
+    background: "rgb(28, 30, 33)",
+    color: "white",
+    border: "1px solid #2c2c2c",
+    boxShadow: "none",
+    borderRadius: "5px",
+    width: "115%",
+    padding: "2px",
+    marginTop: "5px",
+    boxShadow: state.isFocused ? "#EDC728" : null,
+    "&:hover": {
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ? "#EDC728" : "",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "white",
   }),
 };
 
@@ -47,8 +70,10 @@ function btntry() {
 }
 
 export class login extends Component {
+  inputFileRef = createRef(null);
   constructor(props) {
     super(props);
+
     this.state = {
       Email: "",
       Password: "",
@@ -84,6 +109,7 @@ export class login extends Component {
       errorFname: "",
       errorLname: "",
       activeEmail: "",
+      profile_name: "",
     };
 
     this.login = this.login.bind(this);
@@ -128,7 +154,7 @@ export class login extends Component {
   }
 
   login(event) {
-    $(event.currentTarget).addClass('btn--loading');
+    $(event.currentTarget).addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -151,11 +177,11 @@ export class login extends Component {
           $(".colMain").hide();
           $(".colLogin").hide();
           $(".colDeliver").show();
-          $(".btn").removeClass('btn--loading');
+          $(".btn").removeClass("btn--loading");
         }
       })
       .catch((err) => {
-        $(".btn").removeClass('btn--loading');
+        $(".btn").removeClass("btn--loading");
         this.messageError();
       });
   }
@@ -188,17 +214,17 @@ export class login extends Component {
   lname(event) {
     this.setState({ lname: event.target.value });
     if (event.target.value == "") {
-      $(".pLname").show();
+      
     } else {
-      $(".pLname").hide();
+    
     }
   }
   fname(event) {
     this.setState({ fname: event.target.value });
     if (event.target.value == "") {
-      $(".pFname").show();
+    
     } else {
-      $(".pFname").hide();
+     
     }
   }
   mname(event) {
@@ -207,17 +233,17 @@ export class login extends Component {
   email(event) {
     this.setState({ email: event.target.value });
     if (event.target.value == "") {
-      $(".pEmail").show();
+    
     } else {
-      $(".pEmail").hide();
+      
     }
   }
   mobile(event) {
     this.setState({ mobile: event.target.value });
     if (event.target.value == "") {
-      $(".pMobile").show();
+     
     } else {
-      $(".pMobile").hide();
+     
     }
   }
   address(event) {
@@ -238,9 +264,9 @@ export class login extends Component {
   password(event) {
     this.setState({ password: event.target.value });
     if (event.target.value == "") {
-      $(".pPassword").show();
+      
     } else {
-      $(".pPassword").hide();
+     
     }
   }
 
@@ -250,32 +276,58 @@ export class login extends Component {
 
   handleFile(e) {
     let file = e.target.files[0];
+    console.log(file);
+    this.setState({ profile_name: file.name });
     this.setState({ profile: file });
   }
 
+  onBtnClick = () => this.inputFileRef.current.click();
+
   register(e) {
     e.preventDefault();
-    $(e.currentTarget).addClass('btn--loading');
+    $(e.currentTarget).addClass("btn--loading");
     if (this.state.fname == "") {
-      $(".pFname").show();
-      $(".btn").removeClass('btn--loading');
+      $(".pFname").css("color", "#d32f2f");
+      $(".txtFname").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
     }
     if (this.state.lname == "") {
-      $(".pLname").show();
-      $(".btn").removeClass('btn--loading');
+      $(".pLname").css("color", "#d32f2f");
+      $(".txtLname").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
     }
     if (this.state.mobile == "") {
-      $(".pMobile").show();
-      $(".btn").removeClass('btn--loading');
+      $(".pMobile").css("color", "#d32f2f");
+      $(".txtMobile").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
     }
     if (this.state.email == "") {
-      $(".pEmail").show();
-      $(".btn").removeClass('btn--loading');
+      $(".pEmail").css("color", "#d32f2f");
+      $(".txtEmail").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
     }
     if (this.state.password == "") {
-      $(".pPassword").show();
-      $(".btn").removeClass('btn--loading');
-    } else {
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.password != this.state.passwordconfirm) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");  
+      $(".btn").removeClass("btn--loading");
+    }
+
+    if( this.state.password < 6 || this.state.password > 16) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      $(".pError").show();
+      $(".btn").removeClass("btn--loading");
+    }
+     else {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -335,12 +387,12 @@ export class login extends Component {
         .then((result) => {
           $("#exampleModal").modal("hide");
           if (result.status == "201") {
-            $(".btn").removeClass('btn--loading');
+            $(".btn").removeClass("btn--loading");
             successMessage();
           }
         })
         .catch((err) => {
-          $(".btn").removeClass('btn--loading');
+          $(".btn").removeClass("btn--loading");
           try {
             $("#exampleModal").css("z-index", "1");
             $(".modal-backdrop").hide();
@@ -415,208 +467,203 @@ export class login extends Component {
           <p
             className="pSignup"
             data-toggle="modal"
-            data-target="#exampleModal"
+            data-target="#modalRegister"
           >
             sign-up
           </p>
         </div>
         <div
           className="modal fade"
-          id="exampleModal"
+          id="modalRegister"
           tabIndex={-1}
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          style={{ zIndex: "99999999999999999999999999999999" }}
         >
-          <div className="modal-dialog modal-lg" role="document">
+          <div
+            className="modal-dialog modal-dialog-driver modal-lg"
+            role="document"
+          >
             <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  JGO - Registration Form
-                </h5>
-              </div>
-              <div className="modal-body">
-                <p className="pAccount">ACCOUNT INFORMATION</p>
-                <div className="row">
+              <div className="modal-body modalDriver">
+                <p className="pModalTitle">Jgo - Registration form</p>
+                <p className="pModalTitleSub">
+                  Let's get you all set up so you can verify your personal
+                  account and start booking.
+                </p>
+                <hr
+                  style={{
+                    backgroundColor: "#414141",
+                    boder: "1px solid #414141",
+                  }}
+                ></hr>
+                <div className="row" style={{ marginTop: "20px" }}>
                   <div className="col-lg-4">
-                    <p className="p1">First Name</p>
+                    <p className="pTxtDriver pFname">First Name</p>
                     <input
                       type="text"
-                      className="txt txtModal"
+                      className="txtDriver txtFname"
                       value={this.state.fname}
                       onChange={this.fname.bind(this)}
                     ></input>
-                    <p className="pErrorMessage pFname">
-                      First name is required
-                    </p>
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Middle Name</p>
+                    <p className="pTxtDriver">Middle Name</p>
                     <input
                       type="text"
-                      className="txt txtModal"
+                      className="txtDriver"
+                      value={this.state.mname}
                       onChange={this.mname.bind(this)}
                     ></input>
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Last Name</p>
+                    <p className="pTxtDriver pLname">Last Name</p>
                     <input
                       type="text"
-                      className="txt txtModal"
+                      value={this.state.lname}
+                      className="txtDriver txtLname"
                       onChange={this.lname.bind(this)}
                     ></input>
-                    <p className="pErrorMessage pLname">
-                      Last name is required
-                    </p>
                   </div>
-                </div>
-                <div className="row" style={{ marginTop: "5px" }}>
                   <div className="col-lg-4">
-                    <p className="p1">Address 1</p>
+                    <p className="pTxtDriver pEmail">Email</p>
                     <input
                       type="text"
-                      className="txt txtModal"
-                      placeholder="House/Unit Number, Building Name, Street Name"
+                      value={this.state.email}
+                      className="txtDriver txtEmail"
+                      onChange={this.email.bind(this)}
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <p className="pTxtDriver pMobile">Mobile Number</p>
+                    <input
+                      type="text"
+                      value={this.state.mobile}
+                      className="txtDriver txtMobile"
+                      onChange={this.mobile.bind(this)}
+                    ></input>
+                  </div>
+                </div>
+
+                <div className="row" style={{ marginTop: "10px" }}>
+                  <div className="col-lg-4">
+                    <p className="pTxtDriver">Address</p>
+                    <input
+                      type="text"
+                      value={this.state.address}
+                      className="txtDriver"
                       onChange={this.address.bind(this)}
                     ></input>
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Region</p>
+                    <p className="pTxtDriver">Region</p>
                     <Select
-                      instanceId="1"
                       options={this.state.regions_api}
                       onChange={this.HandleChangeRegion.bind(this)}
-                      styles={customStyles}
+                      styles={customStyles1}
                     />
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Province</p>
+                    <p className="pTxtDriver">Province</p>
                     <Select
-                      instanceId="2"
                       options={this.state.province_api}
                       onChange={this.HandleChangeProvince.bind(this)}
-                      styles={customStyles}
+                      styles={customStyles1}
                     />
                   </div>
-                </div>
-                <div className="row" style={{ marginTop: "5px" }}>
                   <div className="col-lg-4">
-                    <p className="p1">City/Municipality</p>
+                    <p className="pTxtDriver">City/Municipality</p>
                     <Select
-                      instanceId="3"
                       options={this.state.cities_api}
-                      styles={customStyles}
+                      styles={customStyles1}
                       ref="city"
                       value={this.state.city_dropdown}
                       onChange={this.city.bind(this)}
                     />
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Postal</p>
+                    <p className="pTxtDriver">Country</p>
                     <input
                       type="text"
-                      className="txt txtModal"
-                      onChange={this.zip.bind(this)}
+                      className="txtDriver"
+                      value="Philippines"
+                      disabled
                     ></input>
                   </div>
                   <div className="col-lg-4">
-                    <p className="p1">Country</p>
+                    <p className="pTxtDriver">Zip Code</p>
                     <input
+                      value={this.state.zip}
                       type="text"
-                      className="txt txtModal"
-                      value="Philippines"
-                      disabled
-                      onChange={this.country.bind(this)}
+                      className="txtDriver"
+                      onChange={this.zip.bind(this)}
                     ></input>
                   </div>
                 </div>
-                <div className="row" style={{ marginTop: "5px" }}>
-                  <div className="col-lg-6">
-                    <p className="p1">Email Address</p>
-                    <input
-                      type="text"
-                      className="txt txtModal"
-                      value={this.state.email}
-                      onChange={this.email.bind(this)}
-                    ></input>
-                    <p className="pErrorMessage pEmail">Email is required</p>
-                  </div>
-                  <div className="col-lg-6">
-                    <p className="p1">Mobile Number</p>
-                    <input
-                      type="text"
-                      className="txt txtModal"
-                      value={this.state.mobile}
-                      onChange={this.mobile.bind(this)}
-                    ></input>
-                    <p className="pErrorMessage pMobile">
-                      Mobile number is required
-                    </p>
-                  </div>
-                </div>
+
                 <div className="row">
                   <div className="col-lg-6">
-                    <p className="p1">Password</p>
+                    <p className="pTxtDriver pPassword">Password</p>
                     <input
+                      value={this.state.password}
                       type="password"
-                      className="txt txtModal"
-                      password={this.state.password}
+                      className="txtDriver txtPassword"
                       onChange={this.password.bind(this)}
                     ></input>
-                    <p className="pErrorMessage pPassword">
-                      Password is required
-                    </p>
+                    <p className="pError">Password must be 6-16 characters.</p>
                   </div>
                   <div className="col-lg-6">
-                    <p className="p1">Confirm Password</p>
+                    <p className="pTxtDriver pConfirmPass">Confirm Password</p>
                     <input
                       type="password"
-                      className="txt txtModal"
+                      value={this.state.passwordconfirm}
+                      className="txtDriver txtConfirmPass"
                       onChange={this.passwordConfirm.bind(this)}
                     ></input>
                   </div>
                 </div>
+
                 <div className="row">
                   <div className="col-lg-6">
-                    <p className="p1">Driver Lisence (Photo)</p>
+                    <p className="pTxtDriver">Profile Picture</p>
+                    <input
+                      onChange={(e) => this.handleFile(e)}
+                      ref={this.inputFileRef}
+                      id="file-upload"
+                      type="file"
+                      accept=".jpg, .png, .jpeg|image"
+                      style={{ display: "none" }}
+                    />
                     <div
-                      style={{
-                        border: "1px solid #707070",
-                        borderRadius: "10px",
-                        padding: "5px 8px",
-                        marginTop: "5px",
-                        position: "relative",
-                      }}
+                      className="divAttachment divProfile text-center"
+                      onClick={this.onBtnClick}
                     >
-                      <label
-                        htmlFor="file-upload"
-                        className="custom-file-upload"
-                      >
-                        <i className="fa fa-cloud-upload"></i> Choose File
-                      </label>
-                      <input
-                        id="file-upload"
-                        type="file"
-                        accept=".jpg, .png, .jpeg|image"
-                        onChange={(e) => this.handleFile(e)}
-                      />
+                      <p className="pTxtDriver">
+                        <span style={{ color: "#EDC728" }}>Drag or Browse</span>{" "}
+                        a file here
+                      </p>
+                      <p style={{ color: "white" }}>
+                        {this.state.profile_name}
+                      </p>
                     </div>
-                    <p className="pImage">
-                      Note: Only .jpg, .jpeg and .png files are allowed
-                    </p>
                   </div>
                 </div>
-              </div>
-              <div className="modal-footer text-center mx-auto d-flex">
-                <a className="btn btnSubmitModal" onClick={this.register.bind(this)}>
+
+                <div className="row" style={{ marginTop: "20px" }}>
+                  <div className="col-lg-12">
+                    <a
+                      className="btn btnSubmitDriver"
+                      onClick={this.register.bind(this)}
+                    >
                       SIGNUP
-                <span style = {{marginLeft: "40px"}}>
-                  <b></b>
-                  <b></b>
-                  <b></b>
-                </span>
-              </a>
+                      <span style={{ marginLeft: "40px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

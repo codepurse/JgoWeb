@@ -21,8 +21,8 @@
 }
 
 @font-face {
-    font-family: ProximaNovaBold;
-    src: url(../Font/proxima_ssv/Proxima-Nova-Bold.otf);
+    font-family: ProximaNovaExtraBold;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Extrabold.otf);
 }
 
 @font-face {
@@ -38,6 +38,11 @@
 @font-face {
     font-family: GilroyBold;
     src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Bold.ttf);
+}
+
+@font-face {
+    font-family: GilroySemiBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Semibold.ttf);
 }
 
 @font-face {
@@ -549,23 +554,7 @@ hr {
     z-index: "99999999999999"
 }
 
-.pMode {
-    font-family: 'Proxima', sans-serif;
-    color: white;
-    font-size: 1.2rem;
-    text-align: left;
-}
 
-.pCardNumber {
-    font-family: 'Proxima', sans-serif;
-    color: var(--maincolor);
-    font-size: 1rem;
-    margin-bottom: 0px;
-    font-weight: 600;
-    margin-left: 10px;
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 .navbarMaps {
     position: absolute;
@@ -651,19 +640,7 @@ hr {
     margin-bottom: 0px;
 }
 
-.imgInstant {
-    width: 250px;
-    margin-top: 5px;
-}
 
-.pNext {
-    font-family: 'GilroyBold';
-    color: var(--maincolor);
-    font-size: 1.1rem;
-    float: right;
-    margin-top: 10px;
-    cursor: pointer;
-}
 
 .btnBook {
     font-family: 'GilroyMedium';
@@ -676,55 +653,93 @@ hr {
     background-color: transparent;
 }
 
-/*
-.modal-content {
-    border-radius: 20px !important;
-    padding: 30px !important;
-}
-
-.modal-content {
-    background-color: black !important;
-}
-
-.modal-header, .modal-body, .modal-footer {
-    background-color: black;
+.modal-header, .modal-footer, .modal-body {
     border: 0px !important;
 }
-
-.modal-title {
-    font-family: 'GilroyBold';
-    color: white;
-    color: 0.9rem;
+.modal-header {
+    display: block !important;
 }
-*/
 
-.btnBookModal {
+.pMode {
     font-family: 'GilroyBold';
-    color: black;
-    font-size: 0.9rem;
-    background-color: #EDC728;
-    border: 0px;
-    border-radius: 13px;
-    padding: 5px;
-    width: 100px;
-    text-align: center;
+    color: #2C2C2C;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.pModeSub {
+    font-family: 'GilroySemiBold', sans-serif;
+    color: #414141;
+    font-size: 0.95rem;
+    margin-bottom: 0px;
+}
+
+.divCod {
+    border: 1px solid #FFE900;
+    border-radius: 2px;
+    background-color: rgba(255, 233, 0, 0.2);
+    padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
-    float: right;
 }
 
-.pCardNumberModal {
-    font-family: 'Proxima', sans-serif;
-    color: white;
+.pCod {
+    font-family: 'GilroySemiBold';
+    color: #323232;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.pCodSub {
+    font-family: 'GilroyMedium';
+    color: #FDBF00;
     font-size: 0.9rem;
     margin-bottom: 0px;
-    margin-left: 10px;
-    cursor: pointer;
 }
 
-.formCard {
-    margin-top: 10px !important;
+.pPriceModal {
+    font-family: 'GilroyBold';
+    color: #2C2C2C;
+    font-size: 2rem;
+    margin-bottom: 0px;
 }
+
+.pCardType {
+    font-family: 'GilroySemiBold';
+    color: #2C2C2C;
+    margin-bottom: 2px;
+}
+
+.pCardNumber {
+    font-family: 'GilroySemiBold';
+    color: #464743;
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+}
+
+.pAddMethod {
+    font-family: 'GilroyBold';
+    color: #252424;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pAddMethod:hover {
+    color: #EDC728;
+}
+
+.btnPayment {
+    font-family: 'GilroySemiBold';
+    color: white;
+    background-color: #FDBF00;
+    border-radius: 5px;
+    border: 0px;
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+}
+
 
 .blur {
     filter: blur(13px) !important;
@@ -1144,19 +1159,6 @@ hr {
     font-size: 1rem;
 }
 
-.modal-header {
-    background-color: #1A1A1A;
-}
-
-.modal-title {
-    font-family: 'ProximaNovaBold', sans-serif;
-    color: #EDC728;
-    font-size: 1.5rem;
-}
-
-.modal-footer {
-    border: 0px !important;
-}
 
 .btnSubmitModal {
     font-family: 'ProximaNova', sans-serif;

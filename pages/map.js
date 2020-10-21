@@ -123,71 +123,6 @@ export default function map() {
     );
   }
 
-  function opensweetalertcard() {
-    swal(
-      <div className="divCard" style={{ width: " 450px" }}>
-        <div className="container" style={{ borderRadius: "25px" }}>
-          <div className="row">
-            <div className="col-lg-12">
-              <p className="pMode">Mode of Payment</p>
-            </div>
-          </div>
-          <div className="row" style={{ marginTop: "5px", padding: "0px" }}>
-            <div className="col-lg-7">
-              <div className="form-inline formCard">
-                <img
-                  src="Image/mastercard.svg"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p className="pCardNumberModal">Mastercard 8278</p>
-              </div>
-            </div>
-            <div className="col-lg-7">
-              <div className="form-inline formCard">
-                <img
-                  src="Image/visa.png"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p
-                  className="pCardNumberModal"
-                  data-toggle="modal"
-                  data-target="#exampleModalCenter"
-                >
-                  Visa 8278
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-7">
-              <div className="form-inline formCard">
-                <img
-                  src="Image/cash.png"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p
-                  className="pCardNumberModal"
-                  data-toggle="modal"
-                  data-target="#exampleModalCenter"
-                >
-                  Cash on delivery
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row align-items-center" style={{ marginTop: "20px" }}>
-            <div className="col-lg-6">
-              <img src="Image/instant.svg" className="img-fluid" />
-            </div>
-            <div className="col-lg-6">
-              <button className="btnBookModal">BOOK</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   {
     /* Setting the address of pickoff and dropoff after the page loaded */
@@ -664,6 +599,8 @@ export default function map() {
       })
       .catch((err) => {});
   }
+
+
   return (
     <>
       <Header></Header>
@@ -1063,7 +1000,7 @@ export default function map() {
                 </div>
                 <div className="col-lg-3">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox">Insulated Box</p>
+                    <p className="pAdditonalBox" data-toggle="modal" data-target="#exampleModalCenter">Insulated Box</p>
                   </div>
                 </div>
                 <div className="col-lg-3 ">
@@ -1104,34 +1041,7 @@ export default function map() {
                   </button>
                 </div>
               </div>
-              <div
-                className="row"
-                style={{ marginTop: "25px", padding: "0px", display: "none" }}
-              >
-                <div className="col-lg-6" style={{ paddingLeft: "0px;" }}>
-                  <div className="form-inline">
-                    <img
-                      src="Image/mastercard.svg"
-                      className="img-fluid"
-                      style={{ width: "50px" }}
-                    ></img>
-                    <p className="pCardNumber" onClick={opensweetalertcard}>
-                      Mastercard 8278
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <img
-                    src="Image/instant.svg"
-                    className="img-fluid imgInstant"
-                  ></img>
-                </div>
-                <div className="col-lg-12">
-                  <Link href="">
-                    <p className="pNext">Next >></p>
-                  </Link>
-                </div>
-              </div>
+          
             </div>
           </div>
           <div className="col-lg-7 colMap">
@@ -1150,65 +1060,46 @@ export default function map() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style = {{padding: "15px"}}>
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLongTitle">
-                Mode of Payment
-              </h5>
+              <p className = "pMode">Mode of payment</p>
+              <p className = "pModeSub">Please make a payment below to start your booking process. If your payment methos is not there you can add your own below.</p>
             </div>
             <div className="modal-body">
-              <div className="form-inline formCard">
-                <img
-                  src="Image/mastercard.svg"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p
-                  className="pCardNumberModal"
-                  data-toggle="modal"
-                  data-target="#exampleModalCenter"
-                >
-                  Mastercard 8278
-                </p>
+              <div className = "divCod">
+                <div className = "row align-items-center">
+                  <div className = "col-lg-2">
+                        <img src = "Image/peso.png" className = "img-fluid mx-auto d-flex" style = {{width: "55px"}}></img>
+                  </div>
+                  <div className = "col-lg-6">
+                    <p className = "pCod">Cash on delivery</p>
+                    <p className = "pCodSub">Pay once when its delivered</p>
+                  </div>
+                  <div className = "col-lg-4">
+                    <p className = "pPriceModal">&#8369;{price}</p>
+                  </div>
+                </div>
               </div>
-              <div className="form-inline formCard">
-                <img
-                  src="Image/visa.png"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p
-                  className="pCardNumberModal"
-                  data-toggle="modal"
-                  data-target="#exampleModalCenter"
-                >
-                  Visa 8278
-                </p>
-              </div>
-              <div className="form-inline formCard">
-                <img
-                  src="Image/cash.png"
-                  className="img-fluid"
-                  style={{ width: "35px" }}
-                ></img>
-                <p
-                  className="pCardNumberModal"
-                  data-toggle="modal"
-                  data-target="#exampleModalCenter"
-                >
-                  Cash on delivery
-                </p>
+
+              <p className = "pMode" style = {{fontSize: "1rem", marginTop: "30px"}}>Payment Details</p>
+              <div className = "row align-items-center">
+                <div className = "col-lg-3">
+                  <img src = "Image/visa.png"></img>
+                </div>
+                <div className = "col-lg-9" style = {{padding: "0px"}}>
+                  <p className = "pCardType">Credit Card</p>
+                  <p className = "pCardNumber">1234 xxxx xxxx 1234</p>
+                </div>
+                <div className = "col-lg-12">
+                  <p className = "pAddMethod">ADD PAYMENT METHOD</p>
+                </div>
+                <div className = "col-lg-12">
+                  <button className = "btnPayment">Payment</button>
+                </div>
               </div>
             </div>
             <div className="modal-footer">
-              <div className="row align-items-center">
-                <div className="col-lg-6">
-                  <img src="Image/instant.svg" className="img-fluid" />
-                </div>
-                <div className="col-lg-6">
-                  <button className="btnBookModal">BOOK</button>
-                </div>
-              </div>
+         
             </div>
           </div>
         </div>
