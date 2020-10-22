@@ -158,16 +158,16 @@ function index() {
       </div>
       <div className="container-fluid con3">
         <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-5">
-              <img src="Image/horse.png" className="img-fluid"></img>
+          <div className="row">
+            <div className="col-lg-5 align-self-end">
+              <img src="Image/horse.png" className="img-fluid" style = {{width: "85%"}}></img>
             </div>
             <div className="col-lg-7 text-center">
               <p className="pOntime">
                 ON TIME <br></br>EVERY TIME
               </p>
               <div className="divBoxCheck">
-                <div className="row" style = {{marginBottom: "15px"}}>
+                <div className="row" style = {{marginBottom: "30px"}}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -178,7 +178,7 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "15px"}}>
+                <div className="row" style = {{marginBottom: "30px"}}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -189,7 +189,7 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "15px"}}>
+                <div className="row" style = {{marginBottom: "30px"}}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -200,7 +200,7 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "15px"}}>
+                <div className="row" style = {{marginBottom: "30px"}}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -213,6 +213,47 @@ function index() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className = "container-fluid con4">
+        <div className = "container">
+          <div className = "row align-items-center">
+            <div className = "col-lg-6">
+              <p className = "pComingsoon">COMING SOON</p>
+              <p className = "pComingSub">Order before cut off and we will deliver your groceries on the same day!</p>
+            </div>
+            <div className = "col-lg-6">
+             <img src = "Image/Man.png" className = "img-fluid mx-auto d-flex" style = {{width: "80%"}}></img>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid conFooter">
+        <div className="row align-items-center">
+          <div className="col-lg-6">
+            <img src="Image/logo.png" className="img-fluid imgLogo" style={{ width: "150px",marginLeft: "20px" }}></img>
+          </div>
+          <div className="col-lg-6">
+            <ul className="ulFooter">
+              <li className="liFooter">
+                <a href="#home">COMPANY</a>
+              </li>
+              <li className="liFooter">
+                <a href="#news">CONTACT US</a>
+              </li>
+              <li className="liFooter">
+                <a href="#contact">POLICIES</a>
+              </li>
+              <li className="liFooter">
+                <a href="#contact">TERM & CONDITION</a>
+              </li>
+            </ul>
+          </div>
+          <div className="col-lg-12">
+            <p className="text-center pFooter">
+              © 2020 JGO Philippines. - All Rights
+            </p>
           </div>
         </div>
       </div>

@@ -224,8 +224,7 @@ body, html {
 
 .con3 {
     background-color: #454542;
-    padding-top: 30px;
-    padding-bottom: 30px;
+ padding: 5% 5px ;
 }
 
 .pOntime {
@@ -238,12 +237,34 @@ body, html {
 .divBoxCheck {
     background-color: #2B2B2A;
     border-radius: 25px;
-    padding: 35px;
+    padding: 40px;
 }
 
 .pCheck {
     font-family: 'GilroyMedium';
     color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+}
+
+.con4 {
+    background-image: url("/Image/foodbg.png");
+    background-size: cover;
+    background-position: 50% 50%;
+    background-color: #FFF257;
+    padding-top: 5%;
+}
+
+.pComingsoon {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: #2E2E2E;
+    font-size: 3.5rem;
+    margin-bottom: 0px;
+}
+
+.pComingSub {
+    font-family: 'ProximaNovaBold', sans-serif;
+    color: #2e2e2e;
     font-size: 1.2rem;
 }
 /* Login */
