@@ -857,13 +857,18 @@ hr {
 
 .css-yk16xz-control {
     width: 100% !important;
-    color: white;
+    color: white !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
+.css-b8ldur-Input {
+    color: white !important;
+}
+
 .css-2b097c-container {
     width: 87% !important;
+
 }
 
 .css-2b097c-container:active, .css-yk16xz-control:active {

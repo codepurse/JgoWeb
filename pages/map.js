@@ -407,7 +407,7 @@ export default function map() {
     /* Function to delete index in array */
   }
   function deleteAdd() {
-    
+      click = 3;
       var index = places_data
         .map((x) => {
           return x.id;
@@ -619,6 +619,10 @@ export default function map() {
       .catch((err) => {});
   }
 
+  function checkdata() {
+    console.log(places_data);
+  }
+
   return (
     <>
       <Header></Header>
@@ -783,7 +787,6 @@ export default function map() {
               className="divStopoff1 divStopOff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
-                {" "}
                 <img
                   src="Image/mapgps.svg"
                   className="img-fluid"
@@ -795,6 +798,7 @@ export default function map() {
               <div
                 className="form-inline"
                 style={{ width: "100%", marginLeft: "5%" }}
+                onClick={() => (click = 3)}
               >
                 <GooglePlacesAutocomplete
                   selectProps={{
@@ -1028,7 +1032,7 @@ export default function map() {
                 </div>
                 <div className="col-lg-3 ">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox">Cash Handling</p>
+                    <p className="pAdditonalBox" onClick = {checkdata}>Cash Handling</p>
                   </div>
                 </div>
                 <div className="col-lg-3 ">

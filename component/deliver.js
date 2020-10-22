@@ -20,9 +20,9 @@ export default function App() {
     control: (base, state) => ({
       ...base,
       background: "transparent",
-      color: "white",
+      color: "red",
       border: "1px solid lightgray",
-      boxShadow: "none",
+     
       borderRadius: "5px",
       width: "100%",
       padding: "2px",
@@ -36,6 +36,10 @@ export default function App() {
     singleValue: (provided) => ({
       ...provided,
       color: "white",
+    }),
+    option: provided => ({
+      ...provided,
+      color: 'black'
     }),
   };
 
