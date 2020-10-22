@@ -16,6 +16,29 @@ export default function App() {
   const [tokenuser, setTokenuser] = React.useState("");
   const [price, setPrice] = React.useState("");
 
+  const customStyles1 = {
+    control: (base, state) => ({
+      ...base,
+      background: "transparent",
+      color: "white",
+      border: "1px solid lightgray",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
@@ -89,6 +112,7 @@ export default function App() {
         </div>
       );
     } else {
+
       const origin = {
         lat: coordinates.lat,
         lng: coordinates.lng,
@@ -124,55 +148,33 @@ export default function App() {
         headers: {
           Accept: "application/json, text/plain, */*",
           "content-type": "application/json",
-          Authorization: "Bearer " + tokenuser,
+          Authorization: "Bearer " + AuthService.getToken(),
         },
       };
 
       let ratedata = new FormData();
       ratedata.set("pick_up_latitude", coordinates.lat);
-      ratedata.set("pick_up_longitude", coordinates.lng)
-      ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinatesDrop.lat);
-      ratedata.set("drop_off_locations[0][drop_off_longitude]", coordinatesDrop.lng);
+      ratedata.set("pick_up_longitude", coordinates.lng);
+      ratedata.set(
+        "drop_off_locations[0][drop_off_latitude]",
+        coordinatesDrop.lat
+      );
+      ratedata.set(
+        "drop_off_locations[0][drop_off_longitude]",
+        coordinatesDrop.lng
+      );
       ratedata.set("drop_off_locations[0][booking_order]", "1");
       ratedata.set("additional_services[0]", "1");
 
-      let formdata = new FormData();
-      formdata.set("customer_id", AuthService.getId());
-      formdata.set("booking_type_id", "2");
-      formdata.set("contact_name", "Alfon");
-      formdata.set("contact_number", "312321");
-      formdata.set("pick_up_address", address.label);
-      formdata.set("pick_up_latitude", coordinates.lat);
-      formdata.set("pick_up_longitude", coordinates.lng);
-  
-      formdata.set("drop_off_locations[0][drop_off_address]", addressDrop.label);
-      formdata.set("drop_off_locations[0][drop_off_latitude]", coordinatesDrop.lat);
-      formdata.set("drop_off_locations[0][drop_off_longitude]", coordinatesDrop.lng);
-      formdata.set("drop_off_locations[0][booking_order]", "1");
-      formdata.set("drop_off_locations[0][contact_name]", "karen");
-      formdata.set("drop_off_locations[0][contact_number]", "12321");
-      formdata.set("drop_off_locations[0][category_id]","1");
-      formdata.set("drop_off_locations[0][distance]", "5.382620231139828");
-      formdata.set("additional_services[0]", "1");
-
       const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
-      const apiUrl = "http://localhost:8000/api/auth/booking";
-      
+
       axios
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
-         formdata.set("price",result.data.price);
-         localStorage.setItem("price", result.data.price);
-         axios
-         .post(apiUrl, formdata, options)
-         .then((result) => {
-          
-         })
-         .catch((err) => {});
+          localStorage.setItem("price", result.data.price);
+          router.push("/map");
         })
         .catch((err) => {});
-        
-        
     }
   }
 
@@ -282,6 +284,7 @@ export default function App() {
               value: address,
               instanceId: "1",
               onChange: handleChange,
+              styles: customStyles1,
             }}
             autocompletionRequest={{
               componentRestrictions: {
@@ -306,6 +309,7 @@ export default function App() {
               instanceId: "2",
               value: addressDrop,
               onChange: handleChangeDrop,
+              styles: customStyles1,
             }}
             autocompletionRequest={{
               componentRestrictions: {

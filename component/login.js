@@ -7,24 +7,13 @@ const regions = require("philippines/regions");
 const province = require("philippines/provinces");
 const cities = require("philippines/cities");
 
-const customStyles = {
-  control: (base, state) => ({
-    ...base,
-    border: "1px solid #707070",
-    boxShadow: "none",
-    borderRadius: "10px",
-    width: "115%",
-    padding: "4.5px",
-    marginTop: "5px",
-  }),
-};
 
 const customStyles1 = {
   control: (base, state) => ({
     ...base,
     background: "rgb(28, 30, 33)",
     color: "white",
-    border: "1px solid #2c2c2c",
+    border: "1px solid #707070",
     boxShadow: "none",
     borderRadius: "5px",
     width: "115%",
@@ -153,8 +142,21 @@ export class login extends Component {
     this.setState({ Password: event.target.value });
   }
 
+  onKeyPress = (e) => {
+    if(e.which === 13) {
+      this.login();
+    }
+  }
+
   login(event) {
-    $(event.currentTarget).addClass("btn--loading");
+   if (this.state.Password == "") {
+    $(".txtPassword").css("border-color", "#d32f2f");
+   }
+   if ( this.state.Email == "") {
+    $(".txtEmail").css("border-color", "#d32f2f");
+   }
+   else {
+    $(".btn").addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -174,6 +176,7 @@ export class login extends Component {
           console.log(result.data);
           document.getElementById("username").innerHTML =
             result.data.data.user.name;
+            
           $(".colMain").hide();
           $(".colLogin").hide();
           $(".colDeliver").show();
@@ -184,6 +187,7 @@ export class login extends Component {
         $(".btn").removeClass("btn--loading");
         this.messageError();
       });
+   }
   }
 
   HandleChangeRegion(e) {
@@ -412,18 +416,24 @@ export class login extends Component {
           <div className="boxLogin">
             <input
               type="text"
+              value = {this.state.Email}
               className="txt txtEmail"
               placeholder="email"
               onChange={this.Email.bind(this)}
+              onKeyPress={this.onKeyPress}
             ></input>
+        
             <input
               type="password"
+              value = {this.state.Password}
               className="txt txtPassword"
               placeholder="password"
               onChange={this.Password.bind(this)}
+              onKeyPress={this.onKeyPress}
             ></input>
+          
           </div>
-          <div className="row align-items-center">
+          <div className="row align-items-center" style = {{marginTop: "-10px"}}>
             <div className="col-lg-6 text-center">
               <p className="pForgot">forgot password?</p>
             </div>

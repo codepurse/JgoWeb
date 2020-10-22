@@ -123,7 +123,6 @@ export default function map() {
     );
   }
 
-
   {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
@@ -408,14 +407,16 @@ export default function map() {
     /* Function to delete index in array */
   }
   function deleteAdd() {
-    var index = places_data
-      .map((x) => {
-        return x.id;
-      })
-      .indexOf(click);
-    places_data.splice(index, 1);
-    console.log(places_data);
-    router.push("");
+    
+      var index = places_data
+        .map((x) => {
+          return x.id;
+        })
+        .indexOf(click);
+      places_data.splice(index, 1);
+      console.log(places_data);
+      router.push("");
+    
   }
 
   function getRate() {
@@ -535,8 +536,14 @@ export default function map() {
       coordinate[1].lng
     );
     formdata.set("drop_off_locations[0][booking_order]", "1");
-    formdata.set("drop_off_locations[0][contact_name]", coordinate[1].detailsname);
-    formdata.set("drop_off_locations[0][contact_number]", coordinate[1].detailsnumber);
+    formdata.set(
+      "drop_off_locations[0][contact_name]",
+      coordinate[1].detailsname
+    );
+    formdata.set(
+      "drop_off_locations[0][contact_number]",
+      coordinate[1].detailsnumber
+    );
     formdata.set("drop_off_locations[0][category_id]", "1");
     formdata.set("drop_off_locations[0][distance]", "5.4");
     formdata.set("additional_services[0]", "1");
@@ -555,8 +562,14 @@ export default function map() {
         coordinate[2].lng
       );
       formdata.set("drop_off_locations[1][booking_order]", "2");
-      formdata.set("drop_off_locations[1][contact_name]", coordinate[2].detailsname);
-      formdata.set("drop_off_locations[1][contact_number]", coordinate[2].detailsnumber);
+      formdata.set(
+        "drop_off_locations[1][contact_name]",
+        coordinate[2].detailsname
+      );
+      formdata.set(
+        "drop_off_locations[1][contact_number]",
+        coordinate[2].detailsnumber
+      );
       formdata.set("drop_off_locations[1][category_id]", "1");
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
       formdata.set("additional_services[1]", "1");
@@ -565,7 +578,7 @@ export default function map() {
     if (coordinate[3]) {
       formdata.set(
         "drop_off_locations[2][drop_off_address]",
-       addressDrop2.label
+        addressDrop2.label
       );
       formdata.set(
         "drop_off_locations[2][drop_off_latitude]",
@@ -576,8 +589,14 @@ export default function map() {
         coordinate[3].lng
       );
       formdata.set("drop_off_locations[2][booking_order]", "3");
-      formdata.set("drop_off_locations[2][contact_name]", coordinate[3].detailsname);
-      formdata.set("drop_off_locations[2][contact_number]", coordinate[3].detailsnumber);
+      formdata.set(
+        "drop_off_locations[2][contact_name]",
+        coordinate[3].detailsname
+      );
+      formdata.set(
+        "drop_off_locations[2][contact_number]",
+        coordinate[3].detailsnumber
+      );
       formdata.set("drop_off_locations[2][category_id]", "1");
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
       formdata.set("additional_services[2]", "1");
@@ -599,7 +618,6 @@ export default function map() {
       })
       .catch((err) => {});
   }
-
 
   return (
     <>
@@ -802,7 +820,6 @@ export default function map() {
                 ></img>
               </div>
               <div className="divHide">
-                
                 <div className="divAdd">
                   <div className="row">
                     <div className="col-lg-12">
@@ -1000,7 +1017,13 @@ export default function map() {
                 </div>
                 <div className="col-lg-3">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox" data-toggle="modal" data-target="#exampleModalCenter">Insulated Box</p>
+                    <p
+                      className="pAdditonalBox"
+                      data-toggle="modal"
+                      data-target="#exampleModalCenter"
+                    >
+                      Insulated Box
+                    </p>
                   </div>
                 </div>
                 <div className="col-lg-3 ">
@@ -1041,7 +1064,6 @@ export default function map() {
                   </button>
                 </div>
               </div>
-          
             </div>
           </div>
           <div className="col-lg-7 colMap">
@@ -1060,47 +1082,57 @@ export default function map() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style = {{padding: "15px"}}>
+          <div className="modal-content" style={{ padding: "15px" }}>
             <div className="modal-header">
-              <p className = "pMode">Mode of payment</p>
-              <p className = "pModeSub">Please make a payment below to start your booking process. If your payment methos is not there you can add your own below.</p>
+              <p className="pMode">Mode of payment</p>
+              <p className="pModeSub">
+                Please make a payment below to start your booking process. If
+                your payment methos is not there you can add your own below.
+              </p>
             </div>
             <div className="modal-body">
-              <div className = "divCod">
-                <div className = "row align-items-center">
-                  <div className = "col-lg-2">
-                        <img src = "Image/peso.png" className = "img-fluid mx-auto d-flex" style = {{width: "55px"}}></img>
+              <div className="divCod">
+                <div className="row align-items-center">
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/peso.png"
+                      className="img-fluid mx-auto d-flex"
+                      style={{ width: "55px" }}
+                    ></img>
                   </div>
-                  <div className = "col-lg-6">
-                    <p className = "pCod">Cash on delivery</p>
-                    <p className = "pCodSub">Pay once when its delivered</p>
+                  <div className="col-lg-6">
+                    <p className="pCod">Cash on delivery</p>
+                    <p className="pCodSub">Pay once when its delivered</p>
                   </div>
-                  <div className = "col-lg-4">
-                    <p className = "pPriceModal">&#8369;{price}</p>
+                  <div className="col-lg-4">
+                    <p className="pPriceModal">&#8369;{price}</p>
                   </div>
                 </div>
               </div>
 
-              <p className = "pMode" style = {{fontSize: "1rem", marginTop: "30px"}}>Payment Details</p>
-              <div className = "row align-items-center">
-                <div className = "col-lg-3">
-                  <img src = "Image/visa.png"></img>
+              <p
+                className="pMode"
+                style={{ fontSize: "1rem", marginTop: "30px" }}
+              >
+                Payment Details
+              </p>
+              <div className="row align-items-center">
+                <div className="col-lg-3">
+                  <img src="Image/visa.png"></img>
                 </div>
-                <div className = "col-lg-9" style = {{padding: "0px"}}>
-                  <p className = "pCardType">Credit Card</p>
-                  <p className = "pCardNumber">1234 xxxx xxxx 1234</p>
+                <div className="col-lg-9" style={{ padding: "0px" }}>
+                  <p className="pCardType">Credit Card</p>
+                  <p className="pCardNumber">1234 xxxx xxxx 1234</p>
                 </div>
-                <div className = "col-lg-12">
-                  <p className = "pAddMethod">ADD PAYMENT METHOD</p>
+                <div className="col-lg-12">
+                  <p className="pAddMethod">ADD PAYMENT METHOD</p>
                 </div>
-                <div className = "col-lg-12">
-                  <button className = "btnPayment">Payment</button>
+                <div className="col-lg-12">
+                  <button className="btnPayment">Payment</button>
                 </div>
               </div>
             </div>
-            <div className="modal-footer">
-         
-            </div>
+            <div className="modal-footer"></div>
           </div>
         </div>
       </div>

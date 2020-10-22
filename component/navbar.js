@@ -17,7 +17,7 @@ export default function navbar() {
       router.push("/profile");
     } else {
       $(".colMain").hide();
-      $(".colLogin").show();
+      $(".colLogin").fadeIn(250);
       $(".colDeliver").hide();
     }
   }
@@ -25,7 +25,7 @@ export default function navbar() {
   function deliverForm(e) {
     $(".colMain").hide();
     $(".colLogin").hide();
-    $(".colDeliver").show();
+    $(".colDeliver").fadeIn(250);
   }
 
   useEffect(() => {
