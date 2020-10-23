@@ -457,7 +457,7 @@ export default function map() {
       ratedata.set("additional_services[2]", "");
     }
 
-    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
+    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -603,8 +603,8 @@ export default function map() {
       formdata.set("additional_services[2]", "1");
     }
 
-    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
-    const apiUrl = "http://localhost:8000/api/auth/booking";
+    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
 
     axios
       .post(apiUrl_rate, ratedata, options)
