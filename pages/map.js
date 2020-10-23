@@ -18,6 +18,7 @@ export default function map() {
   const [tokenuser, setTokenuser] = React.useState("");
   const router = useRouter();
   var places_data = coordinate;
+  const [click_id, setId] = React.useState("");
   var click;
 
   const customStyles1 = {
@@ -406,17 +407,17 @@ export default function map() {
   {
     /* Function to delete index in array */
   }
-  function deleteAdd() {
-      click = 3;
-      var index = places_data
-        .map((x) => {
-          return x.id;
-        })
-        .indexOf(click);
-      places_data.splice(index, 1);
-      console.log(places_data);
-      router.push("");
-    
+  function deleteAdd(e) {
+    console.log(e.currentTarget.id);
+    for (var i = 0; i < places_data.length; i++) {
+      if (places_data[i].id == e.currentTarget.id) {
+        places_data.splice(i, 1);
+      }
+    }
+
+    console.log(places_data);
+    router.push("");
+    getRate();
   }
 
   function getRate() {
@@ -620,6 +621,7 @@ export default function map() {
   }
 
   function checkdata() {
+    console.log(click_id);
     console.log(places_data);
   }
 
@@ -782,7 +784,7 @@ export default function map() {
 
             {/* Stop off number 2 */}
             <div
-              onClick={() => (click = 3)}
+              onClick={() => (click = 3, setId("3"))}
               style={{ display: "none" }}
               className="divStopoff1 divStopOff"
             >
@@ -820,6 +822,7 @@ export default function map() {
                 <img
                   src="Image/remove.png"
                   className="img-fluid  imgDelete"
+                  id = "3"
                   onClick={deleteAdd}
                 ></img>
               </div>
@@ -858,7 +861,7 @@ export default function map() {
 
             {/* Stop off number 3 */}
             <div
-              onClick={() => (click = 4)}
+              onClick={() => (click = 4 , setId(4))}
               style={{ display: "none" }}
               className="divStopoff2 divStopOff"
             >
@@ -896,6 +899,7 @@ export default function map() {
                 <img
                   src="Image/remove.png"
                   className="img-fluid  imgDelete"
+                  id = "4"
                   onClick={deleteAdd}
                 ></img>
               </div>
@@ -1032,7 +1036,9 @@ export default function map() {
                 </div>
                 <div className="col-lg-3 ">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox" onClick = {checkdata}>Cash Handling</p>
+                    <p className="pAdditonalBox" onClick={checkdata}>
+                      Cash Handling
+                    </p>
                   </div>
                 </div>
                 <div className="col-lg-3 ">

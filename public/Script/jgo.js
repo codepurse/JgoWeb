@@ -25,12 +25,10 @@ $(document).ready(function () {
   });
 
   $(".btnAddStopoff").click(function () {
-    if (x === 1) {
+    if ($(".divStopoff1").css("display") == "none") {
       $(".divStopoff1").css("display", "block");
-      x = 2;
-    } else if (x === 2) {
+    } else if ($(".divStopoff2").css("display") == "none") {
       $(".divStopoff2").css("display", "block");
-      x = 3;
     }
   });
 
@@ -79,7 +77,7 @@ $(document).ready(function () {
     $(".divDocu").fadeIn(200);
   });
 
-   $(".BoxCloth").click(function () {
+  $(".BoxCloth").click(function () {
     $(".divBox1").hide();
     $(".divCloth").fadeIn(200);
   });

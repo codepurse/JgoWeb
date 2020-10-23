@@ -7,7 +7,6 @@ const regions = require("philippines/regions");
 const province = require("philippines/provinces");
 const cities = require("philippines/cities");
 
-
 const customStyles1 = {
   control: (base, state) => ({
     ...base,
@@ -143,51 +142,50 @@ export class login extends Component {
   }
 
   onKeyPress = (e) => {
-    if(e.which === 13) {
+    if (e.which === 13) {
       this.login();
     }
-  }
+  };
 
   login(event) {
-   if (this.state.Password == "") {
-    $(".txtPassword").css("border-color", "#d32f2f");
-   }
-   if ( this.state.Email == "") {
-    $(".txtEmail").css("border-color", "#d32f2f");
-   }
-   else {
-    $(".btn").addClass("btn--loading");
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-      },
-    };
-    const apiUrl = "http://localhost:8000/api/auth/login";
-    axios
-      .post(
-        apiUrl,
-        { email: this.state.Email, password: this.state.Password },
-        options
-      )
-      .then((result) => {
-        if (result.request.status == "200") {
-          localStorage.setItem("token", JSON.stringify(result.data.data));
-          console.log(result.data);
-          document.getElementById("username").innerHTML =
-            result.data.data.user.name;
-            
-          $(".colMain").hide();
-          $(".colLogin").hide();
-          $(".colDeliver").show();
+    if (this.state.Password == "") {
+      $(".txtPassword").css("border-color", "#d32f2f");
+    }
+    if (this.state.Email == "") {
+      $(".txtEmail").css("border-color", "#d32f2f");
+    } else {
+      $(".btn").addClass("btn--loading");
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+      const apiUrl = "http://localhost:8000/api/auth/login";
+      axios
+        .post(
+          apiUrl,
+          { email: this.state.Email, password: this.state.Password },
+          options
+        )
+        .then((result) => {
+          if (result.request.status == "200") {
+            localStorage.setItem("token", JSON.stringify(result.data.data));
+            console.log(result.data);
+            document.getElementById("username").innerHTML =
+              result.data.data.user.name;
+
+            $(".colMain").hide();
+            $(".colLogin").hide();
+            $(".colDeliver").show();
+            $(".btn").removeClass("btn--loading");
+          }
+        })
+        .catch((err) => {
           $(".btn").removeClass("btn--loading");
-        }
-      })
-      .catch((err) => {
-        $(".btn").removeClass("btn--loading");
-        this.messageError();
-      });
-   }
+          this.messageError();
+        });
+    }
   }
 
   HandleChangeRegion(e) {
@@ -218,17 +216,13 @@ export class login extends Component {
   lname(event) {
     this.setState({ lname: event.target.value });
     if (event.target.value == "") {
-      
     } else {
-    
     }
   }
   fname(event) {
     this.setState({ fname: event.target.value });
     if (event.target.value == "") {
-    
     } else {
-     
     }
   }
   mname(event) {
@@ -237,17 +231,13 @@ export class login extends Component {
   email(event) {
     this.setState({ email: event.target.value });
     if (event.target.value == "") {
-    
     } else {
-      
     }
   }
   mobile(event) {
     this.setState({ mobile: event.target.value });
     if (event.target.value == "") {
-     
     } else {
-     
     }
   }
   address(event) {
@@ -268,9 +258,7 @@ export class login extends Component {
   password(event) {
     this.setState({ password: event.target.value });
     if (event.target.value == "") {
-      
     } else {
-     
     }
   }
 
@@ -319,19 +307,18 @@ export class login extends Component {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       $(".pPassword").css("color", "#d32f2f");
-      $(".txtPassword").css("borderColor", "#d32f2f");  
+      $(".txtPassword").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
     }
 
-    if( this.state.password < 6 || this.state.password > 16) {
+    if (this.state.password < 6 || this.state.password > 16) {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       $(".pError").show();
       $(".btn").removeClass("btn--loading");
-    }
-     else {
+    } else {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -416,24 +403,26 @@ export class login extends Component {
           <div className="boxLogin">
             <input
               type="text"
-              value = {this.state.Email}
+              value={this.state.Email}
               className="txt txtEmail"
               placeholder="email"
               onChange={this.Email.bind(this)}
               onKeyPress={this.onKeyPress}
             ></input>
-        
+
             <input
               type="password"
-              value = {this.state.Password}
+              value={this.state.Password}
               className="txt txtPassword"
               placeholder="password"
               onChange={this.Password.bind(this)}
               onKeyPress={this.onKeyPress}
             ></input>
-          
           </div>
-          <div className="row align-items-center" style = {{marginTop: "-10px"}}>
+          <div
+            className="row align-items-center"
+            style={{ marginTop: "-10px" }}
+          >
             <div className="col-lg-6 text-center">
               <p className="pForgot">forgot password?</p>
             </div>
