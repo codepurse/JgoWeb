@@ -22,7 +22,7 @@ export default function App() {
       background: "transparent",
       color: "red",
       border: "1px solid lightgray",
-     
+
       borderRadius: "5px",
       width: "100%",
       padding: "2px",
@@ -37,9 +37,9 @@ export default function App() {
       ...provided,
       color: "white",
     }),
-    option: provided => ({
+    option: (provided) => ({
       ...provided,
-      color: 'black'
+      color: "black",
     }),
   };
 
@@ -94,6 +94,7 @@ export default function App() {
   }
 
   function clickSubmit(e) {
+  
     if (address === "" || addressDrop === "") {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
@@ -116,7 +117,7 @@ export default function App() {
         </div>
       );
     } else {
-
+      $(".btn").addClass("btn--loading");
       const origin = {
         lat: coordinates.lat,
         lng: coordinates.lng,
@@ -170,12 +171,14 @@ export default function App() {
       ratedata.set("drop_off_locations[0][booking_order]", "1");
       ratedata.set("additional_services[0]", "1");
 
-      const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+      const apiUrl_rate =
+        "http://localhost:8000/api/auth/calculate-rate";
 
       axios
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
           localStorage.setItem("price", result.data.price);
+          $(".btn").removeClass("btn--loading");
           router.push("/map");
         })
         .catch((err) => {});
@@ -329,13 +332,14 @@ export default function App() {
         </div>
       </div>
 
-      <input
-        type="button"
-        className="btnSubmit"
-        value="SUBMIT"
-        onClick={clickSubmit}
-        style={{ marginTop: "10px" }}
-      ></input>
+      <a className="btn btnSubmit"  style={{ marginTop: "10px" }} onClick={clickSubmit}>
+        Deliver
+        <span>
+          <b></b>
+          <b></b>
+          <b></b>
+        </span>
+      </a>
     </div>
   );
 }

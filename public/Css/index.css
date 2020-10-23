@@ -65,7 +65,7 @@ body, html {
 
 #__next {
     height: 100%;
-    background-color: #1E2025;
+    background-color: #212427;
 }
 
 .fixed-top {
@@ -356,6 +356,7 @@ body, html {
     transition: all 0.2s;
     margin-right: 0px;
     float: right;
+    outline: none !important;
 }
 
 hr {
@@ -1376,14 +1377,14 @@ input[type="file"] {
 
 .rowTop {
     padding-top: 20px;
-    background-color: #1E2025;
+    background-color: #212427;
     padding-bottom: 20px;
     border-bottom: 1px solid #414141;
 }
 
 .divSidebar {
     border-right: 2px solid #414141;
-    background-color: #1E2025;
+    background-color: #15181A;
     width: 50px;
     height: 100vh;
     position: absolute;
@@ -1478,6 +1479,27 @@ ul.no-bullets>li:hover {
     display: none;
     margin-top: 40px;
 }
+
+th {
+    font-family: "GilroySemiBold";
+    color: white;
+    font-size: 1.2rem;
+}
+
+td {
+    font-family: "GilroyMedium";
+    color: white;
+    font-size: 1rem;
+}
+
+.tr {
+    cursor: pointer;
+}
+
+
+
+
+
 @keyframes stretch {
     0% {
         transform: scale(0.5);

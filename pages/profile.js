@@ -8,6 +8,9 @@ export default function profile() {
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
   const [fname, setFname] = React.useState("");
+  const [tabledata, setTabledata] = React.useState([]);
+
+
 
   useEffect(() => {
     if (AuthService.getFullname()) {
@@ -29,12 +32,11 @@ export default function profile() {
       .post(apiUrl, { customer_id: 3 }, options)
       .then((result) => {
         console.log(result);
+        setTabledata(result.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-
-
   }, []);
 
   function logout() {
@@ -43,7 +45,7 @@ export default function profile() {
   }
 
   function profile() {
-    $(".conBooking").hide()
+    $(".conBooking").hide();
     $(".conProf").fadeIn(250);
   }
 
@@ -83,7 +85,7 @@ export default function profile() {
           </div>
           <div className="col-lg-4 text-center">
             <ul className="ulDashboard mx-auto">
-              <li onClick = {booking}>BOOKINGS</li>
+              <li onClick={booking}>BOOKINGS</li>
               <li onClick={profile}>PROFILE</li>
               <li>SETTINGS</li>
             </ul>
@@ -102,10 +104,26 @@ export default function profile() {
           </div>
         </div>
       </div>
-      <div className = "container conBook">
-        <div className = "row">
-          <div className = "col-lg-12">
-
+      <div className="container conBook">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="table-responsive">
+              <table class="table table-striped table-bordered" id = "table">
+                <tr>
+                  <th>Status</th>
+                  <th>Pickup Address</th>
+                </tr>
+                {tabledata.map((event) => (
+                  <tr>
+                    <td>{event.status}</td>
+                    <td>{event.pick_up_address}</td>
+                    {event.booking_drop_off_location.map((event) => (
+                      <td>{event.drop_off_address}</td>
+                    ))}
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
         </div>
       </div>

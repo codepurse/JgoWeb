@@ -21,7 +21,7 @@ $(document).ready(function () {
   });
 
   $(".pAdd").click(function () {
-    $(this).closest(".divHide").find(".divAdd").css("display", "block");
+    $(this).closest(".divHide").find(".divAdd").fadeIn(200);
   });
 
   $(".btnAddStopoff").click(function () {
@@ -33,7 +33,7 @@ $(document).ready(function () {
   });
 
   $(".imgDelete").click(function () {
-    $(this).closest(".divStopOff").css("display", "none");
+    $(this).closest(".divStopOff").fadeOut(150);
   });
 
   var i = 0;
@@ -85,5 +85,9 @@ $(document).ready(function () {
   $(".BoxMedic").click(function () {
     $(".divBox1").hide();
     $(".divMedic").fadeIn(200);
+  });
+
+  $("#table").on("click", "tr", function (e) {
+    console.log($(e.currentTarget).index() + 1);
   });
 });

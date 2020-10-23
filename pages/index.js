@@ -23,6 +23,8 @@ function index() {
     $(".colDeliver").fadeIn(250);
   }
 
+
+
   return (
     <>
       <div className="container-fluid mainCon h-100">
@@ -43,6 +45,7 @@ function index() {
                 type="button"
                 className="btnBook"
                 value="BOOK A DELIVERY"
+                onClick = {book}
               ></input>
             </div>
 

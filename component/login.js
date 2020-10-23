@@ -162,7 +162,7 @@ export class login extends Component {
         },
       };
      
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/login";
+      const apiUrl = "http://localhost:8000/api/auth/login";
       axios
         .post(
          apiUrl,
@@ -373,7 +373,7 @@ export class login extends Component {
         },
       };
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
+      const apiUrl = "http://localhost:8000/api/auth/register";
       axios
         .post(apiUrl, formdata, options, config)
         .then((result) => {
