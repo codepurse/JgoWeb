@@ -1023,7 +1023,7 @@ export default function map() {
                     Additional Services
                   </p>
                 </div>
-                <div className="col-lg-3">
+                <div className="col-lg-4">
                   <div className="boxAdditional">
                     <p
                       className="pAdditonalBox"
@@ -1034,19 +1034,15 @@ export default function map() {
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-3 ">
+                <div className="col-lg-4 ">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox" onClick={checkdata}>
                       Cash Handling
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-3 ">
-                  <div className="boxAdditional">
-                    <p className="pAdditonalBox">Queueing</p>
-                  </div>
-                </div>
-                <div className="col-lg-3 ">
+              
+                <div className="col-lg-4">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox">Pabili Service</p>
                   </div>

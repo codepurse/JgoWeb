@@ -29,18 +29,13 @@ export default function navbar() {
   }
 
   useEffect(() => {
-    if(localStorage.getItem("token")) {
-      return (
-        setFname(AuthService.getCurrentUser())
-      )
-    }
-    else {
+    if (localStorage.getItem("token")) {
+      return setFname(AuthService.getCurrentUser());
+    } else {
       setFname("LOGIN");
     }
   }, []);
 
-
- 
   return (
     <div className="container-fluid">
       <nav
@@ -68,23 +63,20 @@ export default function navbar() {
             <div className="col2 ml-auto">
               <ul className="nav navbar-nav">
                 <li className={index}>
-                  <a className="nav-link" style={{ color: "white" }}>
-                    HOME
-                  </a>
+                  <Link href="/driver">
+                    <a className="nav-link" style={{ color: "white" }}>
+                      Be a JGO Driver
+                    </a>
+                  </Link>
                 </li>
                 <li className={deliver} onClick={deliverForm}>
                   <a className="nav-link" style={{ color: "white" }}>
-                    DELIVER
+                    Book a Delivery
                   </a>
                 </li>
                 <li className={contact}>
                   <a className="nav-link" style={{ color: "white" }}>
-                    CONTACT
-                  </a>
-                </li>
-                <li className={faq}>
-                  <a className="nav-link" style={{ color: "white" }}>
-                    FAQ
+                    Support
                   </a>
                 </li>
                 <li className={login} onClick={loginForm}>

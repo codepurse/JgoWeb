@@ -17,6 +17,12 @@ function index() {
     }
   }, []);
 
+  function book() {
+    $(".colMain").hide();
+    $(".colLogin").hide();
+    $(".colDeliver").fadeIn(250);
+  }
+
   return (
     <>
       <div className="container-fluid mainCon h-100">
@@ -117,7 +123,9 @@ function index() {
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
                   laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
               <div className="divBox1 divFood" style={{ display: "none" }}>
                 <img src="Image/002-pizza.svg" className="imgIconLarge"></img>
@@ -160,53 +168,53 @@ function index() {
         <div className="container">
           <div className="row">
             <div className="col-lg-5 align-self-end">
-              <img src="Image/horse.png" className="img-fluid" style = {{width: "85%"}}></img>
+              <img
+                src="Image/horse.png"
+                className="img-fluid"
+                style={{ width: "85%" }}
+              ></img>
             </div>
             <div className="col-lg-7 text-center">
               <p className="pOntime">
                 ON TIME <br></br>EVERY TIME
               </p>
               <div className="divBoxCheck">
-                <div className="row" style = {{marginBottom: "30px"}}>
+                <div className="row" style={{ marginBottom: "30px" }}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
                   <div className="col-lg-11">
                     <p className="pCheck">
-                  
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "30px"}}>
+                <div className="row" style={{ marginBottom: "30px" }}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
                   <div className="col-lg-11">
                     <p className="pCheck">
-                      
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "30px"}}>
+                <div className="row" style={{ marginBottom: "30px" }}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
                   <div className="col-lg-11">
                     <p className="pCheck">
-                     
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit
                     </p>
                   </div>
                 </div>
-                <div className="row" style = {{marginBottom: "30px"}}>
+                <div className="row" style={{ marginBottom: "30px" }}>
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
                   <div className="col-lg-11">
                     <p className="pCheck">
-                     
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit
                     </p>
                   </div>
@@ -216,15 +224,22 @@ function index() {
           </div>
         </div>
       </div>
-      <div className = "container-fluid con4">
-        <div className = "container">
-          <div className = "row align-items-center">
-            <div className = "col-lg-6">
-              <p className = "pComingsoon">COMING SOON</p>
-              <p className = "pComingSub">Order before cut off and we will deliver your groceries on the same day!</p>
+      <div className="container-fluid con4">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <p className="pComingsoon">COMING SOON</p>
+              <p className="pComingSub">
+                Order before cut off and we will deliver your groceries on the
+                same day!
+              </p>
             </div>
-            <div className = "col-lg-6">
-             <img src = "Image/Man.png" className = "img-fluid mx-auto d-flex" style = {{width: "80%"}}></img>
+            <div className="col-lg-6">
+              <img
+                src="Image/Man.png"
+                className="img-fluid mx-auto d-flex"
+                style={{ width: "80%" }}
+              ></img>
             </div>
           </div>
         </div>
@@ -232,7 +247,11 @@ function index() {
       <div className="container-fluid conFooter">
         <div className="row align-items-center">
           <div className="col-lg-6">
-            <img src="Image/logo.png" className="img-fluid imgLogo" style={{ width: "150px",marginLeft: "20px" }}></img>
+            <img
+              src="Image/logo.png"
+              className="img-fluid imgLogo"
+              style={{ width: "150px", marginLeft: "20px" }}
+            ></img>
           </div>
           <div className="col-lg-6">
             <ul className="ulFooter">
