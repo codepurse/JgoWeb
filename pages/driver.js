@@ -6,6 +6,7 @@ import axios from "axios";
 import swal from "@sweetalert/with-react";
 
 function driver() {
+
   var clear = 0;
   var submitClick = 0;
   const [fname, setfname] = React.useState("");
@@ -435,11 +436,14 @@ function driver() {
           $("#driverModal").css("z-index", "99");
           $(".modal-backdrop").hide();
           errorMessage();
+          
           $(".btn").removeClass("btn--loading");
           submitClick = 0;
         });
     }
   }
+
+}
 
   function successMessage() {
     swal(
@@ -518,6 +522,7 @@ function driver() {
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
       >
+    
         <nav
           className="navbar navbar-expand-md fixed-top"
           style={{ padding: "20px 20px" }}
@@ -728,6 +733,7 @@ function driver() {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor.
                   </p>
+                  
                 </div>
               </div>
             </div>

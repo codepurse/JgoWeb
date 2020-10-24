@@ -87,7 +87,8 @@ $(document).ready(function () {
     $(".divMedic").fadeIn(200);
   });
 
-  $("#table").on("click", "tr", function (e) {
-    console.log($(e.currentTarget).index() + 1);
+  $(".ulDashboard>li").click(function () {
+    $(".ulDashboard>li").removeClass("activeUl");
+    $(this).addClass("activeUl");
   });
 });

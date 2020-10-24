@@ -1475,29 +1475,48 @@ ul.no-bullets>li:hover {
     margin-bottom: 0px;
 }
 
+.conBook {
+    padding-left: 70px !important;
+    margin-top: 40px;
+}
+
 .conProf {
     display: none;
     margin-top: 40px;
 }
 
 th {
-    font-family: "GilroySemiBold";
+    font-family: "GilroyMedium";
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    border: 0px !important;
+    background-color: transparent !important;
+}
+
+tr {
+    border: 0px !important;
+    color: #C4CAD1;
+  
+
 }
 
 td {
     font-family: "GilroyMedium";
-    color: white;
+    color: #C4CAD1;
     font-size: 1rem;
+    cursor: pointer;
+    border: 0px !important;
 }
 
 .tr {
     cursor: pointer;
 }
 
-
-
+.intransit {
+    color: #FFDD9A;
+    display: block;
+    text-transform: capitalize;
+}
 
 
 @keyframes stretch {
@@ -1573,12 +1592,17 @@ td {
     display: none;
 }
 
+.conMenu {
+    padding-left: 70px !important;
+    margin-bottom: -40px;
+    margin-top: 40px;
+}
+
 .ulDashboard {
     list-style-type: none;
     overflow: hidden;
     margin: 0px auto;
     padding: 0px;
-    width: max-content;
     margin-bottom: 0px;
     margin-top: 8px;
 }
@@ -1589,11 +1613,19 @@ td {
     display: block;
     color: white;
     text-align: center;
-    padding-right: 35px;
+    margin-right: 35px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s;
     margin-bottom: 0px;
+    width: max-content;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.activeUl {
+    border-bottom: 1px solid #FFE900;
+    color: #FFE900 !important;
 }
 
 .ulDashboard>li:hover {
@@ -1602,7 +1634,6 @@ td {
 
 .hrDashboard {
     background-color: #414141;
-    border: 1px solid #414141;
     margin-top: 0px;
 }
 
