@@ -1,6 +1,4 @@
-coordinate = [
-
-];
+coordinate = [];
 
 module.exports = global.config = {
   place: {
@@ -12,7 +10,11 @@ module.exports = global.config = {
       dropofflat: "",
       dropofflang: "",
       refresh: "",
+      table_id: "2",
     },
   },
 };
 
+tablemap = [];
+
+coordinatebook = [];

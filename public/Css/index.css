@@ -224,7 +224,7 @@ body, html {
 
 .con3 {
     background-color: #454542;
- padding: 5% 5px ;
+    padding: 5% 5px;
 }
 
 .pOntime {
@@ -267,6 +267,7 @@ body, html {
     color: #2e2e2e;
     font-size: 1.2rem;
 }
+
 /* Login */
 
 .colLogin {
@@ -873,7 +874,6 @@ hr {
 
 .css-2b097c-container {
     width: 87% !important;
-
 }
 
 .css-2b097c-container:active, .css-yk16xz-control:active {
@@ -1389,7 +1389,6 @@ input[type="file"] {
     height: 100vh;
     position: absolute;
     left: 0px;
-    
 }
 
 .divMenu {
@@ -1496,8 +1495,6 @@ th {
 tr {
     border: 0px !important;
     color: #C4CAD1;
-  
-
 }
 
 td {
@@ -1517,7 +1514,6 @@ td {
     display: block;
     text-transform: capitalize;
 }
-
 
 @keyframes stretch {
     0% {
@@ -1643,9 +1639,57 @@ td {
     color: white;
 }
 
+.div {
+    margin-left: 40px !important;
+}
+
+.pTotalBookings {
+    font-family: "GilroyMedium";
+    color: #C4CAD1;
+    font-size: 1.2rem;
+    margin: 10px 2px;
+    margin-bottom: 20px;
+}
+
+.pActiveBookings {
+    font-family: "GilroyMedium";
+    color: #FFDD9A;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+.txtSearch {
+    font-family: "GilroyMedium";
+    color: white;
+    font-size: 1rem;
+    border-radius: 9px;
+    border: 1px solid rgb(28, 30, 33);
+    padding: 8px;
+    border: 0px;
+    width: 350px;
+    padding-left: 40px;
+    float: right;
+    margin-top: -5px;
+    background:rgb(28, 30, 33)  url(../Image/search.png) left no-repeat;
+    background-size: 18px;
+    background-position: 10px;
+    outline: none !important;
+}
+
+.txtSearch:focus {
+    border: 1px solid #FFF257;
+}
+
+.pNo {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
 /* new modal */
-
-
 
 .pModalTitle {
     font-family: 'GilroyMedium';
