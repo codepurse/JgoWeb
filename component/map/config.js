@@ -10,7 +10,7 @@ module.exports = global.config = {
       dropofflat: "",
       dropofflang: "",
       refresh: "",
-      table_id: "2",
+      table_id: "",
     },
   },
 };

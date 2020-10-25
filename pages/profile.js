@@ -54,6 +54,8 @@ export default function profile() {
   };
 
   useEffect(() => {
+    coordinatebook.length = 0;
+    global.config.place.deliver.table_id = "";
     if (AuthService.getFullname()) {
       setFull_name(AuthService.getFullname());
       $(".conProfile").show();
@@ -101,7 +103,21 @@ export default function profile() {
     $(".conProf").hide();
   }
 
-  function clickTable() {
+  async function clickTable() {
+    $("#table").on("click", "tr", function (e) {
+      global.config.place.deliver.table_id = Number(
+        $(this).children().closest("td").html()
+      );
+    });
+
+    if (global.config.place.deliver.table_id == "") {
+    } else {
+      router.push("/mapbooking");
+    }
+    doubleclickTable();
+  }
+
+  function doubleclickTable() {
     $("#table").on("click", "tr", function (e) {
       global.config.place.deliver.table_id = Number(
         $(this).children().closest("td").html()
@@ -251,6 +267,7 @@ export default function profile() {
                 className="table"
                 id="table"
                 onClick={clickTable}
+                onDoubleClick = {doubleclickTable}
                 onMouseOver={hovertable}
               >
                 <thead>

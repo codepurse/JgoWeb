@@ -6,6 +6,7 @@ import axios from "axios";
 import Componentdidmount from "../component/componentdidmount";
 import "../component/map/config";
 import Googlemap from "../component/map/maploaderbook";
+import authService from "../services/auth.service";
 
 export default function mapbooking() {
   const router = useRouter();
@@ -13,25 +14,38 @@ export default function mapbooking() {
     lat: null,
     lng: null,
   });
+  const [fullname, setFullname] = React.useState("");
+
+  if (process.browser) {
+    if (tablemap.length == 0) {
+      router.push("/profile");
+      return false;
+    }
+  }
 
   useEffect(() => {
-    console.log(tablemap);
-    tablemap
-      .filter((event) => event.id === 2)
-      .map(
-        (data) => (
-          coordinatebook.push({
-            lat: Number(data.pick_up_latitude),
-            lng: Number(data.pick_up_longitude),
-          }),
-          data.booking_drop_off_location.map((data) =>
+    setFullname(authService.getFullname());
+    console.log(global.config.place.deliver.table_id);
+    if (tablemap) {
+      console.log(tablemap);
+      tablemap
+        .filter((event) => event.id === global.config.place.deliver.table_id)
+        .map(
+          (data) => (
             coordinatebook.push({
-              lat: Number(data.drop_off_latitude),
-              lng: Number(data.drop_off_longitude),
-            })
+              lat: Number(data.pick_up_latitude),
+              lng: Number(data.pick_up_longitude),
+            }),
+            data.booking_drop_off_location.map((data) =>
+              coordinatebook.push({
+                lat: Number(data.drop_off_latitude),
+                lng: Number(data.drop_off_longitude),
+              })
+            )
           )
-        )
-      );
+        );
+    } else {
+    }
   }, [10]);
 
   function trylang() {
@@ -42,8 +56,16 @@ export default function mapbooking() {
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
-      <div className="container-fluid">
-        <div className="divSidebar" style = {{zIndex: "999999999999999"}}>
+      <div
+        className="container-fluid h-100"
+        style={{ backgroundColor: "#15181A" }}
+      >
+        <div className="divSidebar" style={{ zIndex: "999999999999999" }}>
+          <img
+            src="Image/horse.png"
+            className="img-fluid mx-auto d-flex"
+            style={{ width: "35px", marginTop: "15px" }}
+          ></img>
           <div className="divMenu">
             <div className="divIcon">
               <ul className="no-bullets">
@@ -64,13 +86,35 @@ export default function mapbooking() {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-lg-6">
-          
-          </div>
-          <div className="col-lg-6">
-            <div className="divMap">
+        <div className="row h-100">
+          <div className="col-lg-10 h-100">
+            <div className="divMapBook">
               <Googlemap></Googlemap>
+            </div>
+          </div>
+          <div className="col-lg-2 colPackage">
+            <div>
+              <div className="circleBook">
+                <img src="Image/profile.jpg" alt="" />
+              </div>
+              <p className="packageFullname">{fullname}</p>
+              <p className="pNumber">09636787712</p>
+              <hr className="hrDashboard"></hr>
+              <p className="p2">Bookings</p>
+              <div>
+                {tablemap
+                  .filter(
+                    (event) => event.id === global.config.place.deliver.table_id
+                  )
+                  .map((data) => (
+                    <ul key={data.id} style = {{paddingLeft: "17px"}}>
+                      <li className = "liBooking">{data.pick_up_address}</li>
+                      {data.booking_drop_off_location.map((data) => (
+                        <li className = "liBooking">{data.drop_off_address}</li>
+                      ))}
+                    </ul>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
