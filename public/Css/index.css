@@ -1392,9 +1392,15 @@ input[type="file"] {
     background-color: #15181A;
     width: 50px;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     left: 0px;
     box-shadow: 0px 5px 20px #212121;
+    z-index: 99999;
+    transition: all 0.2s;
+}
+
+.divSidebar:hover {
+    width: 170px;
 }
 
 .divMenu {
@@ -1413,17 +1419,28 @@ ul.no-bullets {
     padding: 0px;
 }
 
-ul.no-bullets>li {
+ul.no-bullets>a>li {
     padding: 14px;
     margin-top: 10px;
     cursor: pointer;
     transition: all 0.2s;
-    width: 100%;
-    border-radius: 5px;
+    width: 170px;
+    text-decoration: none !important;
 }
 
-ul.no-bullets>li:hover {
-    background-color: #1C1C1C;
+ul.no-bullets>a>li>span {
+    font-family: "GilroyMedium";
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    margin-left: 40px;
+    display: none;
+    
+}
+
+ul.no-bullets>a>li:hover {
+    background-color: #2C2B31;
+    border-left: 2px solid #FFE900;
 }
 
 .divUserNav {
@@ -1478,6 +1495,7 @@ ul.no-bullets>li:hover {
     color: white;
     font-size: 2rem;
     margin-bottom: 0px;
+    margin-left: 8px;
 }
 
 .conBook {
@@ -1597,7 +1615,7 @@ td {
 .conMenu {
     padding-left: 70px !important;
     margin-bottom: -40px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .ulDashboard {
@@ -1698,7 +1716,13 @@ td {
 /* Map table book */
 
 .colPackage {
-    width: 100%;
+    border-left:  1px solid #414141;
+}
+
+.divMapBook {
+    position: fixed;
+    width: 74.1%;
+    height: 100%;
 }
 
 .circleBook {
@@ -1723,7 +1747,7 @@ td {
 .packageFullname {
     font-family: 'GilroyMedium';
     color: whitesmoke;
-    font-size:1.1rem;
+    font-size: 1.1rem;
     text-transform: capitalize;
     text-align: center;
     margin-top: 10px;
@@ -1750,6 +1774,11 @@ td {
     margin-top: 10px;
     padding-left: 20px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.liBooking:hover {
+    color: #FFE900;
 }
 
 .pMapBookStatus {
@@ -1792,6 +1821,32 @@ td {
     font-size: 0.85rem;
     margin-bottom: 5px;
     text-align: left;
+}
+
+.divHide {
+    display: none;
+}
+
+.spanMore {
+    font-size: 1.2rem;
+    color: white;
+    display: block;
+}
+
+.pPriceBook {
+    font-family: 'GilroySemiBold';
+    color: #FFDD9A;
+    font-size: 1.5rem;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.pDate{
+    font-family: 'GilroyLight';
+    font-size: 0.9rem;
+    color: #FFDD9A;
+    text-align: center;
+    margin-bottom: 0px;
 }
 
 /* new modal */

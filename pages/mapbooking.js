@@ -20,6 +20,8 @@ export default function mapbooking() {
     { value: "Looking for Driver", label: "Looking for Driver" },
     { value: "Ongoing", label: "Ongoing" },
   ];
+  const [datebook, setDatebook] = React.useState("");
+  const [pricebook, setPricebook] = React.useState("");
   const statusColor = (value) => {
     switch (value) {
       case "in transit":
@@ -59,6 +61,12 @@ export default function mapbooking() {
         );
     } else {
     }
+    var d = tablemap[global.config.place.deliver.table_id - 1].created_at.slice(
+      0,
+      10
+    );
+    setPricebook(tablemap[global.config.place.deliver.table_id - 1].total);
+    setDatebook(d);
   }, [10]);
 
   function trylang() {
@@ -100,47 +108,80 @@ export default function mapbooking() {
           </div>
         </div>
         <div className="row h-100">
-          <div className="col-lg-10 h-100">
+          <div className="col-lg-9 h-100">
             <div className="divMapBook">
               <Googlemap></Googlemap>
             </div>
           </div>
-          <div className="col-lg-2 colPackage">
+          <div className="col-lg-3 colPackage">
             <div>
               <div className="circleBook">
                 <img src="Image/profile.jpg" alt="" />
               </div>
               <p className="packageFullname">{fullname}</p>
               <p className="pNumber">09636787712</p>
-              <hr className="hrDashboard"></hr>
-              <p className="p2">Bookings</p>
+              <div className="row" style = {{padding: "0px"}}>
+                <div className="col-lg-6" style = {{padding: "0px"}}>
+                  <p
+                    className="p2 text-center"
+                    style={{ marginBottom: "2px", fontSize: "1rem" }}
+                  >
+                    Date
+                  </p>
+                  <p className="pDate">{datebook}</p>
+                </div>
+                <div className="col-lg-6" style = {{borderLeft: "1px solid  #414141", padding: "0px"}}>
+                  <p
+                    className="p2 text-center"
+                    style={{ marginBottom: "2px", fontSize: "1rem" }}
+                  >
+                    Price
+                  </p>
+                  <p className="pDate">{pricebook}</p>
+                </div>
+              </div>
+              <hr className="hrDashboard" style = {{marginTop: "8px"}}></hr>
+              <p className="p2" style = {{marginLeft: "18px"}}>Bookings</p>
               <div>
                 {tablemap
                   .filter(
                     (event) => event.id === global.config.place.deliver.table_id
                   )
                   .map((data) => (
-                    <ul key={data.id} style={{ paddingLeft: "17px" }}>
-                      <li className="liBooking">
-                        <p className={statusColor(data.status)}>
-                          {data.status}
-                        </p>
-                        {data.pick_up_address}
-                        <p className="p3">{data.contact_name}</p>
-                        <p className="p3">{data.contact_number}</p>
-                      </li>
-
-                      {data.booking_drop_off_location.map((data) => (
+                    <div className="container">
+                      <ul key={data.id} style={{ paddingLeft: "17px" }}>
                         <li className="liBooking">
                           <p className={statusColor(data.status)}>
                             {data.status}
                           </p>
-                          {data.drop_off_address}
-                          <p className="p3">{data.contact_name}</p>
-                          <p className="p3">{data.contact_number}</p>
+                          {data.pick_up_address}
+
+                          <span className="spanMore">
+                            &#8226;&#8226;&#8226;
+                          </span>
+                          <div className="divHide">
+                            <p className="p3">{data.contact_name}</p>
+                            <p className="p3">{data.contact_number}</p>
+                          </div>
                         </li>
-                      ))}
-                    </ul>
+
+                        {data.booking_drop_off_location.map((data) => (
+                          <li className="liBooking">
+                            <p className={statusColor(data.status)}>
+                              {data.status}
+                            </p>
+                            {data.drop_off_address}
+                            <span className="spanMore">
+                              &#8226;&#8226;&#8226;
+                            </span>
+                            <div className="divHide">
+                              <p className="p3">{data.contact_name}</p>
+                              <p className="p3">{data.contact_number}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
               </div>
             </div>

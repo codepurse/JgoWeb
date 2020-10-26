@@ -103,4 +103,16 @@ $(document).ready(function () {
       }
     });
   });
+
+  $(".liBooking").click(function () {
+    $(this).find(".divHide").fadeIn(200);
+    $(this).find(".spanMore").hide();
+  });
+
+  $(".divSidebar").hover(function(){
+  $("ul.no-bullets>a>li>span").fadeIn(100);
+  }, function(){
+    $("ul.no-bullets>a>li>span").fadeOut(100);
+});
+
 });

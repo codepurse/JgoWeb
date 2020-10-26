@@ -6,7 +6,7 @@ import axios from "axios";
 import "../component/map/config";
 import Select from "react-select";
 import Componentdidmount from "../component/componentdidmount";
-
+import Link from "next/link";
 export default function profile() {
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
@@ -172,15 +172,33 @@ export default function profile() {
           <div className="divMenu">
             <div className="divIcon">
               <ul className="no-bullets">
-                <li>
-                  <img src="Image/home.png" style={{ width: "20px" }}></img>
-                </li>
-                <li>
-                  <img src="Image/truck.png" style={{ width: "20px" }}></img>
-                </li>
-                <li>
-                  <img src="Image/call.png" style={{ width: "20px" }}></img>
-                </li>
+                <Link href="/">
+                  <a style = {{textDecoration: "none"}}>
+                    <li>
+                      <img src="Image/home.png" style={{ width: "20px" }}></img>
+                      <span>Home</span>
+                    </li>
+                  </a>
+                </Link>
+                <Link href="">
+                  <a style = {{textDecoration: "none"}}>
+                    <li>
+                      <img
+                        src="Image/truck.png"
+                        style={{ width: "20px" }}
+                      ></img>
+                      <span>Deliver</span>
+                    </li>
+                  </a>
+                </Link>
+                <Link href="">
+                  <a style = {{textDecoration: "none"}}>
+                    <li>
+                      <img src="Image/call.png" style={{ width: "20px" }}></img>
+                      <span>Contact</span>
+                    </li>
+                  </a>
+                </Link>
               </ul>
             </div>
           </div>
@@ -212,6 +230,9 @@ export default function profile() {
       </div>
       <div className="container-fluid conMenu">
         <div className="row">
+          <div className="pDashboard">
+            <p className="pDashboard">Dashboard</p>
+          </div>
           <div className="col-lg-12">
             <ul className="ulDashboard">
               <li onClick={booking} className="activeUl">
@@ -267,7 +288,7 @@ export default function profile() {
                 className="table"
                 id="table"
                 onClick={clickTable}
-                onDoubleClick = {doubleclickTable}
+                onDoubleClick={doubleclickTable}
                 onMouseOver={hovertable}
               >
                 <thead>
