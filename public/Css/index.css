@@ -1752,6 +1752,48 @@ td {
     cursor: pointer;
 }
 
+.pMapBookStatus {
+    font-family: 'GilroyMedium';
+    width: max-content;
+    text-align: left;
+    background-color: #26292E;
+    padding: 2px 8px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+}
+
+.looking {
+    font-family: 'GilroyMedium';
+    color: #2D9CFC;
+    width: max-content;
+    text-align: left;
+    background-color: #26292E !important;
+    padding: 2px 10px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.intransitBook {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    width: max-content;
+    text-align: left;
+    background-color: #26292E !important;
+    padding: 2px 10px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.p3 {
+    font-family: 'GilroyLight';
+    color: #E8E9E9;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
 /* new modal */
 
 .pModalTitle {

@@ -15,6 +15,19 @@ export default function mapbooking() {
     lng: null,
   });
   const [fullname, setFullname] = React.useState("");
+  const status = [
+    { value: "Delivered", label: "Delivered" },
+    { value: "Looking for Driver", label: "Looking for Driver" },
+    { value: "Ongoing", label: "Ongoing" },
+  ];
+  const statusColor = (value) => {
+    switch (value) {
+      case "in transit":
+        return "intransitBook";
+      case "Looking for Driver":
+        return "looking";
+    }
+  };
 
   if (process.browser) {
     if (tablemap.length == 0) {
@@ -107,10 +120,25 @@ export default function mapbooking() {
                     (event) => event.id === global.config.place.deliver.table_id
                   )
                   .map((data) => (
-                    <ul key={data.id} style = {{paddingLeft: "17px"}}>
-                      <li className = "liBooking">{data.pick_up_address}</li>
+                    <ul key={data.id} style={{ paddingLeft: "17px" }}>
+                      <li className="liBooking">
+                        <p className={statusColor(data.status)}>
+                          {data.status}
+                        </p>
+                        {data.pick_up_address}
+                        <p className="p3">{data.contact_name}</p>
+                        <p className="p3">{data.contact_number}</p>
+                      </li>
+
                       {data.booking_drop_off_location.map((data) => (
-                        <li className = "liBooking">{data.drop_off_address}</li>
+                        <li className="liBooking">
+                          <p className={statusColor(data.status)}>
+                            {data.status}
+                          </p>
+                          {data.drop_off_address}
+                          <p className="p3">{data.contact_name}</p>
+                          <p className="p3">{data.contact_number}</p>
+                        </li>
                       ))}
                     </ul>
                   ))}
