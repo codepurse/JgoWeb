@@ -78,10 +78,14 @@ export default function profile() {
         setTabledata(result.data.data);
         tablemap = result.data.data;
         setCount(result.data.data.length);
+        if (result.data.data.length === 0) {
+          $(".pNo").show();
+        }
         const active = result.data.data.filter(
           (item) => item.status === "Looking for Driver"
         );
         setACtivecount(active.length);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -172,7 +176,7 @@ export default function profile() {
           <div className="divMenu">
             <div className="divIcon">
               <ul className="no-bullets">
-                <Link href="/">
+                <Link href="/driver">
                   <a style = {{textDecoration: "none"}}>
                     <li>
                       <img src="Image/home.png" style={{ width: "20px" }}></img>
@@ -180,7 +184,7 @@ export default function profile() {
                     </li>
                   </a>
                 </Link>
-                <Link href="">
+                <Link href="/index">
                   <a style = {{textDecoration: "none"}}>
                     <li>
                       <img

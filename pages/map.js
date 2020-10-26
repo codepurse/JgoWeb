@@ -12,13 +12,50 @@ import Componentdidmount from "../component/componentdidmount";
 import Leaflet from "../component/map/leaflet";
 import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
+import Select from "react-select";
 import axios from "axios";
 
 export default function map() {
   const [tokenuser, setTokenuser] = React.useState("");
+  const [fullname, setFullname] = React.useState("");
   const router = useRouter();
   var places_data = coordinate;
   const [click_id, setId] = React.useState("");
+  const bookingtype = [
+    { value: "Document", label: "Document" },
+    { value: "Food", label: "Food" },
+    { value: "Cloting", label: "Clothing" },
+    { value: "Medical", label: "Medical" },
+    { value: "Fragile", label: "Fragile" },
+    { value: "Others", label: "Others" },
+  ];
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      background: "transparent",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "10px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "100%",
+    }),
+  };
+
   var click;
 
   const customStyles1 = {
@@ -128,6 +165,7 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    setFullname(AuthService.getFullname());
     const loggedInUser = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
       const foundUser = JSON.parse(loggedInUser);
@@ -372,6 +410,12 @@ export default function map() {
     }
   }
 
+    const [category_type, setCategory] = React.useState("");
+
+  function handleChangeCategory1(event) {
+      setCategory(event.label);
+  }
+
   {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
   }
@@ -524,8 +568,9 @@ export default function map() {
     let formdata = new FormData();
     formdata.set("customer_id", AuthService.getId());
     formdata.set("booking_type_id", "1");
-    formdata.set("contact_name", coordinate[0].detailsname);
+    formdata.set("contact_name", "asdasd");
     formdata.set("contact_number", coordinate[0].detailsnumber);
+    formdata.set("note", coordinate[0].detailsAdd);
     formdata.set("pick_up_address", address.label);
     formdata.set("pick_up_latitude", coordinate[0].lat);
     formdata.set("pick_up_longitude", coordinate[0].lng);
@@ -642,7 +687,13 @@ export default function map() {
               </div>
               <div className="col-lg-8">
                 <ul className="my-row">
-                  <li>LOGIN</li>
+                  <Link href="/profile">
+                    <a>
+                      <li style={{ textTransform: "capitalize" }}>
+                        {fullname}
+                      </li>
+                    </a>
+                  </Link>
                   <li>HOME</li>
                 </ul>
               </div>
@@ -677,7 +728,7 @@ export default function map() {
                   }}
                 />
                 <img
-                  src="Image/google-maps.png"
+                  src="Image/maps.png"
                   className="img-fluid imgMap"
                   onClick={opensweetalert}
                 ></img>
@@ -685,7 +736,7 @@ export default function map() {
               <div className="divHide">
                 <div className="divAdd">
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
                         className="txtName txtAdditional"
@@ -701,16 +752,17 @@ export default function map() {
                         placeholder="Contact Number"
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                       <input
                         type="text"
                         className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueAdd(evt)}
-                        placeholder="Blk/Floor/Unit"
+                        placeholder="Note"
                       />
                     </div>
                   </div>
                 </div>
+
                 <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
@@ -744,7 +796,7 @@ export default function map() {
                   }}
                 />
                 <img
-                  src="Image/google-maps.png"
+                  src="Image/maps.png"
                   className="img-fluid imgMap"
                   onClick={opensweetalert}
                 ></img>
@@ -752,11 +804,11 @@ export default function map() {
               <div className="divHide">
                 <div className="divAdd">
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
-                        onChange={(evt) => updateInputValue(evt)}
                         className="txtName txtAdditional"
+                        onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
                     </div>
@@ -771,9 +823,18 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtAdd txtAdditional"
-                        onChange={(evt) => updateInputAdd(evt)}
-                        placeholder="Blk/Floor/Unit"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueAdd(evt)}
+                        placeholder="Note"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <Select
+                        options={bookingtype}
+                        styles={customStyles}
+                        onChange = {handleChangeCategory1}
+                        value = {category_type}
+                        placeholder="Select Category"
                       />
                     </div>
                   </div>
@@ -784,7 +845,7 @@ export default function map() {
 
             {/* Stop off number 2 */}
             <div
-              onClick={() => (click = 3, setId("3"))}
+              onClick={() => ((click = 3), setId("3"))}
               style={{ display: "none" }}
               className="divStopoff1 divStopOff"
             >
@@ -815,25 +876,22 @@ export default function map() {
                     },
                   }}
                 />
-                <img
-                  src="Image/google-maps.png"
-                  className="img-fluid imgMap1"
-                ></img>
+                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
                 <img
                   src="Image/remove.png"
                   className="img-fluid  imgDelete"
-                  id = "3"
+                  id="3"
                   onClick={deleteAdd}
                 ></img>
               </div>
               <div className="divHide">
                 <div className="divAdd">
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
-                        onChange={(evt) => updateInputValue(evt)}
                         className="txtName txtAdditional"
+                        onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
                     </div>
@@ -845,12 +903,12 @@ export default function map() {
                         placeholder="Contact Number"
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                       <input
                         type="text"
-                        className="txtAdd txtAdditional"
-                        onChange={(evt) => updateInputAdd(evt)}
-                        placeholder="Blk/Floor/Unit"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueAdd(evt)}
+                        placeholder="Note"
                       />
                     </div>
                   </div>
@@ -861,7 +919,7 @@ export default function map() {
 
             {/* Stop off number 3 */}
             <div
-              onClick={() => (click = 4 , setId(4))}
+              onClick={() => ((click = 4), setId(4))}
               style={{ display: "none" }}
               className="divStopoff2 divStopOff"
             >
@@ -892,26 +950,22 @@ export default function map() {
                     },
                   }}
                 />
-                <img
-                  src="Image/google-maps.png"
-                  className="img-fluid imgMap1"
-                ></img>
+                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
                 <img
                   src="Image/remove.png"
                   className="img-fluid  imgDelete"
-                  id = "4"
+                  id="4"
                   onClick={deleteAdd}
                 ></img>
               </div>
               <div className="divHide">
-                <p className="pAdd">&#x2b; Add details</p>
                 <div className="divAdd">
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
-                        onChange={(evt) => updateInputValue(evt)}
                         className="txtName txtAdditional"
+                        onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
                     </div>
@@ -920,19 +974,20 @@ export default function map() {
                         type="text"
                         className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number txtAdditional"
+                        placeholder="Contact Number"
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                       <input
                         type="text"
-                        className="txtAdd txtAdditional"
-                        onChange={(evt) => updateInputAdd(evt)}
-                        placeholder="Blk/Floor/Unit"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueAdd(evt)}
+                        placeholder="Note"
                       />
                     </div>
                   </div>
                 </div>
+                <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
             <button className="btnAddStopoff">Add Stop-off</button>
@@ -940,10 +995,13 @@ export default function map() {
               Note: Delivery only within Metro Manila
             </p>
             <div className="divCategory">
-              <p className="pPick" style={{ fontSize: "0.9rem" }}>
+              <p
+                className="pPick"
+                style={{ fontSize: "0.9rem", display: "none" }}
+              >
                 Category
               </p>
-              <div className="row">
+              <div className="row" style={{ display: "none" }}>
                 <div className="col-sm-2">
                   <div className="boxCategory align-items-center d-flex justify-content-center">
                     <div>
@@ -1041,7 +1099,7 @@ export default function map() {
                     </p>
                   </div>
                 </div>
-              
+
                 <div className="col-lg-4">
                   <div className="boxAdditional">
                     <p className="pAdditonalBox">Pabili Service</p>
