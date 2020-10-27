@@ -6,7 +6,6 @@ import axios from "axios";
 import swal from "@sweetalert/with-react";
 
 function driver() {
-
   var clear = 0;
   var submitClick = 0;
   const [fname, setfname] = React.useState("");
@@ -436,14 +435,12 @@ function driver() {
           $("#driverModal").css("z-index", "99");
           $(".modal-backdrop").hide();
           errorMessage();
-          
+
           $(".btn").removeClass("btn--loading");
           submitClick = 0;
         });
     }
   }
-
-
 
   function successMessage() {
     swal(
@@ -514,8 +511,7 @@ function driver() {
     );
   }
 
-  return ( 
-    
+  return (
     <>
       <Header />
       <Componentdidmount></Componentdidmount>
@@ -523,7 +519,6 @@ function driver() {
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
       >
-    
         <nav
           className="navbar navbar-expand-md fixed-top"
           style={{ padding: "20px 20px" }}
@@ -734,7 +729,6 @@ function driver() {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor.
                   </p>
-                  
                 </div>
               </div>
             </div>
@@ -780,21 +774,26 @@ function driver() {
                 className="img-fluid imgArtwork"
               ></img>
               <p className="pArtwork">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            
               </p>
             </div>
             <div className="col-lg-6">
               <div className="divAbout">
                 <p className="pAboutus">ABOUT US</p>
                 <p className="pAboutusSub">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident
+                  Following his father’sfootsteps JGO Deliver services Inc. was
+                  founded and organized in early 2020by Jose Miguel O. Garcia
+                  with the help of Jose Vicente E. Garcia.Seeing the high demand
+                  of courier services in the Philippines they sought to build
+                  asubsidiary company under JG manpower. With the businesses
+                  expertise in manpower services we chose to focus on bringing
+                  your everyday essentials into your hands is at the core of
+                  what we do for the community. As a delivery service provider,
+                  you can rely on JGo to assist you in handling goods from one
+                  hand to another. Safely and quickly. In a busy world like
+                  ours, these are what matter. As your delivery assistants, we
+                  arealways on the go, always ready foryou. Maaasahan ninyo kami
+                  to get the jobdone.
                 </p>
               </div>
             </div>

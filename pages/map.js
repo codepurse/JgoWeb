@@ -22,12 +22,12 @@ export default function map() {
   var places_data = coordinate;
   const [click_id, setId] = React.useState("");
   const bookingtype = [
-    { value: "Document", label: "Document" },
-    { value: "Food", label: "Food" },
-    { value: "Cloting", label: "Clothing" },
-    { value: "Medical", label: "Medical" },
-    { value: "Fragile", label: "Fragile" },
-    { value: "Others", label: "Others" },
+    { value: "1", label: "Document" },
+    { value: "2", label: "Food" },
+    { value: "3", label: "Clothing" },
+    { value: "4", label: "Medical" },
+    { value: "5", label: "Fragile" },
+    { value: "6", label: "Others" },
   ];
   const customStyles = {
     control: (base, state) => ({
@@ -190,8 +190,7 @@ export default function map() {
   const [price, setPrice] = React.useState("");
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
-  const [addressDrop1, setAddressDrop1] = React.useState("");
-  const [addressDrop2, setAddressDrop2] = React.useState("");
+  const [addressStop, setAddressStop] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null,
@@ -207,8 +206,11 @@ export default function map() {
   const [coordinatesDrop2, setCoordinatesDrop2] = React.useState({
     lat: null,
     lng: null,
+  });  
+  const [coordinateStop, setcoordinateStop] = React.useState({
+    lat: null,
+    lng: null,
   });
-
   {
     /* Pickoff setting and passing data to array and to the component itself */
   }
@@ -320,38 +322,14 @@ export default function map() {
   {
     /* Stopoff #1 setting and passing data to array and to the component itself */
   }
-  const handleChangeDrop1 = async (value) => {
-    const results = await geocodeByAddress(value.label);
-    const latLng = await getLatLng(results[0]);
-    setAddressDrop1(value);
-    setCoordinatesDrop1(latLng);
-    try {
-      var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].lat = latLng.lat),
-        (places_data[objIndex].lng = latLng.lng),
-        console.log(coordinate);
-      router.push("");
-      getRate();
-    } catch (err) {
-      const destination = {
-        lat: latLng.lat,
-        lng: latLng.lng,
-        id: "3",
-      };
-      coordinate.push(destination);
-      router.push("");
-      getRate();
-    }
-  };
+ 
 
-  {
-    /* Stopoff #2 setting and passing data to array and to the component itself */
-  }
-  const handleChangeDrop2 = async (value) => {
+  const handleChangeStop = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    setAddressDrop2(value);
-    setCoordinatesDrop2(latLng);
+    setAddressStop(value);
+    setcoordinateStop(latLng);
+    console.log(value.label);
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       (places_data[objIndex].lat = latLng.lat),
@@ -361,9 +339,10 @@ export default function map() {
       getRate();
     } catch (err) {
       const destination = {
+        address: value.label,
         lat: latLng.lat,
         lng: latLng.lng,
-        id: "4",
+        id: click,
       };
       coordinate.push(destination);
       router.push("");
@@ -410,10 +389,15 @@ export default function map() {
     }
   }
 
-    const [category_type, setCategory] = React.useState("");
+  const [category_type, setCategory] = React.useState("");
 
-  function handleChangeCategory1(event) {
-      setCategory(event.label);
+  function handleChangeCategory(event) {
+    try {
+      var objIndex = places_data.findIndex((obj) => obj.id == click);
+      (places_data[objIndex].category = event.value), console.log(coordinate);
+    } catch (err) {
+      console.log(event.value);
+    }
   }
 
   {
@@ -452,6 +436,8 @@ export default function map() {
     /* Function to delete index in array */
   }
   function deleteAdd(e) {
+    $(e.currentTarget).closest(".divStopOff").fadeOut(150);
+    $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").value = "";
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
       if (places_data[i].id == e.currentTarget.id) {
@@ -499,6 +485,30 @@ export default function map() {
       );
       ratedata.set("drop_off_locations[2][booking_order]", "3");
       ratedata.set("additional_services[2]", "");
+    }
+    if (coordinate[4]) {
+      ratedata.set(
+        "drop_off_locations[3][drop_off_latitude]",
+        coordinate[4].lat
+      );
+      ratedata.set(
+        "drop_off_locations[3][drop_off_longitude]",
+        coordinate[4].lng
+      );
+      ratedata.set("drop_off_locations[3][booking_order]", "4");
+      ratedata.set("additional_services[3]", "");
+    }
+    if (coordinate[5]) {
+      ratedata.set(
+        "drop_off_locations[4][drop_off_latitude]",
+        coordinate[5].lat
+      );
+      ratedata.set(
+        "drop_off_locations[4][drop_off_longitude]",
+        coordinate[5].lng
+      );
+      ratedata.set("drop_off_locations[4][booking_order]", "5");
+      ratedata.set("additional_services[4]", "");
     }
 
     const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
@@ -564,10 +574,35 @@ export default function map() {
       ratedata.set("drop_off_locations[2][booking_order]", "3");
       ratedata.set("additional_services[2]", "");
     }
+    if (coordinate[4]) {
+      ratedata.set(
+        "drop_off_locations[3][drop_off_latitude]",
+        coordinate[4].lat
+      );
+      ratedata.set(
+        "drop_off_locations[3][drop_off_longitude]",
+        coordinate[4].lng
+      );
+      ratedata.set("drop_off_locations[3][booking_order]", "4");
+      ratedata.set("additional_services[3]", "");
+    }
+    if (coordinate[5]) {
+      ratedata.set(
+        "drop_off_locations[4][drop_off_latitude]",
+        coordinate[5].lat
+      );
+      ratedata.set(
+        "drop_off_locations[4][drop_off_longitude]",
+        coordinate[5].lng
+      );
+      ratedata.set("drop_off_locations[4][booking_order]", "5");
+      ratedata.set("additional_services[4]", "");
+    }
+
 
     let formdata = new FormData();
     formdata.set("customer_id", AuthService.getId());
-    formdata.set("booking_type_id", "1");
+
     formdata.set("contact_name", "asdasd");
     formdata.set("contact_number", coordinate[0].detailsnumber);
     formdata.set("note", coordinate[0].detailsAdd);
@@ -590,14 +625,14 @@ export default function map() {
       "drop_off_locations[0][contact_number]",
       coordinate[1].detailsnumber
     );
-    formdata.set("drop_off_locations[0][category_id]", "1");
+    formdata.set("drop_off_locations[0][category_id]", coordinate[1].category);
     formdata.set("drop_off_locations[0][distance]", "5.4");
     formdata.set("additional_services[0]", "1");
 
     if (coordinate[2]) {
       formdata.set(
         "drop_off_locations[1][drop_off_address]",
-        addressDrop1.label
+        coordinate[2].address
       );
       formdata.set(
         "drop_off_locations[1][drop_off_latitude]",
@@ -616,7 +651,10 @@ export default function map() {
         "drop_off_locations[1][contact_number]",
         coordinate[2].detailsnumber
       );
-      formdata.set("drop_off_locations[1][category_id]", "1");
+      formdata.set(
+        "drop_off_locations[1][category_id]",
+        coordinate[2].category
+      );
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
       formdata.set("additional_services[1]", "1");
     }
@@ -624,7 +662,7 @@ export default function map() {
     if (coordinate[3]) {
       formdata.set(
         "drop_off_locations[2][drop_off_address]",
-        addressDrop2.label
+        coordinate[3].address
       );
       formdata.set(
         "drop_off_locations[2][drop_off_latitude]",
@@ -646,6 +684,33 @@ export default function map() {
       formdata.set("drop_off_locations[2][category_id]", "1");
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
       formdata.set("additional_services[2]", "1");
+    }  
+    
+    if (coordinate[4]) {
+      formdata.set(
+        "drop_off_locations[3][drop_off_address]",
+        coordinate[4].address
+      );
+      formdata.set(
+        "drop_off_locations[3][drop_off_latitude]",
+        coordinate[4].lat
+      );
+      formdata.set(
+        "drop_off_locations[3][drop_off_longitude]",
+        coordinate[4].lng
+      );
+      formdata.set("drop_off_locations[3][booking_order]", "4");
+      formdata.set(
+        "drop_off_locations[3][contact_name]",
+        coordinate[4].detailsname
+      );
+      formdata.set(
+        "drop_off_locations[3][contact_number]",
+        coordinate[4].detailsnumber
+      );
+      formdata.set("drop_off_locations[3][category_id]", "1");
+      formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
+      formdata.set("additional_services[3]", "1");
     }
 
     const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
@@ -832,9 +897,9 @@ export default function map() {
                       <Select
                         options={bookingtype}
                         styles={customStyles}
-                        onChange = {handleChangeCategory1}
-                        value = {category_type}
+                        onChange={handleChangeCategory}
                         placeholder="Select Category"
+                        onClick={() => (click = 2)}
                       />
                     </div>
                   </div>
@@ -843,13 +908,16 @@ export default function map() {
               </div>
             </div>
 
+
             {/* Stop off number 2 */}
+
             <div
-              onClick={() => ((click = 3), setId("3"))}
+              onClick={() => ((click = 3), setId(3))}
               style={{ display: "none" }}
               className="divStopoff1 divStopOff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
+                {" "}
                 <img
                   src="Image/mapgps.svg"
                   className="img-fluid"
@@ -861,13 +929,12 @@ export default function map() {
               <div
                 className="form-inline"
                 style={{ width: "100%", marginLeft: "5%" }}
-                onClick={() => (click = 3)}
               >
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "3",
-                    value: addressDrop1,
-                    onChange: handleChangeDrop1,
+                  
+                    onChange: handleChangeStop,
                     styles: customStyles2,
                   }}
                   autocompletionRequest={{
@@ -903,12 +970,21 @@ export default function map() {
                         placeholder="Contact Number"
                       />
                     </div>
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
                         className="txtNumber txtAdditional"
                         onChange={(evt) => updateInputValueAdd(evt)}
                         placeholder="Note"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <Select
+                        options={bookingtype}
+                        styles={customStyles}
+                        onChange={handleChangeCategory}
+                        placeholder="Select Category"
+                        onClick={() => (click = 3)}
                       />
                     </div>
                   </div>
@@ -917,7 +993,8 @@ export default function map() {
               </div>
             </div>
 
-            {/* Stop off number 3 */}
+                    {/* Stop off number 3 */}
+
             <div
               onClick={() => ((click = 4), setId(4))}
               style={{ display: "none" }}
@@ -940,8 +1017,8 @@ export default function map() {
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "4",
-                    value: addressDrop2,
-                    onChange: handleChangeDrop2,
+                  
+                    onChange: handleChangeStop,
                     styles: customStyles2,
                   }}
                   autocompletionRequest={{
@@ -977,7 +1054,7 @@ export default function map() {
                         placeholder="Contact Number"
                       />
                     </div>
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                       <input
                         type="text"
                         className="txtNumber txtAdditional"
@@ -985,11 +1062,190 @@ export default function map() {
                         placeholder="Note"
                       />
                     </div>
+                    <div className="col-lg-6">
+                      <Select
+                        options={bookingtype}
+                        styles={customStyles}
+                        onChange={handleChangeCategory}
+                        placeholder="Select Category"
+                        onClick={() => (click = 4)}
+                      />
+                    </div>
                   </div>
                 </div>
                 <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
+
+                     {/* Stop off number 4 */}
+
+                     <div
+              onClick={() => ((click = 5), setId(5))}
+              style={{ display: "none" }}
+              className="divStopoff3 divStopOff"
+            >
+              <p className="pPick" style={{ marginTop: "30px" }}>
+                {" "}
+                <img
+                  src="Image/mapgps.svg"
+                  className="img-fluid"
+                  style={{ marginRight: "15px" }}
+                ></img>
+                Stop Off Location
+              </p>
+
+              <div
+                className="form-inline"
+                style={{ width: "100%", marginLeft: "5%" }}
+              >
+                <GooglePlacesAutocomplete
+                  selectProps={{
+                    instanceId: "5",
+                  
+                    onChange: handleChangeStop,
+                    styles: customStyles2,
+                  }}
+                  autocompletionRequest={{
+                    componentRestrictions: {
+                      country: ["ph"],
+                    },
+                  }}
+                />
+                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                <img
+                  src="Image/remove.png"
+                  className="img-fluid  imgDelete"
+                  id="4"
+                  onClick={deleteAdd}
+                ></img>
+              </div>
+              <div className="divHide">
+                <div className="divAdd">
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtName txtAdditional"
+                        onChange={(evt) => updateInputValue(evt)}
+                        placeholder="Name"
+                      ></input>
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueNumber(evt)}
+                        placeholder="Contact Number"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueAdd(evt)}
+                        placeholder="Note"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <Select
+                        options={bookingtype}
+                        styles={customStyles}
+                        onChange={handleChangeCategory}
+                        placeholder="Select Category"
+                        onClick={() => (click = 5)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p className="pAdd">&#x2b; Add details</p>
+              </div>
+            </div>
+
+         {/* Stop off number 5 */}
+
+         <div
+              onClick={() => ((click = 6), setId(6))}
+              style={{ display: "none" }}
+              className="divStopoff4 divStopOff"
+            >
+              <p className="pPick" style={{ marginTop: "30px" }}>
+                {" "}
+                <img
+                  src="Image/mapgps.svg"
+                  className="img-fluid"
+                  style={{ marginRight: "15px" }}
+                ></img>
+                Stop Off Location
+              </p>
+
+              <div
+                className="form-inline"
+                style={{ width: "100%", marginLeft: "5%" }}
+              >
+                <GooglePlacesAutocomplete
+                  selectProps={{
+                    instanceId: "6",
+                  
+                    onChange: handleChangeStop,
+                    styles: customStyles2,
+                  }}
+                  autocompletionRequest={{
+                    componentRestrictions: {
+                      country: ["ph"],
+                    },
+                  }}
+                />
+                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                <img
+                  src="Image/remove.png"
+                  className="img-fluid  imgDelete"
+                  id="4"
+                  onClick={deleteAdd}
+                ></img>
+              </div>
+              <div className="divHide">
+                <div className="divAdd">
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtName txtAdditional"
+                        onChange={(evt) => updateInputValue(evt)}
+                        placeholder="Name"
+                      ></input>
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueNumber(evt)}
+                        placeholder="Contact Number"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <input
+                        type="text"
+                        className="txtNumber txtAdditional"
+                        onChange={(evt) => updateInputValueAdd(evt)}
+                        placeholder="Note"
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <Select
+                        options={bookingtype}
+                        styles={customStyles}
+                        onChange={handleChangeCategory}
+                        placeholder="Select Category"
+                        onClick={() => (click = 6)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p className="pAdd">&#x2b; Add details</p>
+              </div>
+            </div>
+
+
             <button className="btnAddStopoff">Add Stop-off</button>
             <p className="pNote" style={{ display: "none" }}>
               Note: Delivery only within Metro Manila

@@ -1216,7 +1216,7 @@ hr {
 }
 
 .divAbout {
-    width: 85%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -1224,6 +1224,7 @@ hr {
     font-family: 'ProximaNovaBlack', sans-serif;
     color: #FFFF3B;
     font-size: 3rem;
+    margin-bottom: 5px;
 }
 
 .pAboutusSub {

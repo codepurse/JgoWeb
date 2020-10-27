@@ -7,7 +7,7 @@ import Componentdidmount from "../component/componentdidmount";
 import "../component/map/config";
 import Googlemap from "../component/map/maploaderbook";
 import authService from "../services/auth.service";
-
+import Link from "next/link";
 export default function mapbooking() {
   const router = useRouter();
   const [origin, setOrigin] = React.useState({
@@ -81,28 +81,37 @@ export default function mapbooking() {
         className="container-fluid h-100"
         style={{ backgroundColor: "#15181A" }}
       >
-        <div className="divSidebar" style={{ zIndex: "999999999999999" }}>
-          <img
-            src="Image/horse.png"
-            className="img-fluid mx-auto d-flex"
-            style={{ width: "35px", marginTop: "15px" }}
-          ></img>
+        <div className="divSidebar">
           <div className="divMenu">
             <div className="divIcon">
               <ul className="no-bullets">
-                <li>
-                  <img
-                    src="Image/home.png"
-                    style={{ width: "20px" }}
-                    onClick={trylang}
-                  ></img>
-                </li>
-                <li>
-                  <img src="Image/truck.png" style={{ width: "20px" }}></img>
-                </li>
-                <li>
-                  <img src="Image/call.png" style={{ width: "20px" }}></img>
-                </li>
+                <Link href="/driver">
+                  <a style={{ textDecoration: "none" }}>
+                    <li>
+                      <img src="Image/home.png" style={{ width: "20px" }}></img>
+                      <span>Home</span>
+                    </li>
+                  </a>
+                </Link>
+                <Link href="/index">
+                  <a style={{ textDecoration: "none" }}>
+                    <li>
+                      <img
+                        src="Image/truck.png"
+                        style={{ width: "20px" }}
+                      ></img>
+                      <span>Deliver</span>
+                    </li>
+                  </a>
+                </Link>
+                <Link href="">
+                  <a style={{ textDecoration: "none" }}>
+                    <li>
+                      <img src="Image/call.png" style={{ width: "20px" }}></img>
+                      <span>Contact</span>
+                    </li>
+                  </a>
+                </Link>
               </ul>
             </div>
           </div>
@@ -120,8 +129,8 @@ export default function mapbooking() {
               </div>
               <p className="packageFullname">{fullname}</p>
               <p className="pNumber">09636787712</p>
-              <div className="row" style = {{padding: "0px"}}>
-                <div className="col-lg-6" style = {{padding: "0px"}}>
+              <div className="row" style={{ padding: "0px" }}>
+                <div className="col-lg-6" style={{ padding: "0px" }}>
                   <p
                     className="p2 text-center"
                     style={{ marginBottom: "2px", fontSize: "1rem" }}
@@ -130,7 +139,10 @@ export default function mapbooking() {
                   </p>
                   <p className="pDate">{datebook}</p>
                 </div>
-                <div className="col-lg-6" style = {{borderLeft: "1px solid  #414141", padding: "0px"}}>
+                <div
+                  className="col-lg-6"
+                  style={{ borderLeft: "1px solid  #414141", padding: "0px" }}
+                >
                   <p
                     className="p2 text-center"
                     style={{ marginBottom: "2px", fontSize: "1rem" }}
@@ -140,8 +152,10 @@ export default function mapbooking() {
                   <p className="pDate">{pricebook}</p>
                 </div>
               </div>
-              <hr className="hrDashboard" style = {{marginTop: "8px"}}></hr>
-              <p className="p2" style = {{marginLeft: "18px"}}>Bookings</p>
+              <hr className="hrDashboard" style={{ marginTop: "8px" }}></hr>
+              <p className="p2" style={{ marginLeft: "18px" }}>
+                Bookings
+              </p>
               <div>
                 {tablemap
                   .filter(

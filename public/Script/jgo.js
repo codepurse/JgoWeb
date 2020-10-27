@@ -30,10 +30,16 @@ $(document).ready(function () {
     } else if ($(".divStopoff2").css("display") == "none") {
       $(".divStopoff2").css("display", "block");
     }
+    else if ($(".divStopoff3").css("display") == "none") {
+      $(".divStopoff3").css("display", "block");
+    }
+    else if ($(".divStopoff4").css("display") == "none") {
+      $(".divStopoff4").css("display", "block");
+    }
   });
 
   $(".imgDelete").click(function () {
-    $(this).closest(".divStopOff").fadeOut(150);
+    $(this).closest(".divStopOff").find(".txtAdditional").val("");
   });
 
   var i = 0;
