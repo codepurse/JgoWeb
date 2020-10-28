@@ -59,14 +59,20 @@ export default function mapbooking() {
             )
           )
         );
+      try {
+        var d = tablemap[
+          global.config.place.deliver.table_id - 1
+        ].created_at.slice(0, 10);
+        setPricebook(tablemap[global.config.place.deliver.table_id - 1].total);
+        setDatebook(d);
+      } catch (e) {
+        router.push("/profile");
+        return false;
+      }
     } else {
+      router.push("/profile");
+      return false;
     }
-    var d = tablemap[global.config.place.deliver.table_id - 1].created_at.slice(
-      0,
-      10
-    );
-    setPricebook(tablemap[global.config.place.deliver.table_id - 1].total);
-    setDatebook(d);
   }, [10]);
 
   function trylang() {
@@ -173,7 +179,7 @@ export default function mapbooking() {
                           <span className="spanMore">
                             &#8226;&#8226;&#8226;
                           </span>
-                          <div className="divHide">
+                          <div style={{ display: "none" }}>
                             <p className="p3">{data.contact_name}</p>
                             <p className="p3">{data.contact_number}</p>
                           </div>
@@ -188,7 +194,7 @@ export default function mapbooking() {
                             <span className="spanMore">
                               &#8226;&#8226;&#8226;
                             </span>
-                            <div className="divHide">
+                            <div style={{ display: "none" }}>
                               <p className="p3">{data.contact_name}</p>
                               <p className="p3">{data.contact_number}</p>
                             </div>

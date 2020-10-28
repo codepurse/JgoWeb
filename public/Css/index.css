@@ -78,7 +78,8 @@ body, html {
 }
 
 .nav-link {
-    font-family: 'ProximaNovaBlack', sans-serif;
+    font-family: 'Proxima', sans-serif;
+    font-size: 1.1rem;
     color: white;
     margin-right: 15px;
     transition: all 0.2s;
@@ -124,6 +125,12 @@ body, html {
     cursor: pointer;
     transition: all 0.2s;
     outline: none !important;
+}
+
+.btnBook:hover {
+    background-color: #FFE900;
+    color: #252424;
+    font-weight: 600;
 }
 
 .conServices {
@@ -352,8 +359,8 @@ body, html {
 .btnSubmit {
     font-family: 'GilroyBold';
     color: white;
-    background-color: #EDC728;
-    border: 0px;
+    background-color: transparent !important;
+    border: 1px solid #FFE900 !important;
     border-radius: 43px;
     padding: 8px;
     width: 120px;
@@ -548,6 +555,11 @@ hr {
     cursor: pointer;
     margin-bottom: 0px;
     margin-left: 5%;
+    transition: all 0.2s;
+}
+
+.pAdd:hover {
+    color: #FFE900;
 }
 
 .txtAdditional {
@@ -650,10 +662,10 @@ hr {
 .boxAdditional {
     height: auto;
     width: 100%;
-    background-color: #252424;
+    background-color: transparent;
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid var(--maincolor);
-    border-radius: 15px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
     padding: 7px;
@@ -940,7 +952,7 @@ hr {
     font-family: 'GilroyBold';
     color: white;
     font-size: 0.9rem;
-    background-color: #252424;
+    background-color: transparent;
     margin-top: 15px;
     cursor: pointer;
     margin-bottom: 0px;
@@ -952,6 +964,12 @@ hr {
     margin-left: 5%;
     transition: all 0.1s;
 }
+
+.tooltip-inner {
+    background-color:  #1C1E21 !important;
+    border: 1px solid #FDBF00;
+}
+
 
 .btnAddStopoff:hover {
     background-color: #EDC728;
@@ -1069,7 +1087,7 @@ hr {
 }
 
 .pComing {
-    font-family: 'Proxima', sans-serif;
+    font-family: 'ProximaNovaBlack', sans-serif;
     color: #FFFF3B;
     font-size: 2.5rem;
     font-weight: bold;
@@ -1437,7 +1455,6 @@ ul.no-bullets>a>li>span {
     text-align: center;
     margin-left: 40px;
     display: none;
-    
 }
 
 ul.no-bullets>a>li:hover {
@@ -1558,7 +1575,7 @@ td {
 .btn {
     font-family: "Proxima" !important;
     align-items: center;
-    background-color: #EDC728 !important;
+    background-color: transparent !important;
     color: white !important;
     cursor: pointer;
     display: inline-flex;
@@ -1718,7 +1735,7 @@ td {
 /* Map table book */
 
 .colPackage {
-    border-left:  1px solid #414141;
+    border-left: 1px solid #414141;
 }
 
 .divMapBook {
@@ -1825,7 +1842,6 @@ td {
     text-align: left;
 }
 
-
 .spanMore {
     font-size: 1.2rem;
     color: white;
@@ -1840,7 +1856,7 @@ td {
     margin-bottom: 0px;
 }
 
-.pDate{
+.pDate {
     font-family: 'GilroyLight';
     font-size: 0.9rem;
     color: #FFDD9A;

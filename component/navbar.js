@@ -26,11 +26,13 @@ export default function navbar() {
     $(".colMain").hide();
     $(".colLogin").hide();
     $(".colDeliver").fadeIn(250);
+    $('img').tooltip().mouseover();
+    setTimeout(function(){ $('img').tooltip('hide'); }, 5000);
   }
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      return setFname(AuthService.getCurrentUser());
+      return setFname(AuthService.getFullname());
     } else {
       setFname("LOGIN");
     }

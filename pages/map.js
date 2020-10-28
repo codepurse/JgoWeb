@@ -188,6 +188,7 @@ export default function map() {
     /* All array and variables needed */
   }
   const [price, setPrice] = React.useState("");
+  const [services, setServices] = React.useState("");
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
@@ -350,6 +351,16 @@ export default function map() {
     }
   };
 
+  function getServices1() {
+    setServices(1);
+  }
+  function getServices2() {
+    setServices(2);
+  }
+  function getServices3() {
+    setServices(3);
+  }
+
   {
     /* Passing name in additional details based on click value */
   }
@@ -437,7 +448,10 @@ export default function map() {
   }
   function deleteAdd(e) {
     $(e.currentTarget).closest(".divStopOff").fadeOut(150);
-    $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").value = "";
+    $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").val("");
+    $(e.currentTarget).closest(".divStopOff").find(".css-1wa3eu0-placeholder").html("Select..")
+    $(e.currentTarget).closest(".divStopOff").find(".css-5sz5u5-singleValue").hide();
+   
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
       if (places_data[i].id == e.currentTarget.id) {
@@ -460,7 +474,7 @@ export default function map() {
       coordinate[1].lng
     );
     ratedata.set("drop_off_locations[0][booking_order]", "1");
-    ratedata.set("additional_services[0]", "");
+    ratedata.set("additional_services[0]", services);
 
     if (coordinate[2]) {
       ratedata.set(
@@ -472,7 +486,7 @@ export default function map() {
         coordinate[2].lng
       );
       ratedata.set("drop_off_locations[1][booking_order]", "2");
-      ratedata.set("additional_services[1]", "");
+      ratedata.set("additional_services[1]", services);
     }
     if (coordinate[3]) {
       ratedata.set(
@@ -484,7 +498,7 @@ export default function map() {
         coordinate[3].lng
       );
       ratedata.set("drop_off_locations[2][booking_order]", "3");
-      ratedata.set("additional_services[2]", "");
+      ratedata.set("additional_services[2]", services);
     }
     if (coordinate[4]) {
       ratedata.set(
@@ -496,7 +510,7 @@ export default function map() {
         coordinate[4].lng
       );
       ratedata.set("drop_off_locations[3][booking_order]", "4");
-      ratedata.set("additional_services[3]", "");
+      ratedata.set("additional_services[3]", services);
     }
     if (coordinate[5]) {
       ratedata.set(
@@ -508,7 +522,7 @@ export default function map() {
         coordinate[5].lng
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
-      ratedata.set("additional_services[4]", "");
+      ratedata.set("additional_services[4]", services);
     }
 
     const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
@@ -548,7 +562,7 @@ export default function map() {
       coordinate[1].lng
     );
     ratedata.set("drop_off_locations[0][booking_order]", "1");
-    ratedata.set("additional_services[0]", "");
+    ratedata.set("additional_services[0]", services);
 
     if (coordinate[2]) {
       ratedata.set(
@@ -560,7 +574,7 @@ export default function map() {
         coordinate[2].lng
       );
       ratedata.set("drop_off_locations[1][booking_order]", "2");
-      ratedata.set("additional_services[1]", "");
+      ratedata.set("additional_services[1]", services);
     }
     if (coordinate[3]) {
       ratedata.set(
@@ -572,7 +586,7 @@ export default function map() {
         coordinate[3].lng
       );
       ratedata.set("drop_off_locations[2][booking_order]", "3");
-      ratedata.set("additional_services[2]", "");
+      ratedata.set("additional_services[2]", services);
     }
     if (coordinate[4]) {
       ratedata.set(
@@ -584,7 +598,7 @@ export default function map() {
         coordinate[4].lng
       );
       ratedata.set("drop_off_locations[3][booking_order]", "4");
-      ratedata.set("additional_services[3]", "");
+      ratedata.set("additional_services[3]",services);
     }
     if (coordinate[5]) {
       ratedata.set(
@@ -596,7 +610,7 @@ export default function map() {
         coordinate[5].lng
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
-      ratedata.set("additional_services[4]", "");
+      ratedata.set("additional_services[4]", services);
     }
 
 
@@ -627,7 +641,7 @@ export default function map() {
     );
     formdata.set("drop_off_locations[0][category_id]", coordinate[1].category);
     formdata.set("drop_off_locations[0][distance]", "5.4");
-    formdata.set("additional_services[0]", "1");
+    formdata.set("additional_services[0]", services);
 
     if (coordinate[2]) {
       formdata.set(
@@ -656,7 +670,7 @@ export default function map() {
         coordinate[2].category
       );
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
-      formdata.set("additional_services[1]", "1");
+      formdata.set("additional_services[1]", services);
     }
 
     if (coordinate[3]) {
@@ -683,7 +697,7 @@ export default function map() {
       );
       formdata.set("drop_off_locations[2][category_id]", "1");
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
-      formdata.set("additional_services[2]", "1");
+      formdata.set("additional_services[2]", services);
     }  
     
     if (coordinate[4]) {
@@ -710,7 +724,7 @@ export default function map() {
       );
       formdata.set("drop_off_locations[3][category_id]", "1");
       formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
-      formdata.set("additional_services[3]", "1");
+      formdata.set("additional_services[3]", services);
     }
 
     const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
@@ -794,8 +808,9 @@ export default function map() {
                 />
                 <img
                   src="Image/maps.png"
-                  className="img-fluid imgMap"
+                  className="img-fluid imgMap tooltip-primary"
                   onClick={opensweetalert}
+                  data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title="Click the map to set the exact location"
                 ></img>
               </div>
               <div className="divHide">
@@ -933,9 +948,10 @@ export default function map() {
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "3",
-                  
+                    className: "selectPlaces",
                     onChange: handleChangeStop,
                     styles: customStyles2,
+                
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -1338,11 +1354,10 @@ export default function map() {
                   </p>
                 </div>
                 <div className="col-lg-4">
-                  <div className="boxAdditional">
+                  <div className="boxAdditional" onClick = {getServices1}>
                     <p
                       className="pAdditonalBox"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
+                   
                     >
                       Insulated Box
                     </p>
@@ -1350,14 +1365,14 @@ export default function map() {
                 </div>
                 <div className="col-lg-4 ">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox" onClick={checkdata}>
+                    <p className="pAdditonalBox"  onClick = {getServices2}>
                       Cash Handling
                     </p>
                   </div>
                 </div>
 
                 <div className="col-lg-4">
-                  <div className="boxAdditional">
+                  <div className="boxAdditional"  onClick = {getServices3}>
                     <p className="pAdditonalBox">Pabili Service</p>
                   </div>
                 </div>
@@ -1376,8 +1391,7 @@ export default function map() {
                 <div className="col-lg-10">
                   <p className="pPrice">&#8369;{price}</p>
                   <p className="pPriceSub">
-                    This is your final payment, please confirm your destination
-                    and go proceed to payment page.
+                    This is your final payment, please review and confirm your destination/s. Then click place order to proceed to payment page.
                   </p>
                   <button className="btnBook" onClick={btnPlaceorder}>
                     Place order

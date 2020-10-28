@@ -300,9 +300,10 @@ export default function App() {
             }}
           />
           <img
-            src="Image/google-maps.png"
+            src="Image/maps.png"
             className="img-fluid imgMap"
             onClick={opensweetalert}
+            data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title="Click the map to set the exact location"
           ></img>
         </div>
         <div
@@ -325,7 +326,7 @@ export default function App() {
             }}
           />
           <img
-            src="Image/google-maps.png"
+            src="Image/maps.png"
             className="img-fluid imgMap"
             onClick={opensweetalert}
           ></img>

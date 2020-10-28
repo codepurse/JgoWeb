@@ -1,4 +1,5 @@
 $(document).ready(function () {
+   var y = 0;
   var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
@@ -8,6 +9,13 @@ $(document).ready(function () {
       $(".fixed-top").css("background", "#1A1A1A");
       $(".fixed-top").css("z-index", "9");
     }
+  });
+
+  $(function () {
+    $(".tooltip-primary").tooltip().mouseover();
+    setTimeout(function () {
+      $(".tooltip-primary").tooltip("hide");
+    }, 5000);
   });
 
   $(".boxCategory").click(function () {
@@ -25,21 +33,66 @@ $(document).ready(function () {
   });
 
   $(".btnAddStopoff").click(function () {
+    if (y === 1) {
+      if ($(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0) {
+        alert("Fill up the missing address");
+        return false;
+      }
+      else {
+        if ($(".divStopoff2").css("display") == "none") {
+          $(".divStopoff2").css("display", "block");
+          y = 2;
+        } 
+      }
+    } else if (y == 2) {
+      if ($(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0) {
+        alert("Fill up the missing address");
+        return false;
+      }
+      else {
+        if ($(".divStopoff3").css("display") == "none") {
+          $(".divStopoff3").css("display", "block");
+          y = 3;
+        } 
+      }
+    }
+    else if (y == 3) {
+      if ($(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0) {
+        alert("Fill up the missing address");
+        return false;
+      }
+      else {
+        if ($(".divStopoff4").css("display") == "none") {
+          $(".divStopoff4").css("display", "block");
+          y = 4;
+        } 
+      }
+    }
+     else if (y == 4) {
+      if ($(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0) {
+        alert("Fill up the missing address");
+        return false;
+      }
+      else {
+        if ($(".divStopoff5").css("display") == "none") {
+          $(".divStopoff5").css("display", "block");
+          y = 5;
+        } 
+      }
+    }
+
+
     if ($(".divStopoff1").css("display") == "none") {
       $(".divStopoff1").css("display", "block");
-    } else if ($(".divStopoff2").css("display") == "none") {
-      $(".divStopoff2").css("display", "block");
-    }
-    else if ($(".divStopoff3").css("display") == "none") {
-      $(".divStopoff3").css("display", "block");
-    }
-    else if ($(".divStopoff4").css("display") == "none") {
-      $(".divStopoff4").css("display", "block");
+      y = 1;
     }
   });
 
-  $(".imgDelete").click(function () {
-    $(this).closest(".divStopOff").find(".txtAdditional").val("");
+  $(".boxAdditional").click(function () {
+    $(".boxAdditional").css("background-color", "transparent");
+    $(".boxAdditional >p").css("color", "white");
+    $(this).css("background-color", "#FFFE00");
+    $("p", this).css("color", "black");
   });
 
   var i = 0;
@@ -115,10 +168,12 @@ $(document).ready(function () {
     $(this).find(".spanMore").hide();
   });
 
-  $(".divSidebar").hover(function(){
-  $("ul.no-bullets>a>li>span").fadeIn(100);
-  }, function(){
-    $("ul.no-bullets>a>li>span").fadeOut(100);
-});
-
+  $(".divSidebar").hover(
+    function () {
+      $("ul.no-bullets>a>li>span").fadeIn(100);
+    },
+    function () {
+      $("ul.no-bullets>a>li>span").fadeOut(100);
+    }
+  );
 });

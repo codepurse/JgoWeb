@@ -3,6 +3,7 @@ import Header from "../component/header";
 import Componentdidmount from "../component/componentdidmount";
 import Select from "react-select";
 import axios from "axios";
+import Link from "next/link";
 import swal from "@sweetalert/with-react";
 
 function driver() {
@@ -533,9 +534,9 @@ function driver() {
           <nav className="navbar-brand" href="#">
             <a href="#">
               <img
-                src="Image/logo.png"
+                src="Image/newlogo.png"
                 className="img-fluid imglogo"
-                style={{ width: "150px" }}
+                style={{ width: "115px" }}
               />
             </a>
           </nav>
@@ -552,11 +553,16 @@ function driver() {
                     Be a JGO Driver
                   </a>
                 </li>
-                <li>
-                  <a className="nav-link nav-driver" style={{ color: "white" }}>
-                    Book a Delivery
-                  </a>
-                </li>
+                <Link href="/">
+                  <li>
+                    <a
+                      className="nav-link nav-driver"
+                      style={{ color: "white" }}
+                    >
+                      Book a Delivery
+                    </a>
+                  </li>
+                </Link>
                 <li>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                     Support
@@ -608,7 +614,7 @@ function driver() {
                   src="Image/phone1.png"
                   className="img-fluid imgPhone"
                 ></img>
-                <img src="Image/phone.gif" className="img-fluid imgGif"></img>
+                <img src="Image/phone1.gif" className="img-fluid imgGif"></img>
               </div>
             </div>
 
@@ -773,9 +779,7 @@ function driver() {
                 src="Image/artwork.jpg"
                 className="img-fluid imgArtwork"
               ></img>
-              <p className="pArtwork">
-            
-              </p>
+              <p className="pArtwork"></p>
             </div>
             <div className="col-lg-6">
               <div className="divAbout">
