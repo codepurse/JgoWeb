@@ -171,9 +171,11 @@ $(document).ready(function () {
   $(".divSidebar").hover(
     function () {
       $("ul.no-bullets>a>li>span").fadeIn(100);
+      $("ul.no-bullets>a>li").css("width","180px");
     },
     function () {
       $("ul.no-bullets>a>li>span").fadeOut(100);
+      $("ul.no-bullets>a>li").css("width","50px");
     }
   );
 });

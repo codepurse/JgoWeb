@@ -16,6 +16,10 @@ export default function profile() {
   const [count, setCount] = React.useState("");
   const [activeCount, setACtivecount] = React.useState("");
   const [statusdropdown, setStatus] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [oldpass, setOldpass] = React.useState("");
+  const [confirmoldpass, setConfirmoldpass] = React.useState("");
+  const [newpass, setNewpass] = React.useState("");
   var x;
 
   const status = [
@@ -68,6 +72,8 @@ export default function profile() {
         Accept: "application/json, text/plain, */*",
         "content-type": "application/json",
         Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
     const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
@@ -85,11 +91,11 @@ export default function profile() {
           (item) => item.status === "Looking for Driver"
         );
         setACtivecount(active.length);
-        
       })
       .catch((err) => {
         console.log(err);
       });
+    console.log(AuthService.getToken());
   }, []);
 
   function logout() {
@@ -98,13 +104,21 @@ export default function profile() {
   }
 
   function profile() {
-    $(".conBook").hide();
     $(".conProf").fadeIn(250);
+    $(".conBook").hide();
+    $(".conSettings").hide();
   }
 
   function booking() {
     $(".conBook").fadeIn(250);
     $(".conProf").hide();
+    $(".conSettings").hide();
+  }
+
+  function settings() {
+    $(".conSettings").fadeIn(250);
+    $(".conProf").hide();
+    $(".conBook").hide();
   }
 
   async function clickTable() {
@@ -160,6 +174,51 @@ export default function profile() {
     });
   }
 
+  function handleChangeemail(e) {
+    setEmail(e.value);
+  }
+
+  function handleChangeoldpass(e) {
+    setOldpass(e.value);
+  }
+
+  function handleChangeconfirmoldpass(e) {
+    setConfirmoldpass(e.value);
+  }
+
+  function handleChangenewpass(e) {
+    setNewpass(e.value);
+  }
+
+  function btnChangepass() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    let formdata = new FormData();
+    formdata.set("email", email);
+    formdata.set("token", AuthService.getToken());
+    formdata.set("password", oldpass);
+    formdata.set("password_confirmation", confirmoldpass);
+    formdata.set("new_password", newpass);
+
+    const apiUrl = "http://localhost:8000/api/auth/change-password";
+    axios
+      .post(apiUrl, formdata, options)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   const statusColor = (value) => {
     switch (value) {
       case "in transit":
@@ -177,7 +236,7 @@ export default function profile() {
             <div className="divIcon">
               <ul className="no-bullets">
                 <Link href="/driver">
-                  <a style = {{textDecoration: "none"}}>
+                  <a style={{ textDecoration: "none" }}>
                     <li>
                       <img src="Image/home.png" style={{ width: "20px" }}></img>
                       <span>Home</span>
@@ -185,7 +244,7 @@ export default function profile() {
                   </a>
                 </Link>
                 <Link href="/index">
-                  <a style = {{textDecoration: "none"}}>
+                  <a style={{ textDecoration: "none" }}>
                     <li>
                       <img
                         src="Image/truck.png"
@@ -196,7 +255,7 @@ export default function profile() {
                   </a>
                 </Link>
                 <Link href="">
-                  <a style = {{textDecoration: "none"}}>
+                  <a style={{ textDecoration: "none" }}>
                     <li>
                       <img src="Image/call.png" style={{ width: "20px" }}></img>
                       <span>Contact</span>
@@ -243,7 +302,7 @@ export default function profile() {
                 BOOKINGS
               </li>
               <li onClick={profile}>PROFILE</li>
-              <li>SETTINGS</li>
+              <li onClick={settings}>SETTINGS</li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -383,6 +442,102 @@ export default function profile() {
           <div className="col-lg-4">
             <p className="pTxtDriver">Zip Code</p>
             <input type="text" className="txtDriver"></input>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid conSettings">
+        <div className="row">
+          <div className="col-lg-12">
+            <p className="pSettingsTitle">General Settings</p>
+            <div>
+              <input type="checkbox" id="switch" />
+              <label for="switch">Toggle</label>
+              <span className = "spanCheck">Enable light mode</span>
+            </div>
+            <div style = {{marginTop: "10px"}}>
+              <input type="checkbox" id="switch1" />
+              <label for="switch1">Toggle</label>
+              <span className = "spanCheck">Enable toolips</span>
+            </div>
+            <p className="pSettingsTitle">Password</p>
+            <button
+              className="btnChangepassword"
+              data-toggle="modal"
+              data-target="#modalChangepass"
+            >
+              CHANGE PASSWORD
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalChangepass"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalChangepass">
+              <p className="pModalTitle">Change Password</p>
+              <p className="pModalTitleSub">
+                Your new password must be different from previous used
+                passwords.
+              </p>
+              <hr
+                style={{
+                  backgroundColor: "#414141",
+                  boder: "1px solid #414141",
+                }}
+              ></hr>
+              <div className="row" style={{ marginTop: "20px" }}>
+                <div className="col-lg-12">
+                  <input
+                    type="text"
+                    className="txtEmailchange"
+                    value={email}
+                    placeholder="Enter email address"
+                    onChange={handleChangeemail}
+                  ></input>
+                </div>
+                <div className="col-lg-12">
+                  <input
+                    type="text"
+                    className="txtOldpass"
+                    value={oldpass}
+                    placeholder="Enter old password"
+                    onChange={handleChangeoldpass}
+                  ></input>
+                </div>
+                <div className="col-lg-12">
+                  <input
+                    type="text"
+                    className="txtOldpass"
+                    value={confirmoldpass}
+                    placeholder="Enter old confirm password"
+                    onChange={handleChangeconfirmoldpass}
+                  ></input>
+                </div>
+                <div className="col-lg-12">
+                  <input
+                    type="text"
+                    value={newpass}
+                    className="txtNewpass"
+                    placeholder="Enter new password"
+                    onChange={handleChangenewpass}
+                  ></input>
+                </div>
+                <div className="col-lg-12">
+                  <button className="btnChangepass" onClick={btnChangepass}>
+                    CONFIRM
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
