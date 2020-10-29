@@ -95,7 +95,26 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
       });
-    console.log(AuthService.getToken());
+
+    const apiUrl1 = "http://localhost:8000/api/auth/customers";
+    axios
+      .get(
+        apiUrl1,
+      
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-type": "Application/json",
+            Authorization: `Bearer ${AuthService.getToken()}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   function logout() {
@@ -453,14 +472,14 @@ export default function profile() {
             <div>
               <input type="checkbox" id="switch" />
               <label for="switch">Toggle</label>
-              <span className = "spanCheck">Enable light mode</span>
+              <span className="spanCheck">Enable light mode</span>
             </div>
-            <div style = {{marginTop: "10px"}}>
+            <div style={{ marginTop: "10px" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
-              <span className = "spanCheck">Enable toolips</span>
+              <span className="spanCheck">Enable toolips</span>
             </div>
-            <p className="pSettingsTitle">Password</p>
+            <p className="pSettingsTitle" style = {{marginTop: "20px"}}>Password</p>
             <button
               className="btnChangepassword"
               data-toggle="modal"

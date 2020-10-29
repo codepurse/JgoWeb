@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   var y = 0;
+  var y = 0;
   var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
@@ -34,53 +34,54 @@ $(document).ready(function () {
 
   $(".btnAddStopoff").click(function () {
     if (y === 1) {
-      if ($(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0) {
+      if (
+        $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0
+      ) {
         alert("Fill up the missing address");
         return false;
-      }
-      else {
+      } else {
         if ($(".divStopoff2").css("display") == "none") {
           $(".divStopoff2").css("display", "block");
           y = 2;
-        } 
+        }
       }
     } else if (y == 2) {
-      if ($(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0) {
+      if (
+        $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0
+      ) {
         alert("Fill up the missing address");
         return false;
-      }
-      else {
+      } else {
         if ($(".divStopoff3").css("display") == "none") {
           $(".divStopoff3").css("display", "block");
           y = 3;
-        } 
+        }
       }
-    }
-    else if (y == 3) {
-      if ($(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0) {
+    } else if (y == 3) {
+      if (
+        $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0
+      ) {
         alert("Fill up the missing address");
         return false;
-      }
-      else {
+      } else {
         if ($(".divStopoff4").css("display") == "none") {
           $(".divStopoff4").css("display", "block");
           y = 4;
-        } 
+        }
       }
-    }
-     else if (y == 4) {
-      if ($(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0) {
+    } else if (y == 4) {
+      if (
+        $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0
+      ) {
         alert("Fill up the missing address");
         return false;
-      }
-      else {
+      } else {
         if ($(".divStopoff5").css("display") == "none") {
           $(".divStopoff5").css("display", "block");
           y = 5;
-        } 
+        }
       }
     }
-
 
     if ($(".divStopoff1").css("display") == "none") {
       $(".divStopoff1").css("display", "block");
@@ -171,11 +172,41 @@ $(document).ready(function () {
   $(".divSidebar").hover(
     function () {
       $("ul.no-bullets>a>li>span").fadeIn(100);
-      $("ul.no-bullets>a>li").css("width","180px");
+      $("ul.no-bullets>a>li").css("width", "180px");
     },
     function () {
       $("ul.no-bullets>a>li>span").fadeOut(100);
-      $("ul.no-bullets>a>li").css("width","50px");
+      $("ul.no-bullets>a>li").css("width", "50px");
     }
   );
+
+  $("#switch").click(function () {
+    if ($(this).prop("checked") == true) {
+      localStorage.setItem("theme", "light");
+      $("#__next").css("background-color", "#fafafa");
+      $(".pDashboard").css("color", "#212121");
+      $(".pDashboard").css("font-weight", "600");
+      $(".divSidebar").css("background-color", "#F5F5F5");
+      $(".divSidebar").css("border", "1px solid lightgray");
+      $(".divSidebar").css(
+        "box-shadow",
+        "1px 1px 16px 6px rgba(66,66,66,0.19)"
+      );
+      $(".ulDashboard>li").css("color", "#212121");
+      $(".ulDashboard>li").css("font-weight", "600");
+      $(".hrDashboard").css("background-color", "#f5f5f5");
+      $(".pSettingsTitle").css("color", "#212121");
+      $(".pSettingsTitle").css("font-weight", "600");
+      $("label").css("border", "2px solid #424242");
+      $("label:after").css("background", "#212121");
+      $(".spanCheck").css("color", "#313131");
+      $(".spanCheck").css("font-weight", "600");
+      $(".btnChangepassword").css("font-weight", "600");
+      $(".btnChangepassword").css("color", "#313131");
+      $(".btnChangepassword").css("border", "1px solid #313131");
+      $(".rowTop").css("border", "1px solid #313131");
+    } else if ($(this).prop("checked") == false) {
+      localStorage.setItem("theme", "dark");
+    }
+  });
 });
