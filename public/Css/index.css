@@ -1538,7 +1538,6 @@ th {
 
 tr {
     border: 0px !important;
-    color: #C4CAD1;
 }
 
 td {
@@ -1661,11 +1660,12 @@ td {
     width: max-content;
     text-align: center;
     padding-bottom: 15px;
+
 }
 
 .activeUl {
     border-bottom: 1px solid #FFE900;
-    color: #FFE900 !important;
+    color: #FBC02D !important;
 }
 
 .ulDashboard>li:hover {
@@ -1851,17 +1851,29 @@ label {
 label:after {
     content: '';
     position: absolute;
-    top: 1px;
+    top: 2px;
     left: 2px;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     background: #fff;
     border-radius: 90px;
     transition: 0.3s;
 }
 
+label.changed:after {
+
+    background: #424242;
+
+}
+
+
+
+label-after-active {
+    background: #212121 !important;
+}
+
 input:checked+label:after {
-    background: #FFFE00
+    background: #FBC02D;
 }
 
 input:checked+label:after {
@@ -1929,6 +1941,10 @@ label:active:after {
     text-align: center;
 }
 
+.p4 {
+    margin-left: 18px;
+}
+
 .p2 {
     font-family: 'GilroyMedium';
     color: whitesmoke;
@@ -1936,7 +1952,7 @@ label:active:after {
 }
 
 .liBooking {
-    font-family: 'GilroyLight';
+    font-family: 'GilroyMedium';
     color: whitesmoke;
     font-size: 0.9rem;
     margin-top: 10px;
@@ -2007,10 +2023,14 @@ label:active:after {
 
 .pDate {
     font-family: 'GilroyLight';
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #FFDD9A;
     text-align: center;
     margin-bottom: 0px;
+}
+
+.colBorder {
+    border-left: #414141;
 }
 
 /* new modal */

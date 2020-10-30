@@ -146,8 +146,8 @@ export default function mapbooking() {
                   <p className="pDate">{datebook}</p>
                 </div>
                 <div
-                  className="col-lg-6"
-                  style={{ borderLeft: "1px solid  #414141", padding: "0px" }}
+                  className="col-lg-6 colBorder"
+                  
                 >
                   <p
                     className="p2 text-center"
@@ -159,7 +159,7 @@ export default function mapbooking() {
                 </div>
               </div>
               <hr className="hrDashboard" style={{ marginTop: "8px" }}></hr>
-              <p className="p2" style={{ marginLeft: "18px" }}>
+              <p className="p2 p4">
                 Bookings
               </p>
               <div>

@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  if (localStorage.getItem("theme_status") === "light") {
+    $("#switch").prop("checked", true);
+    light();
+  } else {
+    $("#switch").prop("checked", false);
+  }
   var y = 0;
   var x = 1;
   $(window).scroll(function () {
@@ -182,31 +188,64 @@ $(document).ready(function () {
 
   $("#switch").click(function () {
     if ($(this).prop("checked") == true) {
-      localStorage.setItem("theme", "light");
-      $("#__next").css("background-color", "#fafafa");
-      $(".pDashboard").css("color", "#212121");
-      $(".pDashboard").css("font-weight", "600");
-      $(".divSidebar").css("background-color", "#F5F5F5");
-      $(".divSidebar").css("border", "1px solid lightgray");
-      $(".divSidebar").css(
-        "box-shadow",
-        "1px 1px 16px 6px rgba(66,66,66,0.19)"
-      );
-      $(".ulDashboard>li").css("color", "#212121");
-      $(".ulDashboard>li").css("font-weight", "600");
-      $(".hrDashboard").css("background-color", "#f5f5f5");
-      $(".pSettingsTitle").css("color", "#212121");
-      $(".pSettingsTitle").css("font-weight", "600");
-      $("label").css("border", "2px solid #424242");
-      $("label:after").css("background", "#212121");
-      $(".spanCheck").css("color", "#313131");
-      $(".spanCheck").css("font-weight", "600");
-      $(".btnChangepassword").css("font-weight", "600");
-      $(".btnChangepassword").css("color", "#313131");
-      $(".btnChangepassword").css("border", "1px solid #313131");
-      $(".rowTop").css("border", "1px solid #313131");
+      var theme = true;
+      localStorage.setItem("theme", JSON.stringify(theme));
+      localStorage.setItem("theme_status", "light");
     } else if ($(this).prop("checked") == false) {
-      localStorage.setItem("theme", "dark");
+      var theme = false;
+      localStorage.setItem("theme", JSON.stringify(theme));
+      localStorage.setItem("theme_status", "false");
     }
   });
+
+  function light() {
+    $("#__next").css("background-color", "#fff");
+    $(".pDashboard").css("color", "#212121");
+    $(".pDashboard").css("font-weight", "600");
+    $(".divSidebar").attr("style", "background-color: #f5f5f5 !important");
+    $(".divSidebar").css("border", "1px solid lightgray");
+    $(".divSidebar, .colPackage").css(
+      "box-shadow",
+      "1px 1px 16px 6px rgba(66,66,66,0.19)"
+    );
+    $(".ulDashboard>li").css("color", "#212121");
+    $(".ulDashboard>li").css("font-weight", "600");
+    $(".hrDashboard").css("background-color", "#f5f5f5");
+    $(".pSettingsTitle").css("color", "#212121");
+    $(".pSettingsTitle").css("font-weight", "600");
+    $("label").css("border", "2px solid #424242");
+    $("label").addClass("changed");
+    $(".spanCheck").css("color", "#313131");
+    $(".spanCheck").css("font-weight", "600");
+    $(".btnChangepassword").css("font-weight", "600");
+    $(".btnChangepassword").css("color", "#313131");
+    $(".btnChangepassword").css("border", "1px solid #313131");
+    $(".rowTop").css("background-color", "#F5F5F5");
+    $(".rowTop").css("border-color", "lightgray");
+    $(".btnLogout").css("color", "#212121");
+    $(".btnLogout, .pFullname").css("font-weight", "600");
+    $(".pFullname").css("color", "#212121");
+    $(".pFullname").css("color", "#212121");
+    $(".txtSearch").css("background-color", "#F3F3F4");
+    $(".txtSearch").css("color", "#424242");
+    $(".txtSearch").css("border", "1px solid gray");
+    $(".pTotalBookings").css("color", "#757575");
+    $(".pActiveBookings").css("color", "#FBC02D");
+    $(".btnLogout").css("border", "1px solid #424242");
+    $("ul.no-bullets>a>li>span").css("color", "#424242");
+    $("th").css("color", "#212121");
+    $("td").attr("style", "color: #424242 !important");
+    $(".colPackage").css("background-color","#f5f5f5");
+    $(".colPackage").css("border-left","1px solid lightgray");
+    $(".packageFullname").css({"color": "#2D3853","font-weight": "600"});
+    $(".pNumber").css({"color": "#A1A3A9","font-weight": "400"} )
+    $(".p2").css("color","#757575");
+    $(".pDate").css({"color": "#2D3853","font-weight": "bold"});
+    $(".colBorder").attr("style","border-left: 1px solid lightgray !important");
+    $(".p4").attr("style", "color: #2D3853 !important");
+    $(".p4").css("font-weight","600");
+    $(".looking, .intransitBook").attr("style","background-color: #EBECEF !important");
+    $(".liBooking").css("color","#424242");
+    $(".spanMore").css("color","#2D3853");
+  }  
 });

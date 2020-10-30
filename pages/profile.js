@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import "../component/map/config";
 import Select from "react-select";
+import swal from "@sweetalert/with-react";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 export default function profile() {
@@ -20,6 +21,7 @@ export default function profile() {
   const [oldpass, setOldpass] = React.useState("");
   const [confirmoldpass, setConfirmoldpass] = React.useState("");
   const [newpass, setNewpass] = React.useState("");
+  const [isToggled, setIsToggled] = React.useState(false);
   var x;
 
   const status = [
@@ -57,7 +59,37 @@ export default function profile() {
     }),
   };
 
+  
+  const customStyles1 = {
+    control: (base, state) => ({
+      ...base,
+      background: "#F3F3F4",
+      color: "#424242",
+      border: "1px solid gray",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "115%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#424242",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "150px",
+    }),
+  };
+
   useEffect(() => {
+    var theme = JSON.parse(localStorage.getItem("theme"));
+    setIsToggled(theme);
     coordinatebook.length = 0;
     global.config.place.deliver.table_id = "";
     if (AuthService.getFullname()) {
@@ -91,26 +123,6 @@ export default function profile() {
           (item) => item.status === "Looking for Driver"
         );
         setACtivecount(active.length);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    const apiUrl1 = "http://localhost:8000/api/auth/customers";
-    axios
-      .get(
-        apiUrl1,
-      
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-type": "Application/json",
-            Authorization: `Bearer ${AuthService.getToken()}`,
-          },
-        }
-      )
-      .then((result) => {
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -175,7 +187,13 @@ export default function profile() {
           $("td", this).css("color", "#EDC728 ");
         },
         function () {
-          $("td", this).css("color", "");
+          if (localStorage.getItem("theme_status") === "light") {
+            $("td", this).css("color", "#424242");
+          }
+          else {
+            $("td", this).css("color", "");
+          }
+         
         }
       );
   }
@@ -194,49 +212,96 @@ export default function profile() {
   }
 
   function handleChangeemail(e) {
-    setEmail(e.value);
+    setEmail(e.target.value);
+    $(e.target).css("border", "1px solid #2c2c2c");
   }
 
   function handleChangeoldpass(e) {
-    setOldpass(e.value);
+    setOldpass(e.target.value);
+    $(e.target).css("border", "1px solid #2c2c2c");
   }
 
   function handleChangeconfirmoldpass(e) {
-    setConfirmoldpass(e.value);
+    setConfirmoldpass(e.target.value);
+    $(e.target).css("border", "1px solid #2c2c2c");
   }
 
   function handleChangenewpass(e) {
-    setNewpass(e.value);
+    setNewpass(e.target.value);
+    $(e.target).css("border", "1px solid #2c2c2c");
   }
 
   function btnChangepass() {
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
+    if (email == "") {
+      $(".txtEmailchange").css("border", "1px solid #c62828");
+    }
+    
+    if (oldpass == "") {
+      $(".txtOldpass").css("border", "1px solid  #c62828");
+    }
 
-    let formdata = new FormData();
-    formdata.set("email", email);
-    formdata.set("token", AuthService.getToken());
-    formdata.set("password", oldpass);
-    formdata.set("password_confirmation", confirmoldpass);
-    formdata.set("new_password", newpass);
+    if (confirmoldpass == "") {
+      $(".txtConfirmoldpass").css("border", "1px solid  #c62828");
+    }
 
-    const apiUrl = "http://localhost:8000/api/auth/change-password";
-    axios
-      .post(apiUrl, formdata, options)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (newpass == "") {
+      $(".txtNewpass").css("border", "1px solid #c62828");
+    }
+    
+    else {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+        },
+      };
+
+      let formdata = new FormData();
+      formdata.set("id", AuthService.getId());
+      formdata.set("email", email);
+      formdata.set("token", AuthService.getToken());
+      formdata.set("password", oldpass);
+      formdata.set("password_confirmation", confirmoldpass);
+      formdata.set("new_password", newpass);
+
+      const apiUrl = "http://localhost:8000/api/auth/change-password";
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          console.log(result.message());
+        })
+        .catch((err) => {
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #e53935" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      The input credentials is invalid'
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+    }
   }
+
+  
 
   const statusColor = (value) => {
     switch (value) {
@@ -331,7 +396,7 @@ export default function profile() {
         <div className="row">
           <div className="col-lg-12 form-inline">
             <p className="pTotalBookings">
-              {count}Total Bookings{" "}
+              {count}Total Bookings
               <span className="pActiveBookings">{activeCount} Active</span>
             </p>
           </div>
@@ -339,14 +404,14 @@ export default function profile() {
             <div>
               <Select
                 options={date}
-                styles={customStyles}
+                styles={isToggled ? customStyles1 : customStyles}
                 placeholder="Select Date"
               />
             </div>
             <div className="div">
               <Select
                 options={status}
-                styles={customStyles}
+                styles={isToggled ? customStyles1 : customStyles}
                 placeholder="Select status"
                 value={statusdropdown}
                 onChange={handlestatuschange}
@@ -472,14 +537,16 @@ export default function profile() {
             <div>
               <input type="checkbox" id="switch" />
               <label for="switch">Toggle</label>
-              <span className="spanCheck">Enable light mode</span>
+              <span className="spanCheck">Enable light mode <span style = {{fontSize: "0.9rem"}}>( Restart the page to take effect )</span></span>
             </div>
             <div style={{ marginTop: "10px" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
               <span className="spanCheck">Enable toolips</span>
             </div>
-            <p className="pSettingsTitle" style = {{marginTop: "20px"}}>Password</p>
+            <p className="pSettingsTitle" style={{ marginTop: "20px" }}>
+              Password
+            </p>
             <button
               className="btnChangepassword"
               data-toggle="modal"
@@ -535,7 +602,7 @@ export default function profile() {
                 <div className="col-lg-12">
                   <input
                     type="text"
-                    className="txtOldpass"
+                    className="txtOldpass txtConfirmoldpass"
                     value={confirmoldpass}
                     placeholder="Enter old confirm password"
                     onChange={handleChangeconfirmoldpass}
