@@ -207,7 +207,7 @@ export default function map() {
   const [coordinatesDrop2, setCoordinatesDrop2] = React.useState({
     lat: null,
     lng: null,
-  });  
+  });
   const [coordinateStop, setcoordinateStop] = React.useState({
     lat: null,
     lng: null,
@@ -323,7 +323,6 @@ export default function map() {
   {
     /* Stopoff #1 setting and passing data to array and to the component itself */
   }
- 
 
   const handleChangeStop = async (value) => {
     const results = await geocodeByAddress(value.label);
@@ -449,9 +448,15 @@ export default function map() {
   function deleteAdd(e) {
     $(e.currentTarget).closest(".divStopOff").fadeOut(150);
     $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").val("");
-    $(e.currentTarget).closest(".divStopOff").find(".css-1wa3eu0-placeholder").html("Select..")
-    $(e.currentTarget).closest(".divStopOff").find(".css-5sz5u5-singleValue").hide();
-   
+    $(e.currentTarget)
+      .closest(".divStopOff")
+      .find(".css-1wa3eu0-placeholder")
+      .html("Select..");
+    $(e.currentTarget)
+      .closest(".divStopOff")
+      .find(".css-5sz5u5-singleValue")
+      .hide();
+
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
       if (places_data[i].id == e.currentTarget.id) {
@@ -598,7 +603,7 @@ export default function map() {
         coordinate[4].lng
       );
       ratedata.set("drop_off_locations[3][booking_order]", "4");
-      ratedata.set("additional_services[3]",services);
+      ratedata.set("additional_services[3]", services);
     }
     if (coordinate[5]) {
       ratedata.set(
@@ -612,7 +617,6 @@ export default function map() {
       ratedata.set("drop_off_locations[4][booking_order]", "5");
       ratedata.set("additional_services[4]", services);
     }
-
 
     let formdata = new FormData();
     formdata.set("customer_id", AuthService.getId());
@@ -639,7 +643,15 @@ export default function map() {
       "drop_off_locations[0][contact_number]",
       coordinate[1].detailsnumber
     );
-    formdata.set("drop_off_locations[0][category_id]", coordinate[1].category);
+
+    if (coordinate[1].category) {
+      formdata.set(
+        "drop_off_locations[0][category_id]",
+        coordinate[1].category
+      );
+    } else {
+      formdata.set("drop_off_locations[0][category_id]", "5");
+    }
     formdata.set("drop_off_locations[0][distance]", "5.4");
     formdata.set("additional_services[0]", services);
 
@@ -665,10 +677,15 @@ export default function map() {
         "drop_off_locations[1][contact_number]",
         coordinate[2].detailsnumber
       );
-      formdata.set(
-        "drop_off_locations[1][category_id]",
-        coordinate[2].category
-      );
+
+      if (coordinate[2].category) {
+        formdata.set(
+          "drop_off_locations[1][category_id]",
+          coordinate[2].category
+        );
+      } else {
+        formdata.set("drop_off_locations[1][category_id]", "5");
+      }
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
       formdata.set("additional_services[1]", services);
     }
@@ -695,11 +712,15 @@ export default function map() {
         "drop_off_locations[2][contact_number]",
         coordinate[3].detailsnumber
       );
-      formdata.set("drop_off_locations[2][category_id]", "1");
+      if(coordinate[3].category) {
+        formdata.set("drop_off_locations[2][category_id]", coordinate[3].category);
+      }else {
+        formdata.set("drop_off_locations[2][category_id]", "5");
+      }
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
       formdata.set("additional_services[2]", services);
-    }  
-    
+    }
+
     if (coordinate[4]) {
       formdata.set(
         "drop_off_locations[3][drop_off_address]",
@@ -722,7 +743,11 @@ export default function map() {
         "drop_off_locations[3][contact_number]",
         coordinate[4].detailsnumber
       );
-      formdata.set("drop_off_locations[3][category_id]", "1");
+      if(coordinate[4].category) {
+        formdata.set("drop_off_locations[3][category_id]", coordinate[4].category);
+      } else {
+        formdata.set("drop_off_locations[3][category_id]", "5");
+      }
       formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
       formdata.set("additional_services[3]", services);
     }
@@ -810,7 +835,10 @@ export default function map() {
                   src="Image/maps.png"
                   className="img-fluid imgMap tooltip-primary"
                   onClick={opensweetalert}
-                  data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title="Click the map to set the exact location"
+                  data-toggle="tooltip"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Click the map to set the exact location"
                 ></img>
               </div>
               <div className="divHide">
@@ -923,7 +951,6 @@ export default function map() {
               </div>
             </div>
 
-
             {/* Stop off number 2 */}
 
             <div
@@ -951,7 +978,6 @@ export default function map() {
                     className: "selectPlaces",
                     onChange: handleChangeStop,
                     styles: customStyles2,
-                
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -1009,7 +1035,7 @@ export default function map() {
               </div>
             </div>
 
-                    {/* Stop off number 3 */}
+            {/* Stop off number 3 */}
 
             <div
               onClick={() => ((click = 4), setId(4))}
@@ -1033,7 +1059,7 @@ export default function map() {
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "4",
-                  
+
                     onChange: handleChangeStop,
                     styles: customStyles2,
                   }}
@@ -1093,9 +1119,9 @@ export default function map() {
               </div>
             </div>
 
-                     {/* Stop off number 4 */}
+            {/* Stop off number 4 */}
 
-                     <div
+            <div
               onClick={() => ((click = 5), setId(5))}
               style={{ display: "none" }}
               className="divStopoff3 divStopOff"
@@ -1117,7 +1143,7 @@ export default function map() {
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "5",
-                  
+
                     onChange: handleChangeStop,
                     styles: customStyles2,
                   }}
@@ -1177,9 +1203,9 @@ export default function map() {
               </div>
             </div>
 
-         {/* Stop off number 5 */}
+            {/* Stop off number 5 */}
 
-         <div
+            <div
               onClick={() => ((click = 6), setId(6))}
               style={{ display: "none" }}
               className="divStopoff4 divStopOff"
@@ -1201,7 +1227,7 @@ export default function map() {
                 <GooglePlacesAutocomplete
                   selectProps={{
                     instanceId: "6",
-                  
+
                     onChange: handleChangeStop,
                     styles: customStyles2,
                   }}
@@ -1260,7 +1286,6 @@ export default function map() {
                 <p className="pAdd">&#x2b; Add details</p>
               </div>
             </div>
-
 
             <button className="btnAddStopoff">Add Stop-off</button>
             <p className="pNote" style={{ display: "none" }}>
@@ -1354,25 +1379,20 @@ export default function map() {
                   </p>
                 </div>
                 <div className="col-lg-4">
-                  <div className="boxAdditional" onClick = {getServices1}>
-                    <p
-                      className="pAdditonalBox"
-                   
-                    >
-                      Insulated Box
-                    </p>
+                  <div className="boxAdditional" onClick={getServices1}>
+                    <p className="pAdditonalBox">Insulated Box</p>
                   </div>
                 </div>
                 <div className="col-lg-4 ">
                   <div className="boxAdditional">
-                    <p className="pAdditonalBox"  onClick = {getServices2}>
+                    <p className="pAdditonalBox" onClick={getServices2}>
                       Cash Handling
                     </p>
                   </div>
                 </div>
 
                 <div className="col-lg-4">
-                  <div className="boxAdditional"  onClick = {getServices3}>
+                  <div className="boxAdditional" onClick={getServices3}>
                     <p className="pAdditonalBox">Pabili Service</p>
                   </div>
                 </div>
@@ -1391,7 +1411,9 @@ export default function map() {
                 <div className="col-lg-10">
                   <p className="pPrice">&#8369;{price}</p>
                   <p className="pPriceSub">
-                    This is your final payment, please review and confirm your destination/s. Then click place order to proceed to payment page.
+                    This is your final payment, please review and confirm your
+                    destination/s. Then click place order to proceed to payment
+                    page.
                   </p>
                   <button className="btnBook" onClick={btnPlaceorder}>
                     Place order

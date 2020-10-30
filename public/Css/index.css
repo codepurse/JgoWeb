@@ -365,13 +365,14 @@ body, html {
     padding: 8px;
     width: 120px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 20px;b
     cursor: pointer;
     transition: all 0.2s;
     margin-right: 0px;
     float: right;
     outline: none !important;
 }
+
 
 hr {
     color: white;
@@ -1583,6 +1584,11 @@ td {
     justify-content: center;
     min-width: 90px;
     border-radius: 25px !important;
+}
+
+.btn:hover {
+    background-color: #FFE900 !important;
+    
 }
 
 .btn.btn--loading {
