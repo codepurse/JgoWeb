@@ -13,6 +13,7 @@ function MapDirectionsRenderer(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+  
     const { places, travelMode } = props;
 
     const waypoints = places.map((p) => ({
@@ -37,6 +38,7 @@ function MapDirectionsRenderer(props) {
         }
       }
     );
+   
   });
 
   if (error) {

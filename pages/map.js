@@ -763,7 +763,9 @@ export default function map() {
         setPrice(Number(price).toFixed(2));
         axios
           .post(apiUrl, formdata, options)
-          .then((result) => {})
+          .then((result) => {
+            router.push("/profile");
+          })
           .catch((err) => {});
       })
       .catch((err) => {});

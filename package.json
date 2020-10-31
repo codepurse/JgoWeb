@@ -17,6 +17,8 @@
     "leaflet": "^1.7.1",
     "next": "^9.5.3",
     "philippines": "^1.0.0",
+    "pubnub": "^4.29.9",
+    "pubnub-react": "^2.0.0-rc.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-geocode": "^0.2.1",

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState, useCallback } from "react";
 import Header from "../component/header";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
@@ -8,6 +8,8 @@ import Select from "react-select";
 import swal from "@sweetalert/with-react";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
+import PubNub from "pubnub";
+import { PubNubProvider, usePubNub } from "pubnub-react";
 export default function profile() {
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
@@ -22,6 +24,8 @@ export default function profile() {
   const [confirmoldpass, setConfirmoldpass] = React.useState("");
   const [newpass, setNewpass] = React.useState("");
   const [isToggled, setIsToggled] = React.useState(false);
+  const [firstid, setFirstid] = React.useState("");
+  const [firstrun, setFirstrun] = React.useState("");
   var x;
 
   const status = [
@@ -29,6 +33,70 @@ export default function profile() {
     { value: "Looking for Driver", label: "Looking for Driver" },
     { value: "Ongoing", label: "Ongoing" },
   ];
+
+  const pubnub = new PubNub({
+    publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
+    subscribeKey: "sub-c-5e553b88-ee58-11ea-a728-4e c3aefbf636",
+  });
+
+  function refresh() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
+    axios
+      .post(apiUrl, { customer_id: AuthService.getId() }, options)
+      .then((result) => {
+        console.log(result);
+        setTabledata(result.data.data);
+        tablemap = result.data.data;
+        setCount(result.data.data.length);
+        if (result.data.data.length === 0) {
+          $(".pNo").show();
+        }
+        const active = result.data.data.filter(
+          (item) => item.status === "Looking for Driver"
+        );
+        setACtivecount(active.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  useEffect(() => {
+    if (firstid == $("#table tbody tr:first").children().closest("td").html()) {
+    } else {
+      setFirstid($("#table tbody tr:first").children().closest("td").html());
+    }
+
+    // Update the document title using the browser API
+    const listener = {
+      message: (message) => {
+        let mes = message;
+        console.log(mes);
+        if (mes.message.status == "Ongoing") {
+          refresh();
+        }
+      },
+    };
+    pubnub.addListener(listener);
+
+    pubnub.subscribe({
+      channels: [`booking_channel_1`],
+      withPresence: true,
+    });
+
+    return () => {
+      pubnub.removeListener(listener);
+      pubnub.unsubscribeAll();
+    };
+  });
 
   const date = [{ value: "October", label: "October" }];
 
@@ -59,7 +127,6 @@ export default function profile() {
     }),
   };
 
-  
   const customStyles1 = {
     control: (base, state) => ({
       ...base,
@@ -189,11 +256,9 @@ export default function profile() {
         function () {
           if (localStorage.getItem("theme_status") === "light") {
             $("td", this).css("color", "#424242");
-          }
-          else {
+          } else {
             $("td", this).css("color", "");
           }
-         
         }
       );
   }
@@ -235,7 +300,7 @@ export default function profile() {
     if (email == "") {
       $(".txtEmailchange").css("border", "1px solid #c62828");
     }
-    
+
     if (oldpass == "") {
       $(".txtOldpass").css("border", "1px solid  #c62828");
     }
@@ -246,9 +311,7 @@ export default function profile() {
 
     if (newpass == "") {
       $(".txtNewpass").css("border", "1px solid #c62828");
-    }
-    
-    else {
+    } else {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -300,8 +363,6 @@ export default function profile() {
         });
     }
   }
-
-  
 
   const statusColor = (value) => {
     switch (value) {
@@ -447,7 +508,7 @@ export default function profile() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tabledata.map((event) => (
+                  {tabledata.reverse().map((event) => (
                     <tr key={event.id}>
                       <td>{event.id}</td>
                       <td>{event.status}</td>
@@ -537,7 +598,12 @@ export default function profile() {
             <div>
               <input type="checkbox" id="switch" />
               <label for="switch">Toggle</label>
-              <span className="spanCheck">Enable light mode <span style = {{fontSize: "0.9rem"}}>( Restart the page to take effect )</span></span>
+              <span className="spanCheck">
+                Enable light mode{" "}
+                <span style={{ fontSize: "0.9rem" }}>
+                  ( Restart the page to take effect )
+                </span>
+              </span>
             </div>
             <div style={{ marginTop: "10px" }}>
               <input type="checkbox" id="switch1" />
