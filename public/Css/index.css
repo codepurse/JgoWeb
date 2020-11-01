@@ -1765,12 +1765,13 @@ td {
     color: whitesmoke;
     font-size: 1rem;
     text-align: center;
-    border: 1px solid #FFE900;
+    border: 1px solid #FFE900 !important;
     background-color: transparent;
     border-radius: 25px;
     transition: all 0.2s;
     cursor: pointer;
-    padding: 8px;
+    padding: 8px !important;
+    padding-bottom: 30px !important;
     width: 220px;
 }
 

@@ -26,7 +26,8 @@ export default function profile() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [firstid, setFirstid] = React.useState("");
   const [firstrun, setFirstrun] = React.useState("");
-  var x;
+  const [message, setMessage]  = React.useState("");
+  var x; 
 
   const status = [
     { value: "Delivered", label: "Delivered" },
@@ -76,9 +77,12 @@ export default function profile() {
   useEffect(() => {
     $("#exampleModal").modal("show");
     // Update the document title using the browser API
-     global.config.place.deliver.table_id = localStorage.getItem("activeid");
+    global.config.place.deliver.table_id = Number(
+      localStorage.getItem("activeid")
+    );
     const listener = {
       message: (message) => {
+        setMessage(message);
         let mes = message;
         console.log(mes);
         if (mes.message.status == "Ongoing") {
@@ -87,6 +91,8 @@ export default function profile() {
           $(".pSearchingsub").text(
             "Congrats you we found a driver, click the button below to check the booking details."
           );
+          $(".btn").removeClass("btn--loading");
+          $("#exampleModal").modal("show");
           refresh();
         } else if (mes.message.status == "Arrived to Pick up") {
           refresh();
@@ -735,9 +741,17 @@ export default function profile() {
                       Thank your for using jgo, please wait while we search for
                       your driver.{" "}
                     </p>
-                    <button className="btnCheck" onClick={mapbooking}>
-                      Check booking details
-                    </button>
+                    <a
+                      className="btn btnCheck btn--loading"
+                      onClick={mapbooking}
+                    >
+                     Check booking details
+                      <span style = {{marginLeft: "80px"}}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
                   </div>
                 </div>
               </div>
