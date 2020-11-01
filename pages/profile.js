@@ -11,6 +11,7 @@ import Link from "next/link";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 export default function profile() {
+
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
   const [fname, setFname] = React.useState("");
@@ -26,8 +27,8 @@ export default function profile() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [firstid, setFirstid] = React.useState("");
   const [firstrun, setFirstrun] = React.useState("");
-  const [message, setMessage]  = React.useState("");
-  var x; 
+  const [message, setMessage] = React.useState("");
+  var x;
 
   const status = [
     { value: "Delivered", label: "Delivered" },
@@ -41,7 +42,11 @@ export default function profile() {
   });
 
   function mapbooking() {
-    router.push("/mapbooking");
+    if($(e.target).hasClass("btn--loading")) {
+      return false;
+    }else {
+      router.push("/mapbooking");
+    }
   }
 
   function refresh() {
@@ -74,8 +79,30 @@ export default function profile() {
         console.log(err);
       });
   }
-  useEffect(() => {
+
+  function driverfound() {
     $("#exampleModal").modal("show");
+    $(".imgLoading").attr("src", "Image/found.gif");
+    $(".pSearching").text("Driver Found!");
+    $(".pSearchsub").text(
+      "Congrats we found a driver, click the button below to check the booking details."
+    );
+    $(".btn").removeClass("btn--loading");
+  }
+
+  useEffect(() => {
+
+    if (tablemap) {
+      tablemap
+        .filter((event) => event.id === global.config.place.deliver.table_id)
+        .map(
+          (data) => (
+            data.status == "Driver found" ? driverfound() : null,
+            data.status == "Looking for Driver" ?  $("#exampleModal").modal("show")  : null
+          )
+        );
+    }
+
     // Update the document title using the browser API
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
@@ -86,13 +113,6 @@ export default function profile() {
         let mes = message;
         console.log(mes);
         if (mes.message.status == "Ongoing") {
-          $(".imgLoading").attr("src", "Image/found.gif");
-          $(".pSearching").text("Driver Found!");
-          $(".pSearchingsub").text(
-            "Congrats you we found a driver, click the button below to check the booking details."
-          );
-          $(".btn").removeClass("btn--loading");
-          $("#exampleModal").modal("show");
           refresh();
         } else if (mes.message.status == "Arrived to Pick up") {
           refresh();
@@ -106,6 +126,7 @@ export default function profile() {
     pubnub.subscribe({
       channels: ["booking_channel_" + localStorage.getItem("activeid")],
       withPresence: true,
+      includeState: true,
     });
     return () => {
       pubnub.removeListener(listener);
@@ -745,8 +766,8 @@ export default function profile() {
                       className="btn btnCheck btn--loading"
                       onClick={mapbooking}
                     >
-                     Check booking details
-                      <span style = {{marginLeft: "80px"}}>
+                      Check booking details
+                      <span style={{ marginLeft: "80px" }}>
                         <b></b>
                         <b></b>
                         <b></b>
