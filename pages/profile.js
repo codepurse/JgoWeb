@@ -39,6 +39,10 @@ export default function profile() {
     publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
   });
 
+  function mapbooking() {
+    router.push("/mapbooking");
+  }
+
   function refresh() {
     const options = {
       headers: {
@@ -70,17 +74,23 @@ export default function profile() {
       });
   }
   useEffect(() => {
+    $("#exampleModal").modal("show");
     // Update the document title using the browser API
+     global.config.place.deliver.table_id = localStorage.getItem("activeid");
     const listener = {
       message: (message) => {
         let mes = message;
         console.log(mes);
         if (mes.message.status == "Ongoing") {
+          $(".imgLoading").attr("src", "Image/found.gif");
+          $(".pSearching").text("Driver Found!");
+          $(".pSearchingsub").text(
+            "Congrats you we found a driver, click the button below to check the booking details."
+          );
           refresh();
         } else if (mes.message.status == "Arrived to Pick up") {
           refresh();
-        }
-        else if (mes.message.status == "Arrived") {
+        } else if (mes.message.status == "Arrived") {
           refresh();
         }
       },
@@ -701,47 +711,36 @@ export default function profile() {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div>
-                {tabledata
-                  .filter((event) => event.id === 2)
-                  .map((data) => (
-                    <div key={data.id}>
-                      <li>{data.pick_up_address}</li>
-                      {data.booking_drop_off_location.map((data) => (
-                        <li>{data.drop_off_address}</li>
-                      ))}
+            <div className="modal-body text-center modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div
+                      className="mx-auto"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "150px",
+                      }}
+                    >
+                      <img
+                        src="Image/searching.gif"
+                        className="img-fluid mx-auto d-flex imgLoading"
+                      ></img>
                     </div>
-                  ))}
+                    <p className="pSearching">Searching for driver</p>
+                    <p className="pSearchsub">
+                      Thank your for using jgo, please wait while we search for
+                      your driver.{" "}
+                    </p>
+                    <button className="btnCheck" onClick={mapbooking}>
+                      Check booking details
+                    </button>
+                  </div>
+                </div>
               </div>
-              {tableid}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
             </div>
           </div>
         </div>

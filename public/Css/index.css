@@ -1739,6 +1739,41 @@ td {
     display: none;
 }
 
+.pSearching {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.pSearchsub {
+    font-family: 'GilroyLight';
+    color: whitesmoke;
+    font-size: 1rem;
+}
+
+.modalSearch {
+    padding: 40px !important;
+    padding-bottom: 30px !important;
+    background: #1A1A1A;
+}
+
+.btnCheck {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1rem;
+    text-align: center;
+    border: 1px solid #FFE900;
+    background-color: transparent;
+    border-radius: 25px;
+    transition: all 0.2s;
+    cursor: pointer;
+    padding: 8px;
+    width: 220px;
+}
+
 /* Settings */
 
 .conSettings {

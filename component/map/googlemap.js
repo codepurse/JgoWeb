@@ -39,7 +39,7 @@ function MapDirectionsRenderer(props) {
       }
     );
    
-  },[props]);
+  });
 
   if (error) {
     return <h1>{error}</h1>;
