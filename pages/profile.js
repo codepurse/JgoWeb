@@ -35,8 +35,8 @@ export default function profile() {
   ];
 
   const pubnub = new PubNub({
+    subscribeKey: "sub-c-5e553b88-ee58-11ea-a728-4ec3aefbf636",
     publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
-    subscribeKey: "sub-c-5e553b88-ee58-11ea-a728-4e c3aefbf636",
   });
 
   function refresh() {
@@ -70,11 +70,6 @@ export default function profile() {
       });
   }
   useEffect(() => {
-    if (firstid == $("#table tbody tr:first").children().closest("td").html()) {
-    } else {
-      setFirstid($("#table tbody tr:first").children().closest("td").html());
-    }
-
     // Update the document title using the browser API
     const listener = {
       message: (message) => {
@@ -82,16 +77,20 @@ export default function profile() {
         console.log(mes);
         if (mes.message.status == "Ongoing") {
           refresh();
+        } else if (mes.message.status == "Arrived to Pick up") {
+          refresh();
+        }
+        else if (mes.message.status == "Arrived") {
+          refresh();
         }
       },
     };
     pubnub.addListener(listener);
 
     pubnub.subscribe({
-      channels: [`booking_channel_1`],
+      channels: ["booking_channel_" + localStorage.getItem("activeid")],
       withPresence: true,
     });
-
     return () => {
       pubnub.removeListener(listener);
       pubnub.unsubscribeAll();

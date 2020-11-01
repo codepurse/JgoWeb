@@ -764,6 +764,7 @@ export default function map() {
         axios
           .post(apiUrl, formdata, options)
           .then((result) => {
+            localStorage.setItem("activeid",result.data.data);
             router.push("/profile");
           })
           .catch((err) => {});

@@ -29,16 +29,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/map.js"
     ],
-    "/mapbooking": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/mapbooking.js"
-    ],
-    "/next/dist/pages/_error": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
-    ],
     "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
