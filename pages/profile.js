@@ -26,7 +26,7 @@ export default function profile() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [firstid, setFirstid] = React.useState("");
   const [firstrun, setFirstrun] = React.useState("");
-  const [messagestatus, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState("");
   var x;
 
   const status = [
@@ -41,10 +41,11 @@ export default function profile() {
     publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
   });
 
-  function mapbooking() {
+  function mapbooking(e) {
     if ($(e.target).hasClass("btn--loading")) {
       return false;
     } else {
+      $("#exampleModal").modal("hide");
       router.push("/mapbooking");
     }
   }
@@ -91,7 +92,6 @@ export default function profile() {
   }
 
   useEffect(() => {
-    
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -121,7 +121,7 @@ export default function profile() {
       pubnub.removeListener(listener);
       pubnub.unsubscribeAll();
     };
-  }, [messagestatus]);
+  }, [message]);
 
   const date = [{ value: "October", label: "October" }];
 
@@ -211,8 +211,14 @@ export default function profile() {
         console.log(result.data.data);
         if (result.data.data) {
           result.data.data
-            .filter((event) => event.id === Number(localStorage.getItem("activeid")))
-            .map((data) => data.status == "Looking for Driver" ? $("#exampleModal").modal("show") : null);
+            .filter(
+              (event) => event.id === Number(localStorage.getItem("activeid"))
+            )
+            .map((data) =>
+              data.status == "Looking for Driver"
+                ? $("#exampleModal").modal("show")
+                : null
+            );
         }
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -506,7 +512,7 @@ export default function profile() {
         <div className="row">
           <div className="col-lg-12 form-inline">
             <p className="pTotalBookings">
-              {count}Total Bookings
+              {count} Total Bookings
               <span className="pActiveBookings">{activeCount} Active</span>
             </p>
           </div>
