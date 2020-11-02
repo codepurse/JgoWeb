@@ -26,7 +26,7 @@ export default function profile() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [firstid, setFirstid] = React.useState("");
   const [firstrun, setFirstrun] = React.useState("");
-  const [message, setMessage] = React.useState("");
+  const [messagestatus, setMessage] = React.useState("");
   var x;
 
   const status = [
@@ -91,7 +91,7 @@ export default function profile() {
   }
 
   useEffect(() => {
-    // Update the document title using the browser API
+    
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -121,7 +121,7 @@ export default function profile() {
       pubnub.removeListener(listener);
       pubnub.unsubscribeAll();
     };
-  }, [message]);
+  }, [messagestatus]);
 
   const date = [{ value: "October", label: "October" }];
 
@@ -180,7 +180,7 @@ export default function profile() {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("activeid"))
+    console.log(localStorage.getItem("activeid"));
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
     coordinatebook.length = 0;
@@ -203,36 +203,16 @@ export default function profile() {
       },
     };
 
-    let config = {
-      onDownloadProgress: (progressEvent) => {
-        const total = parseFloat(
-          progressEvent.currentTarget.responseHeaders["Content-Length"]
-        );
-        const current = progressEvent.currentTarget.response.length;
-
-        let percentCompleted = Math.floor((current / total) * 100);
-        console.log("completed: ", percentCompleted);
-        // do whatever you like with the percenta ge complete
-        // maybe dispatch an action that will update a progress bar or something
-      },
-    };
-
     const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
     axios
-      .post(apiUrl, { customer_id: AuthService.getId() }, options, config)
+      .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
         console.log(result.data.data);
         if (result.data.data) {
           result.data.data
-            .filter(
-              (event) => event.id === localStorage.getItem("activeid")
-            )
-            .map((data) =>
-              data.status == "Looking for Driver"
-                ? $("#exampleModal").modal("show")
-                : console.log(data.status)
-            );
+            .filter((event) => event.id === Number(localStorage.getItem("activeid")))
+            .map((data) => data.status == "Looking for Driver" ? $("#exampleModal").modal("show") : null);
         }
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -457,7 +437,7 @@ export default function profile() {
                     </li>
                   </a>
                 </Link>
-                <Link href="/index">
+                <Link href="/map">
                   <a style={{ textDecoration: "none" }}>
                     <li>
                       <img

@@ -24,10 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/map": [
+    "/mapbooking": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/map.js"
+      "static/chunks/pages/mapbooking.js"
     ],
     "/profile": [
       "static/chunks/main.js",

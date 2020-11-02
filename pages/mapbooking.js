@@ -28,9 +28,17 @@ export default function mapbooking() {
   const statusColor = (value) => {
     switch (value) {
       case "in transit":
-        return "intransitBook";
+        return "intransit";
+      case "Arrived":
+        return "arrived";
+      case "Complete":
+        return "complete";
+      case "Arrived at Pick Up":
+        return "arrivedpickup";
+      case "Driver found":
+        return "driverfound";
       case "Looking for Driver":
-        return "looking";
+        return "looking1";
     }
   };
 
