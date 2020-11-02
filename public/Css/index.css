@@ -65,7 +65,7 @@
 body, html {
     width: 100%;
     height: 100%;
-    background-color: #1E2025;
+    background-color: #212427;
 }
 
 #__next {
@@ -365,14 +365,13 @@ body, html {
     padding: 8px;
     width: 120px;
     text-align: center;
-    margin-top: 20px;b
+    margin-top: 20px;
     cursor: pointer;
     transition: all 0.2s;
     margin-right: 0px;
     float: right;
     outline: none !important;
 }
-
 
 hr {
     color: white;
@@ -1448,8 +1447,6 @@ ul.no-bullets>a>li {
     text-decoration: none !important;
 }
 
-
-
 ul.no-bullets>a>li>span {
     font-family: "GilroyMedium";
     color: white;
@@ -1529,6 +1526,10 @@ ul.no-bullets>a>li:hover {
     margin-top: 40px;
 }
 
+table {
+    border-collapse: separate;
+}
+
 th {
     font-family: "GilroyMedium";
     color: white;
@@ -1547,17 +1548,79 @@ td {
     font-size: 1rem;
     cursor: pointer;
     border: 0px !important;
+    padding-top: 1em !important;
+    padding-bottom: 0.5em !important;
 }
 
 .tr {
     cursor: pointer;
 }
 
-.intransit {
-    color: #FFDD9A;
+.looking1 {
+    font-size: 0.9rem;
+    color: #F9A825;
+    display: block !important;
+    text-transform: capitalize;
+    background-color: #FFFDE7;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.driverfound {
+      font-size: 0.9rem;
+    color: #28A829;
     display: block;
     text-transform: capitalize;
+    background-color: #C1E5C1;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+.intransit, .arrivedpickup {
+    font-size: 0.9rem;
+    color: #FDA41B;
+    display: block;
+    text-transform: capitalize;
+    background-color: #4D3D24;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.arrived, .complete {
+    background-color: #25394F;
+    font-size: 0.9rem;
+    display: block;
+    color: #3E8FEC;
+    text-transform: capitalize;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.complete1 {
+    background-color: #CCF5E0;
+    font-size: 0.9rem;
+    display: block;
+    color: #08A855;
+    text-transform: capitalize;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 
 @keyframes stretch {
     0% {
@@ -1588,7 +1651,6 @@ td {
 
 .btn:hover {
     background-color: #FFE900 !important;
-    
 }
 
 .btn.btn--loading {
@@ -1666,7 +1728,6 @@ td {
     width: max-content;
     text-align: center;
     padding-bottom: 15px;
-
 }
 
 .activeUl {
@@ -1773,6 +1834,57 @@ td {
     padding: 8px !important;
     padding-bottom: 30px !important;
     width: 220px;
+}
+
+.Box {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    width: max-content;
+    margin-top: 20px;
+}
+
+.Box span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 15px;
+    animation: Loading 1.6s ease-in-out infinite;
+    transform-style: preserve-3d;
+    transform-origin: center;
+}
+
+.Box span:first-of-type {
+    background-color: #f7b731;
+    animation-delay: 0s;
+    box-shadow: 0px 0px 10px #f7b731;
+}
+
+.Box span:nth-of-type(2) {
+    background-color: #f7b731;
+    animation-delay: .2s;
+    box-shadow: 0px 0px 10px #f7b731;
+}
+
+.Box span:nth-of-type(3) {
+    background-color: #f7b731;
+    animation-delay: .4s;
+    box-shadow: 0px 0px 10px #f7b731;
+}
+
+.Box span:last-of-type {
+    background-color: #f7b731;
+    animation-delay: .6s;
+    box-shadow: 0px 0px 10px #f7b731;
+}
+
+@keyframes Loading {
+    0%, 40%, 100% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(3);
+    }
 }
 
 /* Settings */
@@ -1903,12 +2015,8 @@ label:after {
 }
 
 label.changed:after {
-
     background: #424242;
-
 }
-
-
 
 label-after-active {
     background: #212121 !important;
@@ -2147,16 +2255,15 @@ label:active:after {
 }
 
 .btnSubmitDriver {
-    font-family: 'ProximaNova', sans-serif;
+    font-family: 'GilroyMedium';
     color: white;
     font-size: 1rem;
-    background-color: #EDC728;
-    border: 0px;
+    background-color: transparent !important;
+    border: 1px solid #FFE900 !important;
     border-radius: 8px;
     padding: 10px;
     width: 150px;
     float: right;
-    box-shadow: 0px 5px 20px rgba(237, 199, 40, 0.1);
     outline: none !important;
 }
 

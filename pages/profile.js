@@ -11,7 +11,6 @@ import Link from "next/link";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 export default function profile() {
-
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
   const [fname, setFname] = React.useState("");
@@ -31,9 +30,10 @@ export default function profile() {
   var x;
 
   const status = [
-    { value: "Delivered", label: "Delivered" },
+    { value: "Complete", label: "Complete" },
     { value: "Looking for Driver", label: "Looking for Driver" },
-    { value: "Ongoing", label: "Ongoing" },
+    { value: "In Transit", label: "In Transit" },
+    { value: "a", label: "All" },
   ];
 
   const pubnub = new PubNub({
@@ -42,9 +42,9 @@ export default function profile() {
   });
 
   function mapbooking() {
-    if($(e.target).hasClass("btn--loading")) {
+    if ($(e.target).hasClass("btn--loading")) {
       return false;
-    }else {
+    } else {
       router.push("/mapbooking");
     }
   }
@@ -91,28 +91,17 @@ export default function profile() {
   }
 
   useEffect(() => {
-
-    if (tablemap) {
-      tablemap
-        .filter((event) => event.id === global.config.place.deliver.table_id)
-        .map(
-          (data) => (
-            data.status == "Driver found" ? driverfound() : null,
-            data.status == "Looking for Driver" ?  $("#exampleModal").modal("show")  : null
-          )
-        );
-    }
-
     // Update the document title using the browser API
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
     const listener = {
       message: (message) => {
-        setMessage(message);
+        setMessage(message.message.status);
         let mes = message;
         console.log(mes);
         if (mes.message.status == "Ongoing") {
+          driverfound();
           refresh();
         } else if (mes.message.status == "Arrived to Pick up") {
           refresh();
@@ -132,7 +121,7 @@ export default function profile() {
       pubnub.removeListener(listener);
       pubnub.unsubscribeAll();
     };
-  });
+  }, [message]);
 
   const date = [{ value: "October", label: "October" }];
 
@@ -191,6 +180,7 @@ export default function profile() {
   };
 
   useEffect(() => {
+    console.log(localStorage.getItem("activeid"))
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
     coordinatebook.length = 0;
@@ -209,16 +199,44 @@ export default function profile() {
         Authorization: "Bearer " + AuthService.getToken(),
         xsrfCookieName: "XSRF-TOKEN",
         xsrfHeaderName: "X-XSRF-TOKEN",
+        "Content-Length": "X-Actual-Content-Length",
       },
     };
+
+    let config = {
+      onDownloadProgress: (progressEvent) => {
+        const total = parseFloat(
+          progressEvent.currentTarget.responseHeaders["Content-Length"]
+        );
+        const current = progressEvent.currentTarget.response.length;
+
+        let percentCompleted = Math.floor((current / total) * 100);
+        console.log("completed: ", percentCompleted);
+        // do whatever you like with the percenta ge complete
+        // maybe dispatch an action that will update a progress bar or something
+      },
+    };
+
     const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
     axios
-      .post(apiUrl, { customer_id: AuthService.getId() }, options)
+      .post(apiUrl, { customer_id: AuthService.getId() }, options, config)
       .then((result) => {
-        console.log(result);
         setTabledata(result.data.data);
+        console.log(result.data.data);
+        if (result.data.data) {
+          result.data.data
+            .filter(
+              (event) => event.id === localStorage.getItem("activeid")
+            )
+            .map((data) =>
+              data.status == "Looking for Driver"
+                ? $("#exampleModal").modal("show")
+                : console.log(data.status)
+            );
+        }
         tablemap = result.data.data;
         setCount(result.data.data.length);
+        $(".Box").hide();
         if (result.data.data.length === 0) {
           $(".pNo").show();
         }
@@ -300,15 +318,20 @@ export default function profile() {
   }
 
   function handlestatuschange(value) {
-    var value = value.label.toLowerCase();
+    var value = value.value.toLowerCase();
     setStatus(value.label);
     $("#table > tbody > tr").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
       if ($("#table> tbody > :visible").length == 0) {
         $(".pNo").show();
       } else {
         $(".pNo").hide();
       }
+    });
+    $("tbody").each(function () {
+      var list = $(this).children("tr");
+      $(this).html(list.get().reverse());
     });
   }
 
@@ -404,6 +427,16 @@ export default function profile() {
     switch (value) {
       case "in transit":
         return "intransit";
+      case "Arrived":
+        return "arrived";
+      case "Complete":
+        return "complete";
+      case "Arrived at Pick Up":
+        return "arrivedpickup";
+      case "Driver found":
+        return "driverfound";
+      case "Looking for Driver":
+        return "looking1";
     }
   };
 
@@ -538,29 +571,40 @@ export default function profile() {
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
                     <th>ID</th>
-                    <th>Status</th>
+                    <th>Price</th>
                     <th>Pickup Address</th>
                     <th>Drop Location</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {tabledata.reverse().map((event) => (
+                  {tabledata.reverse().map((event, index) => (
                     <tr key={event.id}>
                       <td>{event.id}</td>
-                      <td>{event.status}</td>
-                      <td>{event.pick_up_address}</td>
+                      <td>{event.total}</td>
+                      <td>
+                        <span className={statusColor(event.status)}>
+                          {event.status}
+                        </span>
+                        {event.pick_up_address}
+                      </td>
                       {event.booking_drop_off_location.map((event) => (
                         <td key={event.id}>
-                          {event.drop_off_address}
                           <span className={statusColor(event.status)}>
                             {event.status}
                           </span>
+                          {event.drop_off_address}
                         </td>
                       ))}
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div class="Box">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           </div>
         </div>
