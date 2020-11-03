@@ -21,6 +21,7 @@ export default function map() {
   const router = useRouter();
   var places_data = coordinate;
   const [click_id, setId] = React.useState("");
+   const [isToggled, setIsToggled] = React.useState(false);
   const bookingtype = [
     { value: "1", label: "Document" },
     { value: "2", label: "Food" },
@@ -104,6 +105,28 @@ export default function map() {
     }),
   };
 
+  const customStyles3 = {
+    control: (base, state) => ({
+      ...base,
+      background: "#F3F3F4",
+      color: "#424242",
+      border: "1px solid lightgray",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#424242",
+    }),
+  };
   {
     /* Passing localstorage value in pickoff, dropoff and map */
   }
@@ -165,6 +188,8 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    var theme = JSON.parse(localStorage.getItem("theme"));
+    setIsToggled(theme);
     setFullname(AuthService.getFullname());
     const loggedInUser = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
@@ -796,7 +821,7 @@ export default function map() {
                 <ul className="my-row">
                   <Link href="/profile">
                     <a>
-                      <li style={{ textTransform: "capitalize" }}>
+                      <li style={{ textTransform: "uppercase" }}>
                         {fullname}
                       </li>
                     </a>
@@ -811,8 +836,8 @@ export default function map() {
               {" "}
               <img
                 src="Image/mapgps.svg"
-                className="img-fluid"
-                style={{ marginRight: "10px", width: "18px" }}
+                className="img-fluid imgGps"
+                style={{ marginRight: "10px" }}
               ></img>{" "}
               Pickup
             </p>
@@ -826,7 +851,7 @@ export default function map() {
                     instanceId: "1",
                     value: address,
                     onChange: handleChange,
-                    styles: customStyles1,
+                    styles:isToggled ? customStyles3 : customStyles1
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -883,7 +908,7 @@ export default function map() {
               {" "}
               <img
                 src="Image/mapgps.svg"
-                className="img-fluid"
+                className="img-fluid imgGps"
                 style={{ marginRight: "15px" }}
               ></img>
               Dropoff
@@ -898,7 +923,7 @@ export default function map() {
                     instanceId: "2",
                     value: addressDrop,
                     onChange: handleChangeDrop,
-                    styles: customStyles1,
+                    styles:isToggled ? customStyles3 : customStyles1
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -942,7 +967,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <Select
                         options={bookingtype}
-                        styles={customStyles}
+                        styles={isToggled ? customStyles3 : customStyles}
                         onChange={handleChangeCategory}
                         placeholder="Select Category"
                         onClick={() => (click = 2)}
@@ -1407,7 +1432,7 @@ export default function map() {
                 <div className="col-lg-2">
                   <img
                     src="Image/credit-card.png"
-                    className="img-fluid"
+                    className="img-fluid imgGps"
                     style={{ width: "30px", marginLeft: "18px" }}
                   ></img>
                 </div>

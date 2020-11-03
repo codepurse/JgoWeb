@@ -199,12 +199,12 @@ $(document).ready(function () {
   });
 
   function light() {
-    $("#__next").css("background-color", "#fff");
+    $("#__next , body, html").css("background-color", "#fff");
     $(".pDashboard").css("color", "#212121");
     $(".pDashboard").css("font-weight", "600");
     $(".divSidebar").attr("style", "background-color: #f5f5f5 !important");
     $(".divSidebar").css("border", "1px solid lightgray");
-    $(".divSidebar, .colPackage").css(
+    $(".divSidebar, .colPackage, colLeft").css(
       "box-shadow",
       "1px 1px 16px 6px rgba(66,66,66,0.19)"
     );
@@ -234,7 +234,7 @@ $(document).ready(function () {
     $(".btnLogout").css("border", "1px solid #424242");
     $("ul.no-bullets>a>li>span").css("color", "#424242");
     $("th").css("color", "#212121");
-    $("td").attr("style", "color: #424242 !important");
+    $("td").attr("style", "color: #212121 !important");
     $(".colPackage").css("background-color", "#f5f5f5");
     $(".colPackage").css("border-left", "1px solid lightgray");
     $(".packageFullname").css({ color: "#2D3853", "font-weight": "600" });
@@ -253,6 +253,24 @@ $(document).ready(function () {
     );
     $(".liBooking").css("color", "#424242");
     $(".spanMore").css("color", "#2D3853");
-  }
+    $(".btnShowmore").css("color", "#2D3853");
+    $(".btnShowmore, .btnChangepass").css("font-weight", "600");
+    $(".pchangepassword").css("color", "#2D3853");
+    $(".pchangepassword, .my-row li,.pPick, .pAdd").css("font-weight", "600");
+    $(".modalChangepass").attr("style", "background-color: #fafafa !important");
+    $(".txtchange").css("background-color","#F3F3F4");
+    $(".txtchange").css("border-color","gray");
+    $(".txtchange").css("color","#212121");
+    $(".btnChangepass").css("color","#2D3853");
 
+    $(".btnChangepass").css("color","#2D3853");
+    $(".conMap, .colLeft").css("background-color","#fafafa");
+    $(".my-row li").css("color","#212121");
+    $(".pPick, .pAdd, .pAdditional, .pPayment").css("color", "#283148");
+    $(".imgGps").css("filter", "brightness(-500%)");
+    $(".btnAddStopoff,.pAdditonalBox, .pPrice, .pPriceSub, .btnBook").css("color","#283148")
+    $(".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook").css("font-weight", "600");
+    $(".pPrice").css("font-weight", "bold");
+    $(".txtAdditional").css({"border-color": "lightgray","background-color": "#F3F3F4"})
+  }
 });

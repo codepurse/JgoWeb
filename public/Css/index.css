@@ -514,6 +514,10 @@ hr {
     float: right;
 }
 
+.imgGps {
+    width: 20px;
+}
+
 .my-row li:hover {
     color: var(--maincolor);
 }
@@ -776,7 +780,7 @@ hr {
     font-family: 'GilroyMedium';
     font-size: 0.9rem;
     color: white;
-    border: 1px solid #FFFE00;
+    border: 1px solid #FECE2F;
     padding: 8px;
     width: 170px;
     border-radius: 25px;
@@ -1544,12 +1548,19 @@ tr {
 
 td {
     font-family: "GilroyMedium";
-    color: #C4CAD1;
     font-size: 1rem;
     cursor: pointer;
     border: 0px !important;
     padding-top: 1em !important;
     padding-bottom: 0.5em !important;
+}
+
+.tdlight {
+    color: #424242;
+}
+
+.tddark  {
+    color: #C4CAD1;
 }
 
 .tr {
@@ -1894,12 +1905,14 @@ td {
     background-color: transparent;
     width: 180px;
     padding: 8px;
-    outline: none;
+    outline: none !important;
     text-align: center;
     margin: 0 auto;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
+    display: none;
+    margin-bottom: 20px;
 }
 
 .btnShowmore:hover {
@@ -1991,9 +2004,9 @@ td {
 .btnChangepass {
     font-family: 'GilroyMedium';
     color: white;
-    background-color: #F7D03E;
+    background-color: transparent;
     border-radius: 5px;
-    border: 0px;
+    border: 1px solid #F7D03E;
     padding: 15px;
     width: 100%;
     text-align: center;
@@ -2001,6 +2014,10 @@ td {
     cursor: pointer;
     transition: all 0.2s;
     outline: none !important;
+}
+
+.btnChangepass:hover {
+    background-color: #FBC02D;
 }
 
 input[type=checkbox] {

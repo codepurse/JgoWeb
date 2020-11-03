@@ -27,6 +27,7 @@ export default function profile() {
   const [firstid, setFirstid] = React.useState("");
   const [firstrun, setFirstrun] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [showmore, setShowmore] = React.useState("5");
   var x;
 
   const status = [
@@ -40,8 +41,6 @@ export default function profile() {
     subscribeKey: "sub-c-5e553b88-ee58-11ea-a728-4ec3aefbf636",
     publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
   });
-
-
 
   function mapbooking(e) {
     if ($(e.target).hasClass("btn--loading")) {
@@ -82,7 +81,7 @@ export default function profile() {
         console.log(err);
       });
   }
-  
+
   function show(min, max) {
     var $table = $("#table"),
       $rows = $table.find("tbody tr");
@@ -91,7 +90,6 @@ export default function profile() {
     $rows.hide().slice(min, max).fadeIn();
     return false;
   }
-
 
   function driverfound() {
     $("#exampleModal").modal("show");
@@ -231,8 +229,11 @@ export default function profile() {
                 ? $("#exampleModal").modal("show")
                 : null
             );
-            
         }
+        if ($("#table tbody tr").length > 0) {
+          $(".btnShowmore").show();
+        }
+        console.log();
         show(0, 5);
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -248,8 +249,11 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
       });
-    
   }, []);
+
+  function showmoretable() {
+      show(0, $("#table tbody tr").length + 5);
+  }
 
   function logout() {
     AuthService.logout();
@@ -580,16 +584,16 @@ export default function profile() {
                 <tbody>
                   {tabledata.reverse().map((event, index) => (
                     <tr key={event.id}>
-                      <td>{event.id}</td>
-                      <td>{event.total}</td>
-                      <td>
+                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>{event.id}</td>
+                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>{event.total}</td>
+                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>
                         <span className={statusColor(event.status)}>
                           {event.status}
                         </span>
                         {event.pick_up_address}
                       </td>
                       {event.booking_drop_off_location.map((event) => (
-                        <td key={event.id}>
+                        <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"} key={event.id}>
                           <span className={statusColor(event.status)}>
                             {event.status}
                           </span>
@@ -607,8 +611,10 @@ export default function profile() {
               <span></span>
               <span></span>
             </div>
-            <div className = "text-center">
-            <button className = "btnShowmore">Show more</button>
+            <div className="text-center">
+              <button className="btnShowmore" onClick={showmoretable}>
+                Show more
+              </button>
             </div>
           </div>
         </div>
@@ -716,15 +722,15 @@ export default function profile() {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-body modalChangepass">
-              <p className="pModalTitle">Change Password</p>
-              <p className="pModalTitleSub">
+              <p className="pModalTitle pchangepassword" style = {{marginBottom: "5px"}}>Change Password</p>
+              <p className="pModalTitleSub pchangesub">
                 Your new password must be different from previous used
                 passwords.
               </p>
-              <hr
+              <hr 
                 style={{
                   backgroundColor: "#414141",
                   boder: "1px solid #414141",
@@ -734,7 +740,7 @@ export default function profile() {
                 <div className="col-lg-12">
                   <input
                     type="text"
-                    className="txtEmailchange"
+                    className="txtEmailchange txtchange"
                     value={email}
                     placeholder="Enter email address"
                     onChange={handleChangeemail}
@@ -743,7 +749,7 @@ export default function profile() {
                 <div className="col-lg-12">
                   <input
                     type="text"
-                    className="txtOldpass"
+                    className="txtOldpass txtchange"
                     value={oldpass}
                     placeholder="Enter old password"
                     onChange={handleChangeoldpass}
@@ -752,7 +758,7 @@ export default function profile() {
                 <div className="col-lg-12">
                   <input
                     type="text"
-                    className="txtOldpass txtConfirmoldpass"
+                    className="txtOldpass txtConfirmoldpass txtchange"
                     value={confirmoldpass}
                     placeholder="Enter old confirm password"
                     onChange={handleChangeconfirmoldpass}
@@ -762,12 +768,12 @@ export default function profile() {
                   <input
                     type="text"
                     value={newpass}
-                    className="txtNewpass"
+                    className="txtNewpass txtchange"
                     placeholder="Enter new password"
                     onChange={handleChangenewpass}
                   ></input>
                 </div>
-                <div className="col-lg-12">
+                <div className="col-lg-12 text-center">
                   <button className="btnChangepass" onClick={btnChangepass}>
                     CONFIRM
                   </button>
