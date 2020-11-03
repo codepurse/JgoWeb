@@ -3,6 +3,7 @@ import Googlemap from "../component/map/maploader";
 import Header from "../component/header";
 import { useRouter } from "next/router";
 import "../component/map/config";
+import NextNprogress from "nextjs-progressbar";
 import Link from "next/link";
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
@@ -19,9 +20,10 @@ export default function map() {
   const [tokenuser, setTokenuser] = React.useState("");
   const [fullname, setFullname] = React.useState("");
   const router = useRouter();
+  const [theme, setTheme] = React.useState("");
   var places_data = coordinate;
   const [click_id, setId] = React.useState("");
-   const [isToggled, setIsToggled] = React.useState(false);
+  const [isToggled, setIsToggled] = React.useState(false);
   const bookingtype = [
     { value: "1", label: "Document" },
     { value: "2", label: "Food" },
@@ -85,9 +87,9 @@ export default function map() {
   const customStyles2 = {
     control: (base, state) => ({
       ...base,
-      background: "transparent",
-      color: "white",
-      border: "1px solid #2c2c2c",
+      background: isToggled ? "#F3F3F4" : "transparent",
+      color: isToggled ? "#424242" : "white",
+      border: isToggled ? "1px solid lightgray" : "1px solid #2c2c2c",
       boxShadow: "none",
       borderRadius: "5px",
       width: "95%",
@@ -101,7 +103,7 @@ export default function map() {
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: "white",
+      color: isToggled ? "#424242" : "white",
     }),
   };
 
@@ -125,6 +127,33 @@ export default function map() {
     singleValue: (provided) => ({
       ...provided,
       color: "#424242",
+    }),
+  };
+
+  const customStyles4 = {
+    control: (base, state) => ({
+      ...base,
+      background: "#F3F3F4",
+      color: "#424242",
+      border: "1px solid lightgray",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#424242",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "100%",
     }),
   };
   {
@@ -213,7 +242,7 @@ export default function map() {
     /* All array and variables needed */
   }
   const [price, setPrice] = React.useState("");
-  const [services, setServices] = React.useState("");
+  const [services, setServices] = React.useState("1");
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
@@ -737,9 +766,12 @@ export default function map() {
         "drop_off_locations[2][contact_number]",
         coordinate[3].detailsnumber
       );
-      if(coordinate[3].category) {
-        formdata.set("drop_off_locations[2][category_id]", coordinate[3].category);
-      }else {
+      if (coordinate[3].category) {
+        formdata.set(
+          "drop_off_locations[2][category_id]",
+          coordinate[3].category
+        );
+      } else {
         formdata.set("drop_off_locations[2][category_id]", "5");
       }
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
@@ -768,8 +800,11 @@ export default function map() {
         "drop_off_locations[3][contact_number]",
         coordinate[4].detailsnumber
       );
-      if(coordinate[4].category) {
-        formdata.set("drop_off_locations[3][category_id]", coordinate[4].category);
+      if (coordinate[4].category) {
+        formdata.set(
+          "drop_off_locations[3][category_id]",
+          coordinate[4].category
+        );
       } else {
         formdata.set("drop_off_locations[3][category_id]", "5");
       }
@@ -789,7 +824,7 @@ export default function map() {
         axios
           .post(apiUrl, formdata, options)
           .then((result) => {
-            localStorage.setItem("activeid",result.data.data);
+            localStorage.setItem("activeid", result.data.data);
             router.push("/profile");
           })
           .catch((err) => {});
@@ -805,6 +840,7 @@ export default function map() {
   return (
     <>
       <Header></Header>
+      <NextNprogress color="#EDC728" />
       <div className="container-fluid conMap">
         <Componentdidmount></Componentdidmount>
 
@@ -814,19 +850,21 @@ export default function map() {
               className="row align-items-center"
               style={{ padding: "40px 0px" }}
             >
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 <img src="Image/logo.png" className="img-fluid imgLogo"></img>
               </div>
-              <div className="col-lg-8">
+              <div className="col-lg-9">
                 <ul className="my-row">
                   <Link href="/profile">
                     <a>
-                      <li style={{ textTransform: "uppercase" }}>
-                        {fullname}
-                      </li>
+                      <li style={{ textTransform: "uppercase" }}>{fullname}</li>
                     </a>
                   </Link>
-                  <li>HOME</li>
+                  <Link href="/">
+                    <a>
+                      <li>HOME</li>
+                    </a>
+                  </Link>
                 </ul>
               </div>
             </div>
@@ -851,7 +889,7 @@ export default function map() {
                     instanceId: "1",
                     value: address,
                     onChange: handleChange,
-                    styles:isToggled ? customStyles3 : customStyles1
+                    styles: isToggled ? customStyles3 : customStyles1,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -923,7 +961,7 @@ export default function map() {
                     instanceId: "2",
                     value: addressDrop,
                     onChange: handleChangeDrop,
-                    styles:isToggled ? customStyles3 : customStyles1
+                    styles: isToggled ? customStyles3 : customStyles1,
                   }}
                   autocompletionRequest={{
                     componentRestrictions: {
@@ -967,7 +1005,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <Select
                         options={bookingtype}
-                        styles={isToggled ? customStyles3 : customStyles}
+                        styles={isToggled ? customStyles4 : customStyles}
                         onChange={handleChangeCategory}
                         placeholder="Select Category"
                         onClick={() => (click = 2)}
@@ -990,7 +1028,7 @@ export default function map() {
                 {" "}
                 <img
                   src="Image/mapgps.svg"
-                  className="img-fluid"
+                  className="img-fluid imgGps"
                   style={{ marginRight: "15px" }}
                 ></img>
                 Stop Off Location
@@ -1051,7 +1089,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <Select
                         options={bookingtype}
-                        styles={customStyles}
+                        styles={isToggled ? customStyles4 : customStyles}
                         onChange={handleChangeCategory}
                         placeholder="Select Category"
                         onClick={() => (click = 3)}
@@ -1135,7 +1173,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <Select
                         options={bookingtype}
-                        styles={customStyles}
+                        styles={isToggled ? customStyles4 : customStyles}
                         onChange={handleChangeCategory}
                         placeholder="Select Category"
                         onClick={() => (click = 4)}
@@ -1219,7 +1257,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <Select
                         options={bookingtype}
-                        styles={customStyles}
+                        styles={isToggled ? customStyles4 : customStyles}
                         onChange={handleChangeCategory}
                         placeholder="Select Category"
                         onClick={() => (click = 5)}

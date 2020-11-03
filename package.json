@@ -16,6 +16,7 @@
     "axios": "^0.20.0",
     "leaflet": "^1.7.1",
     "next": "^9.5.3",
+    "nextjs-progressbar": "0.0.7",
     "philippines": "^1.0.0",
     "pubnub": "^4.29.9",
     "pubnub-react": "^2.0.0-rc.0",

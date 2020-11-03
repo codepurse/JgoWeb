@@ -6,6 +6,7 @@ import axios from "axios";
 import "../component/map/config";
 import Select from "react-select";
 import swal from "@sweetalert/with-react";
+import NextNprogress from 'nextjs-progressbar';
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import PubNub from "pubnub";
@@ -252,7 +253,7 @@ export default function profile() {
   }, []);
 
   function showmoretable() {
-      show(0, $("#table tbody tr").length + 5);
+    show(0, $("#table tbody tr").length + 5);
   }
 
   function logout() {
@@ -449,7 +450,9 @@ export default function profile() {
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
+
       <div className="container-fluid conProfile">
+      <NextNprogress color="#EDC728"/>
         <div className="divSidebar">
           <div className="divMenu">
             <div className="divIcon">
@@ -584,16 +587,45 @@ export default function profile() {
                 <tbody>
                   {tabledata.reverse().map((event, index) => (
                     <tr key={event.id}>
-                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>{event.id}</td>
-                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>{event.total}</td>
-                      <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"}>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                        {event.id}
+                      </td>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                        {event.total}
+                      </td>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
                         <span className={statusColor(event.status)}>
                           {event.status}
                         </span>
                         {event.pick_up_address}
                       </td>
                       {event.booking_drop_off_location.map((event) => (
-                        <td className = {localStorage.getItem("theme_status") == "light" ? "tdlight" : "tddark"} key={event.id}>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                          key={event.id}
+                        >
                           <span className={statusColor(event.status)}>
                             {event.status}
                           </span>
@@ -725,12 +757,17 @@ export default function profile() {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-body modalChangepass">
-              <p className="pModalTitle pchangepassword" style = {{marginBottom: "5px"}}>Change Password</p>
+              <p
+                className="pModalTitle pchangepassword"
+                style={{ marginBottom: "5px" }}
+              >
+                Change Password
+              </p>
               <p className="pModalTitleSub pchangesub">
                 Your new password must be different from previous used
                 passwords.
               </p>
-              <hr 
+              <hr
                 style={{
                   backgroundColor: "#414141",
                   boder: "1px solid #414141",

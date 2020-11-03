@@ -7,6 +7,7 @@ import Componentdidmount from "../component/componentdidmount";
 import "../component/map/config";
 import Googlemap from "../component/map/maploaderbook";
 import authService from "../services/auth.service";
+import NextNprogress from 'nextjs-progressbar';
 import Link from "next/link";
 export default function mapbooking() {
   const router = useRouter();
@@ -105,6 +106,7 @@ export default function mapbooking() {
         className="container-fluid h-100"
         style={{ backgroundColor: "#15181A" }}
       >
+        <NextNprogress color="#EDC728"/>
         <div className="divSidebar">
           <div className="divMenu">
             <div className="divIcon">

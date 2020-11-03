@@ -54,7 +54,6 @@ export class header extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         />
-        <script src="go.js"></script>
       </Head>
     );
   }

@@ -11,6 +11,7 @@ export class componentMount extends Component {
       document.body.appendChild(script);
     });
 
+
   }
   render() {
     return <div></div>;

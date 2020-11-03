@@ -975,7 +975,8 @@ hr {
 }
 
 .btnAddStopoff:hover {
-    background-color: #EDC728;
+    background-color: #FFE900;
+    color: #212121;
 }
 
 .pDrag {
@@ -2311,3 +2312,8 @@ label:active:after {
     margin-top: -5px;
     display: none;
 }
+
+
+
+
+

@@ -3,6 +3,7 @@ import Header from "../component/header";
 import Navbar from "../component/navbar";
 import Login from "../component/login";
 import Deliver from "../component/deliver";
+import NextNprogress from 'nextjs-progressbar';
 import AuthService from "../services/auth.service";
 import axios from "axios";
 import Componentdidmount from "../component/componentdidmount";
@@ -28,6 +29,7 @@ function index() {
   return (
     <>
       <div className="container-fluid mainCon h-100">
+      <NextNprogress color="#EDC728" />
         <Header></Header>
         <Navbar></Navbar>
         <Componentdidmount></Componentdidmount>
