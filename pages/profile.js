@@ -41,6 +41,8 @@ export default function profile() {
     publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
   });
 
+
+
   function mapbooking(e) {
     if ($(e.target).hasClass("btn--loading")) {
       return false;
@@ -80,6 +82,16 @@ export default function profile() {
         console.log(err);
       });
   }
+  
+  function show(min, max) {
+    var $table = $("#table"),
+      $rows = $table.find("tbody tr");
+    min = min ? min - 1 : 0;
+    max = max ? max : $rows.length;
+    $rows.hide().slice(min, max).fadeIn();
+    return false;
+  }
+
 
   function driverfound() {
     $("#exampleModal").modal("show");
@@ -219,7 +231,9 @@ export default function profile() {
                 ? $("#exampleModal").modal("show")
                 : null
             );
+            
         }
+        show(0, 5);
         tablemap = result.data.data;
         setCount(result.data.data.length);
         $(".Box").hide();
@@ -234,6 +248,7 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
       });
+    
   }, []);
 
   function logout() {
@@ -591,6 +606,9 @@ export default function profile() {
               <span></span>
               <span></span>
               <span></span>
+            </div>
+            <div className = "text-center">
+            <button className = "btnShowmore">Show more</button>
             </div>
           </div>
         </div>

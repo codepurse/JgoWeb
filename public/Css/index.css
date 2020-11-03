@@ -1570,7 +1570,7 @@ td {
 }
 
 .driverfound {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
     color: #28A829;
     display: block;
     text-transform: capitalize;
@@ -1620,7 +1620,6 @@ td {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
 
 @keyframes stretch {
     0% {
@@ -1885,6 +1884,26 @@ td {
     20% {
         transform: scale(3);
     }
+}
+
+.btnShowmore {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1rem;
+    border: 1px solid #FBC02D;
+    background-color: transparent;
+    width: 180px;
+    padding: 8px;
+    outline: none;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnShowmore:hover {
+    background-color: #FBC02D;
 }
 
 /* Settings */
