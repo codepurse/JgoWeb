@@ -6,7 +6,8 @@ import Router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
 const province = require("philippines/provinces");
 const cities = require("philippines/cities");
-
+import ReactDOM from "react-dom";
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 const customStyles1 = {
   control: (base, state) => ({
     ...base,
@@ -28,6 +29,10 @@ const customStyles1 = {
     ...provided,
     color: "white",
   }),
+};
+
+const responseFacebook = (response) => {
+  console.log(response);
 };
 
 function successMessage() {
@@ -161,11 +166,11 @@ export class login extends Component {
           "content-type": "application/json",
         },
       };
-     
+
       const apiUrl = "http://localhost:8000/api/auth/login";
       axios
         .post(
-         apiUrl,
+          apiUrl,
           { email: this.state.Email, password: this.state.Password },
           options
         )
@@ -449,13 +454,22 @@ export class login extends Component {
               <hr></hr>
             </div>
           </div>
-          <button className="btnFacebook" onClick={btntry}>
-            <img
-              src="Image/facebook.png"
-              style={{ width: "15px", marginRight: "5px" }}
-            />
-            Sign-in with facebook
-          </button>
+          <FacebookLogin
+            appId="1163566050712002"
+            autoLoad={true}
+            fields="name,email,picture"
+            callback={responseFacebook}
+            render={(renderProps) => (
+              <button className="btnFacebook" onClick={renderProps.onClick}>
+                <img
+                  src="Image/facebook.png"
+                  style={{ width: "15px", marginRight: "5px" }}
+                />
+                Sign-in with facebook
+              </button>
+            )}
+          />
+          , ,
           <button className="btnGoogle">
             <img
               src="Image/google.png"

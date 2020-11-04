@@ -5,7 +5,7 @@ import Select from "react-select";
 import axios from "axios";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
-
+import NextNprogress from 'nextjs-progressbar';
 function driver() {
   var clear = 0;
   var submitClick = 0;
@@ -495,10 +495,10 @@ function driver() {
         <div className="container">
           <div
             className="row align-items-center"
-            style={{ borderLeft: "3px solid #00C853" }}
+            style={{ borderLeft: "3px solid #d32f2f" }}
           >
             <div className="col-lg-2">
-              <img src="Image/error.png" style={{ width: "32px" }}></img>
+              <img src="Image/close.png" style={{ width: "32px" }}></img>
             </div>
             <div className="col-lg-10" style={{ textAlign: "left" }}>
               <p className="pError">Error</p>
@@ -516,6 +516,7 @@ function driver() {
     <>
       <Header />
       <Componentdidmount></Componentdidmount>
+          <NextNprogress color="#EDC728"/>
       <div
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
@@ -864,6 +865,7 @@ function driver() {
                     type="text"
                     className="txtDriver txtFname"
                     value={fname}
+                  
                     onChange={fname_change}
                   ></input>
                 </div>

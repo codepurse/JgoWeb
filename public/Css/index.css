@@ -413,7 +413,7 @@ hr {
     padding: 8px;
     width: 240px;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: -5px;
     display: block;
 }
 
@@ -1526,11 +1526,6 @@ ul.no-bullets>a>li:hover {
     margin-top: 40px;
 }
 
-.conProf {
-    display: none;
-    margin-top: 40px;
-}
-
 table {
     border-collapse: separate;
 }
@@ -1560,7 +1555,7 @@ td {
     color: #424242;
 }
 
-.tddark  {
+.tddark {
     color: #C4CAD1;
 }
 
@@ -1759,6 +1754,7 @@ td {
     font-family: "GilroyMedium";
     font-size: 1.2rem;
     color: white;
+    margin-left: 5px;
 }
 
 .div {
@@ -2197,7 +2193,7 @@ label:active:after {
 .spanMore {
     font-size: 1.2rem;
     color: white;
-    display: block;
+    display: none;
 }
 
 .pPriceBook {
@@ -2313,7 +2309,63 @@ label:active:after {
     display: none;
 }
 
+/* Customer profile  */
 
+.conProf {
+    display: none;
+    margin-top: 65px;
+    padding-left: 70px !important;
+    max-width: 800px !important;
+}
 
+.imgProfileDash {
+    width: 100px;
+    border-radius: 50%;
+}
 
+.spanFull {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1.4rem;
+    margin-left: 15px;
+    margin-top: 10px;
+    line-height: 1.5rem;
+}
 
+.spanAdd {
+    font-size: 1rem !important;
+    margin-top: -10px !important;
+}
+
+.divProf {
+    background-color: #1C1E21;
+    padding: 15px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    margin: 2px;
+    margin-top: 10px;
+}
+
+.btnSave {
+    font-family: 'GilroyMedium';
+   
+    color: white;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid #EDC728;
+    padding: 8px;
+    width: 180px;
+    border-radius: 10px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.1s;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    outline: none !important;
+}
+
+.btnSave:hover {
+    color: #212121;
+    font-weight: 600;
+    background-color: #EDC728;
+}

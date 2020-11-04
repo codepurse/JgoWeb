@@ -6,7 +6,7 @@ import axios from "axios";
 import "../component/map/config";
 import Select from "react-select";
 import swal from "@sweetalert/with-react";
-import NextNprogress from 'nextjs-progressbar';
+import NextNprogress from "nextjs-progressbar";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import PubNub from "pubnub";
@@ -14,8 +14,8 @@ import { PubNubProvider, usePubNub } from "pubnub-react";
 export default function profile() {
   const router = useRouter();
   const [full_name, setFull_name] = React.useState("");
-  const [fname, setFname] = React.useState("");
   const [tabledata, setTabledata] = React.useState([]);
+  const [tableproile, setTableprofile] = React.useState([]);
   const [tableid, settableid] = React.useState("1");
   const [count, setCount] = React.useState("");
   const [activeCount, setACtivecount] = React.useState("");
@@ -29,6 +29,18 @@ export default function profile() {
   const [firstrun, setFirstrun] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [showmore, setShowmore] = React.useState("5");
+
+  const [fname, setFname] = React.useState("");
+  const [lname, setLname] = React.useState("");
+  const [mname, setMname] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [country, setCountry] = React.useState("");
+  const [emailprof, setEmailprof] = React.useState("");
+  const [mobile, setMobile] = React.useState("");
+  const [state, setState] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [zip, setZip] = React.useState("");
+
   var x;
 
   const status = [
@@ -39,8 +51,8 @@ export default function profile() {
   ];
 
   const pubnub = new PubNub({
-    subscribeKey: "sub-c-5e553b88-ee58-11ea-a728-4ec3aefbf636",
-    publishKey: "pub-c-90f2469a-a7e8-41ce-a2e3-74867125cd5e",
+    subscribeKey: "sub-c-958ab632-1d8d-11eb-8a07-eaf684f78515",
+    publishKey: "pub-c-701ebbe8-c393-43d5-a389-9ef5391a8fe9",
   });
 
   function mapbooking(e) {
@@ -218,8 +230,8 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        setTabledata(result.data.data);
-        console.log(result.data.data);
+        setTabledata(result.data.data.reverse());
+        console.log(result.data.data.reverse());
         if (result.data.data) {
           result.data.data
             .filter(
@@ -231,10 +243,9 @@ export default function profile() {
                 : null
             );
         }
-        if ($("#table tbody tr").length > 0) {
+        if ($("#table tbody tr").length > 5) {
           $(".btnShowmore").show();
         }
-        console.log();
         show(0, 5);
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -246,6 +257,27 @@ export default function profile() {
           (item) => item.status === "Looking for Driver"
         );
         setACtivecount(active.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    const apiUrl1 = "http://localhost:8000/api/auth/customer-profile";
+    axios
+      .post(apiUrl1, { id: AuthService.getId() }, options)
+      .then((result) => {
+        console.log(result.data.data);
+        setTableprofile(result.data.data);
+        setFname(result.data.data.fname);
+        setMname(result.data.data.mname);
+        setLname(result.data.data.lname);
+        setEmailprof(result.data.data.email);
+        setAddress(result.data.data.address);
+        setCountry(result.data.data.country);
+        setMobile(result.data.data.mobile_no);
+        setState(result.data.data.state);
+        setZip(result.data.data.zip);
+        setCity(result.data.data.city);
       })
       .catch((err) => {
         console.log(err);
@@ -446,13 +478,53 @@ export default function profile() {
     }
   };
 
+  function fname_change(e) {
+    setFname(e.target.value);
+    console.log(e.target.value);
+  }
+
+  function saveprof() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    let formdata = new FormData();
+    formdata.set("id", AuthService.getId());
+    formdata.set("fname", fname);
+    formdata.set("mname", mname);
+    formdata.set("lname", lname);
+    formdata.set("email", emailprof);
+    formdata.set("mobile_no", mobile);
+    formdata.set("address", address);
+    formdata.set("city", city);
+    formdata.set("state", state);
+    formdata.set("country", country);
+    formdata.set("zip", zip);
+
+    const apiUrl = "http://localhost:8000/api/auth/customers/3";
+    axios
+      .put(apiUrl, formdata, options)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
 
       <div className="container-fluid conProfile">
-      <NextNprogress color="#EDC728"/>
+        <NextNprogress color="#EDC728" />
         <div className="divSidebar">
           <div className="divMenu">
             <div className="divIcon">
@@ -644,7 +716,7 @@ export default function profile() {
               <span></span>
             </div>
             <div className="text-center">
-              <button className="btnShowmore" onClick={showmoretable}>
+              <button className="btnShowmore" onClick={showmoretable} style = {{display: "none"}}>
                 Show more
               </button>
             </div>
@@ -659,56 +731,104 @@ export default function profile() {
         </div>
       </div>
       <div className="container conProf">
-        <div className="row">
-          <div className="col-lg-12">
-            <p className="pTitleDashboard">General Information</p>
+        <div className="row align-items-center">
+          <div className="col-lg-12 text-center">
+            <img
+              src="Image/profile.jpg"
+              className="img-fluid imgProfileDash mx-auto d-flex"
+            ></img>{" "}
+            <p className="spanFull">
+              {fname} {mname} {lname}
+              <br />
+              <span className="spanAdd">
+                {state}, {city}
+              </span>
+            </p>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver pFname">First Name</p>
-            <input type="text" className="txtDriver txtFname"></input>
+        </div>
+
+        <div className="row" style={{ marginTop: "0px" }}>
+          <div className="col-lg-6 colProf">
+            <div className="divProf">
+              <p className="pTxtDriver pFname">First Name</p>
+              <input
+                type="text"
+                className="txtDriver txtFname txtprof"
+                value={fname}
+                onChange={fname_change}
+              ></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Middle Name</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-6 colProf">
+            <div className="divProf">
+              <p className="pTxtDriver">Middle Name</p>
+              <input type="text" className="txtDriver" value={mname}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver pLname">Last Name</p>
-            <input type="text" className="txtDriver txtLname"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver pLname">Last Name</p>
+              <input
+                type="text"
+                className="txtDriver txtLname"
+                value={lname}
+              ></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver pEmail">Email</p>
-            <input type="text" className="txtDriver txtEmail"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver pEmail">Email</p>
+              <input
+                type="text"
+                className="txtDriver txtEmail"
+                value={emailprof}
+              ></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver pMobile">Mobile Number</p>
-            <input type="text" className="txtDriver txtMobile"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver pMobile">Mobile Number</p>
+              <input
+                type="text"
+                className="txtDriver txtMobile"
+                value={mobile}
+              ></input>
+            </div>
           </div>
-          <div className="col-lg-12">
-            <p className="pTitleDashboard">AddressInformation</p>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver">Address</p>
+              <input type="text" className="txtDriver" value={address}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Address</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver">Province</p>
+              <input type="text" className="txtDriver" value={state}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Region</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver">City/Municipality</p>
+              <input type="text" className="txtDriver" value={city}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Province</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver">Country</p>
+              <input type="text" className="txtDriver" value={country}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">City/Municipality</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-6">
+            <div className="divProf">
+              <p className="pTxtDriver">Zip Code</p>
+              <input type="text" className="txtDriver" value={zip}></input>
+            </div>
           </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Country</p>
-            <input type="text" className="txtDriver"></input>
-          </div>
-          <div className="col-lg-4">
-            <p className="pTxtDriver">Zip Code</p>
-            <input type="text" className="txtDriver"></input>
+          <div className="col-lg-12 text-center">
+            <button className="btnSave" onClick={saveprof}>
+              Save
+            </button>
           </div>
         </div>
       </div>

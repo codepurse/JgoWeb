@@ -194,7 +194,7 @@ export default function mapbooking() {
                           <span className="spanMore">
                             &#8226;&#8226;&#8226;
                           </span>
-                          <div style={{ display: "none" }}>
+                          <div className = "divHide1" >
                             <p className="p3">{data.contact_name}</p>
                             <p className="p3">{data.contact_number}</p>
                           </div>
@@ -209,7 +209,7 @@ export default function mapbooking() {
                             <span className="spanMore">
                               &#8226;&#8226;&#8226;
                             </span>
-                            <div style={{ display: "none" }}>
+                            <div className = "divHide1">
                               <p className="p3">{data.contact_name}</p>
                               <p className="p3">{data.contact_number}</p>
                             </div>

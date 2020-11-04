@@ -160,7 +160,7 @@ $(document).ready(function () {
   });
 
   $(".liBooking").click(function () {
-    $(this).find(".divHide").fadeIn(200);
+    $(this).find(".divHide1").fadeIn(200);
     $(this).find(".spanMore").hide();
   });
 
