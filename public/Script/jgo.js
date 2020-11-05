@@ -17,13 +17,6 @@ $(document).ready(function () {
     }
   });
 
-  $(function () {
-    $(".tooltip-primary").tooltip().mouseover();
-    setTimeout(function () {
-      $(".tooltip-primary").tooltip("hide");
-    }, 5000);
-  });
-
   $(".boxCategory").click(function () {
     $(".boxCategory").css("background-color", "transparent");
     $(".boxCategory").find(".pBoxCategory").css("filter", "none");
@@ -96,17 +89,17 @@ $(document).ready(function () {
   });
 
   $(".boxAdditional").click(function () {
-  if (localStorage.getItem("theme_status") == "light") {
-    $(".boxAdditional").css("background-color", "transparent");
-    $(".boxAdditional >p").css("color", "#283148");
-    $(this).css("background-color", "#FFFE00");
-    $("p", this).css("color", "#283148");
-  }else {
-    $(".boxAdditional").css("background-color", "transparent");
-    $(".boxAdditional >p").css("color", "white");
-    $(this).css("background-color", "#FFFE00");
-    $("p", this).css("color", "black");
-  }
+    if (localStorage.getItem("theme_status") == "light") {
+      $(".boxAdditional").css("background-color", "transparent");
+      $(".boxAdditional >p").css("color", "#283148");
+      $(this).css("background-color", "#FFFE00");
+      $("p", this).css("color", "#283148");
+    } else {
+      $(".boxAdditional").css("background-color", "transparent");
+      $(".boxAdditional >p").css("color", "white");
+      $(this).css("background-color", "#FFFE00");
+      $("p", this).css("color", "black");
+    }
   });
 
   var i = 0;
@@ -139,8 +132,6 @@ $(document).ready(function () {
     $(this).css("background-color", "#FFFE00");
     $(this).find(".divBoxIcon").css("filter", "invert(1) brightness(500%)");
   });
-
-
 
   $(".ulDashboard>li").click(function () {
     $(".ulDashboard>li").removeClass("activeUl");
@@ -247,23 +238,39 @@ $(document).ready(function () {
     $(".pchangepassword").css("color", "#2D3853");
     $(".pchangepassword, .my-row li,.pPick, .pAdd").css("font-weight", "600");
     $(".modalChangepass").attr("style", "background-color: #fafafa !important");
-    $(".txtchange").css("background-color","#F3F3F4");
-    $(".txtchange").css("border-color","gray");
-    $(".txtchange").css("color","#212121");
-    $(".btnChangepass").css("color","#2D3853");
+    $(".txtchange").css("background-color", "#F3F3F4");
+    $(".txtchange").css("border-color", "gray");
+    $(".txtchange").css("color", "#212121");
+    $(".btnChangepass").css("color", "#2D3853");
 
-    $(".btnChangepass").css("color","#2D3853");
-    $(".conMap, .colLeft").css("background-color","#fafafa");
-    $(".my-row li").css("color","#212121");
+    $(".btnChangepass").css("color", "#2D3853");
+    $(".conMap, .colLeft").css("background-color", "#fafafa");
+    $(".my-row li").css("color", "#212121");
     $(".pPick, .pAdd, .pAdditional, .pPayment").css("color", "#283148");
     $(".imgGps").css("filter", "brightness(-500%)");
-    $(".btnAddStopoff,.pAdditonalBox, .pPrice, .pPriceSub, .btnBook").css("color","#283148")
-    $(".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook").css("font-weight", "600");
+    $(".btnAddStopoff,.pAdditonalBox, .pPrice, .pPriceSub, .btnBook").css(
+      "color",
+      "#283148"
+    );
+    $(
+      ".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook"
+    ).css("font-weight", "600");
     $(".pPrice").css("font-weight", "bold");
-    $(".txtAdditional").css({"border-color": "lightgray","background-color": "#F3F3F4"})
-    $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-control").attr("style","color: #424242 !important");
+    $(".txtAdditional").css({
+      "border-color": "lightgray",
+      "background-color": "#F3F3F4",
+    });
+    $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-control").attr(
+      "style",
+      "color: #424242 !important"
+    );
+
+    $(".spanFull").css("color", "#212121");
+    $(".spanFull , .txtprof, .btnSave, .divProf > .pTxtDriver").css("font-weight", "600");
+    $(".divProf").css("background-color", "#F0F0F0");
+    $(".txtprof").css("color", "#424242");
+    $(".divProf > .pTxtDriver").css("color", "#424242");
+    $(".txtprof").css("border", "1px solid #BDBDBD");
+    $(".btnSave").attr("style", "color: #212121 !important; font-weight: 600 !important");
   }
-
-  
 });
-

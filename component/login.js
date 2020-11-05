@@ -7,7 +7,7 @@ const regions = require("philippines/regions");
 const province = require("philippines/provinces");
 const cities = require("philippines/cities");
 import ReactDOM from "react-dom";
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 const customStyles1 = {
   control: (base, state) => ({
     ...base,
@@ -33,6 +33,33 @@ const customStyles1 = {
 
 const responseFacebook = (response) => {
   console.log(response);
+
+  const options = {
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "content-type": "application/json",
+    },
+  };
+
+  const apiUrl = "http://localhost:8000/api/auth/facebook/callback";
+
+  axios
+    .get(
+      apiUrl,
+      {
+        email: response.email,
+        first_name: response.first_name,
+        last_name: response.last_name,
+        id: response.id,
+      },
+      options
+    )
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 function successMessage() {
@@ -456,9 +483,8 @@ export class login extends Component {
           </div>
           <FacebookLogin
             appId="1163566050712002"
-            autoLoad={true}
-            fields="name,email,picture"
             callback={responseFacebook}
+            fields="id,name,first_name,last_name,email"
             render={(renderProps) => (
               <button className="btnFacebook" onClick={renderProps.onClick}>
                 <img

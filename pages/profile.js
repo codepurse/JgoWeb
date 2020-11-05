@@ -37,7 +37,7 @@ export default function profile() {
   const [country, setCountry] = React.useState("");
   const [emailprof, setEmailprof] = React.useState("");
   const [mobile, setMobile] = React.useState("");
-  const [state, setState] = React.useState("");
+  const [state1, setState] = React.useState("");
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
 
@@ -62,6 +62,29 @@ export default function profile() {
       $("#exampleModal").modal("hide");
       router.push("/mapbooking");
     }
+  }
+
+  function successMessage() {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #00C853" }}
+          >
+            <div className="col-lg-2">
+              <img src="Image/success.png" style={{ width: "32px" }}></img>
+            </div>
+            <div className="col-lg-10" style={{ textAlign: "left" }}>
+              <p className="pError">Success</p>
+              <p className="pErrorSub">
+                Your profile is successfully updated.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   function refresh() {
@@ -480,10 +503,46 @@ export default function profile() {
 
   function fname_change(e) {
     setFname(e.target.value);
-    console.log(e.target.value);
+  }
+
+  function mname_change(e) {
+    setMname(e.target.value);
+  }
+
+  function lname_change(e) {
+    setLname(e.target.value);
+  }
+
+  function email_change(e) {
+    setEmailprof(e.target.value);
+  }
+
+  function mobile_change(e) {
+    setMobile(e.target.value);
+  }
+
+  function address_change(e) {
+    setAddress(e.target.value);
+  }
+
+  function city_change(e) {
+    setCity(e.target.value)
+  }
+
+  function state_change(e) {
+    setState(e.target.value);
+  }
+
+  function country_change(e) {
+    setCountry(e.target.value);
+  }
+
+  function zip_change(e) {
+    setZip(e.target.value);
   }
 
   function saveprof() {
+    $(".btnSave").addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -494,27 +553,31 @@ export default function profile() {
       },
     };
 
-    let formdata = new FormData();
-    formdata.set("id", AuthService.getId());
-    formdata.set("fname", fname);
-    formdata.set("mname", mname);
-    formdata.set("lname", lname);
-    formdata.set("email", emailprof);
-    formdata.set("mobile_no", mobile);
-    formdata.set("address", address);
-    formdata.set("city", city);
-    formdata.set("state", state);
-    formdata.set("country", country);
-    formdata.set("zip", zip);
+    const data = {
+      id: AuthService.getId(),
+      fname: fname,
+      mname: mname,
+      lname: lname,
+      email: emailprof,
+      mobile_no: mobile,
+      address: address,
+      city: city,
+      state: state1,
+      country: country,
+      zip: zip,
+    };
 
     const apiUrl = "http://localhost:8000/api/auth/customers/3";
     axios
-      .put(apiUrl, formdata, options)
+      .put(apiUrl, data, options)
       .then((result) => {
         console.log(result);
+        $(".btnSave").removeClass("btn--loading");
+        successMessage();
       })
       .catch((err) => {
         console.log(err);
+        $(".btnSave").removeClass("btn--loading");
       });
   }
 
@@ -716,7 +779,11 @@ export default function profile() {
               <span></span>
             </div>
             <div className="text-center">
-              <button className="btnShowmore" onClick={showmoretable} style = {{display: "none"}}>
+              <button
+                className="btnShowmore"
+                onClick={showmoretable}
+                style={{ display: "none" }}
+              >
                 Show more
               </button>
             </div>
@@ -741,7 +808,7 @@ export default function profile() {
               {fname} {mname} {lname}
               <br />
               <span className="spanAdd">
-                {state}, {city}
+                {mobile}
               </span>
             </p>
           </div>
@@ -762,7 +829,7 @@ export default function profile() {
           <div className="col-lg-6 colProf">
             <div className="divProf">
               <p className="pTxtDriver">Middle Name</p>
-              <input type="text" className="txtDriver" value={mname}></input>
+              <input type="text" className="txtDriver txtprof" value={mname} onChange={mname_change}></input>
             </div>
           </div>
           <div className="col-lg-6">
@@ -770,8 +837,8 @@ export default function profile() {
               <p className="pTxtDriver pLname">Last Name</p>
               <input
                 type="text"
-                className="txtDriver txtLname"
-                value={lname}
+                className="txtDriver txtLname txtprof"
+                value={lname} onChange={lname_change}
               ></input>
             </div>
           </div>
@@ -780,8 +847,9 @@ export default function profile() {
               <p className="pTxtDriver pEmail">Email</p>
               <input
                 type="text"
-                className="txtDriver txtEmail"
+                className="txtDriver txtEmail txtprof"
                 value={emailprof}
+                onChange={email_change}
               ></input>
             </div>
           </div>
@@ -790,45 +858,52 @@ export default function profile() {
               <p className="pTxtDriver pMobile">Mobile Number</p>
               <input
                 type="text"
-                className="txtDriver txtMobile"
+                className="txtDriver txtMobile txtprof"
                 value={mobile}
+                onChange={mobile_change}
               ></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Address</p>
-              <input type="text" className="txtDriver" value={address}></input>
+              <input type="text" className="txtDriver txtprof" value={address} onChange={address_change}></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Province</p>
-              <input type="text" className="txtDriver" value={state}></input>
+              <input type="text" className="txtDriver txtprof" value={state1}
+              onChange={state_change}></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">City/Municipality</p>
-              <input type="text" className="txtDriver" value={city}></input>
+              <input type="text" className="txtDriver txtprof"  value={city} onChange={city_change}></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Country</p>
-              <input type="text" className="txtDriver" value={country}></input>
+              <input type="text" className="txtDriver txtprof" value={country} onChange={country_change}></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Zip Code</p>
-              <input type="text" className="txtDriver" value={zip}></input>
+              <input type="text" className="txtDriver txtprof" value={zip} onChange={zip_change}></input>
             </div>
           </div>
           <div className="col-lg-12 text-center">
-            <button className="btnSave" onClick={saveprof}>
-              Save
-            </button>
+            <a className="btn btnSave" onClick={saveprof}>
+              Login
+              <span style={{ marginLeft: "60px" }}>
+                <b></b>
+                <b></b>
+                <b></b>
+              </span>
+            </a>
           </div>
         </div>
       </div>

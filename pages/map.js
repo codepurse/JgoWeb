@@ -217,6 +217,16 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    if (AuthService.getToken()) {
+      $(".conMap").fadeIn(200);
+      $(".tooltip-primary").tooltip().mouseover();
+      setTimeout(function () {
+        $(".tooltip-primary").tooltip("hide");
+      }, 5000);
+    } else {
+      $(".tooltip").tooltip("hide");
+      router.push("/");
+    }
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
     setFullname(AuthService.getFullname());

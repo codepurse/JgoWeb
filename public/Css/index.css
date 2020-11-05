@@ -526,6 +526,7 @@ hr {
     background-color: #1E2025;
     position: relative;
     padding-left: 50px !important;
+    display: none;
 }
 
 .colLeft {
@@ -2352,10 +2353,10 @@ label:active:after {
     color: white;
     font-size: 1rem;
     background-color: transparent;
-    border: 1px solid #EDC728;
+    border: 1px solid #EDC728 !important;
     padding: 8px;
     width: 180px;
-    border-radius: 10px;
+    border-radius: 10px !important;
     margin: 0 auto;
     cursor: pointer;
     transition: all 0.1s;
@@ -2365,7 +2366,7 @@ label:active:after {
 }
 
 .btnSave:hover {
-    color: #212121;
+    color: #212121 !important;
     font-weight: 600;
-    background-color: #EDC728;
+    background-color: #EDC728 !important;
 }
