@@ -62,7 +62,7 @@ function driver() {
     let file = e.target.files[0];
     setDriverlisence(file.name);
     setDriver(file);
-    $(".divDriver").css("borderColor", "#2c2c2c");
+    $(".divDriver1").css("borderColor", "#2c2c2c");
   }
   function handleFile2(e) {
     let file = e.target.files[0];
@@ -169,6 +169,7 @@ function driver() {
   }
 
   useEffect(() => {
+    console.clear();
     getData();
   }, []);
 
@@ -338,7 +339,7 @@ function driver() {
       submitClick = 0;
     }
     if (driver == "") {
-      $(".divDriver").css("borderColor", "#d32f2f");
+      $(".divDriver1").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
       submitClick = 0;
@@ -421,7 +422,7 @@ function driver() {
       formdata.set("nbi_clearance", nbi, nbi.name);
       formdata.set("orcr", orcr, orcr.name);
 
-      const apiUrl = "http://localhost:8000/api/auth/register-driver";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register-driver";
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
@@ -897,7 +898,7 @@ function driver() {
                   ></input>
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver pMobile">Mobile Number</p>
+                  <p className="pTxtDriver pMobile" style = {{color: "white"}}>Mobile Number</p>
                   <input
                     type="text"
                     value={mobile}
@@ -1004,7 +1005,7 @@ function driver() {
                   ></input>
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver pLisence">Lisence Number</p>
+                  <p className="pTxtDriver pLisence" style = {{color: "white"}}>Lisence Number</p>
                   <input
                     type="text"
                     value={lisencenumber}
@@ -1047,8 +1048,8 @@ function driver() {
                     style={{ display: "none" }}
                   />
                   <div
-                    className="divAttachment divDriver text-center"
-                    onClick={onBtnClick1}
+                    className="divAttachment divDriver1 text-center"
+                    onClick={onBtnClick1} 
                   >
                     <p className="pTxtDriver">
                       <span style={{ color: "#EDC728" }}>Drag or Browse</span> a

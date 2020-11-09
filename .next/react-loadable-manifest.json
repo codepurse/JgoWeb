@@ -1,10 +1,6 @@
 {
   "../map/leafletmap": [
     {
-      "id": "./component/map/config.js",
-      "file": "static/chunks/1.js"
-    },
-    {
       "id": "./component/map/leafletmap.js",
       "file": "static/chunks/1.js"
     },

@@ -1,4 +1,13 @@
 $(document).ready(function () {
+  $(window).resize(function(){
+    $(".colMapTrack").css("left", width + 35);
+  });
+
+  var width = $(".colSidebar").width();
+  var totalwidth = $(window).width() - width - 50;
+  $(".colMapTrack").css("max-width", totalwidth);
+  $(".colMapTrack").css("min-width", totalwidth);
+  $(".colMapTrack").css("left", width + 35);
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
     light();
@@ -205,7 +214,6 @@ $(document).ready(function () {
     $(".btnLogout").css("color", "#212121");
     $(".btnLogout, .pFullname").css("font-weight", "600");
     $(".pFullname").css("color", "#212121");
-    $(".pFullname").css("color", "#212121");
     $(".txtSearch").css("background-color", "#F3F3F4");
     $(".txtSearch").css("color", "#424242");
     $(".txtSearch").css("border", "1px solid gray");
@@ -266,11 +274,17 @@ $(document).ready(function () {
     );
 
     $(".spanFull").css("color", "#212121");
-    $(".spanFull , .txtprof, .btnSave, .divProf > .pTxtDriver").css("font-weight", "600");
+    $(".spanFull , .txtprof, .btnSave, .divProf > .pTxtDriver").css(
+      "font-weight",
+      "600"
+    );
     $(".divProf").css("background-color", "#F0F0F0");
     $(".txtprof").css("color", "#424242");
     $(".divProf > .pTxtDriver").css("color", "#424242");
     $(".txtprof").css("border", "1px solid #BDBDBD");
-    $(".btnSave").attr("style", "color: #212121 !important; font-weight: 600 !important");
+    $(".btnSave").attr(
+      "style",
+      "color: #212121 !important; font-weight: 600 !important"
+    );
   }
 });

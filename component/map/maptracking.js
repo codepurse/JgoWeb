@@ -1,39 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Map from "./trackingmap";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import Map from './trackingmap';
+import "./config";
 
-export default function maptracking() {
-  const track = [
-    {
-      id: 1,
-      name: "Park Slope",
-      latitude: "40.6710729",
-      longitude: "-73.9988001",
-      icon: "Image/placeholder.png"
-    },
-    {
-      id: 2,
-      name: "Bushwick",
-      latitude: "40.6942861",
-      longitude: "-73.9389312",
-    },
-    {
-      id: 3,
-      name: "East New York",
-      latitude: "40.6577799",
-      longitude: "-73.9147716",
-      icon: "Image/motorcycle.png"
-    },
-  ];    
 
- 
+const googleMapsApiKey = "AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4";
 
+
+const track = tracks;    
+
+
+const App = props => {
+  
+  const {
+    loadingElement,
+    containerElement,
+    mapElement,
+    defaultCenter,
+    defaultZoom
+  } = props;
 
   return (
+    
     <Map
-      center={{ lat: 40.6451594, lng: -74.0850826 }}
-      zoom={10}
-      places={track}
+      googleMapURL={
+        'https://maps.googleapis.com/maps/api/js?key=' +
+        googleMapsApiKey +
+        '&libraries=geometry,drawing,places'
+      }
+      markers={track}
+      loadingElement={loadingElement || <div style={{height: `100%`, width: `100%`}}/>}
+      containerElement={containerElement || <div style={{height: "100vh", width: "100%"}}/>}
+      mapElement={mapElement || <div style={{height: `100%`}}/>}
+      
+      defaultZoom={Number(defaultZoom)}
     />
   );
-}
+};
+
+
+export default App;

@@ -31,7 +31,7 @@ const App = props => {
       containerElement={containerElement || <div style={{height: "100vh"}}/>}
       mapElement={mapElement || <div style={{height: `100%`}}/>}
       
-      defaultZoom={defaultZoom || 11}
+      defaultZoom={defaultZoom || 12}
     />
   );
 };

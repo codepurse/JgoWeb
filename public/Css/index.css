@@ -2349,7 +2349,6 @@ label:active:after {
 
 .btnSave {
     font-family: 'GilroyMedium';
-   
     color: white;
     font-size: 1rem;
     background-color: transparent;
@@ -2369,4 +2368,281 @@ label:active:after {
     color: #212121 !important;
     font-weight: 600;
     background-color: #EDC728 !important;
+}
+
+/* Tracking */
+
+.colSidebar {
+    padding: 0px;
+    background-color: white !important;
+    z-index: 99;
+    padding-bottom: 20px;
+    min-width: 380px !important;
+    max-width: 380px !important;
+}
+
+.conSide {
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    height: 100%;
+    z-index: 99;
+    background-color: white !important;
+}
+
+.conSearch {
+    background-color: #F3F6FC !important;
+    position: fixed;
+    z-index: 9999999;
+}
+
+.colMapTrack {
+    padding: 0px !important;
+    margin: 0px;
+    position: fixed !important;
+}
+
+.top {
+    padding: 10px;
+    width: 110%;
+    margin-left: -4.4%;
+    background-color: #FAFAFE;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.txtBookingid {
+    font-family: 'GilroyMedium';
+    color: #212121;
+    font-size: 1rem;
+    padding: 10px;
+    padding-left: 35px;
+    border: 0px;
+    background: transparent url(../Image/search.png) left no-repeat;
+    outline: none;
+    background-size: 18px;
+    background-position: 10px;
+    width: 100%;
+}
+
+.divDriver {
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.divProfimg {
+    border-radius: 20px;
+    height: 70px;
+    width: 70px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.divProfimg>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.pDriverName {
+    font-family: 'GilroySemiBold';
+    font-weight: 600;
+    color: #212121;
+    font-size: 1.1rem;
+    margin-bottom: 0px;
+}
+
+.p7 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0px;
+}
+
+.pMobile, .pLisence {
+    font-family: 'GilroyMedium';
+    color: #212121;
+    font-size: 1rem;
+    margin-bottom: 0px;
+}
+
+.pLisence {
+    font-size: 0.8rem;
+}
+
+.divDriverDetails {
+    margin-left: 15px;
+}
+
+.p5 {
+    font-family: 'GilroyMedium';
+    color: #757575;
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+}
+
+.divBookDetails {
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: none;
+}
+
+.p5Sub {
+    font-size: 1rem !important;
+    margin-bottom: 0px !important;
+}
+
+.pPickTrack {
+    font-family: 'GilroyMedium';
+    color: #424242;
+    font-size: 0.8rem;
+    margin-bottom: 0px;
+}
+
+.divPickoff, .divDropoff {
+    background-color: transparent !important;
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.pPickLock {
+    font-size: 0.9rem !important;
+    margin-bottom: 0px;
+    color: #11183F !important;
+    font-weight: 600;
+}
+
+.pKm {
+    font-size: 0.9rem !important;
+}
+
+.sKm {
+    font-size: 0.9rem !important;
+}
+
+.pDatetrack {
+    font-weight: 600;
+    font-size: 0.8rem !important;
+    margin-bottom: 0px;
+    color: #11183F !important;
+}
+
+.pPickCategory {
+    font-size: 0.9rem !important;
+    margin-bottom: 0px;
+    color: #11183F !important
+}
+
+.colBorderStripe {
+    border-left: 1px dashed lightgray !important;
+}
+
+.divImgCat {
+    background-color: #FFF59D !important;
+    width: 80%;
+    height: 100%;
+}
+
+.arrivedtrack {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #3E8FEC;
+    text-transform: capitalize;
+    margin-bottom: 0px;
+}
+
+.divSearch {
+    margin: 0 auto;
+    width: 840px;
+    height: 350px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    padding: 40px;
+}
+
+.pBooking {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: #303144;
+    font-size: 1.5rem; 
+    margin-bottom: 5px;
+}
+
+.pBookingSub {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: #303144;
+    font-size: 0.9rem; 
+}
+
+.txtTrack {
+    font-family: 'GilroyMedium';
+    color: #212121;
+    border: 1px solid lightgrey;
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.btnTrack {
+    font-family: 'GilroyMedium' !important;
+    color: #424242 !important;
+    font-weight: 600 !important;
+    background-color:#FFE900 !important;
+    border: 0px;
+    height: 50px;
+    width: 100%;
+    padding-top: 12px !important;
+    border-radius: 8px !important;
+}
+
+.btnTrack span b {
+    color: #212121 !important;
+}
+
+.p8 {
+    font-family: 'GilroyMedium';
+    color: #303144;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    
+}
+
+.p8Sub {
+    font-family: 'GilroyMedium';
+    color: #303144;
+    font-size: 0.9rem;
+   
+    font-weight: 600;
+}
+
+.rowPackage {
+    background-color: #EDF4F3;
+    width: 100%;
+    border-radius: 8px;
+    margin-left: 0px !important;
+    margin-top: 25px;
+    padding: 15px;
 }
