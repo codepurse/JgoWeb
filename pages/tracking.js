@@ -10,7 +10,7 @@ import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import Select from "react-select";
 import axios from "axios";
-
+import { useParams} from "react-router";
 export default function tracking() {
   const [id, setId] = React.useState("");
   const [booking, setBooking] = React.useState([]);
@@ -113,7 +113,6 @@ export default function tracking() {
             lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
             icon: "Image/gps.png",
           };
-          
 
           tracks.push(pickoffloc);
           console.log(pickoffloc);
@@ -127,14 +126,18 @@ export default function tracking() {
 
   function onKeyPress1(e) {
     if (e.which == 13) {
-     searchBook();
+      searchBook();
     }
   }
 
   function searchBook(e) {
-    $(".btn").addClass("btn--loading");
-    $(".divPickoff, .divDropoff").fadeIn(150);
-    tracks.length = 0;
+    if (id == "") {
+      alert("Enter tracking number to proceed.");
+      return false;
+    } else {
+      $(".btn").addClass("btn--loading");
+      $(".divPickoff, .divDropoff").fadeIn(150);
+      tracks.length = 0;
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -145,7 +148,7 @@ export default function tracking() {
       };
       const apiUrl = "http://localhost:8000/api/auth/show-driver-location";
       axios
-        .post(apiUrl, { id: 2}, options)
+        .post(apiUrl, { id: id }, options)
         .then((result) => {
           console.log(result.data.data);
           setDropoffloc(
@@ -187,6 +190,7 @@ export default function tracking() {
         .catch((err) => {
           console.log(err);
         });
+    }
   }
 
   return (
@@ -194,8 +198,17 @@ export default function tracking() {
       <Header></Header>
       <Componentdidmount></Componentdidmount>
       <div className="container-fluid h-100 conSearch">
-        <div className="row h-100 align-items-center">
-          <div className="col-lg-12">
+        <div
+          className="row h-100 align-items-center"
+          style={{ padding: "0px" }}
+        >
+          <div className="col-lg-12" style = {{display: "none"}}>
+            <img
+              src="Image/newlogo.png"
+              className="mx-auto d-flex img-fluid" style = {{width: "150px"}}
+            ></img>
+          </div>
+          <div className="col-lg-12" stl>
             <div className="divSearch">
               <div className="row align-items-center">
                 <div className="col-lg-5">
@@ -204,36 +217,51 @@ export default function tracking() {
                     Enter the booking number to get the latest information
                   </p>
                 </div>
-                <div className = "col-lg-5">
-                  <input type = "text" value = {id} onChange={idChange} onKeyPress={onKeyPress1} className = "txtTrack" placeholder = "Enter tracking number.."></input>
+                <div className="col-lg-5">
+                  <input
+                    type="text"
+                    value={id}
+                    onChange={idChange}
+                    onKeyPress={onKeyPress1}
+                    className="txtTrack"
+                    placeholder="Enter tracking number.."
+                  ></input>
                 </div>
-                <div className = "col-lg-2">
-              
-                  <a
-                      className="btn btnTrack"
-                      onClick = {searchBook}
-                    >
-                      Search
-                      <span style={{ marginLeft: "20px" , color: "#212121" }}>
-                        <b style = {{color: "black"}}></b>
-                        <b></b>
-                        <b></b>
-                      </span>
-                    </a>
+                <div className="col-lg-2">
+                  <a className="btn btnTrack" onClick={searchBook}>
+                    Search
+                    <span style={{ marginLeft: "17px", color: "#212121" }}>
+                      <b style={{ color: "black" }}></b>
+                      <b></b>
+                      <b></b>
+                    </span>
+                  </a>
                 </div>
               </div>
-              <div className = "row rowPackage">
-                <div className = "col-lg-4">
-                  <p className = "p8">Track <br></br> Package</p>
-                  <p className = "p8Sub">Track your package realtime status without logging in.</p>
+              <div className="row rowPackage">
+                <div className="col-lg-4">
+                  <p className="p8">
+                    Track <br></br> Package
+                  </p>
+                  <p className="p8Sub">
+                    Track your package realtime status without logging in.
+                  </p>
                 </div>
-                <div className = "col-lg-4">
-                  <p className = "p8">View <br></br>Details</p>
-                  <p className = "p8Sub">Enhanced visibility with a detailed view of all bookings.</p>
+                <div className="col-lg-4">
+                  <p className="p8">
+                    View <br></br>Details
+                  </p>
+                  <p className="p8Sub">
+                    Enhanced visibility with a detailed view of all bookings.
+                  </p>
                 </div>
-                <div className = "col-lg-4">
-                  <p className = "p8">Sms <br></br>Support</p>
-                  <p className = "p8Sub">Track your package realtime status without logging in.</p>
+                <div className="col-lg-4">
+                  <p className="p8">
+                    Sms <br></br>Support
+                  </p>
+                  <p className="p8Sub">
+                    Track your package realtime status without logging in.
+                  </p>
                 </div>
               </div>
             </div>
@@ -268,16 +296,19 @@ export default function tracking() {
             </div>
             <div className="divDriver">
               <div className="row">
-                <div className="col-lg-12 form-inline">
+                <div className="col-lg-6">
+                  <p className="pPickTrack">Driver</p>
+                  <p className="pFullname pPickLock">Mark Legazpi</p>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pPickTrack">Mobile</p>
+                  <p className="pFullname pPickLock">09887888877</p>
+                </div>
+                <div className="col-lg-3" style={{ display: "none" }}>
                   <div className="divProfimg ">
                     <img src="Image/sample.jpeg" className="imgDriver"></img>
                   </div>
-                  <div className="divDriverDetails">
-                    <p className="pFullname p7">Nathan Nakar</p>
-                    <p className="pMobile">0955968558</p>
-                  </div>
                 </div>
-                <div className="col-lg-8"></div>
               </div>
             </div>
             <div className="divPickoff">

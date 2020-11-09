@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/driver": "pages/driver.js",
-  "/tracking": "pages/tracking.js"
+  "/tracking": "pages/tracking.js",
+  "/driver": "pages/driver.js"
 }

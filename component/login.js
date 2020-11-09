@@ -41,16 +41,16 @@ const responseFacebook = (response) => {
     },
   };
 
-  const apiUrl = "http://localhost:8000/api/auth/facebook/callback";
+  const apiUrl = "http://localhost:8000/api/web/facebook/callback";
 
   axios
-    .get(
+    .post(
       apiUrl,
       {
-        email: response.email,
-        first_name: response.first_name,
-        last_name: response.last_name,
         id: response.id,
+        email: response.email,
+        fname: response.first_name,
+        lname: response.last_name,
       },
       options
     )

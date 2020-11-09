@@ -2377,8 +2377,8 @@ label:active:after {
     background-color: white !important;
     z-index: 99;
     padding-bottom: 20px;
-    min-width: 380px !important;
-    max-width: 380px !important;
+    min-width: 370px !important;
+    max-width: 370px !important;
 }
 
 .conSide {
@@ -2432,7 +2432,6 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 10px;
-    display: none;
 }
 
 .divProfimg {
@@ -2461,7 +2460,8 @@ label:active:after {
 }
 
 .p7 {
-    font-size: 1.1rem !important;
+    color: #11183F !important;
+    font-size: 1rem !important;
     margin-bottom: 0px;
 }
 
@@ -2476,9 +2476,7 @@ label:active:after {
     font-size: 0.8rem;
 }
 
-.divDriverDetails {
-    margin-left: 15px;
-}
+
 
 .p5 {
     font-family: 'GilroyMedium';
@@ -2495,7 +2493,7 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
-    display: none;
+ 
 }
 
 .p5Sub {
