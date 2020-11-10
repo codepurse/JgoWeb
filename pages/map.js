@@ -691,7 +691,7 @@ export default function map() {
     formdata.set("pick_up_address", address.label);
     formdata.set("pick_up_latitude", coordinate[0].lat);
     formdata.set("pick_up_longitude", coordinate[0].lng);
-
+    formdata.set("payment_method", "cod");
     formdata.set("drop_off_locations[0][drop_off_address]", addressDrop.label);
     formdata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
     formdata.set(
@@ -714,7 +714,7 @@ export default function map() {
         coordinate[1].category
       );
     } else {
-      formdata.set("drop_off_locations[0][category_id]", "5");
+      formdata.set("drop_off_locations[0][category_id]", "1");
     }
     formdata.set("drop_off_locations[0][distance]", "5.4");
     formdata.set("additional_services[0]", services);
@@ -748,7 +748,7 @@ export default function map() {
           coordinate[2].category
         );
       } else {
-        formdata.set("drop_off_locations[1][category_id]", "5");
+        formdata.set("drop_off_locations[1][category_id]", "1");
       }
       formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
       formdata.set("additional_services[1]", services);
@@ -782,7 +782,7 @@ export default function map() {
           coordinate[3].category
         );
       } else {
-        formdata.set("drop_off_locations[2][category_id]", "5");
+        formdata.set("drop_off_locations[2][category_id]", "1");
       }
       formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
       formdata.set("additional_services[2]", services);
@@ -816,7 +816,7 @@ export default function map() {
           coordinate[4].category
         );
       } else {
-        formdata.set("drop_off_locations[3][category_id]", "5");
+        formdata.set("drop_off_locations[3][category_id]", "1");
       }
       formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
       formdata.set("additional_services[3]", services);

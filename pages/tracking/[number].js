@@ -7,9 +7,7 @@ import Componentdidmount from "../../component/componentdidmount";
 
 import axios from "axios";
 
-
 function Post() {
- 
   const [id, setId] = React.useState("");
   const [booking, setBooking] = React.useState([]);
   const [dropoff_loc, setDropoffloc] = React.useState([]);
@@ -19,7 +17,10 @@ function Post() {
   const [pickup_name, setPickupname] = React.useState("");
   const [pickup_mobile, setPickupmobile] = React.useState("");
   const [pickup_note, setPickupnote] = React.useState("");
-  const [origin, setOrigin] = React.useState([]);
+  const [driver_loc, setDriverloc] = React.useState([]);
+  const [driver_lat, setDriverlat] = React.useState("");
+  const [driver_lng, setDriverlng] = React.useState("");
+  const [trackingnum, setTrackingnum] = React.useState("");
   const router = useRouter();
   const { number } = router.query;
   const today = Date.now();
@@ -40,8 +41,6 @@ function Post() {
     }
   };
 
-
-
   useEffect(() => {
     if (dropoff_loc) {
       {
@@ -54,14 +53,99 @@ function Post() {
             icon: "../Image/gps.png",
           };
           tracks.push(dropoff);
-         router.push("/tracking/" + number)
-        
+         
         });
       }
     }
   }, [dropoff_loc]);
+
+  var timer = setInterval(myTimer, 30000);
+  function myTimer() {
   
+  }
+
   useEffect(() => {
+    if (driver_loc) {
+      const dropoff = {
+        id: 4,
+        name: "",
+        lat: parseFloat(driver_loc.driver_latitude),
+        lng: parseFloat(driver_loc.driver_longitude),
+        icon: "../Image/motorcycle.png",
+      };
+      tracks.push(dropoff);
+   
+    }
+  }, [driver_loc]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      tracks.length = 0;
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+        },
+      };
+      const apiUrl =
+        "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+      axios
+        .post(apiUrl, { tracking_id: { number } }, options)
+        .then((result) => {
+          console.log(result.data.data);
+          setDropoffloc(
+            result.data.data.booking_details.booking_drop_off_location
+          );
+          setBooking(result.data.data);
+          setTrackingnum(result.data.data.booking_details.tracking_id);
+          setDriverloc(result.data.data.driver_location[0]);
+          try {
+            setMobile(result.data.data.booking_details.driver.mobile_no);
+          } catch (e) {}
+          setPickup(result.data.data.booking_details.pick_up_address);
+          setPickupname(result.data.data.booking_details.contact_name);
+          setPickupmobile(result.data.data.booking_details.contact_number);
+          setPickupnote(result.data.data.booking_details.note);
+          setDriverlat(result.data.data.driver_location[0].driver_latitude);
+          setDriverlng(result.data.data.driver_location[0].driver_longitude);
+          try {
+            setDriver(
+              result.data.data.booking_details.driver.fname +
+                " " +
+                result.data.data.booking_details.driver.lname
+            );
+          } catch (e) {}
+  
+          const pickoffloc = {
+            id: 5,
+            name: "",
+            lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
+            lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
+            icon: "../Image/gps.png",
+          };
+  
+        
+   
+  
+          tracks.push(pickoffloc);
+          router.push("/tracking/" + number);
+  
+  
+         
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 10000);
+    console.clear();
+    return () => clearInterval(interval);
+  });
+
+
+  useEffect(() => {
+    console.clear();
     let scripts = [{ src: "../Script/jgo.js" }];
     scripts.map((item) => {
       const script = document.createElement("script");
@@ -78,18 +162,18 @@ function Post() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
     axios
-      .post(apiUrl, { tracking_id: {number} }, options)
+      .post(apiUrl, { tracking_id: { number } }, options)
       .then((result) => {
         console.log(result.data.data);
         setDropoffloc(
           result.data.data.booking_details.booking_drop_off_location
         );
         setBooking(result.data.data);
-        console.log(
-          result.data.data.booking_details.booking_drop_off_location
-        );
+        setTrackingnum(result.data.data.booking_details.tracking_id);
+        setDriverloc(result.data.data.driver_location[0]);
         try {
           setMobile(result.data.data.booking_details.driver.mobile_no);
         } catch (e) {}
@@ -97,6 +181,8 @@ function Post() {
         setPickupname(result.data.data.booking_details.contact_name);
         setPickupmobile(result.data.data.booking_details.contact_number);
         setPickupnote(result.data.data.booking_details.note);
+        setDriverlat(result.data.data.driver_location[0].driver_latitude);
+        setDriverlng(result.data.data.driver_location[0].driver_longitude);
         try {
           setDriver(
             result.data.data.booking_details.driver.fname +
@@ -104,7 +190,7 @@ function Post() {
               result.data.data.booking_details.driver.lname
           );
         } catch (e) {}
-  
+
         const pickoffloc = {
           id: 5,
           name: "",
@@ -112,25 +198,26 @@ function Post() {
           lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
           icon: "../Image/gps.png",
         };
-  
+
+      
+ 
+
         tracks.push(pickoffloc);
-         router.push("/tracking/" + number)
-        console.log(pickoffloc);
+        router.push("/tracking/" + number);
+
 
        
       })
       .catch((err) => {
         console.log(err);
       });
-  },[number]);
-  
-
+  }, [number]);
 
   return (
     <>
       <Header></Header>
       <Head>
-      <link rel="stylesheet" href="../Css/index.css"></link>
+        <link rel="stylesheet" href="../Css/index.css"></link>
       </Head>
 
       <div className="container-fluid  consideTrack h-100">
@@ -140,7 +227,7 @@ function Post() {
               <div className="row">
                 <div className="col-lg-6">
                   <p className="p5">Tracking number</p>
-                  <p className="pFullname p5Sub">JGO1234567</p>
+                  <p className="pFullname p5Sub">{trackingnum}</p>
                 </div>
                 <div className="col-lg-6">
                   <p className="p5">Last updated</p>
@@ -152,11 +239,11 @@ function Post() {
               <div className="row">
                 <div className="col-lg-6">
                   <p className="pPickTrack">Driver</p>
-                  <p className="pFullname pPickLock">Mark Legazpi</p>
+                  <p className="pFullname pPickLock">{driver}</p>
                 </div>
                 <div className="col-lg-6">
                   <p className="pPickTrack">Mobile</p>
-                  <p className="pFullname pPickLock">09887888877</p>
+                  <p className="pFullname pPickLock">{mobile}</p>
                 </div>
                 <div className="col-lg-3" style={{ display: "none" }}>
                   <div className="divProfimg ">
