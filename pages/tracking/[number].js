@@ -125,18 +125,11 @@ function Post() {
             lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
             icon: "../Image/gps.png",
           };
-  
-        
-   
-  
           tracks.push(pickoffloc);
           router.push("/tracking/" + number);
-  
-  
-         
         })
         .catch((err) => {
-          console.log(err);
+         
         });
     }, 10000);
     console.clear();
@@ -190,7 +183,7 @@ function Post() {
               result.data.data.booking_details.driver.lname
           );
         } catch (e) {}
-
+        $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
         const pickoffloc = {
           id: 5,
           name: "",
@@ -209,7 +202,7 @@ function Post() {
        
       })
       .catch((err) => {
-        console.log(err);
+        router.push("../404")
       });
   }, [number]);
 
@@ -223,7 +216,7 @@ function Post() {
       <div className="container-fluid  consideTrack h-100">
         <div className="row h-100" style={{ padding: "0px" }}>
           <div className="col-lg-3 colSidebar colSideTrack">
-            <div className="divBookDetails">
+            <div className="divBookDetails" style = {{display: "none"}}>
               <div className="row">
                 <div className="col-lg-6">
                   <p className="p5">Tracking number</p>
@@ -235,7 +228,7 @@ function Post() {
                 </div>
               </div>
             </div>
-            <div className="divDriver">
+            <div className="divDriver" style = {{display: "none"}}>
               <div className="row">
                 <div className="col-lg-6">
                   <p className="pPickTrack">Driver</p>
@@ -252,7 +245,7 @@ function Post() {
                 </div>
               </div>
             </div>
-            <div className="divPickoff divPickoffTrack">
+            <div className="divPickoff divPickoffTrack" style = {{display: "none"}}>
               <div className="row row">
                 <div className="col-lg-12">
                   <p className="pPickTrack">PICKOFF LOCATION</p>
