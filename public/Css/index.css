@@ -2381,7 +2381,25 @@ label:active:after {
     max-width: 370px !important;
 }
 
+.colSideTrack {
+    padding: 20px !important;
+    background-color: white !important;
+    z-index: 99;
+    padding-bottom: 20px;
+    min-width: 380px !important;
+    max-width: 380px !important
+}
+
 .conSide {
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    height: 100%;
+    z-index: 99;
+    background-color: white !important;
+}
+
+.conSideTrack{
     -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
@@ -2394,6 +2412,7 @@ label:active:after {
     background-color: #F3F6FC !important;
     position: fixed;
     z-index: 9999999;
+
 }
 
 .colMapTrack {
@@ -2497,6 +2516,8 @@ label:active:after {
 }
 
 .p5Sub {
+    color: #303144;
+    font-weight: 600;
     font-size: 1rem !important;
     margin-bottom: 0px !important;
 }
@@ -2516,7 +2537,9 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
+  
 }
+
 
 .pPickLock {
     font-size: 0.9rem !important;
@@ -2643,4 +2666,9 @@ label:active:after {
     margin-left: 0px !important;
     margin-top: 25px;
     padding: 15px;
+}
+
+
+.trylang {
+    background-color: yellow;
 }

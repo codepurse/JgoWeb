@@ -2,15 +2,11 @@ import React, { Component, useState, useEffect } from "react";
 import Googlemap from "../component/map/maptracking";
 import Header from "../component/header";
 import { useRouter } from "next/router";
-import NextNprogress from "nextjs-progressbar";
-import Link from "next/link";
+
 import Componentdidmount from "../component/componentdidmount";
-import Leaflet from "../component/map/leaflet";
-import swal from "@sweetalert/with-react";
-import AuthService from "../services/auth.service";
-import Select from "react-select";
+
 import axios from "axios";
-import { useParams} from "react-router";
+
 export default function tracking() {
   const [id, setId] = React.useState("");
   const [booking, setBooking] = React.useState([]);
@@ -58,7 +54,7 @@ export default function tracking() {
           };
           tracks.push(dropoff);
 
-          router.push("");
+        
         });
       }
     }
@@ -116,7 +112,8 @@ export default function tracking() {
 
           tracks.push(pickoffloc);
           console.log(pickoffloc);
-          router.push("");
+          router.push('/tracking');
+         
         })
         .catch((err) => {
           console.log(err);
@@ -185,7 +182,8 @@ export default function tracking() {
           $(".conSide").fadeIn(150);
           tracks.push(pickoffloc);
           console.log(pickoffloc);
-          router.push("");
+          router.push('/tracking');
+       
         })
         .catch((err) => {
           console.log(err);

@@ -293,7 +293,7 @@ export default function map() {
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
-        router.push("");
+        router.push("/map");
         getRate();
       } catch (err) {
         const destination = {
