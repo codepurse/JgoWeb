@@ -2386,6 +2386,7 @@ label:active:after {
     background-color: white !important;
     z-index: 99;
     padding-bottom: 20px;
+    padding-top: 10px important;
     min-width: 380px !important;
     max-width: 380px !important
 }

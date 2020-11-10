@@ -75,7 +75,7 @@ export default function tracking() {
           xsrfHeaderName: "X-XSRF-TOKEN",
         },
       };
-      const apiUrl = "http://localhost:8000/api/auth/show-driver-location";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
       axios
         .post(apiUrl, { id: id }, options)
         .then((result) => {
@@ -143,7 +143,7 @@ export default function tracking() {
           xsrfHeaderName: "X-XSRF-TOKEN",
         },
       };
-      const apiUrl = "http://localhost:8000/api/auth/show-driver-location";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
       axios
         .post(apiUrl, { id: id }, options)
         .then((result) => {

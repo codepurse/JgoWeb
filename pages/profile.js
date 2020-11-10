@@ -97,7 +97,7 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -249,7 +249,7 @@ export default function profile() {
       },
     };
 
-    const apiUrl = "http://localhost:8000/api/auth/ctransaction-history";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -285,7 +285,7 @@ export default function profile() {
         console.log(err);
       });
 
-    const apiUrl1 = "http://localhost:8000/api/auth/customer-profile";
+    const apiUrl1 = "https://staging-api.jgo.com.ph/api/auth/customer-profile";
     axios
       .post(apiUrl1, { id: AuthService.getId() }, options)
       .then((result) => {
@@ -450,7 +450,7 @@ export default function profile() {
       formdata.set("password_confirmation", confirmoldpass);
       formdata.set("new_password", newpass);
 
-      const apiUrl = "http://localhost:8000/api/auth/change-password";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/change-password";
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
@@ -567,7 +567,7 @@ export default function profile() {
       zip: zip,
     };
 
-    const apiUrl = "http://localhost:8000/api/auth/customers/3";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
     axios
       .put(apiUrl, data, options)
       .then((result) => {

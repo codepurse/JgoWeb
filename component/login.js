@@ -41,7 +41,7 @@ const responseFacebook = (response) => {
     },
   };
 
-  const apiUrl = "http://localhost:8000/api/web/facebook/callback";
+  const apiUrl = "https://staging-api.jgo.com.ph/api/web/facebook/callback";
 
   axios
     .post(
@@ -194,7 +194,7 @@ export class login extends Component {
         },
       };
 
-      const apiUrl = "http://localhost:8000/api/auth/login";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/login";
       axios
         .post(
           apiUrl,
@@ -405,7 +405,7 @@ export class login extends Component {
         },
       };
 
-      const apiUrl = "http://localhost:8000/api/auth/register";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
       axios
         .post(apiUrl, formdata, options, config)
         .then((result) => {

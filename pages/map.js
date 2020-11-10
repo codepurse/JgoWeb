@@ -304,7 +304,7 @@ export default function map() {
         };
         coordinate.push(destination);
         console.log(coordinate);
-        router.push("");
+        router.push("/map");
         getRate();
       }
     } else {
@@ -348,7 +348,7 @@ export default function map() {
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
           console.log(coordinate);
-        router.push("");
+        router.push("/map");
         getRate();
       } catch (err) {
         const destination = {
@@ -358,7 +358,7 @@ export default function map() {
         };
         coordinate.push(destination);
         getRate();
-        router.push("");
+        router.push("/map");
       }
     } else {
       swal(
@@ -399,7 +399,7 @@ export default function map() {
       (places_data[objIndex].lat = latLng.lat),
         (places_data[objIndex].lng = latLng.lng),
         console.log(coordinate);
-      router.push("");
+      router.push("/map");
       getRate();
     } catch (err) {
       const destination = {
@@ -409,7 +409,7 @@ export default function map() {
         id: click,
       };
       coordinate.push(destination);
-      router.push("");
+      router.push("/map");
       getRate();
     }
   };
@@ -489,7 +489,7 @@ export default function map() {
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
         console.log(coordinate);
-      router.push("");
+      router.push("/map");
     } else if (click === 2) {
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
@@ -501,7 +501,7 @@ export default function map() {
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
         console.log(coordinate);
-      router.push("");
+      router.push("/map");
     }
     swal.close();
   }
@@ -529,7 +529,7 @@ export default function map() {
     }
 
     console.log(places_data);
-    router.push("");
+    router.push("/map");
     getRate();
   }
 
@@ -594,7 +594,7 @@ export default function map() {
       ratedata.set("additional_services[4]", services);
     }
 
-    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
+    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -822,8 +822,8 @@ export default function map() {
       formdata.set("additional_services[3]", services);
     }
 
-    const apiUrl_rate = "http://localhost:8000/api/auth/calculate-rate";
-    const apiUrl = "http://localhost:8000/api/auth/booking";
+    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
 
     axios
       .post(apiUrl_rate, ratedata, options)

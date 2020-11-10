@@ -78,9 +78,9 @@ function Post() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "http://localhost:8000/api/auth/show-driver-location";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
     axios
-      .post(apiUrl, { id: {number} }, options)
+      .post(apiUrl, { tracking_id: {number} }, options)
       .then((result) => {
         console.log(result.data.data);
         setDropoffloc(

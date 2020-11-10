@@ -172,7 +172,7 @@ export default function App() {
       ratedata.set("additional_services[0]", "1");
 
       const apiUrl_rate =
-        "http://localhost:8000/api/auth/calculate-rate";
+        "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
 
       axios
         .post(apiUrl_rate, ratedata, options)
