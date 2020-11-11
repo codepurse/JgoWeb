@@ -142,6 +142,33 @@ $(document).ready(function () {
     $(this).find(".divBoxIcon").css("filter", "invert(1) brightness(500%)");
   });
 
+  
+  $(".BoxFood").click(function () {
+    $(".divBox1").hide();
+    $(".divFood").fadeIn(200);
+  });
+  $(".BoxDocu").click(function () {
+    $(".divBox1").hide();
+    $(".divDocu").fadeIn(200);
+  });
+  $(".BoxCloth").click(function () {
+    $(".divBox1").hide();
+    $(".divCloth").fadeIn(200);
+  });
+  $(".BoxMedic").click(function () {
+    $(".divBox1").hide();
+    $(".divMedic").fadeIn(200);
+  });
+  $(".BoxFragile").click(function () {
+    $(".divBox1").hide();
+    $(".divFragile").fadeIn(200);
+  });
+  $(".BoxOther").click(function () {
+    $(".divBox1").hide();
+    $(".divOthers").fadeIn(200);
+  });
+
+
   $(".ulDashboard>li").click(function () {
     $(".ulDashboard>li").removeClass("activeUl");
     $(this).addClass("activeUl");

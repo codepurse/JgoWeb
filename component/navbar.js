@@ -57,28 +57,28 @@ export default function navbar() {
               <img
                 src="Image/logo.png"
                 className="img-fluid imglogo"
-                style={{ width: "150px" }}
+                style={{ width: "150px", marginLeft: "15px" }}
               />
             </a>
           </nav>
           <div className="collapse navbar-collapse" id="collapse">
             <div className="col2 ml-auto">
-              <ul className="nav navbar-nav">
+              <ul className="nav navbar-nav" style = {{marginRight: "15px"}}>
                 <li className={index}>
                   <Link href="/driver">
                     <a className="nav-link" style={{ color: "white" }}>
-                      Be a JGO Driver
+                      Ride with Us
                     </a>
                   </Link>
                 </li>
                 <li className={deliver} onClick={deliverForm}>
                   <a className="nav-link" style={{ color: "white" }}>
-                    Book a Delivery
+                   Deliver Now
                   </a>
                 </li>
                 <li className={contact}>
                   <a className="nav-link" style={{ color: "white" }}>
-                    Support
+                   JGO Support
                   </a>
                 </li>
                 <li className={login} onClick={loginForm}>

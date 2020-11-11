@@ -103,7 +103,7 @@ body, html {
 .pText {
     font-family: 'ProximaNovaBlack', sans-serif;
     color: white;
-    font-size: 5.5rem;
+    font-size: 4rem;
     text-align: center;
     line-height: 0.9em;
 }
@@ -241,16 +241,25 @@ body, html {
 }
 
 .pOntime {
-    font-family: 'ProximaNovaBlack', sans-serif;
+    font-family: 'GilroyBold';
+    font-weight: bold;
     font-size: 3rem;
     color: #FFFE00;
-    line-height: 3rem;
+    line-height: 3.5rem;
 }
 
 .divBoxCheck {
     background-color: #2B2B2A;
     border-radius: 25px;
     padding: 40px;
+}
+
+.pDivBoxCheck {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+    text-align: center;
 }
 
 .pCheck {
