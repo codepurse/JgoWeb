@@ -5,7 +5,7 @@ import Select from "react-select";
 import axios from "axios";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
-import NextNprogress from 'nextjs-progressbar';
+import NextNprogress from "nextjs-progressbar";
 function driver() {
   var clear = 0;
   var submitClick = 0;
@@ -517,7 +517,7 @@ function driver() {
     <>
       <Header />
       <Componentdidmount></Componentdidmount>
-          <NextNprogress color="#EDC728"/>
+      <NextNprogress color="#EDC728" />
       <div
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
@@ -536,9 +536,9 @@ function driver() {
           <nav className="navbar-brand" href="#">
             <a href="#">
               <img
-                src="Image/newlogo.png"
+                src="Image/logo.png"
                 className="img-fluid imglogo"
-                style={{ width: "115px" }}
+                style={{ width: "130px", marginLeft: "20px" }}
               />
             </a>
           </nav>
@@ -552,7 +552,7 @@ function driver() {
                     data-target="#driverModal"
                     style={{ color: "white" }}
                   >
-                    Be a JGO Driver
+                    Ride with Us
                   </a>
                 </li>
                 <Link href="/">
@@ -561,13 +561,13 @@ function driver() {
                       className="nav-link nav-driver"
                       style={{ color: "white" }}
                     >
-                      Book a Delivery
+                      Deliver Now
                     </a>
                   </li>
                 </Link>
                 <li>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
-                    Support
+                    JGO Support
                   </a>
                 </li>
               </ul>
@@ -575,12 +575,27 @@ function driver() {
           </div>
         </nav>
 
+        <div className="container-fluid divCovid">
+          <div className="row">
+            <div className="col-lg-12">
+              <p className = "pCloseCovid">&#215;</p>
+              <p className = "pCovid"> Safety Measures for COVID – 19</p>
+              <p className="pCovidSub">
+                Here at JGO we prioritize the
+                health and safety of everyone. It is our goal to ensure that
+                even with the current situation we are able to provide the
+                quality service that we promise. Remember, we are all in this
+                together. Learn more.
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="conDriver"></div>
         <div className="container con">
           <div className="row" style={{ marginLeft: "50px" }}>
             <div
               className="col-lg-4 col-sm-12 col-12 align-self-top "
-              style={{ marginTop: "150px", position: "relative" }}
+              style={{ marginTop: "200px", position: "relative" }}
             >
               <p className="pComing">COMING SOON</p>
               <div className="row">
@@ -670,42 +685,53 @@ function driver() {
                       data-target="#carouselExampleIndicators"
                       data-slide-to={2}
                     />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={3}
+                    />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={4}
+                    />
                   </ol>
                   <div className="carousel-inner">
                     <div className="carousel-item active">
                       <p className="pCarouselTitle">Step 1</p>
                       <p className="pCarouselContent">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident
+                        Create a JGO account and login to avail the delivery
+                        services.
                       </p>
                     </div>
                     <div className="carousel-item">
                       <p className="pCarouselTitle">Step 2</p>
                       <p className="pCarouselContent">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident
+                        Choose the pick up location and complete the necessary
+                        details.
                       </p>
                     </div>
                     <div className="carousel-item">
                       <p className="pCarouselTitle">Step 3</p>
                       <p className="pCarouselContent">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident
+                        Next is to fill out the drop off points and pick the
+                        category of the item being delivered.
+                      </p>
+                    </div>
+                    <div className="carousel-item">
+                      <p className="pCarouselTitle">Step 4</p>
+                      <p className="pCarouselContent">
+                        You can pick which additional services that will be
+                        needed for the delivery and indicate the mode of
+                        payment.
+                      </p>
+                    </div>
+                    <div className="carousel-item">
+                      <p className="pCarouselTitle">Step 5</p>
+                      <p className="pCarouselContent">
+                        After clicking the book button, kindly wait for a while
+                        so that a rider can accept your delivery job. Once
+                        confirmed you can track your delivery in real time.You
+                        can pick which additional services that will be needed
+                        for the delivery and indicate the mode of payment.
                       </p>
                     </div>
                   </div>
@@ -726,49 +752,58 @@ function driver() {
         <div className="container">
           <div className="row">
             <div className="col-lg-4">
-              <div className="divStep">
-                <div className="divInside">
-                  <img
-                    src="Image/step1.jpg"
-                    className="img-fluid imgStep"
-                  ></img>
-                  <p className="pStepTitle">RIDER</p>
-                  <p className="pStepsub">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor.
-                  </p>
-                </div>
-              </div>
+              <Link href="/rider">
+                <a style={{ textDecoration: "none" }}>
+                  <div className="divStep">
+                    <div className="divInside">
+                      <img
+                        src="Image/step1.jpg"
+                        className="img-fluid imgStep"
+                      ></img>
+                      <p className="pStepTitle">RIDER</p>
+                      <p className="pStepsub">
+                        See what it takes to be an On – The JGO Rider and join
+                        the JGO community. Get a chance to earn and work on your
+                        own time. Kaibigan JGO na!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
             </div>
             <div className="col-lg-4">
-              <div className="divStep">
-                <div className="divInside">
-                  <img
-                    src="Image/step2.jpg"
-                    className="img-fluid imgStep"
-                  ></img>
-                  <p className="pStepTitle">DELIVER</p>
-                  <p className="pStepsub">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor.
-                  </p>
-                </div>
-              </div>
+              <Link href="/">
+                <a style={{ textDecoration: "none" }}>
+                  <div className="divStep">
+                    <div className="divInside">
+                      <img
+                        src="Image/step2.jpg"
+                        className="img-fluid imgStep"
+                      ></img>
+                      <p className="pStepTitle">DELIVER</p>
+                      <p className="pStepsub">
+                        Need to deliver something? Try our Delivery Service Now!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
             </div>
             <div className="col-lg-4">
-              <div className="divStep">
-                <div className="divInside">
-                  <img
-                    src="Image/step3.jpg"
-                    className="img-fluid imgStep"
-                  ></img>
-                  <p className="pStepTitle">FAQS</p>
-                  <p className="pStepsub">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor.
-                  </p>
+              <Link href="/faq">
+                <div className="divStep">
+                  <div className="divInside">
+                    <img
+                      src="Image/step3.jpg"
+                      className="img-fluid imgStep"
+                    ></img>
+                    <p className="pStepTitle">FAQs</p>
+                    <p className="pStepsub">
+                      Questions and Inquiries? You may find some answers here.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -787,19 +822,19 @@ function driver() {
               <div className="divAbout">
                 <p className="pAboutus">ABOUT US</p>
                 <p className="pAboutusSub">
-                  Following his father’sfootsteps JGO Deliver services Inc. was
-                  founded and organized in early 2020by Jose Miguel O. Garcia
-                  with the help of Jose Vicente E. Garcia.Seeing the high demand
-                  of courier services in the Philippines they sought to build
-                  asubsidiary company under JG manpower. With the businesses
-                  expertise in manpower services we chose to focus on bringing
-                  your everyday essentials into your hands is at the core of
-                  what we do for the community. As a delivery service provider,
-                  you can rely on JGo to assist you in handling goods from one
-                  hand to another. Safely and quickly. In a busy world like
-                  ours, these are what matter. As your delivery assistants, we
-                  arealways on the go, always ready foryou. Maaasahan ninyo kami
-                  to get the jobdone.
+                  JGO Delivery Services Inc. was founded by Jose Miguel O.
+                  Garcia with the help of his father, Jose Vicente E. Garcia.
+                  Having an already established company that provides manpower
+                  “JG Manpower”, they thought of a way to help with the high
+                  demand of courier services in the Philippines. So following
+                  his father’s footsteps, Miguel wanted to have his own business
+                  that would provide quality service to people in the local
+                  community. Thus JGO was created as a subsidiary company under
+                  JG Manpower. As a delivery service provider, you can rely on
+                  JGO to assist you in handling goods from one hand to another.
+                  Safely and quickly. In a busy world like ours, these are what
+                  matter. As your delivery assistants, we are always ready for
+                  you, we are always on the go. JGO Maaasahan.
                 </p>
               </div>
             </div>
@@ -823,7 +858,7 @@ function driver() {
                 <a href="#contact">POLICIES</a>
               </li>
               <li className="liFooter">
-                <a href="#contact">TERM & CONDITION</a>
+                <a href="#contact">TERMS & CONDITIONS</a>
               </li>
             </ul>
           </div>
@@ -866,7 +901,6 @@ function driver() {
                     type="text"
                     className="txtDriver txtFname"
                     value={fname}
-                  
                     onChange={fname_change}
                   ></input>
                 </div>
@@ -898,7 +932,9 @@ function driver() {
                   ></input>
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver pMobile" style = {{color: "white"}}>Mobile Number</p>
+                  <p className="pTxtDriver pMobile" style={{ color: "white" }}>
+                    Mobile Number
+                  </p>
                   <input
                     type="text"
                     value={mobile}
@@ -1005,7 +1041,9 @@ function driver() {
                   ></input>
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver pLisence" style = {{color: "white"}}>Lisence Number</p>
+                  <p className="pTxtDriver pLisence" style={{ color: "white" }}>
+                    Lisence Number
+                  </p>
                   <input
                     type="text"
                     value={lisencenumber}
@@ -1049,7 +1087,7 @@ function driver() {
                   />
                   <div
                     className="divAttachment divDriver1 text-center"
-                    onClick={onBtnClick1} 
+                    onClick={onBtnClick1}
                   >
                     <p className="pTxtDriver">
                       <span style={{ color: "#EDC728" }}>Drag or Browse</span> a

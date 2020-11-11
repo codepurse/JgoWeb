@@ -1046,9 +1046,46 @@ hr {
 
 .divStopOff {
     margin-top: 10px;
+  
 }
 
 /* Driver */
+
+.divCovid {
+    background-color: #FFE5B2 !important;
+    position: fixed;
+    bottom: 0px;
+    z-index: 9;
+    margin-left: -15px !important;
+    padding: 10px 50px !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pCovid {
+    font-family: "GilroyMedium";
+    color: #564218;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0px; 
+}
+
+.pCloseCovid {
+    font-family: "GilroyMedium";
+    color: #564218;
+    font-size: 2.5rem;
+    position: absolute;
+    right: 0px;
+    top: -15px;
+    cursor: pointer;
+}
+
+.pCovidSub {
+    font-family: "GilroyMedium";
+    color: #B88217;
+    font-size: 1rem;
+
+    margin-bottom: 0px;
+}
 
 .mainConDriver {
     height: 100vh;
@@ -1213,6 +1250,8 @@ hr {
     border: 1px solid #323232;
     cursor: pointer;
     transition: all 0.2s;
+    min-height: 430px;
+    max-height: 430px;
 }
 
 .divStepActive {
@@ -2681,4 +2720,99 @@ label:active:after {
 
 .trylang {
     background-color: yellow;
+}
+
+
+
+/* Rider */
+
+.conRider {
+    background:  url('/Image/riderbg.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding-top: 30px;
+}
+
+.pSino {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: #4C4C4C;
+    font-size: 4rem;
+    text-align: center;
+    line-height: 0.9em;
+}
+
+.divSino1 {
+    background-color: #262626;
+    border-radius: 20px;
+    width:250px;
+    padding: 15px;
+    position: absolute;
+    left: 50%;
+    top: 8%;
+}
+
+
+.divSino2 {
+    background-color: #262626;
+    border-radius: 20px;
+    width:250px;
+    padding: 15px;
+    position: absolute;
+    left: 40%;
+    top: 28%;
+}
+.divSino3 {
+    background-color: #262626;
+    border-radius: 20px;
+    width:250px;
+    padding: 15px;
+    position: absolute;
+    left: 30%;
+    top: 48%;
+}
+
+.divSino4 {
+    background-color: #262626;
+    border-radius: 20px;
+    width:250px;
+    padding: 15px;
+    position: absolute;
+    left: 20%;
+    top: 68%;
+}
+
+@media (min-width: 1200px) {
+    .conSino{
+        width: 1000px !important;
+        max-width: 1000px !important;
+    }
+}
+
+.pBoxSino {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: #FFFE00;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.conChat {
+    background:  url('/Image/conChat.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.divChat {
+    backdrop-filter: blur(6px);
+    padding: 30px;
+    width: 600px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    margin-top: 40px;
 }

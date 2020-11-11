@@ -174,6 +174,11 @@ $(document).ready(function () {
     $(this).addClass("activeUl");
   });
 
+   $(".pCloseCovid").click(function () {
+    $(".divCovid").fadeOut(200);
+  });
+
+
   $(".txtSearch").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#table> tbody > tr").filter(function () {
