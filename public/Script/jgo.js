@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $(window).resize(function(){
+  $(window).resize(function () {
     $(".colMapTrack").css("left", width + 35);
   });
 
@@ -142,7 +142,6 @@ $(document).ready(function () {
     $(this).find(".divBoxIcon").css("filter", "invert(1) brightness(500%)");
   });
 
-  
   $(".BoxFood").click(function () {
     $(".divBox1").hide();
     $(".divFood").fadeIn(200);
@@ -168,16 +167,42 @@ $(document).ready(function () {
     $(".divOthers").fadeIn(200);
   });
 
-
   $(".ulDashboard>li").click(function () {
     $(".ulDashboard>li").removeClass("activeUl");
     $(this).addClass("activeUl");
   });
 
-   $(".pCloseCovid").click(function () {
+  $(".pCloseCovid").click(function () {
     $(".divCovid").fadeOut(200);
   });
 
+  $("#carouselExampleIndicators").on("slid.bs.carousel", function onSlide(ev) {
+    var id = ev.relatedTarget.id;
+    switch (id) {
+      case "1":
+        $(".imgPhone1").hide();
+        $(".imgPhonehand").fadeIn(200);
+        break;
+      case "2":
+        $(".imgPhone1").hide();
+        $(".imgPhonehand2").fadeIn(200);
+        break;
+      case "3":
+        $(".imgPhone1").hide();
+        $(".imgPhonehand3").fadeIn(200);
+        break;
+      case "4":
+        $(".imgPhone1").hide();
+        $(".imgPhonehand4").fadeIn(200);
+        break;
+      case "5":
+        $(".imgPhone1").hide();
+        $(".imgPhonehand5").fadeIn(200);
+        break;
+      default:
+      //the id is none of the above
+    }
+  });
 
   $(".txtSearch").on("keyup", function () {
     var value = $(this).val().toLowerCase();

@@ -578,14 +578,13 @@ function driver() {
         <div className="container-fluid divCovid">
           <div className="row">
             <div className="col-lg-12">
-              <p className = "pCloseCovid">&#215;</p>
-              <p className = "pCovid"> Safety Measures for COVID – 19</p>
+              <p className="pCloseCovid">&#215;</p>
+              <p className="pCovid"> Safety Measures for COVID – 19</p>
               <p className="pCovidSub">
-                Here at JGO we prioritize the
-                health and safety of everyone. It is our goal to ensure that
-                even with the current situation we are able to provide the
-                quality service that we promise. Remember, we are all in this
-                together. Learn more.
+                Here at JGO we prioritize the health and safety of everyone. It
+                is our goal to ensure that even with the current situation we
+                are able to provide the quality service that we promise.
+                Remember, we are all in this together. Learn more.
               </p>
             </div>
           </div>
@@ -675,11 +674,12 @@ function driver() {
                     <li
                       data-target="#carouselExampleIndicators"
                       data-slide-to={0}
-                      className="active"
+                      className="active active1"
                     />
                     <li
                       data-target="#carouselExampleIndicators"
                       data-slide-to={1}
+                      className="active2"
                     />
                     <li
                       data-target="#carouselExampleIndicators"
@@ -695,28 +695,28 @@ function driver() {
                     />
                   </ol>
                   <div className="carousel-inner">
-                    <div className="carousel-item active">
+                    <div className="carousel-item active" id="1">
                       <p className="pCarouselTitle">Step 1</p>
                       <p className="pCarouselContent">
                         Create a JGO account and login to avail the delivery
                         services.
                       </p>
                     </div>
-                    <div className="carousel-item">
+                    <div className="carousel-item" id="2">
                       <p className="pCarouselTitle">Step 2</p>
                       <p className="pCarouselContent">
                         Choose the pick up location and complete the necessary
                         details.
                       </p>
                     </div>
-                    <div className="carousel-item">
+                    <div className="carousel-item" id="3">
                       <p className="pCarouselTitle">Step 3</p>
                       <p className="pCarouselContent">
                         Next is to fill out the drop off points and pick the
                         category of the item being delivered.
                       </p>
                     </div>
-                    <div className="carousel-item">
+                    <div className="carousel-item" id="4">
                       <p className="pCarouselTitle">Step 4</p>
                       <p className="pCarouselContent">
                         You can pick which additional services that will be
@@ -724,7 +724,7 @@ function driver() {
                         payment.
                       </p>
                     </div>
-                    <div className="carousel-item">
+                    <div className="carousel-item" id="5">
                       <p className="pCarouselTitle">Step 5</p>
                       <p className="pCarouselContent">
                         After clicking the book button, kindly wait for a while
@@ -740,8 +740,24 @@ function driver() {
             </div>
             <div className="col-lg-5">
               <img
-                src="Image/phonehand.png"
-                className="img-fluid mx-auto d-flex"
+                src="Image/carousel1.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand"
+              ></img>
+              <img
+                src="Image/carousel2.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand2" style = {{display:"none"}}
+              ></img>
+               <img
+                src="Image/carousel3.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand3" style = {{display:"none"}}
+              ></img>
+               <img
+                src="Image/carousel4.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand4" style = {{display:"none"}}
+              ></img>
+               <img
+                src="Image/carousel5.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand5" style = {{display:"none"}}
               ></img>
             </div>
           </div>
