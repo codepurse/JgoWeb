@@ -745,19 +745,23 @@ function driver() {
               ></img>
               <img
                 src="Image/carousel2.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand2" style = {{display:"none"}}
+                className="img-fluid mx-auto imgPhone1 imgPhonehand2"
+                style={{ display: "none" }}
               ></img>
-               <img
+              <img
                 src="Image/carousel3.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand3" style = {{display:"none"}}
+                className="img-fluid mx-auto imgPhone1 imgPhonehand3"
+                style={{ display: "none" }}
               ></img>
-               <img
+              <img
                 src="Image/carousel4.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand4" style = {{display:"none"}}
+                className="img-fluid mx-auto imgPhone1 imgPhonehand4"
+                style={{ display: "none" }}
               ></img>
-               <img
+              <img
                 src="Image/carousel5.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand5" style = {{display:"none"}}
+                className="img-fluid mx-auto imgPhone1 imgPhonehand5"
+                style={{ display: "none" }}
               ></img>
             </div>
           </div>
@@ -864,11 +868,11 @@ function driver() {
           </div>
           <div className="col-lg-6">
             <ul className="ulFooter">
+              
               <li className="liFooter">
-                <a href="#home">COMPANY</a>
-              </li>
-              <li className="liFooter">
-                <a href="#news">CONTACT US</a>
+                <Link href="/faq#contact">
+                  <a href="#news">CONTACT US</a>
+                </Link>
               </li>
               <li className="liFooter">
                 <a href="#contact">POLICIES</a>

@@ -1046,7 +1046,6 @@ hr {
 
 .divStopOff {
     margin-top: 10px;
-  
 }
 
 /* Driver */
@@ -1066,7 +1065,7 @@ hr {
     color: #564218;
     font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 0px; 
+    margin-bottom: 0px;
 }
 
 .pCloseCovid {
@@ -1083,7 +1082,6 @@ hr {
     font-family: "GilroyMedium";
     color: #B88217;
     font-size: 1rem;
-
     margin-bottom: 0px;
 }
 
@@ -1161,8 +1159,6 @@ hr {
     position: relative;
 }
 
-
-
 .imgDel {
     width: 95%;
     position: relative;
@@ -1199,8 +1195,6 @@ hr {
     bottom: 0px;
     left: 0px;
 }
-
-
 
 .divBoxCarousel {
     background-color: white;
@@ -2452,7 +2446,7 @@ label:active:after {
     background-color: white !important;
 }
 
-.conSideTrack{
+.conSideTrack {
     -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
@@ -2465,7 +2459,6 @@ label:active:after {
     background-color: #F3F6FC !important;
     position: fixed;
     z-index: 9999999;
-
 }
 
 .colMapTrack {
@@ -2548,8 +2541,6 @@ label:active:after {
     font-size: 0.8rem;
 }
 
-
-
 .p5 {
     font-family: 'GilroyMedium';
     color: #757575;
@@ -2565,7 +2556,6 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
- 
 }
 
 .p5Sub {
@@ -2590,9 +2580,7 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
-  
 }
-
 
 .pPickLock {
     font-size: 0.9rem !important;
@@ -2658,7 +2646,7 @@ label:active:after {
     font-family: 'GilroyMedium';
     font-weight: 600;
     color: #303144;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     margin-bottom: 5px;
 }
 
@@ -2666,7 +2654,7 @@ label:active:after {
     font-family: 'GilroyMedium';
     font-weight: 600;
     color: #303144;
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
 }
 
 .txtTrack {
@@ -2683,7 +2671,7 @@ label:active:after {
     font-family: 'GilroyMedium' !important;
     color: #424242 !important;
     font-weight: 600 !important;
-    background-color:#FFE900 !important;
+    background-color: #FFE900 !important;
     border: 0px;
     height: 50px;
     width: 100%;
@@ -2701,14 +2689,12 @@ label:active:after {
     font-weight: 600;
     font-size: 1.1rem;
     margin-bottom: 5px;
-    
 }
 
 .p8Sub {
     font-family: 'GilroyMedium';
     color: #303144;
     font-size: 0.9rem;
-   
     font-weight: 600;
 }
 
@@ -2721,17 +2707,14 @@ label:active:after {
     padding: 15px;
 }
 
-
 .trylang {
     background-color: yellow;
 }
 
-
-
 /* Rider */
 
 .conRider {
-    background:  url('/Image/riderbg.png');
+    background: url('/Image/riderbg.png');
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -2749,27 +2732,27 @@ label:active:after {
 .divSino1 {
     background-color: #262626;
     border-radius: 20px;
-    width:250px;
+    width: 250px;
     padding: 15px;
     position: absolute;
     left: 50%;
     top: 8%;
 }
 
-
 .divSino2 {
     background-color: #262626;
     border-radius: 20px;
-    width:250px;
+    width: 250px;
     padding: 15px;
     position: absolute;
     left: 40%;
     top: 28%;
 }
+
 .divSino3 {
     background-color: #262626;
     border-radius: 20px;
-    width:250px;
+    width: 250px;
     padding: 15px;
     position: absolute;
     left: 30%;
@@ -2779,7 +2762,7 @@ label:active:after {
 .divSino4 {
     background-color: #262626;
     border-radius: 20px;
-    width:250px;
+    width: 250px;
     padding: 15px;
     position: absolute;
     left: 20%;
@@ -2787,7 +2770,7 @@ label:active:after {
 }
 
 @media (min-width: 1200px) {
-    .conSino{
+    .conSino {
         width: 1000px !important;
         max-width: 1000px !important;
     }
@@ -2803,7 +2786,7 @@ label:active:after {
 }
 
 .conChat {
-    background:  url('/Image/conChat.png');
+    background: url('/Image/conChat.png');
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -2819,4 +2802,209 @@ label:active:after {
     position: relative;
     border-radius: 20px;
     margin-top: 40px;
+}
+
+/* Faq */
+
+.conFaq {
+    background-color: #F2F0F0;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+}
+
+.pFaq {
+    font-family: ProximaNovaBlack;
+    color: #4C4C4C;
+    font-size: 3rem;
+}
+
+.pFaqSub {
+    font-family: 'GilroyBold';
+    color: #4C4C4C;
+    font-size: 1.8rem;
+}
+
+.accordion .accordion-item {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.accordion .accordion-item button[aria-expanded="true"] {
+    border-bottom: 1px solid #FBAA29;
+}
+
+.accordion button {
+    position: relative;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 1em 0;
+    color: #7288a2;
+    font-size: 1.15rem;
+    font-weight: 400;
+    border: none;
+    background: none;
+    outline: none !important;
+}
+
+.accordion button:hover, .accordion button:focus {
+    cursor: pointer;
+    color: #FBAA29 outline: none !important;
+}
+
+.accordion button:hover::after, .accordion button:focus::after {
+    cursor: pointer;
+    color: #FBAA29;
+    border: 1px solid #FBAA29;
+    outline: none !important;
+}
+
+.accordion button .accordion-title {
+    padding: 1em 1.5em 1em 0;
+}
+
+.accordion button .icon {
+    display: inline-block;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    border: 1px solid;
+    border-radius: 22px;
+    outline: none !important;
+}
+
+.accordion button .icon::before {
+    display: block;
+    position: absolute;
+    content: "";
+    top: 9px;
+    left: 5px;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    outline: none !important;
+}
+
+.accordion button .icon::after {
+    display: block;
+    position: absolute;
+    content: "";
+    top: 5px;
+    left: 9px;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    outline: none !important;
+}
+
+.accordion button[aria-expanded="true"] {
+    color: #FBAA29;
+}
+
+.accordion button[aria-expanded="true"] .icon::after {
+    width: 0;
+}
+
+.accordion button[aria-expanded="true"]+.accordion-content {
+    opacity: 1;
+    max-height: 9em;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+    will-change: opacity, max-height;
+    outline: none !important;
+}
+
+.accordion .accordion-content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: opacity 200ms linear, max-height 200ms linear;
+    transition: opacity 200ms linear, max-height 200ms linear;
+    will-change: opacity, max-height;
+}
+
+.accordion .accordion-content p {
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 2em 0;
+}
+
+.conblack {
+    background-color: #262626 !important;
+}
+
+.pContact1 {
+    font-family: 'GilroyBold';
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #4C4C4C;
+    margin-top: 20px;
+}
+
+.pContact2 {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #4C4C4C;
+    margin-top: 20px;
+}
+
+
+/* training */
+
+.conTraining {
+    background-color: #262626;
+}
+
+.pTraining {
+    font-family: ProximaNovaBlack;
+    color: #D7D207;
+    font-size: 3rem;
+    margin-bottom: 0px;
+}
+
+.pHeaderTraining {
+    font-family: ProximaNovaBlack;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.pTrainingSub {
+    font-family: ProximaNovaBold;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.pTrainingSub1 {
+    font-family: ProximaNovaBold;
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+}
+
+.pFF {
+    font-family: ProximaNovaBold;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.pRider {
+    font-family: ProximaNova;
+    color: #464743;
+    font-size: 1.2rem;
+}
+
+.btnBegin {
+    font-family: ProximaNova;
+    font-weight: 600;
+    color: #464743;
+    background-color: #FFFE00;
+    border: 0px;
+    padding: 8px;
+    width: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
 }
