@@ -1,7 +1,9 @@
 import React, { Component, useEffect } from "react";
 import Header from "../component/header";
+import Footer from "../component/footer";
 import Navbar from "../component/navbar";
 import NextNprogress from "nextjs-progressbar";
+import Link from "next/link";
 import Componentdidmount from "../component/componentdidmount";
 
 export default function rider() {
@@ -11,17 +13,46 @@ export default function rider() {
       <Componentdidmount></Componentdidmount>
       <NextNprogress color="#EDC728" />
       <Navbar></Navbar>
-      <div className="container-fluid h-100 conRider">
+      <div className="divNavbar">
+        <div className="menu-btn">
+          <div className="menu-btn__burger"></div>
+        </div>
+      </div>
+
+      <div className="container divMenu">
+        <div className="container divMenu1">
+          <div className="row">
+            <div className="col-lg-12">
+              <ul className="ulNav">
+                <li
+                  className="liNav"
+                  data-toggle="modal"
+                  data-target="#driverModal"
+                >
+                  Ride with Us
+                </li>
+                <li className="liNav">Deliver Now</li>
+                <li className="liNav">JGO Support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid conRider">
         <div className="container h-100">
-          <div className="row h-100 ">
+          <div className="row h-100 rowRider">
             <div className="col-lg-6 align-self-center">
               <img src="Image/prider.png" className="img-fluid"></img>
               <div className="text-center">
-                <input
-                  type="button"
-                  className="btnBook"
-                  value="SALI NA!"
-                ></input>
+                <Link href="/driver">
+                  <a>
+                    <input
+                      type="button"
+                      className="btnBook"
+                      value="SALI NA!"
+                    ></input>
+                  </a>
+                </Link>
               </div>
             </div>
             <div
@@ -44,20 +75,20 @@ export default function rider() {
             </div>
           </div>
           <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-lg-5">
+            <div className="col-lg-5 colAnthony">
               <img src="Image/Anthony 1.png" className="img-fluid"></img>
             </div>
             <div className="col-lg-7" style={{ position: "relative" }}>
-              <div className="divSino1">
+              <div className="divSino1 divSino">
                 <p className="pBoxSino">MAGALANG</p>
               </div>
-              <div className="divSino2">
+              <div className="divSino2 divSino">
                 <p className="pBoxSino">MABILIS</p>
               </div>
-              <div className="divSino3">
+              <div className="divSino3 divSino">
                 <p className="pBoxSino">SAFE</p>
               </div>
-              <div className="divSino4">
+              <div className="divSino4 divSino">
                 <p className="pBoxSino">LAGING NAKANGITI</p>
               </div>
             </div>
@@ -71,46 +102,26 @@ export default function rider() {
               <div className="divChat">
                 <div className="divChatblurred"></div>
                 <img src="image/CLoud 1.png" className="img-fluid"></img>
-                <img src="image/Cloud -1.png" className="img-fluid" style = {{marginTop: "10px"}}></img>
-                <img src="image/Cloud 2.png" className="img-fluid" style = {{marginTop: "10px"}}></img>
-                <img src = "Image/jgobutton.png" className = "img-fluid mx-auto d-flex" style = {{marginTop: "20px", width: "200px"}}></img>
+                <img
+                  src="image/Cloud -1.png"
+                  className="img-fluid"
+                  style={{ marginTop: "10px" }}
+                ></img>
+                <img
+                  src="image/Cloud 2.png"
+                  className="img-fluid"
+                  style={{ marginTop: "10px" }}
+                ></img>
+                <img
+                  src="Image/jgobutton.png"
+                  className="img-fluid mx-auto d-flex imgTara"
+                ></img>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="container-fluid conFooter">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <img
-              src="Image/logo.png"
-              className="img-fluid imgLogo"
-              style={{ width: "150px", marginLeft: "20px" }}
-            ></img>
-          </div>
-          <div className="col-lg-6">
-            <ul className="ulFooter">
-              <li className="liFooter">
-                <a href="#home">COMPANY</a>
-              </li>
-              <li className="liFooter">
-                <a href="#news">CONTACT US</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">POLICIES</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">TERM & CONDITION</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-12">
-            <p className="text-center pFooter">
-              © 2020 JGO Philippines. - All Rights
-            </p>
-          </div>
-        </div>
-      </div>
+      <Footer></Footer>
     </>
   );
 }

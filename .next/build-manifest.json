@@ -24,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/faq": [
+    "/map": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/faq.js"
+      "static/chunks/pages/map.js"
     ],
-    "/training": [
+    "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/training.js"
+      "static/chunks/pages/profile.js"
     ]
   },
   "ampFirstPages": []

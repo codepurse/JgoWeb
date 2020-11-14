@@ -1,15 +1,47 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
+import Navbar from "../component/navbar1";
+import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
 
 export default function faq() {
+ 
   return (
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
       <NextNprogress color="#EDC728" />
+      <div className="divNavbar">
+        <div className="menu-btn">
+          <div className="menu-btn__burger"></div>
+        </div>
+      </div>
+
+      <div className="container divMenu">
+        <div className="container divMenu1">
+          <div className="row">
+            <div className="col-lg-12">
+              <ul className="ulNav">
+               <Link href = "/driver">
+                 <a>
+                 <li
+                  className="liNav"
+                  data-toggle="modal"
+                  data-target="#driverModal"
+                >
+                  Ride with Us
+                </li>
+                 </a>
+               </Link>
+                <li className="liNav">Deliver Now</li>
+                <li className="liNav">JGO Support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container-fluid conblack">
         <nav
           className="navbar navbar-expand-md fixed-top conblack"
@@ -38,8 +70,6 @@ export default function faq() {
                   <li>
                     <a
                       className="nav-link nav-driver"
-                      data-toggle="modal"
-                      data-target="#driverModal"
                       style={{ color: "white" }}
                     >
                       Ride with Us
@@ -65,6 +95,7 @@ export default function faq() {
             </div>
           </div>
         </nav>
+        
       </div>
       <div className="container-fluid conFaq">
         <div className="container" style={{ paddingTop: "150px" }}>
@@ -672,33 +703,7 @@ export default function faq() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conFooter">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <img src="Image/logo.png" className="img-fluid imgLogo"></img>
-          </div>
-          <div className="col-lg-6">
-            <ul className="ulFooter">
-              <li className="liFooter">
-                <Link href="/faq#contact">
-                  <a href="#news">CONTACT US</a>
-                </Link>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">POLICIES</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">TERMS & CONDITIONS</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-12">
-            <p className="text-center pFooter">
-              © 2020 JGO Philippines. - All Rights
-            </p>
-          </div>
-        </div>
-      </div>
+      <Footer></Footer>
     </>
   );
 }

@@ -1,307 +1,1195 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
-import Navbar from "../component/navbar";
-import Login from "../component/login";
-import Deliver from "../component/deliver";
-import NextNprogress from "nextjs-progressbar";
-import AuthService from "../services/auth.service";
-import axios from "axios";
+import Head from "next/head";
+import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
-function index() {
-  const [user, setUser] = React.useState("");
-  const [fname, setFname] = React.useState("");
+import Select from "react-select";
+import axios from "axios";
+import Link from "next/link";
+import swal from "@sweetalert/with-react";
+import NextNprogress from "nextjs-progressbar";
+function driver() {
+  var clear = 0;
+  var submitClick = 0;
+  const [fname, setfname] = React.useState("");
+  const [lname, setlname] = React.useState("");
+  const [mname, setmname] = React.useState("");
+  const [email, setemail] = React.useState("");
+  const [mobile, setmobile] = React.useState("");
+  const [address, setaddress] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [passwordconfirm, setpasswordconfirm] = React.useState("");
+  const [lisencenumber, setlisencenumber] = React.useState("");
+  const [vehicle, setvehicle] = React.useState("");
+  const [zip, setzip] = React.useState("");
+  const [provinced, setprovinced] = React.useState("");
+  const [city, setcity] = React.useState("");
+  const [city_dropdown, setcitydropdown] = React.useState("");
+  const [plateenumber, setplatenumber] = React.useState("");
+  const [profile, setprofile] = React.useState("");
+  const [driver, setDriver] = React.useState("");
+  const [nbi, setNbi] = React.useState("");
+  const [orcr, setOcr] = React.useState("");
+
+  const [profile_name, setProfilename] = React.useState("");
+  const [driver_lisence, setDriverlisence] = React.useState("");
+  const [nbi_clearance, setNbiclearance] = React.useState("");
+  const [ocr_clearance, setOcrclearance] = React.useState("");
+
+  const inputFileRef = useRef(null);
+  const inputFileRef1 = useRef(null);
+  const inputFileRef2 = useRef(null);
+  const inputFileRef3 = useRef(null);
+
+  const onBtnClick = () => {
+    inputFileRef.current.click();
+  };
+  const onBtnClick1 = () => {
+    inputFileRef1.current.click();
+  };
+  const onBtnClick2 = () => {
+    inputFileRef2.current.click();
+  };
+  const onBtnClick3 = () => {
+    inputFileRef3.current.click();
+  };
+
+  function handleFile(e) {
+    let file = e.target.files[0];
+    setProfilename(file.name);
+    setprofile(file);
+    $(".divProfile").css("borderColor", "#2c2c2c");
+  }
+  function handleFile1(e) {
+    let file = e.target.files[0];
+    setDriverlisence(file.name);
+    setDriver(file);
+    $(".divDriver1").css("borderColor", "#2c2c2c");
+  }
+  function handleFile2(e) {
+    let file = e.target.files[0];
+    setNbiclearance(file.name);
+    setNbi(file);
+    $(".divNbi").css("borderColor", "#2c2c2c");
+  }
+  function handleFile3(e) {
+    let file = e.target.files[0];
+    setOcrclearance(file.name);
+    setOcr(file);
+    $(".divOcr").css("borderColor", "#2c2c2c");
+  }
+
+  const customStyles1 = {
+    control: (base, state) => ({
+      ...base,
+      background: "rgb(28, 30, 33)",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "115%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
+
+  const regions = require("philippines/regions");
+  const province = require("philippines/provinces");
+  const cities = require("philippines/cities");
+
+  const [regions_api, setRegion] = React.useState({
+    value: null,
+    name: null,
+  });
+  const [province_api, setProvince] = React.useState({
+    value: null,
+    name: null,
+  });
+  const [cities_api, setCities] = React.useState({
+    value: null,
+    name: null,
+  });
+
+  const [region_change, setRegionChange] = React.useState("");
+  const [province_change, setProvinceChange] = React.useState("");
+  const [cities_change, setCitiesChange] = React.useState("");
+
+  function HandleChangeRegion(e) {
+    try {
+      setRegionChange(e.value);
+      const data = province
+        .filter((person) => person.region === e.value)
+        .map((d) => ({
+          id: d.key,
+          value: d.key,
+          label: d.name,
+        }));
+      setProvince(data);
+    } catch (e) {}
+  }
+
+  function HandleChangeProvince(e) {
+    try {
+      setprovinced(e.label);
+      setProvinceChange(e.value);
+      const data = cities
+        .filter((person) => person.province === e.id)
+        .map((d) => ({
+          value: d.name,
+          label: d.name,
+        }));
+      setCities(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function HandleChangeCity(e) {
+    try {
+      setcitydropdown(e.value.label);
+      setcity(e.label);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function getData() {
+    const data_regions = regions.map((d) => ({
+      value: d.key,
+      label: d.name,
+    }));
+    setRegion(data_regions);
+  }
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("token");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-    }
+    console.clear();
+    getData();
   }, []);
 
-  function book() {
-    $(".colMain").hide();
-    $(".colLogin").hide();
-    $(".colDeliver").fadeIn(250);
+  function fname_change(e) {
+    setfname(e.target.value);
+    $(".pFname").css("color", "white");
+    $(".txtFname").css("borderColor", "#2c2c2c");
+    if (e.target.value) {
+      clear = 0;
+    } else {
+    }
+  }
+  function mname_change(e) {
+    setmname(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function lname_change(e) {
+    $(".pLname").css("color", "white");
+    $(".txtLname").css("borderColor", "#2c2c2c");
+    setlname(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function email_change(e) {
+    $(".pEmail").css("color", "white");
+    $(".txtEmail").css("borderColor", "#2c2c2c");
+    setemail(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function mobile_change(e) {
+    const re = /^[0-9\b]+$/;
+    $(".pMobile").css("color", "white");
+    $(".txtMobile").css("borderColor", "#2c2c2c");
+    if (e.target.value === "" || re.test(e.target.value)) {
+      setmobile(e.target.value);
+      if (e.target.value) {
+        clear = 0;
+      }
+    }
+  }
+  function password_change(e) {
+    $(".pPassword").css("color", "white");
+    $(".txtPassword").css("borderColor", "#2c2c2c");
+    setpassword(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function passwordconfirm_change(e) {
+    $(".pConfirmPass").css("color", "white");
+    $(".txtConfirmPass").css("borderColor", "#2c2c2c");
+    setpasswordconfirm(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function lisence_change(e) {
+    $(".pLisence").css("color", "white");
+    $(".txtLisence").css("borderColor", "#2c2c2c");
+    setlisencenumber(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function zip_change(e) {
+    setzip(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function plate_change(e) {
+    $(".pPlate").css("color", "white");
+    $(".txtPlate").css("borderColor", "#2c2c2c");
+    setplatenumber(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function vehicle_change(e) {
+    $(".pVehicle").css("color", "white");
+    $(".txtVehicle").css("borderColor", "#2c2c2c");
+    setvehicle(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+  function address_change(e) {
+    setaddress(e.target.value);
+    if (e.target.value) {
+      clear = 0;
+    }
+  }
+
+  function submit(e) {
+    e.preventDefault();
+
+    if (submitClick == 1) {
+      return false;
+    }
+    $(e.currentTarget).addClass("btn--loading");
+    if (fname == "") {
+      $(".pFname").css("color", "#d32f2f");
+      $(".txtFname").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (lname == "") {
+      $(".pLname").css("color", "#d32f2f");
+      $(".txtLname").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (email == "") {
+      $(".pEmail").css("color", "#d32f2f");
+      $(".txtEmail").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (mobile == "") {
+      $(".pMobile").css("color", "#d32f2f");
+      $(".txtMobile").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (password == "") {
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+
+    if (passwordconfirm == "") {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (lisencenumber == "") {
+      $(".pLisence").css("color", "#d32f2f");
+      $(".txtLisence").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (plateenumber == "") {
+      $(".pPlate").css("color", "#d32f2f");
+      $(".txtPlate").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (profile == "") {
+      $(".divProfile").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (driver == "") {
+      $(".divDriver1").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (nbi == "") {
+      $(".divNbi").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+    if (orcr == "") {
+      $(".divOcr").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+
+    if (vehicle == "") {
+      $(".pVehicle").css("color", "#d32f2f");
+      $(".txtVehicle").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+
+    if (password == passwordconfirm) {
+    } else {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+
+    if (password.length < 6 || password.length > 16) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      $(".pError").show();
+      submitClick = 0;
+    } else {
+      $(".pError").hide();
+      submitClick = 0;
+    }
+
+    if (clear == 0) {
+      submitClick = 1;
+      console.log("submitting");
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+
+      let formdata = new FormData();
+
+      formdata.set("fname", fname);
+      formdata.set("lname", lname);
+      formdata.set("mname", mname);
+      formdata.append("profile_pic", profile, profile.name);
+      formdata.set("email", email);
+      formdata.set("mobile_no", mobile);
+      formdata.set("address", address);
+      formdata.set("city", provinced);
+      formdata.set("state", city);
+      formdata.set("country", "Philippines");
+      formdata.set("zip", zip);
+      formdata.set("password", password);
+      formdata.set("password_confirmation", passwordconfirm);
+      formdata.set("driver_license", driver, driver.name);
+      formdata.set("vehicle_type", vehicle);
+      formdata.set("plate_no", plateenumber);
+      formdata.set("license_no", lisencenumber);
+      formdata.set("nbi_clearance", nbi, nbi.name);
+      formdata.set("orcr", orcr, orcr.name);
+
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register-driver";
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          $("#driverModal").modal("hide");
+          successMessage();
+          resetValue();
+          $(".btn").removeClass("btn--loading");
+          submitClick = 0;
+        })
+        .catch((err) => {
+          console.log(err);
+          $("#driverModal").css("z-index", "99");
+          $(".modal-backdrop").hide();
+          errorMessage();
+
+          $(".btn").removeClass("btn--loading");
+          submitClick = 0;
+        });
+    }
+  }
+
+  function successMessage() {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #00C853" }}
+          >
+            <div className="col-lg-2">
+              <img src="Image/success.png" style={{ width: "32px" }}></img>
+            </div>
+            <div className="col-lg-10" style={{ textAlign: "left" }}>
+              <p className="pError">Success</p>
+              <p className="pErrorSub">
+                Account succesfully created. You may now login.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function resetValue() {
+    setfname("");
+    setmname("");
+    setlname("");
+    setemail("");
+    setmobile("");
+    setaddress("");
+    setzip("");
+    setpassword("");
+    setpasswordconfirm("");
+    setvehicle("");
+    setplatenumber("");
+    setlisencenumber("");
+    setProfilename("");
+    setprofile("");
+    setDriverlisence("");
+    setDriver("");
+    setNbiclearance("");
+    setNbi("");
+    setOcrclearance("");
+    setOcr("");
+  }
+
+  function errorMessage() {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #d32f2f" }}
+          >
+            <div className="col-lg-2">
+              <img src="Image/close.png" style={{ width: "32px" }}></img>
+            </div>
+            <div className="col-lg-10" style={{ textAlign: "left" }}>
+              <p className="pError">Error</p>
+              <p className="pErrorSub">
+                Email is not available or already registered.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-      <div className="container-fluid mainCon h-100">
-        <NextNprogress color="#EDC728" />
-        <Header></Header>
-        <Navbar></Navbar>
-        <Componentdidmount></Componentdidmount>
-        <div className="container h-100">
-          <div className="row h-100 align-items-center">
-            <div className="col-lg-6">
-              <img src="Image/imgindex.png" className="img-fluid"></img>
-            </div>
-            <div className="col-lg-6 text-center colMain">
-              <p className="pText">
-                Your <span>go-to</span>
-              </p>
-              <p className="pText">deliver assistant.</p>
-              <input
-                type="button"
-                className="btnBook"
-                value="BOOK A DELIVERY"
-                onClick={book}
-              ></input>
-            </div>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+        <meta name="description" content="JGO Delivery Maasahan! Abangan!" />
+        <title>JGO Delivery Maasahan! Abangan!</title>
+        <meta property="og:site_name" content="Jgo Delivery"></meta>
+        <meta property="og:title" content="JGO Delivery Maasahan! Abangan!" />
+        <meta
+          property="og:description"
+          content="JGO Delivery Maasahan! Abangan!"
+        />
+        <meta property="og:image" content="Image/imgindex.png" />
+        <meta property="og:url" content="asdas" />
 
-            <Login></Login>
-            <Deliver></Deliver>
-          </div>
+        <meta name="twitter:title" content="Jgo Delivery" />
+        <meta
+          name="twitter:description"
+          content=" JGO Delivery Maasahan! Abangan"
+        />
+        <meta name="twitter:image" content="Image/imgindex.png" />
+        <meta name="twitter:card" content="JGO Delivery Maasahan! Abangan!" />
+      </Head>
+      <Header />
+      <Componentdidmount></Componentdidmount>
+      <NextNprogress color="#EDC728" />
+
+      <div className="divNavbar">
+        <div className="menu-btn">
+          <div className="menu-btn__burger"></div>
         </div>
       </div>
-      <div className="container-fluid conServices">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-2">
-              <div className="divBox">
-                <div className="boxIcon BoxDocu align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/001-file.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">DOCUMENT</p>
-                  </div>
-                </div>
-                <div className="boxIcon BoxFood align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/002-pizza.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">FOOD</p>
-                  </div>
-                </div>
-                <div className="boxIcon BoxCloth align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/clothing.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">CLOTHING</p>
-                  </div>
-                </div>
-                <div className="boxIcon BoxMedic align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/medical.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">MEDICAL</p>
-                  </div>
-                </div>
-                <div className="boxIcon BoxFragile align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/Mask Group 2.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">FRAGILE</p>
-                  </div>
-                </div>
-                <div className="boxIcon BoxOther align-items-center d-flex justify-content-center">
-                  <div className="divBoxIcon">
-                    <img
-                      src="Image/other.svg"
-                      className="img-fluid mx-auto d-flex imgIcon"
-                    ></img>
-                    <p className="pIcon">OTHER</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-10 text-center mx-auto">
-              <p className="pWhat">WHAT CAN YOU DELIVER?</p>
-              <div className="divBox1 divDocu">
-                <img src="Image/001-file.svg" className="imgIconLarge"></img>
-                <p className="pIconText">DOCUMENT</p>
-                <p className="pDesc">
-                  We can deliver your important documents for you, rest assured
-                  that these will be handled with the utmost care by our riders.
-                  Please make sure to include the name of the person/company
-                  that the rider will deliver the documents.
-                </p>
-                <button className="btnBookServices" onClick={book}>
-                  BOOK A DELIVERY
-                </button>
-              </div>
-              <div className="divBox1 divFood" style={{ display: "none" }}>
-                <img src="Image/002-pizza.svg" className="imgIconLarge"></img>
-                <p className="pIconText">FOOD</p>
-                <p className="pDesc">
-                  Our on – the JGO riders can deliver your food for you or to
-                  whoever you wish to share your food with. 7. CLOTHING: We can
-                  also carry and bring your clothing to the areas that we are
-                  available in.
-                </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
-              </div>
-              <div className="divBox1 divCloth" style={{ display: "none" }}>
-                <img src="Image/clothing.svg" className="imgIconLarge"></img>
-                <p className="pIconText">CLOTHING</p>
-                <p className="pDesc">
-                  We can also carry and bring your clothing to the areas that we
-                  are available in.
-                </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
-              </div>
-              <div className="divBox1 divMedic" style={{ display: "none" }}>
-                <img src="Image/medical.svg" className="imgIconLarge"></img>
-                <p className="pIconText">MEDICAL</p>
-                <p className="pDesc">
-                  JGO can deliver your medications around the areas as well.
-                  Please note that if they are prescribed medications, kindly
-                  include the note and the name of the doctor who recommended
-                  it. Thank you.
-                </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
-              </div>
-              <div className="divBox1 divFragile" style={{ display: "none" }}>
-                <img
-                  src="Image/Mask Group 2.svg"
-                  className="imgIconLarge"
-                ></img>
-                <p className="pIconText">FRAGILE</p>
-                <p className="pDesc">
-                  Sending fragile objects can be quite a hassle. But you can
-                  trust us to deliver them on time and with care.
-                </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
-              </div>
-              <div className="divBox1 divOthers" style={{ display: "none" }}>
-                <img src="Image/other.svg" className="imgIconLarge"></img>
-                <p className="pIconText">OTHERS</p>
-                <p className="pDesc">
-                  JGO delivers other items as well aside from the already
-                  mentioned categories. So long as it is an item that is legal
-                  and approved by law.
-                </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid con3">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-5 align-self-center">
-              <img
-                src="Image/horse.png"
-                className="img-fluid"
-                style={{ width: "70%" }}
-              ></img>
-            </div>
-            <div className="col-lg-7 text-center">
-              <p className="pOntime">
-                &#8369;60 Flat Rate <br></br>&#8369;5 Per Km
-              </p>
-              <div className="divBoxCheck">
-                <p className="pDivBoxCheck">
-                  With JGO, we want to provide you with the most convenient
-                  payment options and the most affordable prices. Let us take
-                  care of your delivery worries and see that all it takes is one
-                  book away with JGO!
-                </p>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid con4">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <p className="pComingsoon">COMING SOON</p>
-              <p className="pComingSub">
-                Order before cut off and we will deliver your groceries on the
-                same day!
-              </p>
-            </div>
-            <div className="col-lg-6">
-              <img
-                src="Image/Man.png"
-                className="img-fluid mx-auto d-flex"
-                style={{ width: "80%" }}
-              ></img>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid conFooter">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <img
-              src="Image/logo.png"
-              className="img-fluid imgLogo"
-              style={{ width: "150px", marginLeft: "20px" }}
-            ></img>
-          </div>
-          <div className="col-lg-6">
-            <ul className="ulFooter">
-              <li className="liFooter">
-                <a href="#home">COMPANY</a>
+
+      <div className="container divMenu">
+        <div className = "container divMenu1">
+        <div className="row">
+          <div className="col-lg-12">
+            <ul className="ulNav">
+              <li
+                className="liNav"
+                data-toggle="modal"
+                data-target="#driverModal"
+              >
+                Ride with Us
               </li>
-              <li className="liFooter">
-                <a href="#news">CONTACT US</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">POLICIES</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">TERM & CONDITION</a>
-              </li>
+              <li className="liNav">Deliver Now</li>
+              <li className="liNav">JGO Support</li>
             </ul>
           </div>
-          <div className="col-lg-12">
-            <p className="text-center pFooter">
-              © 2020 JGO Philippines. - All Rights
-            </p>
+        </div>
+        </div>
+      </div>
+      <div
+        className="container-fluid mainConDriver"
+        style={{ position: "relative" }}
+      >
+        <nav
+          className="navbar navbar-expand-md fixed-top"
+          style={{ padding: "20px 20px" }}
+        >
+          <nav className="navbar-brand" href="#">
+            <a href="#">
+              <img
+                src="Image/logo.png"
+                className="img-fluid imglogo imglogonav"
+                style={{ width: "130px", marginLeft: "20px" }}
+              />
+            </a>
+          </nav>
+          <div className="collapse navbar-collapse" id="collapse">
+            <div className="col2 ml-auto">
+              <ul className="nav navbar-nav">
+                <li>
+                  <a
+                    className="nav-link nav-driver"
+                    data-toggle="modal"
+                    data-target="#driverModal"
+                    style={{ color: "white" }}
+                  >
+                    Ride with Us
+                  </a>
+                </li>
+                <Link href="/main">
+                  <li>
+                    <a
+                      className="nav-link nav-driver"
+                      style={{ color: "white" }}
+                    >
+                      Deliver Now
+                    </a>
+                  </li>
+                </Link>
+                <li>
+                  <a className="nav-link nav-driver" style={{ color: "white" }}>
+                    JGO Support
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div className="container-fluid divCovid" style={{ display: "none" }}>
+          <div className="row">
+            <div className="col-lg-12">
+              <p className="pCloseCovid">&#215;</p>
+              <p className="pCovid"> Safety Measures for COVID – 19</p>
+              <p className="pCovidSub">
+                Here at JGO we prioritize the health and safety of everyone. It
+                is our goal to ensure that even with the current situation we
+                are able to provide the quality service that we promise.
+                Remember, we are all in this together. Learn more.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="conDriver"></div>
+        <div className="container con">
+          <div className="row rowDriver" style={{ marginLeft: "50px" }}>
+            <div
+              className="col-lg-4 col-sm-12 col-12 align-self-top "
+              style={{ marginTop: "200px", position: "relative" }}
+            >
+              <p className="pComing">COMING SOON</p>
+              <div className="row">
+                <div className="col-lg-12" style={{ padding: "2px" }}>
+                  <div className="divButton form-inline">
+                    <img src="Image/apple.png" className="imgDownload"></img>
+                    <p className="pDownload">
+                      Download on the <br />
+                      <span>App Store</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="col-lg-12" style={{ padding: "2px" }}>
+                  <div className="divButton form-inline">
+                    <img
+                      src="Image/playstore.png"
+                      className="imgDownload"
+                    ></img>
+                    <p className="pDownload">
+                      Get it on <br />
+                      <span>Play Store</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-3 col-sm-12 col-12"
+              style={{ marginTop: "150px", position: "relative" }}
+            >
+              <div className="divPhone" style={{ position: "relative" }}>
+                <img
+                  src="Image/phone1.png"
+                  className="img-fluid imgPhone"
+                ></img>
+                <img src="Image/phone1.gif" className="img-fluid imgGif"></img>
+              </div>
+            </div>
+
+            <div
+              className="col-lg-5 colDelivery "
+              style={{ marginTop: "150px", position: "relative" }}
+            >
+              <img
+                src="Image/boy.png"
+                className="img-fluid imgDel mx-auto d-flex"
+              ></img>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid conDriver2">
+        <img src="Image/bar.png" className="imgBar"></img>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-7">
+              <div className="divEasy" style={{ marginRight: "0px" }}>
+                <img
+                  src="Image/logoblack.png"
+                  className="img-fluid"
+                  style={{ width: "150px" }}
+                ></img>
+                <img
+                  src="Image/easyapp.png"
+                  className="img-fluid "
+                  style={{ width: "150px" }}
+                ></img>
+              </div>
+              <div className="divBoxCarousel carousel">
+                <div
+                  id="carouselExampleIndicators"
+                  className="carousel slide"
+                  data-ride="carousel"
+                >
+                  <ol className="carousel-indicators">
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={0}
+                      className="active active1"
+                    />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={1}
+                      className="active2"
+                    />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={2}
+                    />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={3}
+                    />
+                    <li
+                      data-target="#carouselExampleIndicators"
+                      data-slide-to={4}
+                    />
+                  </ol>
+                  <div className="carousel-inner">
+                    <div className="carousel-item active" id="1">
+                      <p className="pCarouselTitle">Step 1</p>
+                      <p className="pCarouselContent">
+                        Create a JGO account and login to avail the delivery
+                        services.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="2">
+                      <p className="pCarouselTitle">Step 2</p>
+                      <p className="pCarouselContent">
+                        Choose the pick up location and complete the necessary
+                        details.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="3">
+                      <p className="pCarouselTitle">Step 3</p>
+                      <p className="pCarouselContent">
+                        Next is to fill out the drop off points and pick the
+                        category of the item being delivered.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="4">
+                      <p className="pCarouselTitle">Step 4</p>
+                      <p className="pCarouselContent">
+                        You can pick which additional services that will be
+                        needed for the delivery and indicate the mode of
+                        payment.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="5">
+                      <p className="pCarouselTitle">Step 5</p>
+                      <p className="pCarouselContent">
+                        After clicking the book button, kindly wait for a while
+                        so that a rider can accept your delivery job. Once
+                        confirmed you can track your delivery in real time.You
+                        can pick which additional services that will be needed
+                        for the delivery and indicate the mode of payment.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-5 colHand">
+              <img
+                src="Image/carousel1.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand"
+              ></img>
+              <img
+                src="Image/carousel2.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand2"
+                style={{ display: "none" }}
+              ></img>
+              <img
+                src="Image/carousel3.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand3"
+                style={{ display: "none" }}
+              ></img>
+              <img
+                src="Image/carousel4.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand4"
+                style={{ display: "none" }}
+              ></img>
+              <img
+                src="Image/carousel5.png"
+                className="img-fluid mx-auto imgPhone1 imgPhonehand5"
+                style={{ display: "none" }}
+              ></img>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid conStep">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4">
+              <Link href="/rider">
+                <a style={{ textDecoration: "none" }}>
+                  <div className="divStep">
+                    <div className="divInside">
+                      <img
+                        src="Image/step1.jpg"
+                        className="img-fluid imgStep"
+                      ></img>
+                      <p className="pStepTitle">RIDER</p>
+                      <p className="pStepsub">
+                        See what it takes to be an On – The JGO Rider and join
+                        the JGO community. Get a chance to earn and work on your
+                        own time. Kaibigan JGO na!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </div>
+            <div className="col-lg-4">
+              <Link href="/">
+                <a style={{ textDecoration: "none" }}>
+                  <div className="divStep">
+                    <div className="divInside">
+                      <img
+                        src="Image/step2.jpg"
+                        className="img-fluid imgStep"
+                      ></img>
+                      <p className="pStepTitle">DELIVER</p>
+                      <p className="pStepsub">
+                        Need to deliver something? Try our Delivery Service Now!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </div>
+            <div className="col-lg-4">
+              <Link href="/faq">
+                <div className="divStep">
+                  <div className="divInside">
+                    <img
+                      src="Image/step3.jpg"
+                      className="img-fluid imgStep"
+                    ></img>
+                    <p className="pStepTitle">FAQs</p>
+                    <p className="pStepsub">
+                      Questions and Inquiries? You may find some answers here.
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid conAbout">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <img
+                src="Image/artwork.jpg"
+                className="img-fluid imgArtwork"
+              ></img>
+              <p className="pArtwork"></p>
+            </div>
+            <div className="col-lg-6">
+              <div className="divAbout">
+                <p className="pAboutus">ABOUT US</p>
+                <p className="pAboutusSub">
+                  JGO Delivery Services Inc. was founded by Jose Miguel O.
+                  Garcia with the help of his father, Jose Vicente E. Garcia.
+                  Having an already established company that provides manpower
+                  “JG Manpower”, they thought of a way to help with the high
+                  demand of courier services in the Philippines. So following
+                  his father’s footsteps, Miguel wanted to have his own business
+                  that would provide quality service to people in the local
+                  community. Thus JGO was created as a subsidiary company under
+                  JG Manpower. As a delivery service provider, you can rely on
+                  JGO to assist you in handling goods from one hand to another.
+                  Safely and quickly. In a busy world like ours, these are what
+                  matter. As your delivery assistants, we are always ready for
+                  you, we are always on the go. JGO Maaasahan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer></Footer>
+      <div
+        className="modal fade"
+        id="driverModal"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style = {{zIndex: "9999999999999999"}}
+      >
+        <div
+          className="modal-dialog modal-dialog-driver modal-lg"
+          role="document"
+        >
+          <div className="modal-content">
+            <div className="modal-body modalDriver">
+              <p className="pModalTitle">Jgo - Driver registration form</p>
+              <p className="pModalTitleSub">
+                Fill-up all the requird fields. After you submit we will send a
+                link to your email for driver online training.
+              </p>
+              <hr
+                style={{
+                  backgroundColor: "#414141",
+                  boder: "1px solid #414141",
+                }}
+              ></hr>
+              <div className="row" style={{ marginTop: "20px" }}>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pFname">First Name</p>
+                  <input
+                    type="text"
+                    className="txtDriver txtFname"
+                    value={fname}
+                    onChange={fname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Middle Name</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    value={mname}
+                    onChange={mname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pLname">Last Name</p>
+                  <input
+                    type="text"
+                    value={lname}
+                    className="txtDriver txtLname"
+                    onChange={lname_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pEmail">Email</p>
+                  <input
+                    type="text"
+                    value={email}
+                    className="txtDriver txtEmail"
+                    onChange={email_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pMobile" style={{ color: "white" }}>
+                    Mobile Number
+                  </p>
+                  <input
+                    type="text"
+                    value={mobile}
+                    className="txtDriver txtMobile"
+                    onChange={mobile_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Address</p>
+                  <input
+                    type="text"
+                    value={address}
+                    className="txtDriver"
+                    onChange={address_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Region</p>
+                  <Select
+                    options={regions_api}
+                    onChange={HandleChangeRegion}
+                    styles={customStyles1}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Province</p>
+                  <Select
+                    options={province_api}
+                    onChange={HandleChangeProvince}
+                    styles={customStyles1}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">City/Municipality</p>
+                  <Select
+                    options={cities_api}
+                    styles={customStyles1}
+                    onChange={HandleChangeCity}
+                    value={city_dropdown}
+                  />
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Country</p>
+                  <input
+                    type="text"
+                    className="txtDriver"
+                    value="Philippines"
+                    disabled
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver">Zip Code</p>
+                  <input
+                    value={zip}
+                    type="text"
+                    className="txtDriver"
+                    onChange={zip_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <p className="pTxtDriver pPassword">Password</p>
+                  <input
+                    value={password}
+                    type="password"
+                    className="txtDriver txtPassword"
+                    onChange={password_change}
+                  ></input>
+                  <p className="pError">Password must be 6-16 characters.</p>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver pConfirmPass">Confirm Password</p>
+                  <input
+                    type="password"
+                    value={passwordconfirm}
+                    className="txtDriver txtConfirmPass"
+                    onChange={passwordconfirm_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pVehicle">Vehicle Type</p>
+                  <input
+                    type="text"
+                    value={vehicle}
+                    className="txtDriver txtVehicle"
+                    onChange={vehicle_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pPlate">Plate Number</p>
+                  <input
+                    type="text"
+                    value={plateenumber}
+                    className="txtDriver txtPlate"
+                    onChange={plate_change}
+                  ></input>
+                </div>
+                <div className="col-lg-4">
+                  <p className="pTxtDriver pLisence" style={{ color: "white" }}>
+                    Lisence Number
+                  </p>
+                  <input
+                    type="text"
+                    value={lisencenumber}
+                    className="txtDriver txtLisence"
+                    onChange={lisence_change}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">Profile Picture</p>
+                  <input
+                    onChange={(e) => handleFile(e)}
+                    ref={inputFileRef}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divProfile text-center"
+                    onClick={onBtnClick}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{profile_name}</p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">Driver License</p>
+                  <input
+                    onChange={(e) => handleFile1(e)}
+                    ref={inputFileRef1}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divDriver1 text-center"
+                    onClick={onBtnClick1}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{driver_lisence}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">NBI Clearance</p>
+                  <input
+                    onChange={(e) => handleFile2(e)}
+                    ref={inputFileRef2}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divNbi text-center"
+                    onClick={onBtnClick2}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{nbi_clearance}</p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <p className="pTxtDriver">ORCR</p>
+                  <input
+                    onChange={(e) => handleFile3(e)}
+                    ref={inputFileRef3}
+                    id="file-upload"
+                    type="file"
+                    accept=".jpg, .png, .jpeg|image"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="divAttachment divOcr text-center"
+                    onClick={onBtnClick3}
+                  >
+                    <p className="pTxtDriver">
+                      <span style={{ color: "#EDC728" }}>Drag or Browse</span> a
+                      file here
+                    </p>
+                    <p style={{ color: "white" }}>{ocr_clearance}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" style={{ marginTop: "20px" }}>
+                <div className="col-lg-12">
+                  <a className="btn btnSubmitDriver" onClick={submit}>
+                    SIGNUP
+                    <span style={{ marginLeft: "40px" }}>
+                      <b></b>
+                      <b></b>
+                      <b></b>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -309,4 +1197,4 @@ function index() {
   );
 }
 
-export default index;
+export default driver;

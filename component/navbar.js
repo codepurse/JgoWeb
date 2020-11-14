@@ -39,25 +39,20 @@ export default function navbar() {
   }, []);
 
   return (
+    
     <div className="container-fluid">
       <nav
         className="navbar navbar-expand-md fixed-top"
         style={{ padding: "20px 20px" }}
       >
         <div className="container-fluid">
-          <button
-            className="navbar-toggler"
-            data-toggle="collapse"
-            data-target="#collapse"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
+         
           <nav className="navbar-brand" href="#">
             <a href="#">
               <img
                 src="Image/logo.png"
-                className="img-fluid imglogo"
-                style={{ width: "150px", marginLeft: "15px" }}
+                className="img-fluid imgLogo imglogonav"
+                style={{marginLeft: "15px" }}
               />
             </a>
           </nav>

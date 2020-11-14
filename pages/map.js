@@ -594,7 +594,8 @@ export default function map() {
       ratedata.set("additional_services[4]", services);
     }
 
-    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+    const apiUrl_rate =
+      "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -822,7 +823,8 @@ export default function map() {
       formdata.set("additional_services[3]", services);
     }
 
-    const apiUrl_rate = "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+    const apiUrl_rate =
+      "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
 
     axios
@@ -842,9 +844,20 @@ export default function map() {
       .catch((err) => {});
   }
 
-  function checkdata() {
-    console.log(click_id);
-    console.log(places_data);
+  function gotoPayment() {
+    var x = 0;
+    $(".divStopOff:visible")
+      .find(".txtValidation")
+      .each(function () {
+        if ($(this).val() == "") {
+          $(this).css("border", "1px solid #f44336");
+          x = 1;
+        } else {
+          if (x == 0) {
+            $('#exampleModalCenter').modal('toggle');
+          }
+        }
+      });
   }
 
   return (
@@ -889,7 +902,10 @@ export default function map() {
               ></img>{" "}
               Pickup
             </p>
-            <div onClick={() => (click = 1)}>
+            <div
+              className="divPickoffmap divStopOff"
+              onClick={() => (click = 1)}
+            >
               <div
                 className="form-inline"
                 style={{ width: "95%", marginLeft: "5%" }}
@@ -923,7 +939,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -931,7 +947,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -961,7 +977,10 @@ export default function map() {
               ></img>
               Dropoff
             </p>
-            <div onClick={() => (click = 2)}>
+            <div
+              className="divDropoffmap divStopOff"
+              onClick={() => (click = 2)}
+            >
               <div
                 className="form-inline"
                 style={{ width: "95%", marginLeft: "5%" }}
@@ -991,7 +1010,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -999,7 +1018,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -1075,7 +1094,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -1083,7 +1102,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -1159,7 +1178,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -1167,7 +1186,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -1243,7 +1262,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -1251,7 +1270,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -1327,7 +1346,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtName txtAdditional"
+                        className="txtName txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValue(evt)}
                         placeholder="Name"
                       ></input>
@@ -1335,7 +1354,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtNumber txtValidation  txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
                       />
@@ -1491,7 +1510,7 @@ export default function map() {
                     destination/s. Then click place order to proceed to payment
                     page.
                   </p>
-                  <button className="btnBook" onClick={btnPlaceorder}>
+                  <button className="btnBook" onClick={gotoPayment}>
                     Place order
                   </button>
                 </div>

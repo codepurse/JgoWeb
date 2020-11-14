@@ -1,5 +1,7 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
+import Head from "next/head";
+import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Select from "react-select";
 import axios from "axios";
@@ -515,9 +517,57 @@ function driver() {
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+        <meta name="description" content="JGO Delivery Maasahan! Abangan!" />
+        <title>JGO Delivery Maasahan! Abangan!</title>
+        <meta property="og:site_name" content="Jgo Delivery"></meta>
+        <meta property="og:title" content="JGO Delivery Maasahan! Abangan!" />
+        <meta
+          property="og:description"
+          content="JGO Delivery Maasahan! Abangan!"
+        />
+        <meta property="og:image" content="Image/imgindex.png" />
+        <meta property="og:url" content="asdas" />
+
+        <meta name="twitter:title" content="Jgo Delivery" />
+        <meta
+          name="twitter:description"
+          content=" JGO Delivery Maasahan! Abangan"
+        />
+        <meta name="twitter:image" content="Image/imgindex.png" />
+        <meta name="twitter:card" content="JGO Delivery Maasahan! Abangan!" />
+      </Head>
       <Header />
       <Componentdidmount></Componentdidmount>
       <NextNprogress color="#EDC728" />
+
+      <div className="divNavbar">
+        <div className="menu-btn">
+          <div className="menu-btn__burger"></div>
+        </div>
+      </div>
+
+      <div className="container divMenu">
+        <div className = "container divMenu1">
+        <div className="row">
+          <div className="col-lg-12">
+            <ul className="ulNav">
+              <li
+                className="liNav"
+                data-toggle="modal"
+                data-target="#driverModal"
+              >
+                Ride with Us
+              </li>
+              <li className="liNav">Deliver Now</li>
+              <li className="liNav">JGO Support</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </div>
       <div
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
@@ -526,18 +576,11 @@ function driver() {
           className="navbar navbar-expand-md fixed-top"
           style={{ padding: "20px 20px" }}
         >
-          <button
-            className="navbar-toggler"
-            data-toggle="collapse"
-            data-target="#collapse"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
           <nav className="navbar-brand" href="#">
             <a href="#">
               <img
                 src="Image/logo.png"
-                className="img-fluid imglogo"
+                className="img-fluid imglogo imglogonav"
                 style={{ width: "130px", marginLeft: "20px" }}
               />
             </a>
@@ -575,7 +618,7 @@ function driver() {
           </div>
         </nav>
 
-        <div className="container-fluid divCovid">
+        <div className="container-fluid divCovid" style={{ display: "none" }}>
           <div className="row">
             <div className="col-lg-12">
               <p className="pCloseCovid">&#215;</p>
@@ -591,7 +634,7 @@ function driver() {
         </div>
         <div className="conDriver"></div>
         <div className="container con">
-          <div className="row" style={{ marginLeft: "50px" }}>
+          <div className="row rowDriver" style={{ marginLeft: "50px" }}>
             <div
               className="col-lg-4 col-sm-12 col-12 align-self-top "
               style={{ marginTop: "200px", position: "relative" }}
@@ -625,7 +668,7 @@ function driver() {
               className="col-lg-3 col-sm-12 col-12"
               style={{ marginTop: "150px", position: "relative" }}
             >
-              <div style={{ position: "relative" }}>
+              <div className="divPhone" style={{ position: "relative" }}>
                 <img
                   src="Image/phone1.png"
                   className="img-fluid imgPhone"
@@ -652,7 +695,7 @@ function driver() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7">
-              <div style={{ marginRight: "0px" }}>
+              <div className="divEasy" style={{ marginRight: "0px" }}>
                 <img
                   src="Image/logoblack.png"
                   className="img-fluid"
@@ -660,11 +703,11 @@ function driver() {
                 ></img>
                 <img
                   src="Image/easyapp.png"
-                  className="img-fluid"
+                  className="img-fluid "
                   style={{ width: "150px" }}
                 ></img>
               </div>
-              <div className="divBoxCarousel">
+              <div className="divBoxCarousel carousel">
                 <div
                   id="carouselExampleIndicators"
                   className="carousel slide"
@@ -738,7 +781,7 @@ function driver() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-5">
+            <div className="col-lg-5 colHand">
               <img
                 src="Image/carousel1.png"
                 className="img-fluid mx-auto imgPhone1 imgPhonehand"
@@ -861,41 +904,14 @@ function driver() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conFooter">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <img src="Image/logo.png" className="img-fluid imgLogo"></img>
-          </div>
-          <div className="col-lg-6">
-            <ul className="ulFooter">
-              
-              <li className="liFooter">
-                <Link href="/faq#contact">
-                  <a href="#news">CONTACT US</a>
-                </Link>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">POLICIES</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">TERMS & CONDITIONS</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-12">
-            <p className="text-center pFooter">
-              © 2020 JGO Philippines. - All Rights
-            </p>
-          </div>
-        </div>
-      </div>
+      <Footer></Footer>
       <div
         className="modal fade"
         id="driverModal"
         tabIndex={-1}
         role="dialog"
         aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
+        aria-hidden="true" style = {{zIndex: "9999999999999999"}}
       >
         <div
           className="modal-dialog modal-dialog-driver modal-lg"

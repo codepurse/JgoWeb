@@ -77,9 +77,7 @@ export default function profile() {
             </div>
             <div className="col-lg-10" style={{ textAlign: "left" }}>
               <p className="pError">Success</p>
-              <p className="pErrorSub">
-                Your profile is successfully updated.
-              </p>
+              <p className="pErrorSub">Your profile is successfully updated.</p>
             </div>
           </div>
         </div>
@@ -97,7 +95,8 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -249,7 +248,8 @@ export default function profile() {
       },
     };
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -320,18 +320,28 @@ export default function profile() {
     $(".conProf").fadeIn(250);
     $(".conBook").hide();
     $(".conSettings").hide();
+    $(".conPayment").hide();
   }
 
   function booking() {
     $(".conBook").fadeIn(250);
     $(".conProf").hide();
     $(".conSettings").hide();
+    $(".conPayment").hide();
   }
 
   function settings() {
     $(".conSettings").fadeIn(250);
     $(".conProf").hide();
     $(".conBook").hide();
+    $(".conPayment").hide();
+  }
+
+  function payment() {
+    $(".conPayment").fadeIn(250);
+    $(".conProf").hide();
+    $(".conBook").hide();
+    $(".conSettings").hide();
   }
 
   async function clickTable() {
@@ -526,7 +536,7 @@ export default function profile() {
   }
 
   function city_change(e) {
-    setCity(e.target.value)
+    setCity(e.target.value);
   }
 
   function state_change(e) {
@@ -578,6 +588,39 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
         $(".btnSave").removeClass("btn--loading");
+      });
+  }
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        alert("asdas");
+      }
+      return error;
+    }
+  );
+
+  function addCard() {
+    const options = {
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken()
+      },
+    };
+
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/enrollToken";
+    axios
+      .post(apiUrl, {}, options)
+      .then((result) => {
+        console.log(result.config.url);
+        window.open(result.config.url, "_blank")
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -660,6 +703,7 @@ export default function profile() {
               </li>
               <li onClick={profile}>PROFILE</li>
               <li onClick={settings}>SETTINGS</li>
+              <li onClick={payment}>PAYMENT</li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -807,9 +851,7 @@ export default function profile() {
             <p className="spanFull">
               {fname} {mname} {lname}
               <br />
-              <span className="spanAdd">
-                {mobile}
-              </span>
+              <span className="spanAdd">{mobile}</span>
             </p>
           </div>
         </div>
@@ -829,7 +871,12 @@ export default function profile() {
           <div className="col-lg-6 colProf">
             <div className="divProf">
               <p className="pTxtDriver">Middle Name</p>
-              <input type="text" className="txtDriver txtprof" value={mname} onChange={mname_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={mname}
+                onChange={mname_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-6">
@@ -838,7 +885,8 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtLname txtprof"
-                value={lname} onChange={lname_change}
+                value={lname}
+                onChange={lname_change}
               ></input>
             </div>
           </div>
@@ -867,32 +915,56 @@ export default function profile() {
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Address</p>
-              <input type="text" className="txtDriver txtprof" value={address} onChange={address_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={address}
+                onChange={address_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Province</p>
-              <input type="text" className="txtDriver txtprof" value={state1}
-              onChange={state_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={state1}
+                onChange={state_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">City/Municipality</p>
-              <input type="text" className="txtDriver txtprof"  value={city} onChange={city_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={city}
+                onChange={city_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Country</p>
-              <input type="text" className="txtDriver txtprof" value={country} onChange={country_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={country}
+                onChange={country_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="divProf">
               <p className="pTxtDriver">Zip Code</p>
-              <input type="text" className="txtDriver txtprof" value={zip} onChange={zip_change}></input>
+              <input
+                type="text"
+                className="txtDriver txtprof"
+                value={zip}
+                onChange={zip_change}
+              ></input>
             </div>
           </div>
           <div className="col-lg-12 text-center">
@@ -937,6 +1009,19 @@ export default function profile() {
             >
               CHANGE PASSWORD
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid conPayment">
+        <div className="row">
+          <div className="col-lg-12">
+            <p className="pSettingsTitle">Payment Methods</p>
+          </div>
+          <div className="col-lg-12">
+            <div className="divCardPayment" onClick={addCard}>
+              <p className="pAddCard">&#43;</p>
+            </div>
           </div>
         </div>
       </div>
