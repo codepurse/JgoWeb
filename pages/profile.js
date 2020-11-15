@@ -60,7 +60,7 @@ export default function profile() {
       return false;
     } else {
       $("#exampleModal").modal("hide");
-      router.push("/mapbooking");
+      router.push("/tracking");
     }
   }
 
@@ -225,6 +225,13 @@ export default function profile() {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem("addpayment") == "1") {
+      $(".conPayment").fadeIn(250);
+      $(".conProf").hide();
+      $(".conBook").hide();
+      $(".conSettings").hide();
+      sessionStorage.removeItem("addpayment");
+    }
     console.log(localStorage.getItem("activeid"));
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
@@ -344,31 +351,11 @@ export default function profile() {
     $(".conSettings").hide();
   }
 
-  async function clickTable() {
-    $("#table").on("click", "tr", function (e) {
-      global.config.place.deliver.table_id = Number(
-        $(this).children().closest("td").html()
-      );
-    });
-
-    if (global.config.place.deliver.table_id == "") {
-    } else {
-      router.push("/mapbooking");
-    }
-    doubleclickTable();
-  }
-
+ 
   function doubleclickTable() {
     $("#table").on("click", "tr", function (e) {
-      global.config.place.deliver.table_id = Number(
-        $(this).children().closest("td").html()
-      );
+      window.open("/tracking/"+$(this).children().closest("td").html());
     });
-
-    if (global.config.place.deliver.table_id == "") {
-    } else {
-      router.push("/mapbooking");
-    }
   }
 
   function hovertable() {
@@ -608,16 +595,16 @@ export default function profile() {
       headers: {
         Accept: "application/json",
         "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken()
+        Authorization: "Bearer " + AuthService.getToken(),
       },
     };
 
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/enrollToken";
     axios
-      .post(apiUrl, {}, options)
+      .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
-        console.log(result.config.url);
-        window.open(result.config.url, "_blank")
+        console.log(result);
+        window.open(result.config.url, "_blank");
       })
       .catch((err) => {
         console.log(err);
@@ -751,13 +738,13 @@ export default function profile() {
               <table
                 className="table"
                 id="table"
-                onClick={clickTable}
+        
                 onDoubleClick={doubleclickTable}
                 onMouseOver={hovertable}
               >
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
-                    <th>ID</th>
+                    <th>Tracking ID</th>
                     <th>Price</th>
                     <th>Pickup Address</th>
                     <th>Drop Location</th>
@@ -773,7 +760,7 @@ export default function profile() {
                             : "tddark"
                         }
                       >
-                        {event.id}
+                        {event.tracking_id}
                       </td>
                       <td
                         className={

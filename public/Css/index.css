@@ -951,69 +951,97 @@ hr {
     display: block !important;
 }
 
+.modalPayment {
+    background-color: #1E2025 !important;
+}
+
 .pMode {
-    font-family: 'GilroyBold';
-    color: #2C2C2C;
-    font-size: 1.4rem;
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1.2rem;
     margin-bottom: 5px;
 }
 
 .pModeSub {
-    font-family: 'GilroySemiBold', sans-serif;
-    color: #414141;
+    font-family: "GilroyLight";
+    color: whitesmoke;
     font-size: 0.95rem;
     margin-bottom: 0px;
 }
 
 .divCod {
-    border: 1px solid #FFE900;
-    border-radius: 2px;
-    background-color: rgba(255, 233, 0, 0.2);
-    padding: 10px;
+    border: 1px solid #373A41;
+    border-radius: 8px;
+    background-color: #373A41;
+    padding: 15px 10px;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative;
+}
+
+.divCod:hover {
+    border: 1px solid #FDBF00;
 }
 
 .pCod {
     font-family: 'GilroySemiBold';
-    color: #323232;
+    color: whitesmoke;
     font-size: 1rem;
     margin-bottom: 2px;
 }
 
 .pCodSub {
     font-family: 'GilroyMedium';
-    color: #FDBF00;
+    color: #9FA6B0;
     font-size: 0.9rem;
     margin-bottom: 0px;
 }
 
 .pPriceModal {
     font-family: 'GilroyBold';
-    color: #2C2C2C;
+    color: whitesmoke;
     font-size: 2rem;
     margin-bottom: 0px;
 }
 
+.imgCheck {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 15px;
+}
+
+.divListcard {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.divListcard:hover {
+    background-color: #373A41;
+}
+
+.imgCard {
+    width: 60px;
+}
+
 .pCardType {
-    font-family: 'GilroySemiBold';
-    color: #2C2C2C;
+    font-family: 'GilroyMedium';
+    font-size: 0.9rem;
+    color: whitesmoke;
     margin-bottom: 2px;
+
 }
 
 .pCardNumber {
     font-family: 'GilroySemiBold';
-    color: #464743;
+    color: #9FA6B0;;
     font-size: 0.9rem;
     margin-bottom: 0px;
-}
-
-.pAddMethod {
-    font-family: 'GilroyBold';
-    color: #252424;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
 }
 
 .pAddMethod:hover {
@@ -1021,14 +1049,22 @@ hr {
 }
 
 .btnPayment {
+    background-color: transparent;
     font-family: 'GilroySemiBold';
     color: white;
-    background-color: #FDBF00;
-    border-radius: 5px;
-    border: 0px;
+    border-radius: 50px;
+    border: 1px solid #FECE2F;
     width: 100%;
-    padding: 12px;
-    margin-top: 5px;
+    max-height: 45px;
+    min-height: 45px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none !important;
+}
+
+.btnPayment:hover {
+    background-color: #FECE2F;
 }
 
 .blur {

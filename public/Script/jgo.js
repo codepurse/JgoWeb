@@ -1,22 +1,19 @@
 $(document).ready(function () {
- try {
-  const $menuBtn = document.querySelector(".menu-btn");
-  let isMenuOpen = false;
-  $menuBtn.addEventListener("click", () => {
-    if (!isMenuOpen) {
-      $(".divMenu").fadeIn(200);
-      $menuBtn.classList.add("open");
-    } else {
-      $(".divMenu").fadeOut  (150);
-      $menuBtn.classList.remove("open");
-    }
-  
-    isMenuOpen = !isMenuOpen;
-  });
- }catch(e){
-   
- }
-  
+  try {
+    const $menuBtn = document.querySelector(".menu-btn");
+    let isMenuOpen = false;
+    $menuBtn.addEventListener("click", () => {
+      if (!isMenuOpen) {
+        $(".divMenu").fadeIn(200);
+        $menuBtn.classList.add("open");
+      } else {
+        $(".divMenu").fadeOut(150);
+        $menuBtn.classList.remove("open");
+      }
+
+      isMenuOpen = !isMenuOpen;
+    });
+  } catch (e) {}
 
   $(window).resize(function () {
     $(".colMapTrack").css("left", width + 35);
@@ -129,6 +126,8 @@ $(document).ready(function () {
       $("p", this).css("color", "black");
     }
   });
+
+ 
 
   var i = 0;
   var imghead = [

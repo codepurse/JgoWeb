@@ -19,6 +19,7 @@ function index() {
   }, []);
 
   function book() {
+    document.getElementById('mainCon').scrollIntoView();
     $(".colMain").hide();
     $(".colLogin").hide();
     $(".colDeliver").fadeIn(250);
@@ -31,7 +32,7 @@ function index() {
         <Header></Header>
         <Navbar></Navbar>
         <Componentdidmount></Componentdidmount>
-        <div className="container h-100">
+        <div className="container h-100" id = "mainCon">
           <div className="row h-100 align-items-center">
             <div className="col-lg-6">
               <img src="Image/imgindex.png" className="img-fluid"></img>
@@ -139,7 +140,7 @@ function index() {
                   also carry and bring your clothing to the areas that we are
                   available in.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
               </div>
               <div className="divBox1 divCloth" style={{ display: "none" }}>
                 <img src="Image/clothing.svg" className="imgIconLarge"></img>
@@ -148,7 +149,7 @@ function index() {
                   We can also carry and bring your clothing to the areas that we
                   are available in.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
               </div>
               <div className="divBox1 divMedic" style={{ display: "none" }}>
                 <img src="Image/medical.svg" className="imgIconLarge"></img>
@@ -159,7 +160,7 @@ function index() {
                   include the note and the name of the doctor who recommended
                   it. Thank you.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
               </div>
               <div className="divBox1 divFragile" style={{ display: "none" }}>
                 <img
@@ -171,7 +172,7 @@ function index() {
                   Sending fragile objects can be quite a hassle. But you can
                   trust us to deliver them on time and with care.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
               </div>
               <div className="divBox1 divOthers" style={{ display: "none" }}>
                 <img src="Image/other.svg" className="imgIconLarge"></img>
@@ -181,7 +182,7 @@ function index() {
                   mentioned categories. So long as it is an item that is legal
                   and approved by law.
                 </p>
-                <button className="btnBookServices">BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
               </div>
             </div>
           </div>
