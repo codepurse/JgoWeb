@@ -17,23 +17,14 @@ export default function privacy_policy() {
 
       <div className="container divMenu">
         <div className="container divMenu1">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="ulNav">
-               <Link href = "/driver">
-                 <a>
-                 <li
-                  className="liNav"
-                  data-toggle="modal"
-                  data-target="#driverModal"
-                >
-                  Ride with Us
-                </li>
-                 </a>
-               </Link>
-                <li className="liNav">Deliver Now</li>
-                <li className="liNav">JGO Support</li>
-              </ul>
+          <div className="row align-items-center h-100">
+            <div className="col-lg-12 text-center">
+              <Link href="/">
+                <p className="liNav">Ride with Us</p>
+              </Link>
+              <Link href="/support">
+                <p className="liNav">JGO Support</p>
+              </Link>
             </div>
           </div>
         </div>
@@ -96,7 +87,7 @@ export default function privacy_policy() {
             </nav>
           </div>
         </div>
-        <div className="container" style={{ marginTop: "8%" }}>
+        <div className="container conHide" style={{ marginTop: "8%" }}>
           <div className="row">
             <div className="col-lg-12">
               <p className="pPrivacy">Terms and Conditions</p>

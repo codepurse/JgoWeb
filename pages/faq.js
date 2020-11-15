@@ -7,7 +7,6 @@ import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
 
 export default function faq() {
- 
   return (
     <>
       <Header></Header>
@@ -21,23 +20,14 @@ export default function faq() {
 
       <div className="container divMenu">
         <div className="container divMenu1">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="ulNav">
-               <Link href = "/driver">
-                 <a>
-                 <li
-                  className="liNav"
-                  data-toggle="modal"
-                  data-target="#driverModal"
-                >
-                  Ride with Us
-                </li>
-                 </a>
-               </Link>
-                <li className="liNav">Deliver Now</li>
-                <li className="liNav">JGO Support</li>
-              </ul>
+          <div className="row align-items-center h-100">
+            <div className="col-lg-12 text-center">
+              <Link href="/">
+                <p className="liNav">Ride with Us</p>
+              </Link>
+              <Link href="/support">
+                <p className="liNav">JGO Support</p>
+              </Link>
             </div>
           </div>
         </div>
@@ -95,9 +85,8 @@ export default function faq() {
             </div>
           </div>
         </nav>
-        
       </div>
-      <div className="container-fluid conFaq">
+      <div className="container-fluid conFaq conHide">
         <div className="container" style={{ paddingTop: "150px" }}>
           <div className="row">
             <div className="col-lg-12 text-center">
@@ -654,7 +643,7 @@ export default function faq() {
         </div>
       </div>
       <div
-        className="container-fluid "
+        className="container-fluid conHide "
         id="contact"
         style={{ backgroundColor: "white" }}
       >

@@ -21,24 +21,19 @@ export default function rider() {
 
       <div className="container divMenu">
         <div className="container divMenu1">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="ulNav">
-                <li
-                  className="liNav"
-                  data-toggle="modal"
-                  data-target="#driverModal"
-                >
-                  Ride with Us
-                </li>
-                <li className="liNav">Deliver Now</li>
-                <li className="liNav">JGO Support</li>
-              </ul>
+          <div className="row align-items-center h-100">
+            <div className="col-lg-12 text-center">
+              <Link href="/">
+                <p className="liNav">Ride with Us</p>
+              </Link>
+              <Link href="/support">
+                <p className="liNav">JGO Support</p>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      <div className="container-fluid conRider">
+      <div className="container-fluid conRider conHide">
         <div className="container h-100">
           <div className="row h-100 rowRider">
             <div className="col-lg-6 align-self-center">
@@ -65,7 +60,7 @@ export default function rider() {
         </div>
       </div>
       <div
-        className="container-fluid"
+        className="container-fluid conHide"
         style={{ backgroundColor: "white", paddingTop: "40px" }}
       >
         <div className="container conSino">
@@ -95,20 +90,20 @@ export default function rider() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conChat">
+      <div className="container-fluid conChat conHide">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="divChat">
                 <div className="divChatblurred"></div>
-                <img src="image/CLoud 1.png" className="img-fluid"></img>
+                <img src="Image/cloud1.png" className="img-fluid"></img>
                 <img
-                  src="image/Cloud -1.png"
+                  src="Image/cloud2.png"
                   className="img-fluid"
                   style={{ marginTop: "10px" }}
                 ></img>
                 <img
-                  src="image/Cloud 2.png"
+                  src="Image/cloud3.png"
                   className="img-fluid"
                   style={{ marginTop: "10px" }}
                 ></img>

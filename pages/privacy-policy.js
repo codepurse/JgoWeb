@@ -35,7 +35,7 @@ export default function privacy_policy() {
           </div>
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container-fluid conHide">
         <div className="row">
           <div className="col-lg-12">
            <Navbar></Navbar>

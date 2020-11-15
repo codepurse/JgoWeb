@@ -4,13 +4,14 @@ $(document).ready(function () {
     let isMenuOpen = false;
     $menuBtn.addEventListener("click", () => {
       if (!isMenuOpen) {
+        $(".conHide").fadeOut(100);
         $(".divMenu").fadeIn(200);
         $menuBtn.classList.add("open");
       } else {
+        $(".conHide").fadeIn(100);
         $(".divMenu").fadeOut(150);
         $menuBtn.classList.remove("open");
       }
-
       isMenuOpen = !isMenuOpen;
     });
   } catch (e) {}

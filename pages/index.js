@@ -550,22 +550,22 @@ function driver() {
       </div>
 
       <div className="container divMenu">
-        <div className = "container divMenu1">
-        <div className="row">
-          <div className="col-lg-12">
-            <ul className="ulNav">
-              <li
+        <div className="container divMenu1">
+          <div className="row align-items-center h-100">
+            <div className="col-lg-12 text-center">
+              <p
                 className="liNav"
                 data-toggle="modal"
                 data-target="#driverModal"
               >
                 Ride with Us
-              </li>
-              <li className="liNav">Deliver Now</li>
-              <li className="liNav">JGO Support</li>
-            </ul>
+              </p>
+
+              <Link href="/support">
+                <p className="liNav">JGO Support</p>
+              </Link>
+            </div>
           </div>
-        </div>
         </div>
       </div>
       <div
@@ -633,7 +633,7 @@ function driver() {
           </div>
         </div>
         <div className="conDriver"></div>
-        <div className="container con">
+        <div className="container con conHide">
           <div className="row rowDriver" style={{ marginLeft: "50px" }}>
             <div
               className="col-lg-4 col-sm-12 col-12 align-self-top "
@@ -665,7 +665,7 @@ function driver() {
               </div>
             </div>
             <div
-              className="col-lg-3 col-sm-12 col-12"
+              className="col-lg-3 col-sm-12 col-12 "
               style={{ marginTop: "150px", position: "relative" }}
             >
               <div className="divPhone" style={{ position: "relative" }}>
@@ -690,7 +690,7 @@ function driver() {
         </div>
       </div>
 
-      <div className="container-fluid conDriver2">
+      <div className="container-fluid conDriver2 conHide">
         <img src="Image/bar.png" className="imgBar"></img>
         <div className="container">
           <div className="row align-items-center">
@@ -811,7 +811,7 @@ function driver() {
         </div>
       </div>
 
-      <div className="container-fluid conStep">
+      <div className="container-fluid conStep conHide">
         <div className="container">
           <div className="row">
             <div className="col-lg-4">
@@ -871,7 +871,7 @@ function driver() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conAbout">
+      <div className="container-fluid conAbout conHide">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
@@ -911,7 +911,8 @@ function driver() {
         tabIndex={-1}
         role="dialog"
         aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style = {{zIndex: "9999999999999999"}}
+        aria-hidden="true"
+        style={{ zIndex: "9999999999999999" }}
       >
         <div
           className="modal-dialog modal-dialog-driver modal-lg"

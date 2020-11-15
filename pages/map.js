@@ -1652,7 +1652,7 @@ export default function map() {
               >
                 Payment Details
               </p>
-              <div className="divListcard" onClick={setPaymentCard}>
+              <div className="divListcard" style = {{display: "none"}} onClick={setPaymentCard}>
                 <img src="Image/check.png" className="img-fluid imgCheck"></img>
                 <div className="row align-items-center">
                   <div className="col-lg-3">

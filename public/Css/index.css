@@ -1,15 +1,21 @@
 @media screen and (max-width: 582px) {
+    .fixed-top {
+        height: 90px !important;
+    }
     .divNavbar {
         display: block !important;
     }
     .imgDel, .colDelivery {
         display: none !important;
     }
-    .mainConDriver, .conDriver {
+    .mainConDriver {
         height: auto !important;
         width: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+    }
+    .conDriver {
+        height: 100% !important;
     }
     .pComing {
         text-align: center !important;
@@ -1034,12 +1040,12 @@ hr {
     font-size: 0.9rem;
     color: whitesmoke;
     margin-bottom: 2px;
-
 }
 
 .pCardNumber {
     font-family: 'GilroySemiBold';
-    color: #9FA6B0;;
+    color: #9FA6B0;
+    ;
     font-size: 0.9rem;
     margin-bottom: 0px;
 }
@@ -1656,7 +1662,7 @@ input[type="file"] {
     width: 180px;
 }
 
-.divMenu {
+.divMenuSide {
     position: relative;
     height: 98%;
 }

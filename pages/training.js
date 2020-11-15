@@ -20,23 +20,14 @@ export default function training() {
 
       <div className="container divMenu">
         <div className="container divMenu1">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="ulNav">
-                <Link href="/driver">
-                  <a>
-                    <li
-                      className="liNav"
-                      data-toggle="modal"
-                      data-target="#driverModal"
-                    >
-                      Ride with Us
-                    </li>
-                  </a>
-                </Link>
-                <li className="liNav">Deliver Now</li>
-                <li className="liNav">JGO Support</li>
-              </ul>
+          <div className="row align-items-center h-100">
+            <div className="col-lg-12 text-center">
+              <Link href="/">
+                <p className="liNav">Ride with Us</p>
+              </Link>
+              <Link href="/support">
+                <p className="liNav">JGO Support</p>
+              </Link>
             </div>
           </div>
         </div>
@@ -44,7 +35,7 @@ export default function training() {
       <div className="container-fluid">
         <Navbar></Navbar>
       </div>
-      <div className="container-fluid h-100 conTraining">
+      <div className="container-fluid h-100 conTraining conHide">
         <div className="container h-100">
           <div className="row h-100 align-items-center">
             <div className="col-lg-12 text-center">
@@ -82,7 +73,7 @@ export default function training() {
         </div>
       </div>
       <div
-        className="container-fluid"
+        className="container-fluid conHide"
         style={{
           backgroundColor: "#F2F0F0",
           padding: "75px 15px",
@@ -99,7 +90,7 @@ export default function training() {
               >
                 JGO RIDER TRAINING VIDEO
               </p>
-            
+
               <div className="container-video">
                 <iframe
                   className="responsive-iframe"
@@ -111,7 +102,7 @@ export default function training() {
         </div>
       </div>
       <div
-        className="container-fluid"
+        className="container-fluid conHide"
         style={{ backgroundColor: "white", paddingTop: "75px" }}
       >
         <div className="container">

@@ -40,7 +40,7 @@ export default function profile() {
   const [state1, setState] = React.useState("");
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
-
+  const [profilepic, setProfle]  = React.useState("");
   var x;
 
   const status = [
@@ -100,7 +100,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result);
+       
         setTabledata(result.data.data);
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -108,7 +108,7 @@ export default function profile() {
           $(".pNo").show();
         }
         const active = result.data.data.filter(
-          (item) => item.status === "Looking for Driver"
+          (item) =>  item.status === "Driver found"
         );
         setACtivecount(active.length);
       })
@@ -144,7 +144,7 @@ export default function profile() {
       message: (message) => {
         setMessage(message.message.status);
         let mes = message;
-        console.log(mes);
+
         if (mes.message.status == "Ongoing") {
           driverfound();
           refresh();
@@ -226,13 +226,15 @@ export default function profile() {
 
   useEffect(() => {
     if (sessionStorage.getItem("addpayment") == "1") {
+      $(".ulDashboard>li").removeClass("activeUl"); 
       $(".conPayment").fadeIn(250);
       $(".conProf").hide();
       $(".conBook").hide();
       $(".conSettings").hide();
+      $(".liPayment").addClass("activeUl");
       sessionStorage.removeItem("addpayment");
     }
-    console.log(localStorage.getItem("activeid"));
+   
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
     coordinatebook.length = 0;
@@ -261,7 +263,7 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data.reverse());
-        console.log(result.data.data.reverse());
+       
         if (result.data.data) {
           result.data.data
             .filter(
@@ -278,14 +280,14 @@ export default function profile() {
         }
         show(0, 5);
         tablemap = result.data.data;
+        console.log(result.data.data);
         setCount(result.data.data.length);
         $(".Box").hide();
         if (result.data.data.length === 0) {
           $(".pNo").show();
         }
-        const active = result.data.data.filter(
-          (item) => item.status === "Looking for Driver"
-        );
+       
+        const active = result.data.data.filter(obj => obj.status == "Looking for Driver" && obj.status == "Driver found")
         setACtivecount(active.length);
       })
       .catch((err) => {
@@ -308,6 +310,7 @@ export default function profile() {
         setState(result.data.data.state);
         setZip(result.data.data.zip);
         setCity(result.data.data.city);
+        setProfle(result.data.data.profile_pic);
       })
       .catch((err) => {
         console.log(err);
@@ -447,8 +450,8 @@ export default function profile() {
       formdata.set("password_confirmation", confirmoldpass);
       formdata.set("new_password", newpass);
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/change-password";
-      axios
+      const apiUrl = "ps://staging-api.jgo.com.ph/api/auth/change-password";
+      axioshtt
         .post(apiUrl, formdata, options)
         .then((result) => {
           console.log(result.message());
@@ -584,7 +587,7 @@ export default function profile() {
     },
     (error) => {
       if (error.response.status === 401) {
-        alert("asdas");
+      
       }
       return error;
     }
@@ -619,10 +622,10 @@ export default function profile() {
       <div className="container-fluid conProfile">
         <NextNprogress color="#EDC728" />
         <div className="divSidebar">
-          <div className="divMenu">
+          <div className="divMenuSide">
             <div className="divIcon">
               <ul className="no-bullets">
-                <Link href="/driver">
+                <Link href="/main">
                   <a style={{ textDecoration: "none" }}>
                     <li>
                       <img src="Image/home.png" style={{ width: "20px" }}></img>
@@ -630,7 +633,7 @@ export default function profile() {
                     </li>
                   </a>
                 </Link>
-                <Link href="/map">
+                <Link href="/main">
                   <a style={{ textDecoration: "none" }}>
                     <li>
                       <img
@@ -641,7 +644,7 @@ export default function profile() {
                     </li>
                   </a>
                 </Link>
-                <Link href="">
+                <Link href="/faq#contact">
                   <a style={{ textDecoration: "none" }}>
                     <li>
                       <img src="Image/call.png" style={{ width: "20px" }}></img>
@@ -690,7 +693,7 @@ export default function profile() {
               </li>
               <li onClick={profile}>PROFILE</li>
               <li onClick={settings}>SETTINGS</li>
-              <li onClick={payment}>PAYMENT</li>
+              <li onClick={payment} className = "liPayment">PAYMENT</li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -832,7 +835,7 @@ export default function profile() {
         <div className="row align-items-center">
           <div className="col-lg-12 text-center">
             <img
-              src="Image/profile.jpg"
+              src="l"
               className="img-fluid imgProfileDash mx-auto d-flex"
             ></img>{" "}
             <p className="spanFull">
