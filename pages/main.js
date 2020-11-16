@@ -16,6 +16,7 @@ function index() {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
     }
+    console.log(localStorage.getItem("tokenFb"));
   }, []);
 
   function book() {

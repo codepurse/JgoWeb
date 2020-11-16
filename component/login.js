@@ -32,8 +32,8 @@ const customStyles1 = {
 };
 
 const responseFacebook = (response) => {
-  console.log(response);
 
+  console.log(localStorage.getItem("tokenFb"));
   const options = {
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -55,10 +55,14 @@ const responseFacebook = (response) => {
       options
     )
     .then((result) => {
-      console.log(result);
+      localStorage.setItem("tokenFb", JSON.stringify(response));
+      window.location.reload();
+      console.log(response)
     })
     .catch((err) => {
-      console.log(err);
+      localStorage.setItem("tokenFb", JSON.stringify(response));
+      window.location.reload();
+      console.log(response);
     });
 };
 

@@ -515,6 +515,10 @@ function driver() {
     );
   }
 
+  function deletetoken() {
+    localStorage.removeItem("token");
+  }
+
   return (
     <>
       <Head>
@@ -639,7 +643,7 @@ function driver() {
               className="col-lg-4 col-sm-12 col-12 align-self-top "
               style={{ marginTop: "200px", position: "relative" }}
             >
-              <p className="pComing">COMING SOON</p>
+              <p className="pComing" onClick = {deletetoken}>COMING SOON</p>
               <div className="row">
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <div className="divButton form-inline">

@@ -24,6 +24,8 @@ export default function map() {
   var places_data = coordinate;
   const [click_id, setId] = React.useState("");
   const [isToggled, setIsToggled] = React.useState(false);
+  const [listcard, setListcard] = React.useState([]);
+  const [cardtoken, setCardToken] = React.useState("");
   const bookingtype = [
     { value: "1", label: "Document" },
     { value: "2", label: "Food" },
@@ -246,6 +248,25 @@ export default function map() {
     var price_total = localStorage.getItem("price");
     setPrice(Number(price_total).toFixed(2));
     console.log(localStorage.getItem("price"));
+
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        "Content-Length": "X-Actual-Content-Length",
+      },
+    };
+
+    const apiUrl2 =
+      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+
+    axios.post(apiUrl2, {}, options1).then((result) => {
+      setListcard(result.data.user_card_details);
+      console.log(result.data.user_card_details);
+    });
   }, []);
 
   {
@@ -719,6 +740,11 @@ export default function map() {
       formdata.set("pick_up_latitude", coordinate[0].lat);
       formdata.set("pick_up_longitude", coordinate[0].lng);
       formdata.set("payment_method", payment);
+      if(payment == "debit_credit") {
+        formdata.set("client_token", cardtoken);
+      }else {
+
+      }
       formdata.set(
         "drop_off_locations[0][drop_off_address]",
         addressDrop.label
@@ -923,14 +949,19 @@ export default function map() {
   }
 
   function setMethod() {
+  
     $(".imgCheck").hide();
     $(".divCod").find(".imgCheck").fadeIn(150);
     setPayment("cod");
     $(".divCod").css("border", "1px solid #FDBF00");
   }
 
-  function setPaymentCard() {
-    setPayment("");
+  function setPaymentCard(e) {
+   
+    listcard
+    .filter((event) => event.maskedCardNumber === $(e.currentTarget).find(".pCardNumber").text())
+    .map((data) => console.log(data.client_token));
+    setPayment("debit_credit");
     $(".divCod").css("border", "1px solid #373A41");
     $(".imgCheck").hide();
     $(".divListcard").find(".imgCheck").fadeIn(150);
@@ -1652,18 +1683,26 @@ export default function map() {
               >
                 Payment Details
               </p>
-              <div className="divListcard" style = {{display: "none"}} onClick={setPaymentCard}>
-                <img src="Image/check.png" className="img-fluid imgCheck"></img>
-                <div className="row align-items-center">
-                  <div className="col-lg-3">
-                    <img src="Image/visa.png" className="imgCard"></img>
+
+              {listcard
+                .filter((event) => event.maskedCardNumber !== null)
+                .map((event) => (
+                  <div className="divListcard" onClick={setPaymentCard}>
+                    <img
+                      src="Image/check.png"
+                      className="img-fluid imgCheck"
+                    ></img>
+                    <div className="row align-items-center">
+                      <div className="col-lg-3">
+                        <img src="Image/mastertype.png" className="imgCard"></img>
+                      </div>
+                      <div className="col-lg-9" style={{ padding: "0px" }}>
+                        <p className="pCardType">{event.cardType}</p>
+                        <p className="pCardNumber">{event.maskedCardNumber}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-lg-9" style={{ padding: "0px" }}>
-                    <p className="pCardType">Visa Card</p>
-                    <p className="pCardNumber">1234 xxxx xxxx 1234</p>
-                  </div>
-                </div>
-              </div>
+                ))}
               <div className="row align-items-center">
                 <div className="col-lg-7">
                   <button className="btnPayment" onClick={addCard}>

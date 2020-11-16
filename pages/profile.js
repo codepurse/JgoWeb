@@ -231,6 +231,7 @@ export default function profile() {
   };
 
   useEffect(() => {
+    console.log(AuthService.getToken());
     const options1 = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -416,7 +417,7 @@ export default function profile() {
 
   function getcardToken() {
     listcard
-      .filter((event) => event.maskedCardNumber === "512345xxxxxx2346")
+      .filter((event) => event.maskedCardNumber === $(".divCardList").find(".pMasked").text())
       .map((data) => setClientToken(data.client_token));
   }
 
@@ -432,14 +433,13 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/verifyToken";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/verifyToken";
 
     let formdata = new FormData();
     formdata.set("clientToken", clienttoken);
     formdata.set("amount", Number(verify));
     axios
-      .post(apiUrl, {clientToken: clienttoken,amount: verify}, options)
+      .post(apiUrl, { client_token: clienttoken, amount: verify }, options)
       .then((result) => {
         console.log(result);
       })
@@ -1079,34 +1079,37 @@ export default function profile() {
             <p className="pSettingsTitle">Payment Methods</p>
           </div>
           <div className="col-lg-12 form-inline">
-            {listcard.map((event, index) => (
-              <div
-                className="divCardList"
-                data-toggle="modal"
-                data-target="#modalVerify"
-                onClick={getcardToken}
-              >
-                <img src="Image/chip.png" className="img-fluid imgChip"></img>
-                <img
-                  src="Image/mastertype.png"
-                  className="img-fluid imgCardType"
-                ></img>
-                <div className="divCardDetails">
-                  <div className="row">
-                    <div className="col-lg-7">
-                      <p className="p9">Card number</p>
-                      <p className="p9Sub">{event.maskedCardNumber}</p>
-                    </div>
-                    <div className="col-lg-5">
-                      <p className="p9 text-left">Status</p>
-                      <p className="p9Sub text-left ">
-                        {event.cardStatus == 1 ? "Not verified" : "Verified"}
-                      </p>
+            {listcard
+              .filter((event) => event.maskedCardNumber !== null)
+              .map((event) => (
+                <div
+                  className="divCardList"
+                  data-toggle="modal"
+                  data-target="#modalVerify"
+                  onClick={getcardToken}
+                >
+                  <img src="Image/chip.png" className="img-fluid imgChip"></img>
+                  <img
+                    src="Image/mastertype.png"
+                    className="img-fluid imgCardType"
+                  ></img>
+                  <div className="divCardDetails">
+                    <div className="row">
+                      <div className="col-lg-7">
+                        <p className="p9">Card number</p>
+                        <p className="p9Sub pMasked">{event.maskedCardNumber}</p>
+                      </div>
+                      <div className="col-lg-5">
+                        <p className="p9 text-left">Status</p>
+                        <p className="p9Sub text-left ">
+                          {event.cardStatus == 1 ? "Not verified" : "Verified"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+
             <div className="divCardPayment" onClick={addCard}>
               <p className="pAddCard">&#43;</p>
             </div>
