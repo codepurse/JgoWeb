@@ -41,6 +41,8 @@ export default function profile() {
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
   const [profilepic, setProfle] = React.useState("");
+
+  const [listcard, setListcard] = React.useState([]);
   var x;
 
   const status = [
@@ -227,6 +229,25 @@ export default function profile() {
   };
 
   useEffect(() => {
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        "Content-Length": "X-Actual-Content-Length",
+      },
+    };
+
+    const apiUrl2 =
+      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+
+    axios.post(apiUrl2, {}, options1).then((result) => {
+      setListcard(result.data.user_card_details);
+      console.log(result.data.user_card_details);
+    });
+
     if (sessionStorage.getItem("addpayment") == "1") {
       $(".ulDashboard>li").removeClass("activeUl");
       $(".conPayment").fadeIn(250);
@@ -1017,7 +1038,28 @@ export default function profile() {
           <div className="col-lg-12">
             <p className="pSettingsTitle">Payment Methods</p>
           </div>
-          <div className="col-lg-12">
+          <div className="col-lg-12 form-inline">
+            {listcard.map((event, index) => (
+              <div className="divCardList">
+                <img src="Image/chip.png" className="img-fluid imgChip"></img>
+                <img
+                  src="Image/mastertype.png"
+                  className="img-fluid imgCardType"
+                ></img>
+                <div className="divCardDetails">
+                  <div className="row">
+                    <div className="col-lg-7">
+                      <p className="p9">Card number</p>
+                      <p className="p9Sub">{event.maskedCardNumber}</p>
+                    </div>
+                    <div className="col-lg-5">
+                      <p className="p9 text-left">Status</p>
+                      <p className="p9Sub text-left ">{event.cardStatus == 1 ? "Not verified" : "Verified"}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
             <div className="divCardPayment" onClick={addCard}>
               <p className="pAddCard">&#43;</p>
             </div>

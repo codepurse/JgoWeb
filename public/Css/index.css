@@ -3337,6 +3337,7 @@ video {
 
 /* Payment */
 
+
 .conPayment {
     display: none;
     margin-top: 40px;
@@ -3352,16 +3353,67 @@ video {
     text-align: center;
 }
 
-.divCardPayment {
-    background-color: #424242;
+.divCardPayment, .divCardList {
+    background-color: #353A3E;
     width: 320px;
     height: 180px;
     border-radius: 8px;
     transition: all 0.2s;
     cursor: pointer;
-    border: 1px solid #424242;
+    border: 1px solid #353A3E;
+    margin: 5px 10px;
+    position: relative;
 }
 
-.divCardPayment:hover {
+.divCardPayment:hover, .divCardList:hover {
     border: 1px solid #FDBF00;
+}
+
+.imgChip {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+}
+
+.p9 {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.p9Sub {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.divCardDetails {
+    align-self: flex-end;
+    margin: 20px 20px;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.divCardList {
+    display: flex;
+}
+
+.imgCardType {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+}
+
+.pNotVerified {
+    font-family: 'GilroyMedium';
+    color: #d32f2f;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    position: absolute;
+    top: 2px;
+    left: 20px;
 }
