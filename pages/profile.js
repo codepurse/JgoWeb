@@ -421,6 +421,8 @@ export default function profile() {
   }
 
   function getVerify(e) {
+    console.log(clienttoken);
+    console.log(verify);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -431,7 +433,7 @@ export default function profile() {
       },
     };
     const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+      "https://staging-api.jgo.com.ph/api/auth/verifyToken";
 
     let formdata = new FormData();
     formdata.set("clientToken", clienttoken);
