@@ -40,7 +40,7 @@ export default function profile() {
   const [state1, setState] = React.useState("");
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
-  const [profilepic, setProfle]  = React.useState("");
+  const [profilepic, setProfle] = React.useState("");
   var x;
 
   const status = [
@@ -100,7 +100,6 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-       
         setTabledata(result.data.data);
         tablemap = result.data.data;
         setCount(result.data.data.length);
@@ -108,7 +107,10 @@ export default function profile() {
           $(".pNo").show();
         }
         const active = result.data.data.filter(
-          (item) =>  item.status === "Driver found"
+          (obj) =>
+            obj.status == "Looking for Driver" ||
+            obj.status == "Driver found" ||
+            obj.status == "Arrived at Pick Up"
         );
         setACtivecount(active.length);
       })
@@ -226,7 +228,7 @@ export default function profile() {
 
   useEffect(() => {
     if (sessionStorage.getItem("addpayment") == "1") {
-      $(".ulDashboard>li").removeClass("activeUl"); 
+      $(".ulDashboard>li").removeClass("activeUl");
       $(".conPayment").fadeIn(250);
       $(".conProf").hide();
       $(".conBook").hide();
@@ -234,7 +236,7 @@ export default function profile() {
       $(".liPayment").addClass("activeUl");
       sessionStorage.removeItem("addpayment");
     }
-   
+
     var theme = JSON.parse(localStorage.getItem("theme"));
     setIsToggled(theme);
     coordinatebook.length = 0;
@@ -263,7 +265,7 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data.reverse());
-       
+
         if (result.data.data) {
           result.data.data
             .filter(
@@ -286,8 +288,13 @@ export default function profile() {
         if (result.data.data.length === 0) {
           $(".pNo").show();
         }
-       
-        const active = result.data.data.filter(obj => obj.status == "Looking for Driver" && obj.status == "Driver found")
+
+        const active = result.data.data.filter(
+          (obj) =>
+            obj.status == "Looking for Driver" ||
+            obj.status == "Driver found" ||
+            obj.status == "Arrived at Pick Up"
+        );
         setACtivecount(active.length);
       })
       .catch((err) => {
@@ -310,7 +317,10 @@ export default function profile() {
         setState(result.data.data.state);
         setZip(result.data.data.zip);
         setCity(result.data.data.city);
-        setProfle(result.data.data.profile_pic);
+        setProfle(
+          "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+            result.data.data.profile_pic
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -354,10 +364,9 @@ export default function profile() {
     $(".conSettings").hide();
   }
 
- 
   function doubleclickTable() {
     $("#table").on("click", "tr", function (e) {
-      window.open("/tracking/"+$(this).children().closest("td").html());
+      window.open("/tracking/" + $(this).children().closest("td").html());
     });
   }
 
@@ -587,7 +596,6 @@ export default function profile() {
     },
     (error) => {
       if (error.response.status === 401) {
-      
       }
       return error;
     }
@@ -606,8 +614,8 @@ export default function profile() {
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
-        console.log(result);
-        window.open(result.config.url, "_blank");
+        console.log(result.data.data.redirectUrl);
+        window.open(result.data.data.redirectUrl, "_blank");
       })
       .catch((err) => {
         console.log(err);
@@ -675,7 +683,7 @@ export default function profile() {
               <div className="vl"></div>
               <span className="pFullname">{full_name}</span>
               <div className="circle">
-                <img src="Image/profile.jpg" alt="" />
+                <img src={profilepic} alt="" />
               </div>
             </div>
           </div>
@@ -693,7 +701,9 @@ export default function profile() {
               </li>
               <li onClick={profile}>PROFILE</li>
               <li onClick={settings}>SETTINGS</li>
-              <li onClick={payment} className = "liPayment">PAYMENT</li>
+              <li onClick={payment} className="liPayment">
+                PAYMENT
+              </li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -741,7 +751,6 @@ export default function profile() {
               <table
                 className="table"
                 id="table"
-        
                 onDoubleClick={doubleclickTable}
                 onMouseOver={hovertable}
               >
@@ -835,7 +844,7 @@ export default function profile() {
         <div className="row align-items-center">
           <div className="col-lg-12 text-center">
             <img
-              src="l"
+              src={profilepic}
               className="img-fluid imgProfileDash mx-auto d-flex"
             ></img>{" "}
             <p className="spanFull">
