@@ -437,9 +437,9 @@ export default function profile() {
 
     let formdata = new FormData();
     formdata.set("clientToken", clienttoken);
-    formdata.set("amount", verify);
+    formdata.set("amount", Number(verify));
     axios
-      .post(apiUrl, formdata, options)
+      .post(apiUrl, {clientToken: clienttoken,amount: verify}, options)
       .then((result) => {
         console.log(result);
       })
@@ -520,7 +520,7 @@ export default function profile() {
       formdata.set("password_confirmation", confirmoldpass);
       formdata.set("new_password", newpass);
 
-      const apiUrl = "ps://staging-api.jgo.com.ph/api/auth/change-password";
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/change-password";
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
