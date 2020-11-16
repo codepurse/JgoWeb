@@ -43,6 +43,8 @@ export default function profile() {
   const [profilepic, setProfle] = React.useState("");
 
   const [listcard, setListcard] = React.useState([]);
+  const [verify, setVerify] = React.useState("");
+  const [clienttoken, setClientToken] = React.useState("");
   var x;
 
   const status = [
@@ -408,6 +410,42 @@ export default function profile() {
       );
   }
 
+  function changeVerify(e) {
+    setVerify(e.target.value);
+  }
+
+  function getcardToken() {
+    listcard
+      .filter((event) => event.maskedCardNumber === "512345xxxxxx2346")
+      .map((data) => setClientToken(data.client_token));
+  }
+
+  function getVerify(e) {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+
+    let formdata = new FormData();
+    formdata.set("clientToken", clienttoken);
+    formdata.set("amount", verify);
+    axios
+      .post(apiUrl, formdata, options)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handlestatuschange(value) {
     var value = value.value.toLowerCase();
     setStatus(value.label);
@@ -481,7 +519,7 @@ export default function profile() {
       formdata.set("new_password", newpass);
 
       const apiUrl = "ps://staging-api.jgo.com.ph/api/auth/change-password";
-      axioshtt
+      axios
         .post(apiUrl, formdata, options)
         .then((result) => {
           console.log(result.message());
@@ -989,7 +1027,7 @@ export default function profile() {
           </div>
           <div className="col-lg-12 text-center">
             <a className="btn btnSave" onClick={saveprof}>
-              Login
+              Save
               <span style={{ marginLeft: "60px" }}>
                 <b></b>
                 <b></b>
@@ -1040,7 +1078,12 @@ export default function profile() {
           </div>
           <div className="col-lg-12 form-inline">
             {listcard.map((event, index) => (
-              <div className="divCardList">
+              <div
+                className="divCardList"
+                data-toggle="modal"
+                data-target="#modalVerify"
+                onClick={getcardToken}
+              >
                 <img src="Image/chip.png" className="img-fluid imgChip"></img>
                 <img
                   src="Image/mastertype.png"
@@ -1054,7 +1097,9 @@ export default function profile() {
                     </div>
                     <div className="col-lg-5">
                       <p className="p9 text-left">Status</p>
-                      <p className="p9Sub text-left ">{event.cardStatus == 1 ? "Not verified" : "Verified"}</p>
+                      <p className="p9Sub text-left ">
+                        {event.cardStatus == 1 ? "Not verified" : "Verified"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1180,6 +1225,51 @@ export default function profile() {
                     >
                       Check booking details
                       <span style={{ marginLeft: "80px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalVerify"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify">Verify your card</p>
+                    <p className="pModalTitleSub">
+                      Please enter the exact amount that we deducted in your
+                      account.
+                    </p>
+                  </div>
+                  <div className="col-lg-8">
+                    <input
+                      type="text"
+                      value={verify}
+                      className="txtVerify"
+                      onChange={changeVerify}
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <a className="btn btnVerify" onClick={getVerify}>
+                      Verify
+                      <span style={{ marginLeft: "40px" }}>
                         <b></b>
                         <b></b>
                         <b></b>

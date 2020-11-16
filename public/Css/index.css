@@ -3337,7 +3337,6 @@ video {
 
 /* Payment */
 
-
 .conPayment {
     display: none;
     margin-top: 40px;
@@ -3416,4 +3415,47 @@ video {
     position: absolute;
     top: 2px;
     left: 20px;
+}
+
+.pModalVerify {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.pModalVerifySub {
+    font-family: 'GilroyMedium';
+    color: #373A41;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.txtVerify {
+    font-family: "GilroyMedium" !important;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    background-color: #252424;
+    border: 1px solid #2c2c2c;
+    border-radius: 5px;
+    margin-top: 8px;
+    outline: none !important;
+    caret-color: white;
+    margin-bottom: 15px;
+    margin-top: -5px;
+}
+
+.btnVerify {
+    font-family: "GilroyMedium" !important;
+    color: whitesmoke;
+    border: 1px solid #FFF257 !important;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 38px;
+    margin-top: -5px;
+    outline: none !important;
+    width: 100%;
+    border-radius: 8px !important;
 }
