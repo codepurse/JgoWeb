@@ -17,14 +17,14 @@ $(document).ready(function () {
   } catch (e) {}
 
   $(window).resize(function () {
-    $(".colMapTrack").css("left", width + 35);
+    $(".colMapTrack").css("left", width + 45);
   });
 
   var width = $(".colSidebar").width();
   var totalwidth = $(window).width() - width - 50;
   $(".colMapTrack").css("max-width", totalwidth);
   $(".colMapTrack").css("min-width", totalwidth);
-  $(".colMapTrack").css("left", width + 35);
+  $(".colMapTrack").css("left", width + 45);
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
     light();

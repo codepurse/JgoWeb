@@ -94,7 +94,7 @@ export default function training() {
               <div className="container-video">
                 <iframe
                   className="responsive-iframe"
-                  src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                  src="https://www.youtube.com/embed/TLdFx7h6_5w"
                 ></iframe>
               </div>
             </div>

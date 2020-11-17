@@ -51,8 +51,8 @@ function MapDirectionsRenderer(props) {
         directions={directions}
         options={{
           polylineOptions: {
-            strokeOpacity: 8,
-            strokeColor: "gray",
+            strokeOpacity: 1,
+            strokeColor: "#424242",
           },
           markerOptions: {
             icon: {

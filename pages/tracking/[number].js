@@ -53,16 +53,13 @@ function Post() {
             icon: "../Image/gps.png",
           };
           tracks.push(dropoff);
-         
         });
       }
     }
   }, [dropoff_loc]);
 
   var timer = setInterval(myTimer, 30000);
-  function myTimer() {
-  
-  }
+  function myTimer() {}
 
   useEffect(() => {
     if (driver_loc) {
@@ -74,7 +71,6 @@ function Post() {
         icon: "../Image/motorcycle.png",
       };
       tracks.push(dropoff);
-   
     }
   }, [driver_loc]);
 
@@ -117,7 +113,7 @@ function Post() {
                 result.data.data.booking_details.driver.lname
             );
           } catch (e) {}
-  
+
           const pickoffloc = {
             id: 5,
             name: "",
@@ -128,14 +124,11 @@ function Post() {
           tracks.push(pickoffloc);
           router.push("/tracking/" + number);
         })
-        .catch((err) => {
-         
-        });
+        .catch((err) => {});
     }, 10000);
     console.clear();
     return () => clearInterval(interval);
   });
-
 
   useEffect(() => {
     console.clear();
@@ -192,17 +185,11 @@ function Post() {
           icon: "../Image/gps.png",
         };
 
-      
- 
-
         tracks.push(pickoffloc);
         router.push("/tracking/" + number);
-
-
-       
       })
       .catch((err) => {
-        router.push("../404")
+        router.push("../404");
       });
   }, [number]);
 
@@ -214,27 +201,36 @@ function Post() {
       </Head>
 
       <div className="container-fluid  consideTrack h-100">
+        <div className="divBookDetails1">
+          <div className="row">
+            <div className = "col-lg-12 text-center">
+            <p className="p5">Tracking number</p>
+              <p className="pFullname p5Sub">{trackingnum}</p>
+            </div>
+          </div>
+        </div>
+
         <div className="row h-100" style={{ padding: "0px" }}>
           <div className="col-lg-3 colSidebar colSideTrack">
-            <div className="divBookDetails" style = {{display: "none"}}>
+            <div className="divBookDetails">
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="p5">Tracking number</p>
                   <p className="pFullname p5Sub">{trackingnum}</p>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="p5">Last updated</p>
                   <p className="pFullname p5Sub">2 mins ago</p>
                 </div>
               </div>
             </div>
-            <div className="divDriver" style = {{display: "none"}}>
+            <div className="divDriver" style={{ display: "none" }}>
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="pPickTrack">Driver</p>
                   <p className="pFullname pPickLock">{driver}</p>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="pPickTrack">Mobile</p>
                   <p className="pFullname pPickLock">{mobile}</p>
                 </div>
@@ -245,7 +241,10 @@ function Post() {
                 </div>
               </div>
             </div>
-            <div className="divPickoff divPickoffTrack" style = {{display: "none"}}>
+            <div
+              className="divPickoff divPickoffTrack"
+              style={{ display: "none" }}
+            >
               <div className="row row">
                 <div className="col-lg-12">
                   <p className="pPickTrack">PICKOFF LOCATION</p>
@@ -260,15 +259,18 @@ function Post() {
                   paddingTop: "10px",
                 }}
               >
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="pPickTrack">Name</p>
                   <p className="pFullname pPickLock">{pickup_name}</p>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-6 col-6">
                   <p className="pPickTrack">Number</p>
                   <p className="pFullname pPickLock">{pickup_mobile}</p>
                 </div>
-                <div className="col-lg-12" style={{ marginTop: "5px" }}>
+                <div
+                  className="col-lg-12 col-sm-12 col-12"
+                  style={{ marginTop: "5px" }}
+                >
                   <p className="pPickTrack">Note</p>
                   <p className="pFullname pPickLock">{pickup_note}</p>
                 </div>
@@ -336,7 +338,7 @@ function Post() {
                                 paddingTop: "10px",
                               }}
                             >
-                              <div className="col-lg-4">
+                              <div className="col-lg-4 col-4 col-sm-4">
                                 <p className="pPickTrack">Distance</p>
                                 <p
                                   className="pFullname pPickLock pKm "
@@ -348,7 +350,7 @@ function Post() {
                                   <span className="sKm">km</span>
                                 </p>
                               </div>
-                              <div className="col-lg-4">
+                              <div className="col-lg-4 col-4 col-sm-4">
                                 <p className="pPickTrack">Category</p>
                                 <p
                                   className="pFullname pPickCategory"
@@ -362,7 +364,7 @@ function Post() {
                                     : "Undefined"}
                                 </p>
                               </div>
-                              <div className="col-lg-4">
+                              <div className="col-lg-4 col-4 col-sm-4">
                                 <p className="pPickTrack">Status</p>
                                 <p className={statusColor(event.status)}>
                                   {event.status}
@@ -377,20 +379,20 @@ function Post() {
                                 paddingTop: "10px",
                               }}
                             >
-                              <div className="col-lg-6">
+                              <div className="col-lg-6 col-4 col-sm-4">
                                 <p className="pPickTrack">Name</p>
                                 <p className="pFullname pPickLock">
                                   {event.contact_name}
                                 </p>
                               </div>
-                              <div className="col-lg-6">
+                              <div className="col-lg-6 col-4 col-sm-4">
                                 <p className="pPickTrack">Number</p>
                                 <p className="pFullname pPickLock">
                                   {event.contact_no}
                                 </p>
                               </div>
                               <div
-                                className="col-lg-12"
+                                className="col-lg-12 col-sm-12 col-12"
                                 style={{ marginTop: "5px" }}
                               >
                                 <p className="pPickTrack">Note</p>

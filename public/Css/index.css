@@ -153,6 +153,14 @@
     .pHeaderTraining {
         font-size: 1.2rem !important
     }
+    /* Tracking */
+    .colSideTrack, .colSidebar {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        display: none !important;
+    }
 }
 
 .divNavbar {
@@ -2611,30 +2619,28 @@ label:active:after {
     background-color: white !important;
     z-index: 99;
     padding-bottom: 20px;
-    min-width: 370px !important;
-    max-width: 370px !important;
+    min-width: 380px;
+    max-width: 380px;
 }
 
 .colSideTrack {
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     padding: 20px !important;
     background-color: white !important;
     z-index: 99;
     padding-bottom: 20px;
     padding-top: 10px important;
-    min-width: 380px !important;
-    max-width: 380px !important
-}
-
-.conSide {
-    -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
-    -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
-    box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+    min-width: 380px;
+    max-width: 380px;
     height: 100%;
     z-index: 99;
     background-color: white !important;
+    position: relative;
 }
 
-.conSideTrack {
+.conSide {
     -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
@@ -2744,6 +2750,23 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
+}
+
+.divBookDetails1 {
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 0px 0px 22px 7px rgba(0,0,0,0.2); 
+    box-shadow: 0px 0px 22px 7px rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    position: absolute;
+    top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    width: 80%;
 }
 
 .p5Sub {
