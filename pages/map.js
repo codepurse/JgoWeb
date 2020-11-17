@@ -17,6 +17,7 @@ import Select from "react-select";
 import axios from "axios";
 
 export default function map() {
+  var order = 0;
   const [tokenuser, setTokenuser] = React.useState("");
   const [fullname, setFullname] = React.useState("");
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function map() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [listcard, setListcard] = React.useState([]);
   const [cardtoken, setCardToken] = React.useState("");
+  var clickpayment = 0;
   const bookingtype = [
     { value: "1", label: "Document" },
     { value: "2", label: "Food" },
@@ -637,290 +639,292 @@ export default function map() {
   }
 
   function btnPlaceorder() {
-    if (payment.length == 0) {
-      swal(
-        <div style={{ width: "450px", padding: "10px" }}>
-          <div className="container">
-            <div
-              className="row align-items-center"
-              style={{ borderLeft: "3px solid #FFE900" }}
-            >
-              <div className="col-lg-2">
-                <img src="Image/complain.png" style={{ width: "32px" }}></img>
-              </div>
-              <div className="col-lg-10" style={{ textAlign: "left" }}>
-                <p className="pError">Warning</p>
-                <p className="pErrorSub">
-                  Please select a payment method to proceed.
-                </p>
+    if (clickpayment == 1) {
+      return false;
+    } else {
+      if (payment.length == 0) {
+        x = 0;
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #FFE900" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Warning</p>
+                  <p className="pErrorSub">
+                    Please select a payment method to proceed.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      );
-    } else {
-      console.log(cardtoken);
-       console.log(payment);
-      const options = {
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "content-type": "application/json",
-          Authorization: "Bearer " + tokenuser,
-        },
-      };
-
-      let ratedata = new FormData();
-      ratedata.set("pick_up_latitude", coordinate[0].lat);
-      ratedata.set("pick_up_longitude", coordinate[0].lng);
-      ratedata.set(
-        "drop_off_locations[0][drop_off_latitude]",
-        coordinate[1].lat
-      );
-      ratedata.set(
-        "drop_off_locations[0][drop_off_longitude]",
-        coordinate[1].lng
-      );
-      ratedata.set("drop_off_locations[0][booking_order]", "1");
-      ratedata.set("additional_services[0]", services);
-
-      if (coordinate[2]) {
-        ratedata.set(
-          "drop_off_locations[1][drop_off_latitude]",
-          coordinate[2].lat
-        );
-        ratedata.set(
-          "drop_off_locations[1][drop_off_longitude]",
-          coordinate[2].lng
-        );
-        ratedata.set("drop_off_locations[1][booking_order]", "2");
-        ratedata.set("additional_services[1]", services);
-      }
-      if (coordinate[3]) {
-        ratedata.set(
-          "drop_off_locations[2][drop_off_latitude]",
-          coordinate[3].lat
-        );
-        ratedata.set(
-          "drop_off_locations[2][drop_off_longitude]",
-          coordinate[3].lng
-        );
-        ratedata.set("drop_off_locations[2][booking_order]", "3");
-        ratedata.set("additional_services[2]", services);
-      }
-      if (coordinate[4]) {
-        ratedata.set(
-          "drop_off_locations[3][drop_off_latitude]",
-          coordinate[4].lat
-        );
-        ratedata.set(
-          "drop_off_locations[3][drop_off_longitude]",
-          coordinate[4].lng
-        );
-        ratedata.set("drop_off_locations[3][booking_order]", "4");
-        ratedata.set("additional_services[3]", services);
-      }
-      if (coordinate[5]) {
-        ratedata.set(
-          "drop_off_locations[4][drop_off_latitude]",
-          coordinate[5].lat
-        );
-        ratedata.set(
-          "drop_off_locations[4][drop_off_longitude]",
-          coordinate[5].lng
-        );
-        ratedata.set("drop_off_locations[4][booking_order]", "5");
-        ratedata.set("additional_services[4]", services);
-      }
-
-      let formdata = new FormData();
-      formdata.set("customer_id", AuthService.getId());
-
-      formdata.set("contact_name", "asdasd");
-      formdata.set("contact_number", coordinate[0].detailsnumber);
-      formdata.set("note", coordinate[0].detailsAdd);
-      formdata.set("pick_up_address", address.label);
-      formdata.set("pick_up_latitude", coordinate[0].lat);
-      formdata.set("pick_up_longitude", coordinate[0].lng);
-
-      formdata.set("payment_method", payment);
-      if(payment == "debit_credit") {
-        formdata.set("client_token", cardtoken);
-      }else {
-
-      }
-
-
-
-      formdata.set(
-        "drop_off_locations[0][drop_off_address]",
-        addressDrop.label
-      );
-      formdata.set(
-        "drop_off_locations[0][drop_off_latitude]",
-        coordinate[1].lat
-      );
-      formdata.set(
-        "drop_off_locations[0][drop_off_longitude]",
-        coordinate[1].lng
-      );
-      formdata.set("drop_off_locations[0][booking_order]", "1");
-      formdata.set(
-        "drop_off_locations[0][contact_name]",
-        coordinate[1].detailsname
-      );
-      formdata.set(
-        "drop_off_locations[0][contact_number]",
-        coordinate[1].detailsnumber
-      );
-
-      if (coordinate[1].category) {
-        formdata.set(
-          "drop_off_locations[0][category_id]",
-          coordinate[1].category
         );
       } else {
-        formdata.set("drop_off_locations[0][category_id]", "1");
-      }
-      formdata.set("drop_off_locations[0][distance]", "5.4");
-      formdata.set("additional_services[0]", services);
+        clickpayment = 1;
 
-      if (coordinate[2]) {
+        $(".btnPayment").addClass("btn--loading");
+        const options = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "content-type": "application/json",
+            Authorization: "Bearer " + tokenuser,
+          },
+        };
+
+        let ratedata = new FormData();
+        ratedata.set("pick_up_latitude", coordinate[0].lat);
+        ratedata.set("pick_up_longitude", coordinate[0].lng);
+        ratedata.set(
+          "drop_off_locations[0][drop_off_latitude]",
+          coordinate[1].lat
+        );
+        ratedata.set(
+          "drop_off_locations[0][drop_off_longitude]",
+          coordinate[1].lng
+        );
+        ratedata.set("drop_off_locations[0][booking_order]", "1");
+        ratedata.set("additional_services[0]", services);
+
+        if (coordinate[2]) {
+          ratedata.set(
+            "drop_off_locations[1][drop_off_latitude]",
+            coordinate[2].lat
+          );
+          ratedata.set(
+            "drop_off_locations[1][drop_off_longitude]",
+            coordinate[2].lng
+          );
+          ratedata.set("drop_off_locations[1][booking_order]", "2");
+          ratedata.set("additional_services[1]", services);
+        }
+        if (coordinate[3]) {
+          ratedata.set(
+            "drop_off_locations[2][drop_off_latitude]",
+            coordinate[3].lat
+          );
+          ratedata.set(
+            "drop_off_locations[2][drop_off_longitude]",
+            coordinate[3].lng
+          );
+          ratedata.set("drop_off_locations[2][booking_order]", "3");
+          ratedata.set("additional_services[2]", services);
+        }
+        if (coordinate[4]) {
+          ratedata.set(
+            "drop_off_locations[3][drop_off_latitude]",
+            coordinate[4].lat
+          );
+          ratedata.set(
+            "drop_off_locations[3][drop_off_longitude]",
+            coordinate[4].lng
+          );
+          ratedata.set("drop_off_locations[3][booking_order]", "4");
+          ratedata.set("additional_services[3]", services);
+        }
+        if (coordinate[5]) {
+          ratedata.set(
+            "drop_off_locations[4][drop_off_latitude]",
+            coordinate[5].lat
+          );
+          ratedata.set(
+            "drop_off_locations[4][drop_off_longitude]",
+            coordinate[5].lng
+          );
+          ratedata.set("drop_off_locations[4][booking_order]", "5");
+          ratedata.set("additional_services[4]", services);
+        }
+
+        let formdata = new FormData();
+        formdata.set("customer_id", AuthService.getId());
+
+        formdata.set("contact_name", "asdasd");
+        formdata.set("contact_number", coordinate[0].detailsnumber);
+        formdata.set("note", coordinate[0].detailsAdd);
+        formdata.set("pick_up_address", address.label);
+        formdata.set("pick_up_latitude", coordinate[0].lat);
+        formdata.set("pick_up_longitude", coordinate[0].lng);
+
+        formdata.set("payment_method", payment);
+        if (payment == "debit_credit") {
+          formdata.set("client_token", cardtoken);
+        } else {
+        }
+
         formdata.set(
-          "drop_off_locations[1][drop_off_address]",
-          coordinate[2].address
+          "drop_off_locations[0][drop_off_address]",
+          addressDrop.label
         );
         formdata.set(
-          "drop_off_locations[1][drop_off_latitude]",
-          coordinate[2].lat
+          "drop_off_locations[0][drop_off_latitude]",
+          coordinate[1].lat
         );
         formdata.set(
-          "drop_off_locations[1][drop_off_longitude]",
-          coordinate[2].lng
+          "drop_off_locations[0][drop_off_longitude]",
+          coordinate[1].lng
         );
-        formdata.set("drop_off_locations[1][booking_order]", "2");
+        formdata.set("drop_off_locations[0][booking_order]", "1");
         formdata.set(
-          "drop_off_locations[1][contact_name]",
-          coordinate[2].detailsname
+          "drop_off_locations[0][contact_name]",
+          coordinate[1].detailsname
         );
         formdata.set(
-          "drop_off_locations[1][contact_number]",
-          coordinate[2].detailsnumber
+          "drop_off_locations[0][contact_number]",
+          coordinate[1].detailsnumber
         );
 
-        if (coordinate[2].category) {
+        if (coordinate[1].category) {
           formdata.set(
-            "drop_off_locations[1][category_id]",
-            coordinate[2].category
+            "drop_off_locations[0][category_id]",
+            coordinate[1].category
           );
         } else {
-          formdata.set("drop_off_locations[1][category_id]", "1");
+          formdata.set("drop_off_locations[0][category_id]", "1");
         }
-        formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
-        formdata.set("additional_services[1]", services);
-      }
+        formdata.set("drop_off_locations[0][distance]", "5.4");
+        formdata.set("additional_services[0]", services);
 
-      if (coordinate[3]) {
-        formdata.set(
-          "drop_off_locations[2][drop_off_address]",
-          coordinate[3].address
-        );
-        formdata.set(
-          "drop_off_locations[2][drop_off_latitude]",
-          coordinate[3].lat
-        );
-        formdata.set(
-          "drop_off_locations[2][drop_off_longitude]",
-          coordinate[3].lng
-        );
-        formdata.set("drop_off_locations[2][booking_order]", "3");
-        formdata.set(
-          "drop_off_locations[2][contact_name]",
-          coordinate[3].detailsname
-        );
-        formdata.set(
-          "drop_off_locations[2][contact_number]",
-          coordinate[3].detailsnumber
-        );
-        if (coordinate[3].category) {
+        if (coordinate[2]) {
           formdata.set(
-            "drop_off_locations[2][category_id]",
-            coordinate[3].category
+            "drop_off_locations[1][drop_off_address]",
+            coordinate[2].address
           );
-        } else {
-          formdata.set("drop_off_locations[2][category_id]", "1");
-        }
-        formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
-        formdata.set("additional_services[2]", services);
-      }
-
-      if (coordinate[4]) {
-        formdata.set(
-          "drop_off_locations[3][drop_off_address]",
-          coordinate[4].address
-        );
-        formdata.set(
-          "drop_off_locations[3][drop_off_latitude]",
-          coordinate[4].lat
-        );
-        formdata.set(
-          "drop_off_locations[3][drop_off_longitude]",
-          coordinate[4].lng
-        );
-        formdata.set("drop_off_locations[3][booking_order]", "4");
-        formdata.set(
-          "drop_off_locations[3][contact_name]",
-          coordinate[4].detailsname
-        );
-        formdata.set(
-          "drop_off_locations[3][contact_number]",
-          coordinate[4].detailsnumber
-        );
-        if (coordinate[4].category) {
           formdata.set(
-            "drop_off_locations[3][category_id]",
-            coordinate[4].category
+            "drop_off_locations[1][drop_off_latitude]",
+            coordinate[2].lat
           );
-        } else {
-          formdata.set("drop_off_locations[3][category_id]", "1");
+          formdata.set(
+            "drop_off_locations[1][drop_off_longitude]",
+            coordinate[2].lng
+          );
+          formdata.set("drop_off_locations[1][booking_order]", "2");
+          formdata.set(
+            "drop_off_locations[1][contact_name]",
+            coordinate[2].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[1][contact_number]",
+            coordinate[2].detailsnumber
+          );
+
+          if (coordinate[2].category) {
+            formdata.set(
+              "drop_off_locations[1][category_id]",
+              coordinate[2].category
+            );
+          } else {
+            formdata.set("drop_off_locations[1][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
+          formdata.set("additional_services[1]", services);
         }
-        formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
-        formdata.set("additional_services[3]", services);
+
+        if (coordinate[3]) {
+          formdata.set(
+            "drop_off_locations[2][drop_off_address]",
+            coordinate[3].address
+          );
+          formdata.set(
+            "drop_off_locations[2][drop_off_latitude]",
+            coordinate[3].lat
+          );
+          formdata.set(
+            "drop_off_locations[2][drop_off_longitude]",
+            coordinate[3].lng
+          );
+          formdata.set("drop_off_locations[2][booking_order]", "3");
+          formdata.set(
+            "drop_off_locations[2][contact_name]",
+            coordinate[3].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[2][contact_number]",
+            coordinate[3].detailsnumber
+          );
+          if (coordinate[3].category) {
+            formdata.set(
+              "drop_off_locations[2][category_id]",
+              coordinate[3].category
+            );
+          } else {
+            formdata.set("drop_off_locations[2][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
+          formdata.set("additional_services[2]", services);
+        }
+
+        if (coordinate[4]) {
+          formdata.set(
+            "drop_off_locations[3][drop_off_address]",
+            coordinate[4].address
+          );
+          formdata.set(
+            "drop_off_locations[3][drop_off_latitude]",
+            coordinate[4].lat
+          );
+          formdata.set(
+            "drop_off_locations[3][drop_off_longitude]",
+            coordinate[4].lng
+          );
+          formdata.set("drop_off_locations[3][booking_order]", "4");
+          formdata.set(
+            "drop_off_locations[3][contact_name]",
+            coordinate[4].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[3][contact_number]",
+            coordinate[4].detailsnumber
+          );
+          if (coordinate[4].category) {
+            formdata.set(
+              "drop_off_locations[3][category_id]",
+              coordinate[4].category
+            );
+          } else {
+            formdata.set("drop_off_locations[3][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
+          formdata.set("additional_services[3]", services);
+        }
+
+        const apiUrl_rate =
+          "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+        const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
+
+        axios
+          .post(apiUrl_rate, ratedata, options)
+          .then((result) => {
+            formdata.set("price", result.data.price);
+
+            var price = result.data.price;
+            setPrice(Number(price).toFixed(2));
+            axios
+              .post(apiUrl, formdata, options)
+              .then((result) => {
+                localStorage.setItem("activeid", result.data.data);
+                router.push("/profile");
+              })
+              .catch((err) => {
+                clickpayment = 0;
+                $(".btnPayment").removeClass("btn--loading");
+              });
+          })
+          .catch((err) => {});
       }
-
-      const apiUrl_rate =
-        "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
-
-      axios
-        .post(apiUrl_rate, ratedata, options)
-        .then((result) => {
-          formdata.set("price", result.data.price);
-
-          var price = result.data.price;
-          setPrice(Number(price).toFixed(2));
-          axios
-            .post(apiUrl, formdata, options)
-            .then((result) => {
-              localStorage.setItem("activeid", result.data.data);
-              router.push("/profile");
-              
-            })
-            .catch((err) => {
-              for (var pair of formdata.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]); 
-            }
-            });
-        })
-        .catch((err) => {});
     }
   }
 
   function gotoPayment() {
-    var x = 0;
+    var x = 1;
     $(".divStopOff:visible")
       .find(".txtValidation")
       .each(function () {
         if ($(this).val() == "") {
+          x = 0;
           $(this).css("border", "1px solid #f44336");
           $(this).closest(".divHide").find(".divAdd").fadeIn(200);
           swal(
@@ -946,11 +950,12 @@ export default function map() {
               </div>
             </div>
           );
-          x = 1;
-        } else {
-          if (x == 0) {
-            $("#exampleModalCenter").modal("toggle");
-          }
+        }
+      })
+      .promise()
+      .done(function () {
+        if (x == 1) {
+          $("#exampleModalCenter").modal("toggle");
         }
       });
   }
@@ -976,7 +981,7 @@ export default function map() {
       )
       .map((data) => setCardToken(data.client_token));
     setPayment("debit_credit");
-   
+
     $(".divCod").css("border", "1px solid #373A41");
     $(".imgCheck").hide();
     $(".divListcard").find(".imgCheck").fadeIn(150);
@@ -1728,18 +1733,18 @@ export default function map() {
                   </button>
                 </div>
                 <div className="col-lg-5">
-                  <button className="btnPayment" onClick={btnPlaceorder}>
+                  <a
+                    className="btn btnPayment "
+                    style={{ paddingTop: "10px" }}
+                    onClick={btnPlaceorder}
+                  >
                     Checkout
-                    <span
-                      style={{
-                        marginLeft: "10px",
-                        fontSize: "1.2rem",
-                        padding: "0px",
-                      }}
-                    >
-                      &#8594;
+                    <span style={{ marginLeft: "50px" }}>
+                      <b></b>
+                      <b></b>
+                      <b></b>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

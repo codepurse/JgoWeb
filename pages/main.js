@@ -4,6 +4,7 @@ import Navbar from "../component/navbar";
 import Login from "../component/login";
 import Deliver from "../component/deliver";
 import NextNprogress from "nextjs-progressbar";
+import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import axios from "axios";
 import Componentdidmount from "../component/componentdidmount";
@@ -20,10 +21,36 @@ function index() {
   }, []);
 
   function book() {
-    document.getElementById('mainCon').scrollIntoView();
+    if(AuthService.getToken()) {
+      document.getElementById('mainCon').scrollIntoView();
     $(".colMain").hide();
     $(".colLogin").hide();
     $(".colDeliver").fadeIn(250);
+    }else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img
+                  src="Image/complain.png"
+                  style={{ width: "32px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Login first before you book
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   return (
