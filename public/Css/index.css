@@ -3459,3 +3459,24 @@ video {
     width: 100%;
     border-radius: 8px !important;
 }
+
+.p10 {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+.p10Sub {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.imgJgowallet {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+}

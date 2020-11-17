@@ -415,9 +415,12 @@ export default function profile() {
     setVerify(e.target.value);
   }
 
-  function getcardToken() {
+  function getcardToken(e) {
     listcard
-      .filter((event) => event.maskedCardNumber === $(".divCardList").find(".pMasked").text())
+      .filter(
+        (event) =>
+          event.maskedCardNumber === $(e.currentTarget).find(".pMasked").text()
+      )
       .map((data) => setClientToken(data.client_token));
   }
 
@@ -1079,6 +1082,20 @@ export default function profile() {
             <p className="pSettingsTitle">Payment Methods</p>
           </div>
           <div className="col-lg-12 form-inline">
+            <div className="divCardList">
+              <img
+                src="Image/logo.png"
+                className="img-fluid imgJgowallet"
+              ></img>
+              <div className="divCardDetails">
+                <div className="row align-items-center">
+                  <div className="col-lg-12">
+                    <p className="p10">Points</p>
+                    <p className="p10Sub">12.24</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             {listcard
               .filter((event) => event.maskedCardNumber !== null)
               .map((event) => (
@@ -1097,7 +1114,9 @@ export default function profile() {
                     <div className="row">
                       <div className="col-lg-7">
                         <p className="p9">Card number</p>
-                        <p className="p9Sub pMasked">{event.maskedCardNumber}</p>
+                        <p className="p9Sub pMasked">
+                          {event.maskedCardNumber}
+                        </p>
                       </div>
                       <div className="col-lg-5">
                         <p className="p9 text-left">Status</p>

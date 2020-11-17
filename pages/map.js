@@ -219,6 +219,7 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    console.log(AuthService.getId());
     if (AuthService.getToken()) {
       $(".conMap").fadeIn(200);
       $(".tooltip-primary").tooltip().mouseover();
@@ -658,7 +659,8 @@ export default function map() {
         </div>
       );
     } else {
-      console.log(coordinate[0].detailsname);
+      console.log(cardtoken);
+       console.log(payment);
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -739,12 +741,16 @@ export default function map() {
       formdata.set("pick_up_address", address.label);
       formdata.set("pick_up_latitude", coordinate[0].lat);
       formdata.set("pick_up_longitude", coordinate[0].lng);
+
       formdata.set("payment_method", payment);
       if(payment == "debit_credit") {
         formdata.set("client_token", cardtoken);
       }else {
 
       }
+
+
+
       formdata.set(
         "drop_off_locations[0][drop_off_address]",
         addressDrop.label
@@ -889,6 +895,7 @@ export default function map() {
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
           formdata.set("price", result.data.price);
+
           var price = result.data.price;
           setPrice(Number(price).toFixed(2));
           axios
@@ -896,8 +903,13 @@ export default function map() {
             .then((result) => {
               localStorage.setItem("activeid", result.data.data);
               router.push("/profile");
+              
             })
-            .catch((err) => {});
+            .catch((err) => {
+              for (var pair of formdata.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]); 
+            }
+            });
         })
         .catch((err) => {});
     }
@@ -949,7 +961,6 @@ export default function map() {
   }
 
   function setMethod() {
-  
     $(".imgCheck").hide();
     $(".divCod").find(".imgCheck").fadeIn(150);
     setPayment("cod");
@@ -957,11 +968,15 @@ export default function map() {
   }
 
   function setPaymentCard(e) {
-   
     listcard
-    .filter((event) => event.maskedCardNumber === $(e.currentTarget).find(".pCardNumber").text())
-    .map((data) => console.log(data.client_token));
+      .filter(
+        (event) =>
+          event.maskedCardNumber ===
+          $(e.currentTarget).find(".pCardNumber").text()
+      )
+      .map((data) => setCardToken(data.client_token));
     setPayment("debit_credit");
+   
     $(".divCod").css("border", "1px solid #373A41");
     $(".imgCheck").hide();
     $(".divListcard").find(".imgCheck").fadeIn(150);
@@ -1694,7 +1709,10 @@ export default function map() {
                     ></img>
                     <div className="row align-items-center">
                       <div className="col-lg-3">
-                        <img src="Image/mastertype.png" className="imgCard"></img>
+                        <img
+                          src="Image/mastertype.png"
+                          className="imgCard"
+                        ></img>
                       </div>
                       <div className="col-lg-9" style={{ padding: "0px" }}>
                         <p className="pCardType">{event.cardType}</p>
