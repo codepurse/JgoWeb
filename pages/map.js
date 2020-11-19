@@ -909,6 +909,9 @@ export default function map() {
                 router.push("/profile");
               })
               .catch((err) => {
+                for (var pair of formdata.entries()) {
+                  console.log(pair[0]+ ', ' + pair[1]); 
+              }
                 clickpayment = 0;
                 $(".btnPayment").removeClass("btn--loading");
               });
@@ -955,6 +958,7 @@ export default function map() {
       .promise()
       .done(function () {
         if (x == 1) {
+          getRate();
           $("#exampleModalCenter").modal("toggle");
         }
       });

@@ -36,6 +36,8 @@ function driver() {
   const [nbi_clearance, setNbiclearance] = React.useState("");
   const [ocr_clearance, setOcrclearance] = React.useState("");
 
+  const [errormess, setError] = React.useState([]);
+  const [errormess1, setError1] = React.useState(["a1231232", "ahahahaahahs"]);
   const inputFileRef = useRef(null);
   const inputFileRef1 = useRef(null);
   const inputFileRef2 = useRef(null);
@@ -176,6 +178,7 @@ function driver() {
   }, []);
 
   function fname_change(e) {
+    console.log(errormess);
     setfname(e.target.value);
     $(".pFname").css("color", "white");
     $(".txtFname").css("borderColor", "#2c2c2c");
@@ -367,6 +370,20 @@ function driver() {
       submitClick = 0;
     }
 
+    if (password.length < 6 || password.length > 16) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      $(".pError").text("Password must be 6-16 characters.");
+      $(".pError").show();
+      submitClick = 0;
+    } else {
+      submitClick = 0;
+    }
+
     if (password == passwordconfirm) {
     } else {
       $(".pConfirmPass").css("color", "#d32f2f");
@@ -375,20 +392,8 @@ function driver() {
       $(".txtPassword").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
-      submitClick = 0;
-    }
-
-    if (password.length < 6 || password.length > 16) {
-      $(".pConfirmPass").css("color", "#d32f2f");
-      $(".txtConfirmPass").css("borderColor", "#d32f2f");
-      $(".pPassword").css("color", "#d32f2f");
-      $(".txtPassword").css("borderColor", "#d32f2f");
-      clear = 1;
-      $(".btn").removeClass("btn--loading");
+      $(".pError").text("Password did not match");
       $(".pError").show();
-      submitClick = 0;
-    } else {
-      $(".pError").hide();
       submitClick = 0;
     }
 
@@ -401,32 +406,39 @@ function driver() {
           "content-type": "application/json",
         },
       };
+      let config = {
+        onUploadProgress: function (progressEvent) {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+        },
+      };
 
       let formdata = new FormData();
 
-      formdata.set("fname", fname);
-      formdata.set("lname", lname);
-      formdata.set("mname", mname);
+      formdata.append("fname", fname);
+      formdata.append("lname", lname);
+      formdata.append("mname", mname);
       formdata.append("profile_pic", profile, profile.name);
-      formdata.set("email", email);
-      formdata.set("mobile_no", mobile);
-      formdata.set("address", address);
-      formdata.set("city", provinced);
-      formdata.set("state", city);
-      formdata.set("country", "Philippines");
-      formdata.set("zip", zip);
-      formdata.set("password", password);
-      formdata.set("password_confirmation", passwordconfirm);
-      formdata.set("driver_license", driver, driver.name);
-      formdata.set("vehicle_type", vehicle);
-      formdata.set("plate_no", plateenumber);
-      formdata.set("license_no", lisencenumber);
-      formdata.set("nbi_clearance", nbi, nbi.name);
-      formdata.set("orcr", orcr, orcr.name);
+      formdata.append("email", email);
+      formdata.append("mobile_no", mobile);
+      formdata.append("address", address);
+      formdata.append("city", provinced);
+      formdata.append("state", city);
+      formdata.append("country", "Philippines");
+      formdata.append("zip", zip);
+      formdata.append("password", password);
+      formdata.append("password_confirmation", passwordconfirm);
+      formdata.append("driver_license", driver, driver.name);
+      formdata.append("vehicle_type", vehicle);
+      formdata.append("plate_no", plateenumber);
+      formdata.append("license_no", lisencenumber);
+      formdata.append("nbi_clearance", nbi, nbi.name);
+      formdata.append("orcr", orcr, orcr.name);
 
       const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register-driver";
       axios
-        .post(apiUrl, formdata, options)
+        .post(apiUrl, formdata, options, config)
         .then((result) => {
           $("#driverModal").modal("hide");
           successMessage();
@@ -435,10 +447,32 @@ function driver() {
           submitClick = 0;
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response);
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #d32f2f" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/close.png" style={{ width: "25px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    {Object.keys(err.response.data.data).map((keyName, i) => (
+                      <p className="pErrorSub">
+                        {err.response.data.data[keyName]}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+
           $("#driverModal").css("z-index", "99");
           $(".modal-backdrop").hide();
-          errorMessage();
 
           $(".btn").removeClass("btn--loading");
           submitClick = 0;
@@ -501,13 +535,13 @@ function driver() {
             style={{ borderLeft: "3px solid #d32f2f" }}
           >
             <div className="col-lg-2">
-              <img src="Image/close.png" style={{ width: "32px" }}></img>
+              <img src="Image/close.png" style={{ width: "25px" }}></img>
             </div>
             <div className="col-lg-10" style={{ textAlign: "left" }}>
               <p className="pError">Error</p>
-              <p className="pErrorSub">
-                Email is not available or already registered.
-              </p>
+              {errormess.map((value) => (
+                <p className="pErrorSub">{value}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -643,7 +677,9 @@ function driver() {
               className="col-lg-4 col-sm-12 col-12 align-self-top "
               style={{ marginTop: "200px", position: "relative" }}
             >
-              <p className="pComing" onClick = {deletetoken}>COMING SOON</p>
+              <p className="pComing" onClick={deletetoken}>
+                COMING SOON
+              </p>
               <div className="row">
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <div className="divButton form-inline">

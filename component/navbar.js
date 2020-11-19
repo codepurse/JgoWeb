@@ -24,37 +24,34 @@ export default function navbar() {
   }
 
   function deliverForm(e) {
-   if (AuthService.getToken()) {
-    $(".colMain").hide();
-    $(".colLogin").hide();
-    $(".colDeliver").fadeIn(250);
-    $('img').tooltip().mouseover();
-    setTimeout(function(){ $('img').tooltip('hide'); }, 5000);
-   }else {
-    swal(
-      <div style={{ width: "450px", padding: "10px" }}>
-        <div className="container">
-          <div
-            className="row align-items-center"
-            style={{ borderLeft: "3px solid #FFE900" }}
-          >
-            <div className="col-lg-2">
-              <img
-                src="Image/complain.png"
-                style={{ width: "32px" }}
-              ></img>
-            </div>
-            <div className="col-lg-10" style={{ textAlign: "left" }}>
-              <p className="pError">Warning</p>
-              <p className="pErrorSub">
-                Login first before you book
-              </p>
+    if (AuthService.getToken()) {
+      $(".colMain").hide();
+      $(".colLogin").hide();
+      $(".colDeliver").fadeIn(250);
+      $("img").tooltip().mouseover();
+      setTimeout(function () {
+        $("img").tooltip("hide");
+      }, 5000);
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">Login first before you book</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-   }
+      );
+    }
   }
 
   useEffect(() => {
@@ -66,26 +63,24 @@ export default function navbar() {
   }, []);
 
   return (
-    
     <div className="container-fluid">
       <nav
         className="navbar navbar-expand-md fixed-top"
         style={{ padding: "20px 20px" }}
       >
         <div className="container-fluid">
-         
           <nav className="navbar-brand" href="#">
             <a href="#">
               <img
                 src="Image/logo.png"
                 className="img-fluid imgLogo imglogonav"
-                style={{marginLeft: "15px" }}
+                style={{ marginLeft: "15px" }}
               />
             </a>
           </nav>
           <div className="collapse navbar-collapse" id="collapse">
             <div className="col2 ml-auto">
-              <ul className="nav navbar-nav" style = {{marginRight: "15px"}}>
+              <ul className="nav navbar-nav" style={{ marginRight: "15px" }}>
                 <li className={index}>
                   <Link href="/driver">
                     <a className="nav-link" style={{ color: "white" }}>
@@ -95,13 +90,15 @@ export default function navbar() {
                 </li>
                 <li className={deliver} onClick={deliverForm}>
                   <a className="nav-link" style={{ color: "white" }}>
-                   Deliver Now
+                    Deliver Now
                   </a>
                 </li>
                 <li className={contact}>
-                  <a className="nav-link" style={{ color: "white" }}>
-                   JGO Support
-                  </a>
+                  <Link href="/support">
+                    <a className="nav-link" style={{ color: "white" }}>
+                      JGO Support
+                    </a>
+                  </Link>
                 </li>
                 <li className={login} onClick={loginForm}>
                   <a

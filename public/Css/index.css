@@ -161,6 +161,10 @@
         height: auto !important;
         display: none !important;
     }
+
+    .divBookDetails1 {
+        display: block !important;
+    }
 }
 
 .divNavbar {
@@ -1833,6 +1837,19 @@ td {
     margin-bottom: 5px;
 }
 
+.cancel {
+    font-size: 0.9rem;
+    color: white;
+    display: block;
+    text-transform: capitalize;
+    background-color: #ED3450;
+    padding: 2px 20px;
+    width: max-content;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .intransit, .arrivedpickup {
     font-size: 0.9rem;
     color: #FDA41B;
@@ -2614,6 +2631,10 @@ label:active:after {
 }
 
 /* Tracking */
+
+.divBookDetails1 {
+    display: none;
+}
 
 .colSidebar {
     padding: 0px;

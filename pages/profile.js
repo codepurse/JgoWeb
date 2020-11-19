@@ -52,6 +52,7 @@ export default function profile() {
     { value: "Looking for Driver", label: "Looking for Driver" },
     { value: "In Transit", label: "In Transit" },
     { value: "a", label: "All" },
+    { value: "Cancelled", label: "Cancelled" },
   ];
 
   const pubnub = new PubNub({
@@ -289,7 +290,7 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data.reverse());
-
+        console.log(result)
         if (result.data.data) {
           result.data.data
             .filter(
@@ -306,7 +307,6 @@ export default function profile() {
         }
         show(0, 5);
         tablemap = result.data.data;
-        console.log(result.data.data);
         setCount(result.data.data.length);
         $(".Box").hide();
         if (result.data.data.length === 0) {
@@ -416,12 +416,36 @@ export default function profile() {
   }
 
   function getcardToken(e) {
+    console.log($(e.currentTarget).find(".p9Sub").text());
     listcard
       .filter(
         (event) =>
           event.maskedCardNumber === $(e.currentTarget).find(".pMasked").text()
       )
       .map((data) => setClientToken(data.client_token));
+
+    if ($(e.currentTarget).find(".pVerified").text() == "Verified") {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #00C853" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/success.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Verified</p>
+                <p className="pErrorSub">Your card is already verified.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      $("#modalVerify").modal("toggle");
+    }
   }
 
   function getVerify(e) {
@@ -571,6 +595,8 @@ export default function profile() {
         return "driverfound";
       case "Looking for Driver":
         return "looking1";
+      case "Canceled":
+        return "cancel";
     }
   };
 
@@ -879,7 +905,7 @@ export default function profile() {
                 </tbody>
               </table>
             </div>
-            <div class="Box">
+            <div className="Box">
               <span></span>
               <span></span>
               <span></span>
@@ -1099,12 +1125,7 @@ export default function profile() {
             {listcard
               .filter((event) => event.maskedCardNumber !== null)
               .map((event) => (
-                <div
-                  className="divCardList"
-                  data-toggle="modal"
-                  data-target="#modalVerify"
-                  onClick={getcardToken}
-                >
+                <div className="divCardList" onClick={getcardToken}>
                   <img src="Image/chip.png" className="img-fluid imgChip"></img>
                   <img
                     src="Image/mastertype.png"
@@ -1120,7 +1141,7 @@ export default function profile() {
                       </div>
                       <div className="col-lg-5">
                         <p className="p9 text-left">Status</p>
-                        <p className="p9Sub text-left ">
+                        <p className="p9Sub pVerified text-left ">
                           {event.cardStatus == 1 ? "Not verified" : "Verified"}
                         </p>
                       </div>

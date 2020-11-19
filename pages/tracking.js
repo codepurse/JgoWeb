@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import Googlemap from "../component/map/maptracking";
 import Header from "../component/header";
 import { useRouter } from "next/router";
-
+import AuthService from "../services/auth.service";
 import Componentdidmount from "../component/componentdidmount";
 
 import axios from "axios";
@@ -39,7 +39,9 @@ export default function tracking() {
 
   function txtclick() {}
 
-  useEffect(() => {});
+  useEffect(() => {
+    
+  }, []);
 
   useEffect(() => {
     if (dropoff_loc) {
@@ -53,8 +55,6 @@ export default function tracking() {
             icon: "Image/gps.png",
           };
           tracks.push(dropoff);
-
-        
         });
       }
     }
@@ -75,7 +75,8 @@ export default function tracking() {
           xsrfHeaderName: "X-XSRF-TOKEN",
         },
       };
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+      const apiUrl =
+        "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
       axios
         .post(apiUrl, { id: id }, options)
         .then((result) => {
@@ -112,8 +113,7 @@ export default function tracking() {
 
           tracks.push(pickoffloc);
           console.log(pickoffloc);
-          router.push('/tracking');
-         
+          router.push("/tracking");
         })
         .catch((err) => {
           console.log(err);
@@ -143,7 +143,8 @@ export default function tracking() {
           xsrfHeaderName: "X-XSRF-TOKEN",
         },
       };
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+      const apiUrl =
+        "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
       axios
         .post(apiUrl, { id: id }, options)
         .then((result) => {
@@ -182,8 +183,7 @@ export default function tracking() {
           $(".conSide").fadeIn(150);
           tracks.push(pickoffloc);
           console.log(pickoffloc);
-          router.push('/tracking');
-       
+          router.push("/tracking");
         })
         .catch((err) => {
           console.log(err);
@@ -200,10 +200,11 @@ export default function tracking() {
           className="row h-100 align-items-center"
           style={{ padding: "0px" }}
         >
-          <div className="col-lg-12" style = {{display: "none"}}>
+          <div className="col-lg-12" style={{ display: "none" }}>
             <img
               src="Image/newlogo.png"
-              className="mx-auto d-flex img-fluid" style = {{width: "150px"}}
+              className="mx-auto d-flex img-fluid"
+              style={{ width: "150px" }}
             ></img>
           </div>
           <div className="col-lg-12" stl>

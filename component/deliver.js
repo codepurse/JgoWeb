@@ -169,7 +169,7 @@ export default function App() {
         coordinatesDrop.lng
       );
       ratedata.set("drop_off_locations[0][booking_order]", "1");
-      ratedata.set("additional_services[0]", "1");
+      ratedata.set("additional_services[0]", "0");
 
       const apiUrl_rate =
         "https://staging-api.jgo.com.ph/api/auth/calculate-rate";

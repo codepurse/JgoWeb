@@ -50,7 +50,7 @@ function Post() {
             name: "",
             lat: parseFloat(event.drop_off_latitude),
             lng: parseFloat(event.drop_off_longitude),
-            icon: "../Image/gps.png",
+            icon: "../Image/navigation.png",
           };
           tracks.push(dropoff);
         });
@@ -68,7 +68,7 @@ function Post() {
         name: "",
         lat: parseFloat(driver_loc.driver_latitude),
         lng: parseFloat(driver_loc.driver_longitude),
-        icon: "../Image/motorcycle.png",
+        icon: "../Image/rider.png",
       };
       tracks.push(dropoff);
     }
@@ -119,7 +119,7 @@ function Post() {
             name: "",
             lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
             lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
-            icon: "../Image/gps.png",
+            icon: "../Image/navigation.png",
           };
           tracks.push(pickoffloc);
           router.push("/tracking/" + number);
@@ -182,7 +182,7 @@ function Post() {
           name: "",
           lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
           lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
-          icon: "../Image/gps.png",
+          icon: "../Image/navigation.png",
         };
 
         tracks.push(pickoffloc);
@@ -200,7 +200,7 @@ function Post() {
         <link rel="stylesheet" href="../Css/index.css"></link>
       </Head>
 
-      <div className="container-fluid  consideTrack h-100">
+      <div className="container-fluid  h-100">
         <div className="divBookDetails1">
           <div className="row">
             <div className = "col-lg-12 text-center">
