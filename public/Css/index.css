@@ -1001,6 +1001,22 @@ hr {
     border: 1px solid #FDBF00;
 }
 
+
+.divWallet {
+    border: 1px solid #373A41;
+    border-radius: 8px;
+    background-color: #373A41;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.divWalelt:hover {
+    border: 1px solid #FDBF00;
+}
+
+
 .pCod {
     font-family: 'GilroySemiBold';
     color: whitesmoke;
@@ -1019,6 +1035,13 @@ hr {
     font-family: 'GilroyBold';
     color: whitesmoke;
     font-size: 2rem;
+    margin-bottom: 0px;
+}
+
+.pWalletModal {
+    font-family: 'GilroyBold';
+    color: whitesmoke;
+    font-size: 1.5rem;
     margin-bottom: 0px;
 }
 
@@ -3505,6 +3528,7 @@ video {
     border-radius: 8px !important;
 }
 
+
 .p10 {
     font-family: 'GilroyMedium';
     color: whitesmoke;
@@ -3524,4 +3548,46 @@ video {
     top: 20px;
     right: 20px;
     width: 80px;
+}
+
+.btnTopup {
+    font-family: "GilroyMedium" !important;
+    font-weight: 600;
+    color: #FFF257;
+    border: 1px solid #FFF257 !important;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 38px;
+    margin-top: -5px;
+    outline: none !important;
+    width: 100%;
+    border-radius: 8px !important;
+    transition: all 0.2s;
+}
+
+.btnTopup:hover {
+    background-color: #FFF257;
+    color: #424242;
+}
+
+.btnConfirmTopup {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid #EDC728 !important;
+    padding: 10px;
+    width: 180px;
+    border-radius: 10px !important;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.1s;
+    outline: none !important;
+}
+
+.btnSave:hover {
+    color: #212121 !important;
+    font-weight: 600;
+    background-color: #EDC728 !important;
 }

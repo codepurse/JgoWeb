@@ -31,7 +31,7 @@ $(document).ready(function () {
   } else {
     $("#switch").prop("checked", false);
   }
-  var y = 0;
+ 
   var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
@@ -56,9 +56,9 @@ $(document).ready(function () {
   $(".pAdd").click(function () {
     $(this).closest(".divHide").find(".divAdd").fadeIn(200);
   });
-
+  var y = 0;
   $(".btnAddStopoff").click(function () {
-    if (y === 1) {
+    if (y == 1) {
       if (
         $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0
       ) {

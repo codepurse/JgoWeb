@@ -41,6 +41,7 @@ export default function profile() {
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
   const [profilepic, setProfle] = React.useState("");
+  const [walletbalance, setWallet] = React.useState("");
 
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
@@ -52,7 +53,7 @@ export default function profile() {
     { value: "Looking for Driver", label: "Looking for Driver" },
     { value: "In Transit", label: "In Transit" },
     { value: "a", label: "All" },
-    { value: "Cancelled", label: "Cancelled" },
+    { value: "Canceled", label: "Canceled" },
   ];
 
   const pubnub = new PubNub({
@@ -240,7 +241,6 @@ export default function profile() {
         Authorization: "Bearer " + AuthService.getToken(),
         xsrfCookieName: "XSRF-TOKEN",
         xsrfHeaderName: "X-XSRF-TOKEN",
-        "Content-Length": "X-Actual-Content-Length",
       },
     };
 
@@ -250,6 +250,23 @@ export default function profile() {
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
       console.log(result.data.user_card_details);
+    });
+
+    const options3 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    const apiUrl3 =
+      "https://staging-api.jgo.com.ph/api/auth/jgo_wallet_balance";
+
+    axios.get(apiUrl3, {}, options3).then((result) => {
+      console.log(result);
     });
 
     if (sessionStorage.getItem("addpayment") == "1") {
@@ -290,7 +307,7 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data.reverse());
-        console.log(result)
+        console.log(result);
         if (result.data.data) {
           result.data.data
             .filter(
@@ -341,6 +358,7 @@ export default function profile() {
         setState(result.data.data.state);
         setZip(result.data.data.zip);
         setCity(result.data.data.city);
+        setWallet(result.data.data.get_jgo_wallet.balance);
         setProfle(
           "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
             result.data.data.profile_pic
@@ -691,7 +709,10 @@ export default function profile() {
     }
   );
 
+  function reminder() {}
+
   function addCard() {
+    $(".btnAddcard").addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json",
@@ -706,17 +727,71 @@ export default function profile() {
       .then((result) => {
         console.log(result.data.data.redirectUrl);
         window.open(result.data.data.redirectUrl, "_blank");
+        $(".btnAddcard").removeClass("btn--loading");
       })
       .catch((err) => {
+        $(".btnAddcard").removeClass("btn--loading");
         console.log(err);
       });
   }
 
+  function topup() {
+    if (!address || !fname || !lname || !mname || !zip || !country || !state1 || !city || !mobile || !emailprof || !zip) {
+      $("#modalTopup").modal("toggle");
+    } else {
+      const options = {
+        headers: {
+          Accept: "application/json",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+        },
+      };
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/topUpJGOWallet";
+      let formdata = new FormData();
+      formdata.set("fname", fname);
+      formdata.set("mname", mname);
+      formdata.set("lname", lname);
+      formdata.set("platform", "web");
+      formdata.set("email", emailprof);
+      formdata.set("state", state1);
+      formdata.set("city", city);
+      formdata.set("address1", address);
+      formdata.set("country", country);
+      formdata.set("mobile_no", mobile);
+      formdata.set("lname", lname);
+      formdata.set("zip", zip);
+      formdata.set("amount", "300");
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          console.log(result.data);
+          $("#paymentrequest").val(result.data.encoded_xml);
+          document.getElementById("paygate_frm").submit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   return (
     <>
       <Header></Header>
-      <Componentdidmount></Componentdidmount>
 
+      <Componentdidmount></Componentdidmount>
+      <div style={{ display: "none" }}>
+        <form id = "paygate_frm"
+          action="https://testpti.payserv.net/webpayment/Default.aspx"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="paymentrequest"
+            id="paymentrequest"
+            value=""
+          ></input>
+          <input type="submit" id = "submitpayment" value="Submit" />
+        </form>
+      </div>
       <div className="container-fluid conProfile">
         <NextNprogress color="#EDC728" />
         <div className="divSidebar">
@@ -1115,9 +1190,14 @@ export default function profile() {
               ></img>
               <div className="divCardDetails">
                 <div className="row align-items-center">
-                  <div className="col-lg-12">
+                  <div className="col-lg-6">
                     <p className="p10">Points</p>
-                    <p className="p10Sub">12.24</p>
+                    <p className="p10Sub">{walletbalance}</p>
+                  </div>
+                  <div className="col-lg-6">
+                    <button className="btnTopup" onClick={topup}>
+                      Top up
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1150,7 +1230,11 @@ export default function profile() {
                 </div>
               ))}
 
-            <div className="divCardPayment" onClick={addCard}>
+            <div
+              className="divCardPayment"
+              data-toggle="modal"
+              data-target="#modalReminder"
+            >
               <p className="pAddCard">&#43;</p>
             </div>
           </div>
@@ -1297,7 +1381,7 @@ export default function profile() {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
-                    <p className="pModalVerify">Verify your card</p>
+                    <p className="pModalVerify">Reminder</p>
                     <p className="pModalTitleSub">
                       Please enter the exact amount that we deducted in your
                       account.
@@ -1315,6 +1399,178 @@ export default function profile() {
                     <a className="btn btnVerify" onClick={getVerify}>
                       Verify
                       <span style={{ marginLeft: "40px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalReminder"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify">Reminder</p>
+                    <p className="pModalTitleSub">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam,
+                    </p>
+                  </div>
+
+                  <div className="col-lg-5">
+                    <a
+                      className="btn btnVerify btnAddcard"
+                      onClick={addCard}
+                      style={{ marginTop: "5px" }}
+                    >
+                      Add card
+                      <span style={{ marginLeft: "40px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalTopup"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalTitle">Jgo - Topup form</p>
+                    <p className="pModalTitleSub">
+                      Please fill up all the missing credentials.
+                    </p>
+                    <hr
+                      style={{
+                        backgroundColor: "#414141",
+                        boder: "1px solid #414141",
+                      }}
+                    ></hr>
+                  </div>
+                </div>
+                <div className="row" style={{ marginTop: "10px" }}>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">First Name</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={fname}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Middle Name</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={mname}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Last Name</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={lname}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Email</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={emailprof}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Mobile</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={mobile}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Country</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={country}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Address</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={address}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">City</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={city}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">State</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={state1}
+                    ></input>
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="pTxtDriver pFname">Zip</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={zip}
+                    ></input>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col-lg-12 mx-auto d-flex"
+                    style={{ marginTop: "10px" }}
+                  >
+                    <a className="btn btnConfirmTopup" onClick={saveprof}>
+                      Confirm
+                      <span style={{ marginLeft: "60px" }}>
                         <b></b>
                         <b></b>
                         <b></b>

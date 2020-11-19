@@ -27,6 +27,7 @@ export default function map() {
   const [isToggled, setIsToggled] = React.useState(false);
   const [listcard, setListcard] = React.useState([]);
   const [cardtoken, setCardToken] = React.useState("");
+  const [wallet, setWallet] = React.useState("");
   var clickpayment = 0;
   const bookingtype = [
     { value: "1", label: "Document" },
@@ -244,7 +245,7 @@ export default function map() {
       value: localStorage.getItem("address"),
       label: localStorage.getItem("address"),
     });
-    setAddressDrop({
+    setAddressDrop({  
       value: localStorage.getItem("addressDrop"),
       label: localStorage.getItem("addressDrop"),
     });
@@ -259,7 +260,6 @@ export default function map() {
         Authorization: "Bearer " + AuthService.getToken(),
         xsrfCookieName: "XSRF-TOKEN",
         xsrfHeaderName: "X-XSRF-TOKEN",
-        "Content-Length": "X-Actual-Content-Length",
       },
     };
 
@@ -269,6 +269,12 @@ export default function map() {
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
       console.log(result.data.user_card_details);
+    });
+
+    const apiUrl_wallet =
+      "https://staging-api.jgo.com.ph/api/auth/customer-profile";
+    axios.post(apiUrl_wallet, {}, options1).then((result) => {
+      setWallet(result.data.data.get_jgo_wallet.balance);
     });
   }, []);
 
@@ -910,8 +916,8 @@ export default function map() {
               })
               .catch((err) => {
                 for (var pair of formdata.entries()) {
-                  console.log(pair[0]+ ', ' + pair[1]); 
-              }
+                  console.log(pair[0] + ", " + pair[1]);
+                }
                 clickpayment = 0;
                 $(".btnPayment").removeClass("btn--loading");
               });
@@ -969,11 +975,20 @@ export default function map() {
     window.open("/profile", "_blank");
   }
 
-  function setMethod() {
+  function setMethod(e) {
     $(".imgCheck").hide();
-    $(".divCod").find(".imgCheck").fadeIn(150);
+    $(".divCod").css("border", "1px solid #373A41");
+    $(e.currentTarget).find(".imgCheck").fadeIn(150);
     setPayment("cod");
-    $(".divCod").css("border", "1px solid #FDBF00");
+    $(e.currentTarget).css("border", "1px solid #FDBF00");
+  }
+
+  function setMethodWallet(e) {
+    $(".imgCheck").hide();
+    $(".divCod").css("border", "1px solid #373A41");
+    $(e.currentTarget).find(".imgCheck").fadeIn(150);
+    setPayment("jgowallet");
+    $(e.currentTarget).css("border", "1px solid #FDBF00");
   }
 
   function setPaymentCard(e) {
@@ -1059,7 +1074,7 @@ export default function map() {
                   className="img-fluid imgMap tooltip-primary"
                   onClick={opensweetalert}
                   data-toggle="tooltip"
-                  data-toggle="tooltip"
+               
                   data-placement="top"
                   title="Click the map to set the exact location"
                 ></img>
@@ -1697,6 +1712,31 @@ export default function map() {
                   </div>
                   <div className="col-lg-4">
                     <p className="pPriceModal">&#8369;{price}</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="divCod"
+                onClick={setMethodWallet}
+                style={{ marginTop: "10px" }}
+              >
+                <img src="Image/check.png" className="img-fluid imgCheck"></img>
+                <div className="row align-items-center">
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/wallet.png"
+                      className="img-fluid mx-auto d-flex"
+                      style={{ width: "55px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-7">
+                    <p className="pCod">JGO Wallet</p>
+                    <p className="pCodSub">
+                      It will be debit in your Jgo wallet
+                    </p>
+                  </div>
+                  <div className="col-lg-3">
+                    <p className="pWalletModal">{wallet}</p>
                   </div>
                 </div>
               </div>
