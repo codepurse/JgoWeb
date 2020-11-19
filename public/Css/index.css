@@ -1043,6 +1043,7 @@ hr {
     color: whitesmoke;
     font-size: 1.5rem;
     margin-bottom: 0px;
+    text-align: center;
 }
 
 .imgCheck {
@@ -2352,7 +2353,7 @@ label:active:after {
     width: 35px;
 }
 
-.spanCheck {
+.spanCheckSettings {
     font-family: "GilroyMedium";
     color: whitesmoke;
     font-size: 1rem;
@@ -3524,7 +3525,7 @@ video {
     height: 38px;
     margin-top: -5px;
     outline: none !important;
-    width: 100%;
+    width: 400px !important;
     border-radius: 8px !important;
 }
 
@@ -3590,4 +3591,54 @@ video {
     color: #212121 !important;
     font-weight: 600;
     background-color: #EDC728 !important;
+}
+
+.divPricewallet {
+    background-color:  #3D3D3D;
+    border-left: 3px solid lightgray;
+    padding: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.divPricewallet:hover {
+    border-left: 3px solid #3BCD67;
+}
+
+.pWalletPrice {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+
+.spanCheck {
+    font-family: 'GilroyMedium';
+    color: gray;
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+
+.modalTop {
+    padding: 30px !important;
+    padding-bottom: 20px !important;
+    background: #1A1A1A;
+}
+
+.btnAddcard {
+    font-family: "GilroyMedium" !important;
+    color: whitesmoke;
+    border: 1px solid #FFF257 !important;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 38px;
+    outline: none !important;
+    width: 200px !important;
+    border-radius: 8px !important;
+}
+
+.btnAddcard:hover {
+    color: #424242 !important;
 }

@@ -42,6 +42,7 @@ export default function profile() {
   const [zip, setZip] = React.useState("");
   const [profilepic, setProfle] = React.useState("");
   const [walletbalance, setWallet] = React.useState("");
+  const [topupamount, setTopup] = React.useState("");
 
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
@@ -709,7 +710,95 @@ export default function profile() {
     }
   );
 
-  function reminder() {}
+  function saveprof1() {
+    if(!address ||
+      !fname ||
+      !lname ||
+      !mname ||
+      !zip ||
+      !country ||
+      !state1 ||
+      !city ||
+      !mobile ||
+      !emailprof ||
+      !zip) {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img
+                    src="Image/warning.png"
+                    style={{ width: "32px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">
+                    Fill up all the missing fields.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    }else {
+      $(".btConfirmTopup").addClass("btn--loading");
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    const data = {
+      id: AuthService.getId(),
+      fname: fname,
+      mname: mname,
+      lname: lname,
+      email: emailprof,
+      mobile_no: mobile,
+      address: address,
+      city: city,
+      state: state1,
+      country: country,
+      zip: zip,
+    };
+
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
+    axios
+      .put(apiUrl, data, options)
+      .then((result) => {
+        console.log(result);
+        $("#modalForm").modal("toggle");
+        $(".btConfirmTopup").removeClass("btn--loading");
+        $("#modalTopup").modal("toggle");
+      })
+      .catch((err) => {
+        console.log(err);
+        $(".btnSave").removeClass("btn--loading");
+      });
+    }
+  }
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+      }
+      return error;
+    }
+  );
+
+
 
   function addCard() {
     $(".btnAddcard").addClass("btn--loading");
@@ -735,51 +824,92 @@ export default function profile() {
       });
   }
 
+  function goTopup() {
+    $(".btnAddcard").addClass("btn--loading");
+    const options = {
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+      },
+    };
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/topUpJGOWallet";
+    let formdata = new FormData();
+    formdata.set("fname", fname);
+    formdata.set("mname", mname);
+    formdata.set("lname", lname);
+    formdata.set("platform", "web");
+    formdata.set("email", emailprof);
+    formdata.set("state", state1);
+    formdata.set("city", city);
+    formdata.set("address1", address);
+    formdata.set("country", country);
+    formdata.set("mobile_no", mobile);
+    formdata.set("lname", lname);
+    formdata.set("zip", zip);
+    formdata.set("amount", topupamount);
+    axios
+      .post(apiUrl, formdata, options)
+      .then((result) => {
+        console.log(result.data);
+        $("#paymentrequest").val(result.data.encoded_xml);
+        document.getElementById("paygate_frm").submit();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function topup() {
-    if (!address || !fname || !lname || !mname || !zip || !country || !state1 || !city || !mobile || !emailprof || !zip) {
-      $("#modalTopup").modal("toggle");
+    if (
+      !address ||
+      !fname ||
+      !lname ||
+      !mname ||
+      !zip ||
+      !country ||
+      !state1 ||
+      !city ||
+      !mobile ||
+      !emailprof ||
+      !zip
+    ) {
+      $("#modalForm").modal("toggle");
     } else {
-      const options = {
-        headers: {
-          Accept: "application/json",
-          "content-type": "application/json",
-          Authorization: "Bearer " + AuthService.getToken(),
-        },
-      };
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/topUpJGOWallet";
-      let formdata = new FormData();
-      formdata.set("fname", fname);
-      formdata.set("mname", mname);
-      formdata.set("lname", lname);
-      formdata.set("platform", "web");
-      formdata.set("email", emailprof);
-      formdata.set("state", state1);
-      formdata.set("city", city);
-      formdata.set("address1", address);
-      formdata.set("country", country);
-      formdata.set("mobile_no", mobile);
-      formdata.set("lname", lname);
-      formdata.set("zip", zip);
-      formdata.set("amount", "300");
-      axios
-        .post(apiUrl, formdata, options)
-        .then((result) => {
-          console.log(result.data);
-          $("#paymentrequest").val(result.data.encoded_xml);
-          document.getElementById("paygate_frm").submit();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      $("#modalTopup").modal("toggle");
     }
   }
+
+  function set300(e) {
+    setTopup("300");
+    $(".divPricewallet").css("border-left", "2px solid lightgray");
+    $(e.currentTarget).css("border-left", "2px solid #3BCD67");
+    $(".spanCheck").css("color", "gray");
+    $(e.currentTarget).find(".spanCheck").css("color", "#3BCD67");
+  }
+  function set600(e) {
+    setTopup("600");
+    $(".divPricewallet").css("border-left", "2px solid lightgray");
+    $(e.currentTarget).css("border-left", "2px solid #3BCD67");
+    $(".spanCheck").css("color", "gray");
+    $(e.currentTarget).find(".spanCheck").css("color", "#3BCD67");
+  }
+  function set900(e) {
+    setTopup("900");
+    $(".divPricewallet").css("border-left", "2px solid lightgray");
+    $(e.currentTarget).css("border-left", "2px solid #3BCD67");
+    $(".spanCheck").css("color", "gray");
+    $(e.currentTarget).find(".spanCheck").css("color", "#3BCD67");
+  }
+
   return (
     <>
       <Header></Header>
 
       <Componentdidmount></Componentdidmount>
       <div style={{ display: "none" }}>
-        <form id = "paygate_frm"
+        <form
+          id="paygate_frm"
           action="https://testpti.payserv.net/webpayment/Default.aspx"
           method="POST"
         >
@@ -789,7 +919,7 @@ export default function profile() {
             id="paymentrequest"
             value=""
           ></input>
-          <input type="submit" id = "submitpayment" value="Submit" />
+          <input type="submit" id="submitpayment" value="Submit" />
         </form>
       </div>
       <div className="container-fluid conProfile">
@@ -1067,7 +1197,7 @@ export default function profile() {
           </div>
           <div className="col-lg-6">
             <div className="divProf">
-              <p className="pTxtDriver pMobile">Mobile Number</p>
+              <p className="pTxtDriver">Mobile Number</p>
               <input
                 type="text"
                 className="txtDriver txtMobile txtprof"
@@ -1151,8 +1281,8 @@ export default function profile() {
             <div>
               <input type="checkbox" id="switch" />
               <label for="switch">Toggle</label>
-              <span className="spanCheck">
-                Enable light mode{" "}
+              <span className="spanCheckSettings">
+                Enable light mode
                 <span style={{ fontSize: "0.9rem" }}>
                   ( Restart the page to take effect )
                 </span>
@@ -1161,7 +1291,7 @@ export default function profile() {
             <div style={{ marginTop: "10px" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
-              <span className="spanCheck">Enable toolips</span>
+              <span className="spanCheckSettings">Enable toolips</span>
             </div>
             <p className="pSettingsTitle" style={{ marginTop: "20px" }}>
               Password
@@ -1414,6 +1544,92 @@ export default function profile() {
 
       <div
         className="modal fade"
+        id="modalTopup"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalTop">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify">Jgo Wallet - Top up</p>
+                    <p className="pModalTitleSub">
+                      Choose between multipe options and select confirm.
+                    </p>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="divPricewallet" onClick={set300}>
+                      <div className="row align-items-center">
+                        <div className="col-lg-2">
+                          <span className="spanCheck">&#10003;</span>
+                        </div>
+                        <div className="col-lg-7">
+                          <p className="pCod">JGO Wallet</p>
+                          <p className="pCodSub">300 points will be added.</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p className="pWalletModal">300</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="divPricewallet" onClick={set600}>
+                      <div className="row align-items-center">
+                        <div className="col-lg-2">
+                          <span className="spanCheck">&#10003;</span>
+                        </div>
+                        <div className="col-lg-7">
+                          <p className="pCod">JGO Wallet</p>
+                          <p className="pCodSub">600 points will be added.</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p className="pWalletModal">600</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="divPricewallet" onClick={set900}>
+                      <div className="row align-items-center">
+                        <div className="col-lg-2">
+                          <span className="spanCheck">&#10003;</span>
+                        </div>
+                        <div className="col-lg-7">
+                          <p className="pCod">JGO Wallet</p>
+                          <p className="pCodSub">900 points will be added.</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p className="pWalletModal">900</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <a
+                      className="btn btnAddcard  mx-auto d-flex"
+                      onClick={goTopup}
+                      style={{ marginTop: "10px" }}
+                    >
+                      Add card
+                      <span style={{ marginLeft: "10px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
         id="modalReminder"
         tabIndex={-1}
         role="dialog"
@@ -1436,7 +1652,7 @@ export default function profile() {
 
                   <div className="col-lg-5">
                     <a
-                      className="btn btnVerify btnAddcard"
+                      className="btn btnVerify "
                       onClick={addCard}
                       style={{ marginTop: "5px" }}
                     >
@@ -1457,7 +1673,7 @@ export default function profile() {
 
       <div
         className="modal fade"
-        id="modalTopup"
+        id="modalForm"
         tabIndex={-1}
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -1488,6 +1704,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={fname}
+                      onChange={fname_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1496,6 +1713,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={mname}
+                      onChange={mname_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1504,6 +1722,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={lname}
+                      onChange={lname_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1512,6 +1731,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={emailprof}
+                      onChange={email_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1520,6 +1740,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={mobile}
+                      onChange={mobile_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1536,6 +1757,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={address}
+                      onChange={address_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1544,6 +1766,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={city}
+                      onChange={city_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1552,6 +1775,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={state1}
+                      onChange={state_change}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1560,6 +1784,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={zip}
+                      onChange={zip_change}
                     ></input>
                   </div>
                 </div>
@@ -1568,7 +1793,7 @@ export default function profile() {
                     className="col-lg-12 mx-auto d-flex"
                     style={{ marginTop: "10px" }}
                   >
-                    <a className="btn btnConfirmTopup" onClick={saveprof}>
+                    <a className="btn btnConfirmTopup" onClick={saveprof1}>
                       Confirm
                       <span style={{ marginLeft: "60px" }}>
                         <b></b>
