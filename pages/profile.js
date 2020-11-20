@@ -8,6 +8,7 @@ import Select from "react-select";
 import swal from "@sweetalert/with-react";
 import NextNprogress from "nextjs-progressbar";
 import Componentdidmount from "../component/componentdidmount";
+import Chat from "../component/chat";
 import Link from "next/link";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
@@ -715,17 +716,6 @@ export default function profile() {
       });
   }
 
-  axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response.status === 401) {
-      }
-      return error;
-    }
-  );
-
   function saveprof1() {
     if (
       !address ||
@@ -800,16 +790,7 @@ export default function profile() {
     }
   }
 
-  axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response.status === 401) {
-      }
-      return error;
-    }
-  );
+
 
   function addCard() {
     $(".btnAddcard").addClass("btn--loading");
@@ -980,6 +961,9 @@ export default function profile() {
       </div>
       <div className="container-fluid conProfile">
         <NextNprogress color="#EDC728" />
+        <div className = "divChatbox">
+        <Chat></Chat>
+        </div>
         <div className="divSidebar">
           <div className="divMenuSide">
             <div className="divIcon">
@@ -1468,6 +1452,7 @@ export default function profile() {
                     <th>Ticket Id</th>
                     <th>Created Date</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1510,6 +1495,9 @@ export default function profile() {
                       >
                 
                         {event.status}
+                      </td>
+                      <td>
+                        <button className = "btnOpen">Open chat</button>
                       </td>
                     </tr>
                   ))}
@@ -2012,6 +2000,7 @@ export default function profile() {
           </div>
         </div>
       </div>
+     
     </>
   );
 }

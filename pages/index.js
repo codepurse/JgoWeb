@@ -187,7 +187,6 @@ function driver() {
   useEffect(() => {
     if (localStorage.getItem("showmodal") == 1) {
       $("#driverModal").modal("toggle");
-      showmodal = 0;
       localStorage.setItem("showmodal", "0");
     }
     setErrvehicle("1");
