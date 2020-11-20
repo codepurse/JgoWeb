@@ -28,7 +28,7 @@ export default function rider() {
           <div className="row align-items-center h-100">
             <div className="col-lg-12 text-center">
               <Link href="/">
-                <p className="liNav">Ride with Us</p>
+                <p className="liNav" onClick = {showModal}>Ride with Us</p>
               </Link>
               <Link href="/support">
                 <p className="liNav">JGO Support</p>

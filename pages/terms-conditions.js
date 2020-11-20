@@ -3,6 +3,11 @@ import Header from "../component/header";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
+
+function showModal() {
+  localStorage.setItem("showmodal","1");
+}
+
 export default function privacy_policy() {
   return (
     <>
@@ -20,7 +25,7 @@ export default function privacy_policy() {
           <div className="row align-items-center h-100">
             <div className="col-lg-12 text-center">
               <Link href="/">
-                <p className="liNav">Ride with Us</p>
+                <p className="liNav" onClick = {showModal}>Ride with Us</p>
               </Link>
               <Link href="/support">
                 <p className="liNav">JGO Support</p>

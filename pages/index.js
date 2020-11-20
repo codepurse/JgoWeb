@@ -36,8 +36,8 @@ function driver() {
   const [driver_lisence, setDriverlisence] = React.useState("");
   const [nbi_clearance, setNbiclearance] = React.useState("");
   const [ocr_clearance, setOcrclearance] = React.useState("");
-  
-  const [errvehicle, setErrvehicle]  = React.useState("");
+
+  const [errvehicle, setErrvehicle] = React.useState("");
   const [errormess, setError] = React.useState([]);
   const vehicletype = [
     { value: "100 cc", label: "100 cc" },
@@ -116,7 +116,7 @@ function driver() {
     }),
   };
 
-    const customStyles2 = {
+  const customStyles2 = {
     control: (base, state) => ({
       ...base,
       background: "rgb(28, 30, 33)",
@@ -211,7 +211,7 @@ function driver() {
     if (localStorage.getItem("showmodal") == 1) {
       $("#driverModal").modal("toggle");
       showmodal = 0;
-      localStorage.setItem("showmodal","0")
+      localStorage.setItem("showmodal", "0");
     }
     setErrvehicle("1");
     console.clear();
@@ -303,7 +303,6 @@ function driver() {
     $(".pVehicle").css("color", "white");
     $(".txtVehicle").css("borderColor", "#2c2c2c");
     setvehicle(e.label);
- 
   }
   function address_change(e) {
     setaddress(e.target.value);
@@ -407,7 +406,7 @@ function driver() {
       setErrvehicle("0");
       $(".btn").removeClass("btn--loading");
       submitClick = 0;
-    }else {
+    } else {
       setErrvehicle("1");
     }
 
@@ -439,7 +438,11 @@ function driver() {
     }
     let validateStr = (stringToValidate) => {
       var pattern = /[0-9a-zA-Z]+[(@!#\$%\^\&*\)\(+=._-]{1,}/;
-      if ( stringToValidate && stringToValidate.length > 2 && pattern.test(stringToValidate)) {
+      if (
+        stringToValidate &&
+        stringToValidate.length > 2 &&
+        pattern.test(stringToValidate)
+      ) {
         return true;
       } else {
         return false;
@@ -740,25 +743,10 @@ function driver() {
               </p>
               <div className="row">
                 <div className="col-lg-12" style={{ padding: "2px" }}>
-                  <div className="divButton form-inline">
-                    <img src="Image/apple.png" className="imgDownload"></img>
-                    <p className="pDownload">
-                      Download on the <br />
-                      <span>App Store</span>
-                    </p>
-                  </div>
+                  <img src="Image/appstore.png" className="img-fluid " style = {{width: "205px",marginLeft: "15px"}}></img>
                 </div>
                 <div className="col-lg-12" style={{ padding: "2px" }}>
-                  <div className="divButton form-inline">
-                    <img
-                      src="Image/playstore.png"
-                      className="imgDownload"
-                    ></img>
-                    <p className="pDownload">
-                      Get it on <br />
-                      <span>Play Store</span>
-                    </p>
-                  </div>
+                  <img src="Image/playstore.png" className="img-fluid " style = {{width: "235px"}}></img>
                 </div>
               </div>
             </div>
@@ -918,7 +906,7 @@ function driver() {
                   <div className="divStep">
                     <div className="divInside">
                       <img
-                        src="Image/step1.jpg"
+                        src="Image/box1.jpg"
                         className="img-fluid imgStep"
                       ></img>
                       <p className="pStepTitle">RIDER</p>
@@ -938,7 +926,7 @@ function driver() {
                   <div className="divStep">
                     <div className="divInside">
                       <img
-                        src="Image/step2.jpg"
+                        src="Image/box2.jpg"
                         className="img-fluid imgStep"
                       ></img>
                       <p className="pStepTitle">DELIVER</p>
@@ -955,7 +943,7 @@ function driver() {
                 <div className="divStep">
                   <div className="divInside">
                     <img
-                      src="Image/step3.jpg"
+                      src="Image/box3.jpg"
                       className="img-fluid imgStep"
                     ></img>
                     <p className="pStepTitle">FAQs</p>
@@ -1165,7 +1153,7 @@ function driver() {
                   <Select
                     options={vehicletype}
                     styles={customStyles2}
-                    onChange = {vehicle_change}
+                    onChange={vehicle_change}
                   />
                 </div>
                 <div className="col-lg-4">

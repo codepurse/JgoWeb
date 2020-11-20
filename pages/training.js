@@ -94,7 +94,7 @@ export default function training() {
               <div className="container-video">
                 <iframe
                   className="responsive-iframe"
-                  src="https://www.youtube.com/embed/TLdFx7h6_5w"
+                  src="https://www.youtube.com/embed/B-YpIHA3-SQ"
                 ></iframe>
               </div>
             </div>
@@ -129,7 +129,11 @@ export default function training() {
                   sa JGO Rider Test.
                 </p>
                 <div className="mx-auto text-center">
-                  <button className="btnBegin">Begin Test</button>
+                  <Link href = "https://docs.google.com/forms/d/1ZJS6n5Mj_jo9KcROoglK1YfCTfcUQLJn9z-QAnh_KCo/prefill?gxids=7628">
+                    <a>
+                    <button className="btnBegin">Begin Test</button>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

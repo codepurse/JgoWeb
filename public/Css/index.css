@@ -1408,9 +1408,7 @@ hr {
     margin-bottom: 0px;
 }
 
-.imgDownload {
-    width: 35px;
-}
+
 
 .conDriver2 {
     padding-bottom: 5%;
@@ -1477,8 +1475,8 @@ hr {
     border: 1px solid #323232;
     cursor: pointer;
     transition: all 0.2s;
-    min-height: 430px;
-    max-height: 430px;
+    min-height: 510px;
+    max-height: 510px;
 }
 
 .divStepActive {

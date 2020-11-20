@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Link from "next/link";
 export class navbar1 extends Component {
+  showModal() {
+    localStorage.setItem("showmodal", "1");
+  }
+
   render() {
     return (
-      
       <nav
         className="navbar navbar-expand-md fixed-top"
         style={{ padding: "20px 20px" }}
@@ -16,22 +19,24 @@ export class navbar1 extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <nav className="navbar-brand" href="#">
-          <a href="#">
-            <img
-              src="Image/logo.png"
-              className="img-fluid imglogo"
-              style={{ width: "130px", marginLeft: "20px" }}
-            />
-          </a>
+          <Link href = "/">
+            <a>
+              <img
+                src="Image/logo.png"
+                className="img-fluid imglogo"
+                style={{ width: "130px", marginLeft: "20px" }}
+              />
+            </a>
+          </Link>
         </nav>
         <div className="collapse navbar-collapse" id="collapse">
           <div className="col2 ml-auto">
             <ul className="nav navbar-nav">
-              <Link href="/driver">
+              <Link href="/">
                 <li>
                   <a
                     className="nav-link nav-driver"
-                  
+                    onClick={this.showModal}
                     style={{ color: "white" }}
                   >
                     Ride with Us
