@@ -98,29 +98,6 @@ function driver() {
       ...base,
       background: "rgb(28, 30, 33)",
       color: "white",
-      border: errvehicle == "1" ? "1px solid #2c2c2c" : "1px solid d32f2f",
-      boxShadow: "none",
-      borderRadius: "5px",
-      width: "115%",
-      padding: "2px",
-      marginTop: "5px",
-      boxShadow: state.isFocused ? "#EDC728" : null,
-      "&:hover": {
-        // Overwrittes the different states of border
-        borderColor: state.isFocused ? "#EDC728" : "",
-      },
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "white",
-    }),
-  };
-
-  const customStyles2 = {
-    control: (base, state) => ({
-      ...base,
-      background: "rgb(28, 30, 33)",
-      color: "white",
       border: errvehicle == "1" ? "1px solid #2c2c2c" : "1px solid #d32f2f",
       boxShadow: "none",
       borderRadius: "5px",
@@ -398,6 +375,31 @@ function driver() {
       clear = 1;
       $(".btn").removeClass("btn--loading");
       submitClick = 0;
+    }
+
+    if (city == "") {
+      $(".pCity").css("color", "#d32f2f");
+      clear = 1;
+      setErrvehicle("0");
+    } else {
+       $(".pCity").css("color", "white");
+      setErrvehicle("1");
+    }
+
+    if (province == "") {
+      $(".pProvince").css("color", "#d32f2f");
+      clear = 1;
+      setErrvehicle("0");
+    } else {
+      setErrvehicle("1");
+    }
+
+    if (regions == "") {
+      $(".pRegion").css("color", "#d32f2f");
+      clear = 1;
+      setErrvehicle("0");
+    } else {
+      setErrvehicle("1");
     }
 
     if (vehicle == "") {
@@ -743,10 +745,18 @@ function driver() {
               </p>
               <div className="row">
                 <div className="col-lg-12" style={{ padding: "2px" }}>
-                  <img src="Image/appstore.png" className="img-fluid " style = {{width: "205px",marginLeft: "15px"}}></img>
+                  <img
+                    src="Image/appstore.png"
+                    className="img-fluid "
+                    style={{ width: "205px", marginLeft: "15px" }}
+                  ></img>
                 </div>
                 <div className="col-lg-12" style={{ padding: "2px" }}>
-                  <img src="Image/playstore.png" className="img-fluid " style = {{width: "235px"}}></img>
+                  <img
+                    src="Image/playstore.png"
+                    className="img-fluid "
+                    style={{ width: "235px" }}
+                  ></img>
                 </div>
               </div>
             </div>
@@ -1078,7 +1088,7 @@ function driver() {
                   ></input>
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver">Region</p>
+                  <p className="pTxtDriver pRegion">Region</p>
                   <Select
                     options={regions_api}
                     onChange={HandleChangeRegion}
@@ -1086,7 +1096,7 @@ function driver() {
                   />
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver">Province</p>
+                  <p className="pTxtDriver pProvince">Province</p>
                   <Select
                     options={province_api}
                     onChange={HandleChangeProvince}
@@ -1094,7 +1104,7 @@ function driver() {
                   />
                 </div>
                 <div className="col-lg-4">
-                  <p className="pTxtDriver">City/Municipality</p>
+                  <p className="pTxtDriver pCity">City/Municipality</p>
                   <Select
                     options={cities_api}
                     styles={customStyles1}
@@ -1152,7 +1162,7 @@ function driver() {
                   <p className="pTxtDriver pVehicle">Vehicle Type</p>
                   <Select
                     options={vehicletype}
-                    styles={customStyles2}
+                    styles={customStyles1}
                     onChange={vehicle_change}
                   />
                 </div>
