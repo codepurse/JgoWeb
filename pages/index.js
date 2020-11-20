@@ -412,6 +412,32 @@ function driver() {
       setErrvehicle("1");
     }
 
+    let validateStr = (stringToValidate) => {
+      var pattern = /[0-9a-zA-Z]+[(@!#\$%\^\&*\)\(+=._-]{1,}/;
+      if (
+        stringToValidate &&
+        stringToValidate.length > 2 &&
+        pattern.test(stringToValidate)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+
+
+    if(validateStr(password) == false) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+      $(".txtPassword").focus();
+    }
+
     if (password.length < 8 || password.length > 16) {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
@@ -438,20 +464,7 @@ function driver() {
       $(".pError").show();
       submitClick = 0;
     }
-    let validateStr = (stringToValidate) => {
-      var pattern = /[0-9a-zA-Z]+[(@!#\$%\^\&*\)\(+=._-]{1,}/;
-      if (
-        stringToValidate &&
-        stringToValidate.length > 2 &&
-        pattern.test(stringToValidate)
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    };
 
-    console.log(validateStr(password));
 
     if (clear == 0) {
       submitClick = 1;
