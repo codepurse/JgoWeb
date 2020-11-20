@@ -338,20 +338,8 @@ function driver() {
       $(".btn").removeClass("btn--loading");
       submitClick = 0;
     }
-    if (lisencenumber == "") {
-      $(".pLisence").css("color", "#d32f2f");
-      $(".txtLisence").css("borderColor", "#d32f2f");
-      clear = 1;
-      $(".btn").removeClass("btn--loading");
-      submitClick = 0;
-    }
-    if (plateenumber == "") {
-      $(".pPlate").css("color", "#d32f2f");
-      $(".txtPlate").css("borderColor", "#d32f2f");
-      clear = 1;
-      $(".btn").removeClass("btn--loading");
-      submitClick = 0;
-    }
+
+  
     if (profile == "") {
       $(".divProfile").css("borderColor", "#d32f2f");
       clear = 1;

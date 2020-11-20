@@ -3644,3 +3644,56 @@ video {
 .btnAddcard:hover {
     color: #424242 !important;
 }
+
+
+/* Support ticket */
+
+
+
+.conSupport {
+    display: none;
+    margin-top: 40px;
+    padding-left: 70px !important;
+}
+
+.btnReport {
+    font-family: 'GilroyMedium';
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background-color: transparent;
+    border: 1px solid #FFE900;
+    border-radius: 8px;
+    padding: 8px 20px;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 0px;
+    outline: none !important
+}
+
+.btnReport:hover {
+    font-weight: 600;
+    color: #212121;
+    background-color: #FFE900;
+}
+
+.pReport {
+    text-align: left !important;
+}
+
+.btnSendissue {
+    font-family: "GilroyMedium" !important;
+    color: whitesmoke;
+    border: 1px solid #FFF257 !important;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 42px;
+    margin-top: -5px;
+    outline: none !important;
+    width: 200px !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+}

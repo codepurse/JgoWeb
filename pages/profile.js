@@ -47,6 +47,10 @@ export default function profile() {
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
   const [clienttoken, setClientToken] = React.useState("");
+  const [bookingid, setBookingid] = React.useState("");
+  const [description, setDescription] = React.useState("");
+
+  const [listtickets, setListticket] = React.useState([]);
   var x;
 
   const status = [
@@ -234,7 +238,6 @@ export default function profile() {
   };
 
   useEffect(() => {
-    console.log(AuthService.getToken());
     const options1 = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -253,21 +256,14 @@ export default function profile() {
       console.log(result.data.user_card_details);
     });
 
-    const options3 = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
+    const apiUrl_view_tickets =
+      "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
+      AuthService.getId() +
+      "/open_tickets";
 
-    const apiUrl3 =
-      "https://staging-api.jgo.com.ph/api/auth/jgo_wallet_balance";
-
-    axios.get(apiUrl3, {}, options3).then((result) => {
+    axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
       console.log(result);
+      setListticket(result.data);
     });
 
     if (sessionStorage.getItem("addpayment") == "1") {
@@ -384,6 +380,7 @@ export default function profile() {
     $(".conBook").hide();
     $(".conSettings").hide();
     $(".conPayment").hide();
+    $(".conSupport").hide();
   }
 
   function booking() {
@@ -391,6 +388,7 @@ export default function profile() {
     $(".conProf").hide();
     $(".conSettings").hide();
     $(".conPayment").hide();
+    $(".conSupport").hide();
   }
 
   function settings() {
@@ -398,6 +396,7 @@ export default function profile() {
     $(".conProf").hide();
     $(".conBook").hide();
     $(".conPayment").hide();
+    $(".conSupport").hide();
   }
 
   function payment() {
@@ -405,6 +404,15 @@ export default function profile() {
     $(".conProf").hide();
     $(".conBook").hide();
     $(".conSettings").hide();
+    $(".conSupport").hide();
+  }
+
+  function support() {
+    $(".conSupport").fadeIn(250);
+    $(".conProf").hide();
+    $(".conBook").hide();
+    $(".conSettings").hide();
+    $(".conPayment").hide();
   }
 
   function doubleclickTable() {
@@ -659,6 +667,14 @@ export default function profile() {
     setZip(e.target.value);
   }
 
+  function booking_change(e) {
+    setBookingid(e.target.value);
+  }
+
+  function description_change(e) {
+    setDescription(e.target.value);
+  }
+
   function saveprof() {
     $(".btnSave").addClass("btn--loading");
     const options = {
@@ -711,7 +727,8 @@ export default function profile() {
   );
 
   function saveprof1() {
-    if(!address ||
+    if (
+      !address ||
       !fname ||
       !lname ||
       !mname ||
@@ -721,69 +738,65 @@ export default function profile() {
       !city ||
       !mobile ||
       !emailprof ||
-      !zip) {
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #e53935" }}
-              >
-                <div className="col-lg-2">
-                  <img
-                    src="Image/warning.png"
-                    style={{ width: "32px" }}
-                  ></img>
-                </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Error</p>
-                  <p className="pErrorSub">
-                    Fill up all the missing fields.
-                  </p>
-                </div>
+      !zip
+    ) {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #e53935" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/warning.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">Fill up all the missing fields.</p>
               </div>
             </div>
           </div>
-        );
-    }else {
+        </div>
+      );
+    } else {
       $(".btConfirmTopup").addClass("btn--loading");
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+        },
+      };
 
-    const data = {
-      id: AuthService.getId(),
-      fname: fname,
-      mname: mname,
-      lname: lname,
-      email: emailprof,
-      mobile_no: mobile,
-      address: address,
-      city: city,
-      state: state1,
-      country: country,
-      zip: zip,
-    };
+      const data = {
+        id: AuthService.getId(),
+        fname: fname,
+        mname: mname,
+        lname: lname,
+        email: emailprof,
+        mobile_no: mobile,
+        address: address,
+        city: city,
+        state: state1,
+        country: country,
+        zip: zip,
+      };
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
-    axios
-      .put(apiUrl, data, options)
-      .then((result) => {
-        console.log(result);
-        $("#modalForm").modal("toggle");
-        $(".btConfirmTopup").removeClass("btn--loading");
-        $("#modalTopup").modal("toggle");
-      })
-      .catch((err) => {
-        console.log(err);
-        $(".btnSave").removeClass("btn--loading");
-      });
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
+      axios
+        .put(apiUrl, data, options)
+        .then((result) => {
+          console.log(result);
+          $("#modalForm").modal("toggle");
+          $(".btConfirmTopup").removeClass("btn--loading");
+          $("#modalTopup").modal("toggle");
+        })
+        .catch((err) => {
+          console.log(err);
+          $(".btnSave").removeClass("btn--loading");
+        });
     }
   }
 
@@ -797,8 +810,6 @@ export default function profile() {
       return error;
     }
   );
-
-
 
   function addCard() {
     $(".btnAddcard").addClass("btn--loading");
@@ -902,6 +913,51 @@ export default function profile() {
     $(e.currentTarget).find(".spanCheck").css("color", "#3BCD67");
   }
 
+  function addissue() {
+    const options = {
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+      },
+    };
+    const random_num = Math.floor(Math.random() * 90000) + 10000;
+    const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
+    let formdata = new FormData();
+    formdata.set("user_id", AuthService.getId());
+    formdata.set("channel_id", random_num);
+    formdata.set("reference_id", random_num);
+    formdata.set("details", description);
+    formdata.set("booking_id", bookingid);
+    axios
+      .post(apiUrl, formdata, options)
+      .then((result) => {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #00C853" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/success.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Success</p>
+                  <p className="pErrorSub">
+                    Your ticket is successfully created.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <Header></Header>
@@ -955,6 +1011,17 @@ export default function profile() {
                     </li>
                   </a>
                 </Link>
+                <Link href="#">
+                  <a style={{ textDecoration: "none" }}>
+                    <li>
+                      <img
+                        src="Image/headphones.png"
+                        style={{ width: "20px" }}
+                      ></img>
+                      <span>Support</span>
+                    </li>
+                  </a>
+                </Link>
               </ul>
             </div>
           </div>
@@ -998,6 +1065,9 @@ export default function profile() {
               <li onClick={settings}>SETTINGS</li>
               <li onClick={payment} className="liPayment">
                 PAYMENT
+              </li>
+              <li onClick={support} className="liPayment">
+                SUPPORT
               </li>
             </ul>
             <hr className="hrDashboard"></hr>
@@ -1366,6 +1436,85 @@ export default function profile() {
               data-target="#modalReminder"
             >
               <p className="pAddCard">&#43;</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid conSupport">
+        <div className="row">
+          <div className="col-lg-12">
+            <button
+              className="btnReport"
+              data-toggle="modal"
+              data-target="#modalReport"
+            >
+              + Report issue
+            </button>
+          </div>
+        </div>
+        <div className="row" style={{ marginTop: "20px" }}>
+          <div className="col-lg-12">
+            <div className="table-responsive">
+              <table
+                className="table"
+                id="table"
+                onDoubleClick={doubleclickTable}
+                onMouseOver={hovertable}
+              >
+                <thead>
+                  <tr style={{ backgroundColor: "transparent" }}>
+                    <th>Booking Id</th>
+                    <th>Ticket Id</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listtickets.map((event, index) => (
+                    <tr key={event.id}>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                        {event.booking_id}
+                      </td>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                        {event.ticket_id}
+                      </td>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                
+                        {event.created_at}
+                      </td>
+                      <td
+                        className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }
+                      >
+                
+                        {event.status}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -1796,6 +1945,61 @@ export default function profile() {
                     <a className="btn btnConfirmTopup" onClick={saveprof1}>
                       Confirm
                       <span style={{ marginLeft: "60px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalReport"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body text-center modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify text-left">Report a issue</p>
+                    <p className="pModalTitleSub text-left">
+                      Please specify the exact details of your issue.
+                    </p>
+                    <p className="pTxtDriver pReport">Booking ID</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname"
+                      value={bookingid}
+                      onChange={booking_change}
+                    ></input>
+                    <p className="pTxtDriver pReport">Description</p>
+                    <textarea
+                      className="txtDriver"
+                      value={description}
+                      onChange={description_change}
+                      rows={4}
+                      cols={50}
+                    ></textarea>
+                  </div>
+                  <div className="col-lg-12">
+                    <a
+                      className="btn btnSendissue"
+                      onClick={addissue}
+                      style={{ marginTop: "5px" }}
+                    >
+                      Add card
+                      <span style={{ marginLeft: "40px" }}>
                         <b></b>
                         <b></b>
                         <b></b>
