@@ -6,6 +6,11 @@ import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
 
+function showModal() {
+  localStorage.setItem("showmodal", "1");
+}
+
+
 export default function faq() {
   return (
     <>
@@ -23,7 +28,7 @@ export default function faq() {
           <div className="row align-items-center h-100">
             <div className="col-lg-12 text-center">
               <Link href="/">
-                <p className="liNav">Ride with Us</p>
+                <p className="liNav"   onClick={showModal}>Ride with Us</p>
               </Link>
               <Link href="/support">
                 <p className="liNav">JGO Support</p>
@@ -56,11 +61,12 @@ export default function faq() {
           <div className="collapse navbar-collapse" id="collapse">
             <div className="col2 ml-auto">
               <ul className="nav navbar-nav">
-                <Link href="/driver">
+                <Link href="/">
                   <li>
                     <a
                       className="nav-link nav-driver"
                       style={{ color: "white" }}
+                      onClick = {showModal}
                     >
                       Ride with Us
                     </a>

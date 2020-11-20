@@ -6,6 +6,10 @@ import NextNprogress from "nextjs-progressbar";
 import Link from "next/link";
 import Componentdidmount from "../component/componentdidmount";
 
+function showModal() {
+  localStorage.setItem("showmodal", "1");
+}
+
 export default function rider() {
   return (
     <>
@@ -39,12 +43,13 @@ export default function rider() {
             <div className="col-lg-6 align-self-center">
               <img src="Image/prider.png" className="img-fluid"></img>
               <div className="text-center">
-                <Link href="/driver">
+                <Link href="/">
                   <a>
                     <input
                       type="button"
                       className="btnBook"
                       value="SALI NA!"
+                      onClick={showModal}
                     ></input>
                   </a>
                 </Link>
@@ -107,10 +112,15 @@ export default function rider() {
                   className="img-fluid"
                   style={{ marginTop: "10px" }}
                 ></img>
-                <img
-                  src="Image/jgobutton.png"
-                  className="img-fluid mx-auto d-flex imgTara"
-                ></img>
+                <Link href="/">
+                  <a>
+                    <img
+                      src="Image/jgobutton.png"
+                      onClick={showModal}
+                      className="img-fluid mx-auto d-flex imgTara"
+                    ></img>
+                  </a>
+                </Link>
               </div>
             </div>
           </div>

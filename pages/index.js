@@ -5,6 +5,7 @@ import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Select from "react-select";
 import axios from "axios";
+import "../component/map/config";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
 import NextNprogress from "nextjs-progressbar";
@@ -35,9 +36,20 @@ function driver() {
   const [driver_lisence, setDriverlisence] = React.useState("");
   const [nbi_clearance, setNbiclearance] = React.useState("");
   const [ocr_clearance, setOcrclearance] = React.useState("");
-
+  
+  const [errvehicle, setErrvehicle]  = React.useState("");
   const [errormess, setError] = React.useState([]);
-  const [errormess1, setError1] = React.useState(["a1231232", "ahahahaahahs"]);
+  const vehicletype = [
+    { value: "100 cc", label: "100 cc" },
+    { value: "110 cc", label: "110 cc" },
+    { value: "125 cc", label: "125 cc" },
+    { value: "150 cc", label: "150 cc" },
+    { value: "200 cc", label: "200 cc" },
+    { value: "290 cc", label: "290 cc" },
+    { value: "300 cc", label: "300 cc" },
+    { value: "400 cc", label: "400 cc" },
+  ];
+
   const inputFileRef = useRef(null);
   const inputFileRef1 = useRef(null);
   const inputFileRef2 = useRef(null);
@@ -86,7 +98,30 @@ function driver() {
       ...base,
       background: "rgb(28, 30, 33)",
       color: "white",
-      border: "1px solid #2c2c2c",
+      border: errvehicle == "1" ? "1px solid #2c2c2c" : "1px solid d32f2f",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "115%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
+
+    const customStyles2 = {
+    control: (base, state) => ({
+      ...base,
+      background: "rgb(28, 30, 33)",
+      color: "white",
+      border: errvehicle == "1" ? "1px solid #2c2c2c" : "1px solid #d32f2f",
       boxShadow: "none",
       borderRadius: "5px",
       width: "115%",
@@ -173,6 +208,12 @@ function driver() {
   }
 
   useEffect(() => {
+    if (localStorage.getItem("showmodal") == 1) {
+      $("#driverModal").modal("toggle");
+      showmodal = 0;
+      localStorage.setItem("showmodal","0")
+    }
+    setErrvehicle("1");
     console.clear();
     getData();
   }, []);
@@ -261,10 +302,8 @@ function driver() {
   function vehicle_change(e) {
     $(".pVehicle").css("color", "white");
     $(".txtVehicle").css("borderColor", "#2c2c2c");
-    setvehicle(e.target.value);
-    if (e.target.value) {
-      clear = 0;
-    }
+    setvehicle(e.label);
+ 
   }
   function address_change(e) {
     setaddress(e.target.value);
@@ -364,20 +403,22 @@ function driver() {
 
     if (vehicle == "") {
       $(".pVehicle").css("color", "#d32f2f");
-      $(".txtVehicle").css("borderColor", "#d32f2f");
       clear = 1;
+      setErrvehicle("0");
       $(".btn").removeClass("btn--loading");
       submitClick = 0;
+    }else {
+      setErrvehicle("1");
     }
 
-    if (password.length < 6 || password.length > 16) {
+    if (password.length < 8 || password.length > 16) {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       clear = 1;
       $(".btn").removeClass("btn--loading");
-      $(".pError").text("Password must be 6-16 characters.");
+      $(".pError").text("Password must be 8-16 characters.");
       $(".pError").show();
       submitClick = 0;
     } else {
@@ -396,6 +437,16 @@ function driver() {
       $(".pError").show();
       submitClick = 0;
     }
+    let validateStr = (stringToValidate) => {
+      var pattern = /[0-9a-zA-Z]+[(@!#\$%\^\&*\)\(+=._-]{1,}/;
+      if ( stringToValidate && stringToValidate.length > 2 && pattern.test(stringToValidate)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    console.log(validateStr(password));
 
     if (clear == 0) {
       submitClick = 1;
@@ -677,7 +728,14 @@ function driver() {
               className="col-lg-4 col-sm-12 col-12 align-self-top "
               style={{ marginTop: "200px", position: "relative" }}
             >
-              <p className="pComing" onClick={deletetoken}>
+              <p
+                className="pComing"
+                data-toggle="tooltip"
+                data-placement="top"
+                data-container="body"
+                title="Click the map to set the exact location"
+                onClick={deletetoken}
+              >
                 COMING SOON
               </p>
               <div className="row">
@@ -952,7 +1010,7 @@ function driver() {
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        style={{ zIndex: "9999999999999999" }}
+        style={{ zIndex: "999999" }}
       >
         <div
           className="modal-dialog modal-dialog-driver modal-lg"
@@ -1084,6 +1142,9 @@ function driver() {
                     type="password"
                     className="txtDriver txtPassword"
                     onChange={password_change}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Password should have number, letters and special character."
                   ></input>
                   <p className="pError">Password must be 6-16 characters.</p>
                 </div>
@@ -1101,12 +1162,11 @@ function driver() {
               <div className="row">
                 <div className="col-lg-4">
                   <p className="pTxtDriver pVehicle">Vehicle Type</p>
-                  <input
-                    type="text"
-                    value={vehicle}
-                    className="txtDriver txtVehicle"
-                    onChange={vehicle_change}
-                  ></input>
+                  <Select
+                    options={vehicletype}
+                    styles={customStyles2}
+                    onChange = {vehicle_change}
+                  />
                 </div>
                 <div className="col-lg-4">
                   <p className="pTxtDriver pPlate">Plate Number</p>

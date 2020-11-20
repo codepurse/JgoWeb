@@ -1,4 +1,12 @@
 $(document).ready(function () {
+
+
+  $("#driverModal").on("shown.bs.modal", function () {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  });
+
   try {
     const $menuBtn = document.querySelector(".menu-btn");
     let isMenuOpen = false;
@@ -31,7 +39,7 @@ $(document).ready(function () {
   } else {
     $("#switch").prop("checked", false);
   }
- 
+
   var x = 1;
   $(window).scroll(function () {
     var scroll = $(window).scrollTop();
@@ -127,8 +135,6 @@ $(document).ready(function () {
       $("p", this).css("color", "black");
     }
   });
-
- 
 
   var i = 0;
   var imghead = [

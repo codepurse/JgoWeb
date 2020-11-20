@@ -237,7 +237,11 @@ body, html {
     background-color: #212427;
 }
 
-.fixed-top {
+.tooltip{
+    z-index:100000000 !important;
+}
+
+.fixed-top {    
     transition: all 0.2s;
 }
 
