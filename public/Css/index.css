@@ -32,6 +32,7 @@
         width: 100% !important;
         height: auto !important;
         min-height: auto !important;
+        align-self: flex-start !important;
     }
     .imgButton {
         margin: 0 auto !important;
