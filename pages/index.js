@@ -794,12 +794,12 @@ function driver() {
               <div className="divEasy" style={{ marginRight: "0px" }}>
                 <img
                   src="Image/logoblack.png"
-                  className="img-fluid"
+                  className="img-fluid imgEasy"
                   style={{ width: "150px" }}
                 ></img>
                 <img
                   src="Image/easyapp.png"
-                  className="img-fluid "
+                  className="img-fluid imgEasy"
                   style={{ width: "150px" }}
                 ></img>
               </div>

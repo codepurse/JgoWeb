@@ -34,6 +34,10 @@
         min-height: auto !important;
         align-self: flex-start !important;
     }
+    .imgEasy {
+        height: auto !important;
+        min-height: auto !important;
+    }
     .imgButton {
         margin: 0 auto !important;
         display: flex !important;
