@@ -2634,6 +2634,21 @@ label:active:after {
     border-radius: 50%;
 }
 
+.divProfilepic {
+    position: relative;
+}
+
+.imgChangeprof {
+    position: absolute;
+    margin-left: 40px;
+    margin-top: -30px;
+    background-color: white;
+    padding: 5px;
+    width: 30px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
 .spanFull {
     font-family: 'GilroyMedium';
     color: white;
@@ -3086,6 +3101,7 @@ label:active:after {
     position: relative;
     border-radius: 20px;
     margin-top: 40px;
+  
 }
 
 .imgTara {
@@ -3763,6 +3779,7 @@ video {
     border-radius:15px;
     bottom: 40px;
     border: 1px solid #424242;
+    display: none;
 }
 
 .rowChatheader {

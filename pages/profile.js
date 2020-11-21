@@ -790,8 +790,6 @@ export default function profile() {
     }
   }
 
-
-
   function addCard() {
     $(".btnAddcard").addClass("btn--loading");
     const options = {
@@ -906,7 +904,7 @@ export default function profile() {
     const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
     let formdata = new FormData();
     formdata.set("user_id", AuthService.getId());
-    formdata.set("channel_id", "Channel-customersupport-"+random_num);
+    formdata.set("channel_id", "Channel-customersupport-" + random_num);
     formdata.set("reference_id", random_num);
     formdata.set("details", description);
     formdata.set("booking_id", bookingid);
@@ -961,8 +959,8 @@ export default function profile() {
       </div>
       <div className="container-fluid conProfile">
         <NextNprogress color="#EDC728" />
-        <div className = "divChatbox">
-        <Chat></Chat>
+        <div className="divChatbox">
+          <Chat></Chat>
         </div>
         <div className="divSidebar">
           <div className="divMenuSide">
@@ -992,17 +990,6 @@ export default function profile() {
                     <li>
                       <img src="Image/call.png" style={{ width: "20px" }}></img>
                       <span>Contact</span>
-                    </li>
-                  </a>
-                </Link>
-                <Link href="#">
-                  <a style={{ textDecoration: "none" }}>
-                    <li>
-                      <img
-                        src="Image/headphones.png"
-                        style={{ width: "20px" }}
-                      ></img>
-                      <span>Support</span>
                     </li>
                   </a>
                 </Link>
@@ -1192,10 +1179,17 @@ export default function profile() {
       <div className="container conProf">
         <div className="row align-items-center">
           <div className="col-lg-12 text-center">
-            <img
-              src={profilepic}
-              className="img-fluid imgProfileDash mx-auto d-flex"
-            ></img>{" "}
+            <div className="divProfilepic">
+              <img
+                src={profilepic}
+                className="img-fluid imgProfileDash mx-auto d-flex"
+              ></img>
+              <img
+                src="Image/camera.png"
+                className="img-fluid imgChangeprof"
+              ></img>
+            </div>
+
             <p className="spanFull">
               {fname} {mname} {lname}
               <br />
@@ -1483,7 +1477,6 @@ export default function profile() {
                             : "tddark"
                         }
                       >
-                
                         {event.created_at}
                       </td>
                       <td
@@ -1493,11 +1486,10 @@ export default function profile() {
                             : "tddark"
                         }
                       >
-                
                         {event.status}
                       </td>
                       <td>
-                        <button className = "btnOpen">Open chat</button>
+                        <button className="btnOpen">Open chat</button>
                       </td>
                     </tr>
                   ))}
@@ -2000,7 +1992,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-     
     </>
   );
 }
