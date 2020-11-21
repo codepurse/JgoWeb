@@ -34,11 +34,7 @@
         min-height: auto !important;
         align-self: flex-start !important;
     }
-    .imgEasy {
-        height: auto !important;
-        min-height: auto !important;
-        width: 100% !important;
-    }
+ 
     .imgButton {
         margin: 0 auto !important;
         display: flex !important;
@@ -63,10 +59,18 @@
     .imgBar {
         display: none !important;
     }
+    .imgEasy {
+        height: auto !important;
+        min-height: auto !important;
+        width: 100% !important;
+        align-self: flex-start !important;
+    }
     .divEasy {
         width: 100px;
         margin: 0 auto !important;
         display: flex !important;
+
+        
     }
     .pCarouselTitle {
         font-size: 2rem !important;
@@ -376,6 +380,10 @@ body, html {
     text-align: center;
     margin-bottom: 0px;
     margin-top: 15px;
+}
+
+.imgEasy {
+    width: 150px;
 }
 
 .pWhat {
