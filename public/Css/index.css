@@ -37,6 +37,7 @@
     .imgEasy {
         height: auto !important;
         min-height: auto !important;
+        width: 100% !important;
     }
     .imgButton {
         margin: 0 auto !important;
