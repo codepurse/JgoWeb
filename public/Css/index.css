@@ -28,6 +28,11 @@
         display: flex !important;
         margin-top: -20px !important;
     }
+    .imgPhone {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
     .imgButton {
         margin: 0 auto !important;
         display: flex !important;
@@ -1391,7 +1396,6 @@ hr {
 .imgPhone {
     z-index: 2;
     position: relative;
-    min-height: auto !important;
 }
 
 .imgDel {
