@@ -747,14 +747,14 @@ function driver() {
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <img
                     src="Image/appstore.png"
-                    className="img-fluid "
+                    className="img-fluidi imgButton"
                     style={{ width: "205px", marginLeft: "15px" }}
                   ></img>
                 </div>
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <img
                     src="Image/playstore.png"
-                    className="img-fluid "
+                    className="img-fluid imgButton"
                     style={{ width: "235px" }}
                   ></img>
                 </div>

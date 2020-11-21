@@ -906,7 +906,7 @@ export default function profile() {
     const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
     let formdata = new FormData();
     formdata.set("user_id", AuthService.getId());
-    formdata.set("channel_id", random_num);
+    formdata.set("channel_id", "Channel-customersupport-"+random_num);
     formdata.set("reference_id", random_num);
     formdata.set("details", description);
     formdata.set("booking_id", bookingid);

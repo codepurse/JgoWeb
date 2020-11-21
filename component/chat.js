@@ -1,69 +1,107 @@
-import React, { Component, useEffect, useState, useCallback } from "react";
-import Header from "../component/header";
-import AuthService from "../services/auth.service";
-import { useRouter } from "next/router";
-import axios from "axios";
-import "../component/map/config";
-import Componentdidmount from "../component/componentdidmount";
-import Link from "next/link";
-import PubNub from "pubnub";
+import React, { useCallback, useEffect, useState } from 'react';
+import PubNub from 'pubnub';
+import { PubNubProvider, usePubNub } from 'pubnub-react';
 
-export default function chat() {
-  const router = useRouter();
+ 
+const pubnub = new PubNub({
+  publishKey: 'pub-c-701ebbe8-c393-43d5-a389-9ef5391a8fe9',
+  subscribeKey: 'sub-c-958ab632-1d8d-11eb-8a07-eaf684f78515',
+});
+ 
+const channels = ['Channel-customersupport-8c6610e590256'];
+ 
+const Chat = () => {
+  const pubnub = usePubNub();
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+ 
+  useEffect(() => {
+    pubnub.addListener({
+      message: messageEvent => {
+        setMessages([...messages, messageEvent.message]);
+      },
+    });
+    console.log(messages)
+    pubnub.subscribe({ channels });
+  }, [messages]);
+ 
+  const sendMessage = useCallback(
+    async message => {
+      await pubnub.publish({
+        channel: "Channel-customersupport-8c6610e590256",
+        message,
+      });
+ 
+      setInput('');
+    },
+    [pubnub, setInput]
+  );  
+ 
   return (
-    <>
-      <Header></Header>
-      <Componentdidmount></Componentdidmount>
-      <div className="container conChatbox">
-          <div className = "row rowType">
-                <div className = "col-lg-12">
-                    <input type = "text" className = "txtType"></input>
-                </div>
+    <div className="App">
+      <header className="App-header">
+        <div
+          style={{
+            width: '500px',
+            height: '300px',
+            border: '1px solid black',
+          }}
+        >
+          <div style={{ backgroundColor: 'grey' }}>React Chat Example</div>
+          <div
+            style={{
+              backgroundColor: 'white',
+              height: '260px',
+              overflow: 'scroll',
+            }}
+          >
+           
           </div>
-        <div className="row rowChat">
-          <div className="col-lg-12 align-self-end">
-            <div className="row" style={{ margin: "10px 0px" }}>
-              <div className="col-lg-2 align-self-end">
-                <img
-                  src="Image/profile.jpg"
-                  className="img-fluid imgChat"
-                ></img>
-              </div>
-              <div className="col-lg-10">
-                <p className="pChatuser">
-                  Sample chaasdsadasdasdasdasdasdasdasdasdasdt
-                </p>
-              </div>
-            </div>
-            <div className="row" style={{ margin: "10px 0px" }}>
-              <div className="col-lg-2 align-self-end">
-                <img
-                  src="Image/profile.jpg"
-                  className="img-fluid imgChat"
-                ></img>
-              </div>
-              <div className="col-lg-10">
-                <p className="pChatuser">
-                  Sample chaasdsadas
-                </p>
-              </div>
-            </div>
-            <div className="row" style={{ margin: "10px 0px" }}>
-              <div className="col-lg-2 align-self-end">
-                <img
-                  src="Image/profile.jpg"
-                  className="img-fluid imgChat"
-                ></img>
-              </div>
-              <div className="col-lg-10">
-                <p className="pChatuser">
-                  Sample chaasdsadasdasdasdasdasdasdasdasdasdt
-                </p>
-              </div>
-            </div>
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              backgroundColor: 'lightgrey',
+            }}
+          >
+            <input
+              type="text"
+              style={{
+                borderRadius: '5px',
+                flexGrow: 1,
+                fontSize: '18px',
+              }}
+              placeholder="Type your message"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+            />
+            <button
+              style={{
+                backgroundColor: 'blue',
+                color: 'white',
+                borderRadius: '5px',
+                fontSize: '16px',
+              }}
+              onClick={e => {
+                e.preventDefault();
+                sendMessage(input);
+              }}
+            >
+              Send Message
+            </button>
           </div>
         </div>
-      </div>
-    </>
+      </header>
+    </div>
   );
-}
+};
+ 
+const App = () => {
+  return (
+    <PubNubProvider client={pubnub}>
+      <Chat />
+    </PubNubProvider>
+  );
+};
+ 
+export default App;
