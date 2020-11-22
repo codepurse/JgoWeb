@@ -31,40 +31,6 @@ const customStyles1 = {
   }),
 };
 
-const responseFacebook = (response) => {
-
-  console.log(localStorage.getItem("tokenFb"));
-  const options = {
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "content-type": "application/json",
-    },
-  };
-
-  const apiUrl = "https://staging-api.jgo.com.ph/api/web/facebook/callback";
-
-  axios
-    .post(
-      apiUrl,
-      {
-        id: response.id,
-        email: response.email,
-        fname: response.first_name,
-        lname: response.last_name,
-      },
-      options
-    )
-    .then((result) => {
-      localStorage.setItem("tokenFb", JSON.stringify(response));
-      window.location.reload();
-      console.log(response)
-    })
-    .catch((err) => {
-      localStorage.setItem("tokenFb", JSON.stringify(response));
-      window.location.reload();
-      console.log(response);
-    });
-};
 
 function successMessage() {
   swal(
@@ -138,6 +104,46 @@ export class login extends Component {
 
     this.login = this.login.bind(this);
   }
+
+
+  responseFacebook = (response) => {
+
+  console.log(localStorage.getItem("tokenFb"));
+  const options = {
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "content-type": "application/json",
+    },
+  };
+
+  const apiUrl = "https://staging-api.jgo.com.ph/api/web/facebook/callback";
+
+  axios
+    .post(
+      apiUrl,
+      {
+        id: response.id,
+        email: response.email,
+        fname: response.first_name,
+        lname: response.last_name,
+      },
+      options
+    )
+    .then((result) => {
+      this.setState({email: response.email})
+      this.setState({fname: response.first_name})
+      this.setState({lname: response.last_name})
+      $("#modalRegister").modal("toggle");
+      console.log(result)
+      console.log(response)
+    })
+    .catch((err) => {
+ 
+      console.log(err)
+      console.log(response);
+    });
+};
+
 
   messageError() {
     swal(
@@ -487,7 +493,7 @@ export class login extends Component {
           </div>
           <FacebookLogin
             appId="1163566050712002"
-            callback={responseFacebook}
+            callback={this.responseFacebook}
             fields="id,name,first_name,last_name,email"
             render={(renderProps) => (
               <button className="btnFacebook" onClick={renderProps.onClick}>

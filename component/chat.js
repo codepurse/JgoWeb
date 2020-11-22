@@ -8,7 +8,7 @@ const pubnub = new PubNub({
   subscribeKey: 'sub-c-958ab632-1d8d-11eb-8a07-eaf684f78515',
 });
  
-const channels = ['Channel-customersupport-8c6610e590256'];
+const channels = ['Channel-customersupport-15699'];
  
 const Chat = () => {
   const pubnub = usePubNub();
@@ -16,6 +16,18 @@ const Chat = () => {
   const [input, setInput] = useState('');
  
   useEffect(() => {
+    pubnub.fetchMessages(
+      {
+          channels: channels,
+          end: '15343325004275466',
+          count: 100
+      },
+      (status, response) => {
+         console.log(response);
+      }
+  );
+
+
     pubnub.addListener({
       message: messageEvent => {
         setMessages([...messages, messageEvent.message]);
@@ -28,7 +40,7 @@ const Chat = () => {
   const sendMessage = useCallback(
     async message => {
       await pubnub.publish({
-        channel: "Channel-customersupport-8c6610e590256",
+        channel: "Channel-customersupport-15699",
         message,
       });
  

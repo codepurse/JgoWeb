@@ -261,6 +261,12 @@ export default function profile() {
   };
 
   useEffect(() => {
+
+    if (localStorage.getItem("saveprof") == 1) {
+      successMessage();
+      localStorage.removeItem("saveprof");
+    }
+
     const options1 = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -276,7 +282,7 @@ export default function profile() {
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
-      console.log(result.data.user_card_details);
+
     });
 
     const apiUrl_view_tickets =
@@ -285,7 +291,7 @@ export default function profile() {
       "/open_tickets";
 
     axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-      console.log(result);
+  
       setListticket(result.data);
     });
 
@@ -327,7 +333,7 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data.reverse());
-        console.log(result);
+      
         if (result.data.data) {
           result.data.data
             .filter(
@@ -716,7 +722,7 @@ export default function profile() {
     formdata.append("fname", fname);
     formdata.append("lname", lname);
     formdata.append("mname", mname);
-    formdata.append("profile_pic",newimage);
+    formdata.append("profile_pic", newimage);
     formdata.append("email", emailprof);
     formdata.append("mobile_no", mobile);
     formdata.append("address", address);
@@ -747,7 +753,8 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         $(".btnSave").removeClass("btn--loading");
-        successMessage();
+        localStorage.setItem("saveprof", "1");
+    
       })
       .catch((err) => {
         console.log(err);
@@ -1002,7 +1009,7 @@ export default function profile() {
         <div className="divChatbox">
           <Chat></Chat>
         </div>
-        <div className="divSidebar">
+        <div className="divSidebar">  
           <div className="divMenuSide">
             <div className="divIcon">
               <ul className="no-bullets">
@@ -1054,7 +1061,9 @@ export default function profile() {
                 Logout
               </button>
               <div className="vl"></div>
-              <span className="pFullname">{full_name}</span>
+              <span className="pFullname">
+                {fname} {lname}
+              </span>
               <div className="circle">
                 <img src={profilepic} alt="" />
               </div>

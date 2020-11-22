@@ -3380,7 +3380,7 @@ video {
     position: fixed;
     top: 10px;
     left: 20px;
-    z-index: 9999999;
+    z-index: 999;
 }
 
 .ulNav {
@@ -3793,7 +3793,6 @@ video {
     border-radius:15px;
     bottom: 40px;
     border: 1px solid #424242;
-    display: none;
 }
 
 .rowChatheader {
