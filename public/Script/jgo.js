@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
   $("#driverModal").on("shown.bs.modal", function () {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
@@ -65,60 +63,54 @@ $(document).ready(function () {
     $(this).closest(".divHide").find(".divAdd").fadeIn(200);
   });
   var y = 0;
-  $(".btnAddStopoff").click(function () {
-    if (y == 1) {
-      if (
-        $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0
-      ) {
-        alert("Fill up the missing address");
-        return false;
-      } else {
-        if ($(".divStopoff2").css("display") == "none") {
-          $(".divStopoff2").css("display", "block");
-          y = 2;
-        }
-      }
-    } else if (y == 2) {
-      if (
-        $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0
-      ) {
-        alert("Fill up the missing address");
-        return false;
-      } else {
-        if ($(".divStopoff3").css("display") == "none") {
-          $(".divStopoff3").css("display", "block");
-          y = 3;
-        }
-      }
-    } else if (y == 3) {
-      if (
-        $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0
-      ) {
-        alert("Fill up the missing address");
-        return false;
-      } else {
-        if ($(".divStopoff4").css("display") == "none") {
-          $(".divStopoff4").css("display", "block");
-          y = 4;
-        }
-      }
-    } else if (y == 4) {
-      if (
-        $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0
-      ) {
-        alert("Fill up the missing address");
-        return false;
-      } else {
-        if ($(".divStopoff5").css("display") == "none") {
-          $(".divStopoff5").css("display", "block");
-          y = 5;
-        }
-      }
-    }
 
-    if ($(".divStopoff1").css("display") == "none") {
-      $(".divStopoff1").css("display", "block");
-      y = 1;
+  $(".btnAddStopoff").click(function () {
+    if (
+      $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff1").css("display") == "none"
+    ) {
+      $(".divStopoff1").css("display", "table-footer-group");
+    } else if (
+      $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff1").css("display") == "table-footer-group"
+    ) {
+      alert("Please fill up first the stop locations");
+      return false;
+    } else if (
+      $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff2").css("display") == "none"
+    ) {
+      $(".div1:visible").each(function () {
+        $(this).css("display", "block");
+      });
+      $(".divStopoff2").css("display", "table-footer-group");
+      return false;
+    } else if (
+      $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff2").css("display") == "table-footer-group"
+    ) {
+      alert("Please fill up first the stop locations");
+      return false;
+    } else if (
+      $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff3").css("display") == "none"
+    ) {
+      $(".div1:visible").each(function () {
+        $(this).css("display", "block");
+      });
+      $(".divStopoff3").css("display", "table-footer-group");
+      return false;
+    }else if (
+      $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0 &&
+      $(".divStopoff4").css("display") == "none"
+    ) {
+      $(".div1:visible").each(function () {
+        $(this).css("display", "block");
+      });
+      $(".divStopoff4").css("display", "table-footer-group");
+      return false;
+    }else {
+      alert("maximum");
     }
   });
 

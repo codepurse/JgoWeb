@@ -1,4 +1,10 @@
-import React, { Component, useEffect, useState, useCallback } from "react";
+import React, {
+  Component,
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+} from "react";
 import Header from "../component/header";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
@@ -44,6 +50,9 @@ export default function profile() {
   const [profilepic, setProfle] = React.useState("");
   const [walletbalance, setWallet] = React.useState("");
   const [topupamount, setTopup] = React.useState("");
+  const [profile_name, setProfilename] = React.useState("");
+  const [profile_pic, setprofilepic] = React.useState("");
+  const [newimage, setNewimage] = React.useState([]);
 
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
@@ -52,6 +61,19 @@ export default function profile() {
   const [description, setDescription] = React.useState("");
 
   const [listtickets, setListticket] = React.useState([]);
+  const inputFileRef = useRef(null);
+
+  function handleFile(e) {
+    let file = e.target.files[0];
+    setProfilename(file.name);
+    console.log(file);
+    setNewimage(file);
+    $(".imgProfileDash").attr("src", window.URL.createObjectURL(file));
+    setprofilepic(file);
+  }
+  const onBtnClick = () => {
+    inputFileRef.current.click();
+  };
   var x;
 
   const status = [
@@ -688,6 +710,22 @@ export default function profile() {
       },
     };
 
+    let formdata = new FormData();
+
+    formdata.append("id", AuthService.getId());
+    formdata.append("fname", fname);
+    formdata.append("lname", lname);
+    formdata.append("mname", mname);
+    formdata.append("profile_pic",newimage);
+    formdata.append("email", emailprof);
+    formdata.append("mobile_no", mobile);
+    formdata.append("address", address);
+    formdata.append("city", city);
+    formdata.append("state", state1);
+    formdata.append("country", "Philippines");
+    formdata.append("zip", zip);
+    formdata.append("_method", "PATCH");
+
     const data = {
       id: AuthService.getId(),
       fname: fname,
@@ -700,11 +738,12 @@ export default function profile() {
       state: state1,
       country: country,
       zip: zip,
+      profile_pic: newimage,
     };
 
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
     axios
-      .put(apiUrl, data, options)
+      .post(apiUrl, formdata, options)
       .then((result) => {
         console.log(result);
         $(".btnSave").removeClass("btn--loading");
@@ -712,6 +751,7 @@ export default function profile() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(data);
         $(".btnSave").removeClass("btn--loading");
       });
   }
@@ -1178,18 +1218,31 @@ export default function profile() {
       </div>
       <div className="container conProf">
         <div className="row align-items-center">
-          <div className="col-lg-12 text-center">
+          <div
+            className="col-lg-12 text-center"
+            style={{ position: "relative" }}
+          >
             <div className="divProfilepic">
               <img
                 src={profilepic}
                 className="img-fluid imgProfileDash mx-auto d-flex"
+                onClick={onBtnClick}
               ></img>
-              <img
-                src="Image/camera.png"
-                className="img-fluid imgChangeprof"
-              ></img>
-            </div>
 
+              <input
+                onChange={(e) => handleFile(e)}
+                ref={inputFileRef}
+                id="file-upload"
+                type="file"
+                accept=".jpg, .png, .jpeg|image"
+                style={{ display: "none" }}
+              />
+            </div>
+            <img
+              src="Image/camera.png"
+              className="img-fluid imgChangeprof"
+              onClick={onBtnClick}
+            ></img>
             <p className="spanFull">
               {fname} {mname} {lname}
               <br />

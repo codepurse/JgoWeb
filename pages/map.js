@@ -550,7 +550,7 @@ export default function map() {
     $(e.currentTarget)
       .closest(".divStopOff")
       .find(".css-5sz5u5-singleValue")
-      .hide();
+      .contents().filter((_, el) => el.nodeType === 3).remove();
 
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
@@ -1049,7 +1049,7 @@ export default function map() {
               Pickup
             </p>
             <div
-              className="divPickoffmap divStopOff"
+              className="divPickoffmap divStopOff "
               onClick={() => (click = 1)}
             >
               <div
@@ -1194,10 +1194,11 @@ export default function map() {
 
             {/* Stop off number 2 */}
 
+            <div className = "divlistStop">
             <div
               onClick={() => ((click = 3), setId(3))}
-              style={{ display: "none" }}
-              className="divStopoff1 divStopOff"
+         
+              className="divStopoff1 divStopOff div1" id = "divStopoff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
                 {" "}
@@ -1280,8 +1281,8 @@ export default function map() {
 
             <div
               onClick={() => ((click = 4), setId(4))}
-              style={{ display: "none" }}
-              className="divStopoff2 divStopOff"
+            
+              className="divStopoff2 divStopOff div1" id = "divStopoff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
                 {" "}
@@ -1364,8 +1365,8 @@ export default function map() {
 
             <div
               onClick={() => ((click = 5), setId(5))}
-              style={{ display: "none" }}
-              className="divStopoff3 divStopOff"
+             
+              className="divStopoff3 divStopOff div1" id = "divStopoff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
                 {" "}
@@ -1448,8 +1449,8 @@ export default function map() {
 
             <div
               onClick={() => ((click = 6), setId(6))}
-              style={{ display: "none" }}
-              className="divStopoff4 divStopOff"
+           
+              className="divStopoff4 divStopOff div1" id = "divStopoff"
             >
               <p className="pPick" style={{ marginTop: "30px" }}>
                 {" "}
@@ -1526,6 +1527,7 @@ export default function map() {
                 </div>
                 <p className="pAdd">&#x2b; Add details</p>
               </div>
+            </div>
             </div>
 
             <button className="btnAddStopoff">Add Stop-off</button>

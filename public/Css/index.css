@@ -736,6 +736,11 @@ hr {
     padding-bottom: 40px;
 }
 
+.divlistStop {
+    display: table;
+    width: 100%;
+}
+
 .pPick {
     font-family: 'GilroyMedium';
     color: var(--maincolor);
@@ -1297,8 +1302,9 @@ hr {
     margin-top: -10px;
 }
 
-.divStopOff {
+#divStopoff {
     margin-top: 10px;
+    display: none;
 }
 
 /* Driver */
@@ -2630,12 +2636,19 @@ label:active:after {
 }
 
 .imgProfileDash {
-    width: 100px;
-    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    
 }
 
 .divProfilepic {
     position: relative;
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 .imgChangeprof {
@@ -2647,6 +2660,7 @@ label:active:after {
     width: 30px;
     border-radius: 25px;
     cursor: pointer;
+    z-index: 9999999;
 }
 
 .spanFull {
