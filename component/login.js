@@ -106,9 +106,7 @@ export class login extends Component {
   }
 
 
-  responseFacebook = (response) => {
-
-  console.log(localStorage.getItem("tokenFb"));
+  responseFacebook = (response) => {  
   const options = {
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -138,7 +136,11 @@ export class login extends Component {
       console.log(response)
     })
     .catch((err) => {
- 
+      this.setState({email: response.email})
+      this.setState({fname: response.first_name})
+      this.setState({lname: response.last_name})
+      $("#modalRegister").modal("toggle");
+
       console.log(err)
       console.log(response);
     });
