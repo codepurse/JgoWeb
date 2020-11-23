@@ -114,10 +114,10 @@ export class login extends Component {
     },
   };
 
-  const apiUrl = "https://staging-api.jgo.com.ph/api/web/facebook/callback";
+  const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/callback";
 
   axios
-    .post(
+    .get(
       apiUrl,
       {
         id: response.id,

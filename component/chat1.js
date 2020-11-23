@@ -6,15 +6,16 @@ import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
+import "../component/map/config";
 
-const channels = ["Channel-customersupport-15699"];
 const pubnub = new PubNub({
   publishKey: "pub-c-701ebbe8-c393-43d5-a389-9ef5391a8fe9",
   subscribeKey: "sub-c-958ab632-1d8d-11eb-8a07-eaf684f78515",
 });
-
+const channels1 = channel_id;
 
 const Chat = () => {
+  const channels = channel_id;
   const pubnub = usePubNub();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -40,19 +41,24 @@ const Chat = () => {
 
     var myscroll = $(".rowChat");
     myscroll.scrollTop(myscroll.get(0).scrollHeight);
-  }, [messages]);
+  }, [messages, channels, channel_id]);
 
   const sendMessage = useCallback(
     async (message) => {
       await pubnub.publish({
-        channel: "Channel-customersupport-15699",
+        channel: channel_id,
         message,
       });
 
       setInput("");
     },
-    [pubnub, setInput]
+    [pubnub]
   );
+
+  useEffect(() => {
+   
+    console.log("asdasd");
+  }, [channels1]);
 
   function onKeyPress(e) {
     if (e.which === 13) {
@@ -60,7 +66,6 @@ const Chat = () => {
       sendMessage(input);
     }
   }
-  
 
   return (
     <>
@@ -85,7 +90,7 @@ const Chat = () => {
               type="text"
               className="txtType"
               placeholder="Type something.."
-              value={input}
+              
               onKeyPress={onKeyPress}
               onChange={(e) => setInput(e.target.value)}
             ></input>
@@ -102,7 +107,7 @@ const Chat = () => {
         <div className="row rowChat">
           <div className="col-lg-12 align-self-end colChat">
             <div className="row" style={{ margin: "10px 0px" }}>
-              <div className="col-lg-12">
+              <div className="col-lg-12" style={{ width: "100%" }}>
                 {Object.keys(messages).map((keyName, i) => {
                   try {
                     {

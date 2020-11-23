@@ -26,10 +26,17 @@ $(document).ready(function () {
     $(".colMapTrack").css("left", width + 45);
   });
 
-  
   $(".closeChat").click(function () {
     $(".divChatbox").hide();
   });
+
+  $(".btnplease").click(function () {
+    alert("ASdas");
+    $(".divChatbox").show();
+  });
+
+
+
 
   var width = $(".colSidebar").width();
   var totalwidth = $(window).width() - width - 50;
@@ -105,7 +112,7 @@ $(document).ready(function () {
       });
       $(".divStopoff3").css("display", "table-footer-group");
       return false;
-    }else if (
+    } else if (
       $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0 &&
       $(".divStopoff4").css("display") == "none"
     ) {
@@ -114,7 +121,7 @@ $(document).ready(function () {
       });
       $(".divStopoff4").css("display", "table-footer-group");
       return false;
-    }else {
+    } else {
       alert("maximum");
     }
   });

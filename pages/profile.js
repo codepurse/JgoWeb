@@ -291,7 +291,7 @@ export default function profile() {
       "/open_tickets";
 
     axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-  
+      console.log(result.data)
       setListticket(result.data);
     });
 
@@ -722,7 +722,11 @@ export default function profile() {
     formdata.append("fname", fname);
     formdata.append("lname", lname);
     formdata.append("mname", mname);
-    formdata.append("profile_pic", newimage);
+    if(newimage.length == 0) {
+      
+    }else {
+      formdata.append("profile_pic", newimage);
+    }
     formdata.append("email", emailprof);
     formdata.append("mobile_no", mobile);
     formdata.append("address", address);
@@ -732,20 +736,6 @@ export default function profile() {
     formdata.append("zip", zip);
     formdata.append("_method", "PATCH");
 
-    const data = {
-      id: AuthService.getId(),
-      fname: fname,
-      mname: mname,
-      lname: lname,
-      email: emailprof,
-      mobile_no: mobile,
-      address: address,
-      city: city,
-      state: state1,
-      country: country,
-      zip: zip,
-      profile_pic: newimage,
-    };
 
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
     axios
@@ -754,7 +744,7 @@ export default function profile() {
         console.log(result);
         $(".btnSave").removeClass("btn--loading");
         localStorage.setItem("saveprof", "1");
-    
+        console.log(newimage);
       })
       .catch((err) => {
         console.log(err);
@@ -984,8 +974,16 @@ export default function profile() {
       });
   }
 
+  
+  function getChannel(e) {
+    var x = $(e.currentTarget).find("td:nth-child(6)").text()
+   channel_id = [`${x}`];
+
+  }
+
   function openchat() {
     $(".divChatbox").show()
+    router.push("/profile");
   }
 
   return (
@@ -1050,13 +1048,14 @@ export default function profile() {
         </div>
         <div className="row rowTop">
           <div className="col-lg-4">
-            <img
+          <Link href = "/">
+          <img
               src="Image/logo.png"
               className="img-fluid"
-              data-toggle="modal"
-              data-target="#exampleModal"
+      
               style={{ width: "120px", marginLeft: "40px" }}
             ></img>
+          </Link>
           </div>
           <div className="col-lg-4 text-center"></div>
           <div className="col-lg-4">
@@ -1069,7 +1068,7 @@ export default function profile() {
                 {fname} {lname}
               </span>
               <div className="circle">
-                <img src={profilepic} alt="" />
+                <img className = "navProf" src={profilepic} alt="" />
               </div>
             </div>
           </div>
@@ -1517,7 +1516,7 @@ export default function profile() {
                 </thead>
                 <tbody>
                   {listtickets.map((event, index) => (
-                    <tr key={event.id}>
+                    <tr key={event.id} className = "trSupport" onClick = {getChannel}>
                       <td
                         className={
                           localStorage.getItem("theme_status") == "light"
@@ -1556,6 +1555,13 @@ export default function profile() {
                       </td>
                       <td>
                         <button className="btnOpen" onClick = {openchat}>Open chat</button>
+                      </td>
+                      <td className={
+                          localStorage.getItem("theme_status") == "light"
+                            ? "tdlight"
+                            : "tddark"
+                        }>
+                        {event.channel_id}
                       </td>
                     </tr>
                   ))}

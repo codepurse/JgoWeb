@@ -1779,17 +1779,17 @@ ul.no-bullets>a>li:hover {
     border-radius: 50%;
     height: 35px;
     width: 35px;
-    overflow: hidden;
+    overflow: hidden !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    
 }
 
-.circle>img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+.navProf{
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
 }
 
 .pFullname {
@@ -3835,6 +3835,15 @@ video {
     display: block !important;
 }
 
+.pChatuser:nth-of-type(odd) {
+    background-color: #1E2126;
+    color: white;
+    margin-left: auto;
+    font-weight: normal;
+}
+
+
+
 .rowType {
     position: fixed;
     bottom: 20px;
@@ -3854,8 +3863,10 @@ video {
     caret-color: white;
 }
 
+
+
 .imgSend {
-    width: 25px;
+    width: 20px;
     margin-left: 15px;
     cursor: pointer;
 }
