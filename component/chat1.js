@@ -52,7 +52,7 @@ const Chat = () => {
 
       setInput("");
     },
-    [pubnub]
+    [pubnub,setInput]
   );
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const Chat = () => {
     if (e.which === 13) {
       e.preventDefault();
       sendMessage(input);
+      setInput("");
     }
   }
 
@@ -90,7 +91,7 @@ const Chat = () => {
               type="text"
               className="txtType"
               placeholder="Type something.."
-              
+              value = {input}
               onKeyPress={onKeyPress}
               onChange={(e) => setInput(e.target.value)}
             ></input>
@@ -111,13 +112,19 @@ const Chat = () => {
                 {Object.keys(messages).map((keyName, i) => {
                   try {
                     {
-                      return (
-                        <p className="pChatuser text-right">
-                          {messages[keyName].entry.content
-                            ? messages[keyName].entry.content
-                            : messages[keyName].entry}
+                      if(messages[keyName].entry.content) {
+                        return (
+                          <p className="pChatuser">
+                          {messages[keyName].entry.content}
                         </p>
-                      );
+                        )
+                      }else {
+                        return(
+                          <p className="pChatright">
+                          {messages[keyName].entry}
+                        </p>
+                        )
+                      }
                     }
                   } catch (e) {}
                 })}

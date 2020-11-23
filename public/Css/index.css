@@ -34,7 +34,6 @@
         min-height: auto !important;
         align-self: flex-start !important;
     }
- 
     .imgButton {
         margin: 0 auto !important;
         display: flex !important;
@@ -69,8 +68,6 @@
         width: 100px;
         margin: 0 auto !important;
         display: flex !important;
-
-        
     }
     .pCarouselTitle {
         font-size: 2rem !important;
@@ -181,7 +178,6 @@
         height: auto !important;
         display: none !important;
     }
-
     .divBookDetails1 {
         display: block !important;
     }
@@ -246,6 +242,7 @@
     --maincolor: #FFE900;
 }
 
+
 body, html {
     width: 100%;
     height: 100%;
@@ -257,11 +254,15 @@ body, html {
     background-color: #212427;
 }
 
-.tooltip{
-    z-index:100000000 !important;
+.con {
+    max-height: 900px !important;
 }
 
-.fixed-top {    
+.tooltip {
+    z-index: 100000000 !important;
+}
+
+.fixed-top {
     transition: all 0.2s;
 }
 
@@ -286,6 +287,7 @@ body, html {
 
 .mainCon {
     background-color: #262626;
+    max-height: 900px !important;
 }
 
 .pText {
@@ -614,7 +616,7 @@ hr {
     padding: 8px;
     width: 240px;
     margin: 0 auto;
-    margin-top: -5px;
+    margin-top: 5px;
     display: block;
 }
 
@@ -1034,7 +1036,6 @@ hr {
     border: 1px solid #FDBF00;
 }
 
-
 .divWallet {
     border: 1px solid #373A41;
     border-radius: 8px;
@@ -1048,7 +1049,6 @@ hr {
 .divWalelt:hover {
     border: 1px solid #FDBF00;
 }
-
 
 .pCod {
     font-family: 'GilroySemiBold';
@@ -1345,7 +1345,7 @@ hr {
 }
 
 .mainConDriver {
-    height: 100vh;
+    height: 100vh;  
 }
 
 .nav-driver {
@@ -1369,6 +1369,7 @@ hr {
     -webkit-filter: blur(0.5px);
     overflow: hidden;
     opacity: 1.0;
+    max-height: 820px !important;
 }
 
 .pMaasahan {
@@ -1437,8 +1438,6 @@ hr {
     font-weight: bold;
     margin-bottom: 0px;
 }
-
-
 
 .conDriver2 {
     padding-bottom: 5%;
@@ -1783,10 +1782,9 @@ ul.no-bullets>a>li:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
-.navProf{
+.navProf {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
@@ -2639,7 +2637,6 @@ label:active:after {
     height: 100%;
     width: 100%;
     object-fit: contain;
-    
 }
 
 .divProfilepic {
@@ -3115,7 +3112,6 @@ label:active:after {
     position: relative;
     border-radius: 20px;
     margin-top: 40px;
-  
 }
 
 .imgTara {
@@ -3585,7 +3581,6 @@ video {
     border-radius: 8px !important;
 }
 
-
 .p10 {
     font-family: 'GilroyMedium';
     color: whitesmoke;
@@ -3650,7 +3645,7 @@ video {
 }
 
 .divPricewallet {
-    background-color:  #3D3D3D;
+    background-color: #3D3D3D;
     border-left: 3px solid lightgray;
     padding: 8px;
     margin-bottom: 8px;
@@ -3699,10 +3694,7 @@ video {
     color: #424242 !important;
 }
 
-
 /* Support ticket */
-
-
 
 .conSupport {
     display: none;
@@ -3754,7 +3746,7 @@ video {
 
 .btnOpen {
     font-family: "GilroyMedium" !important;
-    color:#424242;
+    color: #424242;
     font-weight: 600;
     border: 0px;
     background-color: #FFE900;
@@ -3778,7 +3770,7 @@ video {
 
 .pSupportchat {
     font-family: "GilroyMedium" !important;
-    color:white;
+    color: white;
     font-size: 1rem;
     margin-left: 10px;
 }
@@ -3790,7 +3782,7 @@ video {
     right: 10px;
     z-index: 99999;
     transition: all 0.2s;
-    border-radius:15px;
+    border-radius: 15px;
     bottom: 10px;
     border: 1px solid #424242;
     display: none;
@@ -3817,13 +3809,12 @@ video {
     border-radius: 50%;
 }
 
-
 .pChatuser {
     background-color: #FDBC25;
     padding: 10px 15px;
     font-family: "GilroyMedium" !important;
     font-weight: 600;
-    color:#2E2E2E;
+    color: #2E2E2E;
     font-size: 0.85rem;
     margin-bottom: 0px;
     border-radius: 20px;
@@ -3835,14 +3826,19 @@ video {
     display: block !important;
 }
 
-.pChatuser:nth-of-type(odd) {
-    background-color: #1E2126;
+.pChatright {
+    font-family: "GilroyMedium" !important;
+    font-weight: 600;
+    color: #2E2E2E;
+    font-size: 0.85rem;
+    padding: 10px 15px;
+    background-color: #1E2126 !important;
     color: white;
-    margin-left: auto;
+    border-radius: 20px !important;
+    margin-left: auto !important;
     font-weight: normal;
+    width: max-content;
 }
-
-
 
 .rowType {
     position: fixed;
@@ -3862,8 +3858,6 @@ video {
     outline: none !important;
     caret-color: white;
 }
-
-
 
 .imgSend {
     width: 20px;

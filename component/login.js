@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
+import GoogleLogin from "react-google-login";
 import Select from "react-select";
 import Router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
@@ -30,7 +31,6 @@ const customStyles1 = {
     color: "white",
   }),
 };
-
 
 function successMessage() {
   swal(
@@ -100,52 +100,55 @@ export class login extends Component {
       errorLname: "",
       activeEmail: "",
       profile_name: "",
+      forgotemail: "",
     };
 
     this.login = this.login.bind(this);
   }
 
-
-  responseFacebook = (response) => {  
-  const options = {
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "content-type": "application/json",
-    },
+  responseGoogle = (response) => {
+    console.log(response);
   };
 
-  const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/callback";
-
-  axios
-    .get(
-      apiUrl,
-      {
-        id: response.id,
-        email: response.email,
-        fname: response.first_name,
-        lname: response.last_name,
+  responseFacebook = (response) => {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
       },
-      options
-    )
-    .then((result) => {
-      this.setState({email: response.email})
-      this.setState({fname: response.first_name})
-      this.setState({lname: response.last_name})
-      $("#modalRegister").modal("toggle");
-      console.log(result)
-      console.log(response)
-    })
-    .catch((err) => {
-      this.setState({email: response.email})
-      this.setState({fname: response.first_name})
-      this.setState({lname: response.last_name})
-      $("#modalRegister").modal("toggle");
+    };
 
-      console.log(err)
-      console.log(response);
-    });
-};
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/callback";
 
+    axios
+      .get(
+        apiUrl,
+        {
+          id: response.id,
+          email: response.email,
+          fname: response.first_name,
+          lname: response.last_name,
+        },
+        options
+      )
+      .then((result) => {
+        this.setState({ email: response.email });
+        this.setState({ fname: response.first_name });
+        this.setState({ lname: response.last_name });
+        $("#modalRegister").modal("toggle");
+        console.log(result);
+        console.log(response);
+      })
+      .catch((err) => {
+        this.setState({ email: response.email });
+        this.setState({ fname: response.first_name });
+        this.setState({ lname: response.last_name });
+        $("#modalRegister").modal("toggle");
+
+        console.log(err);
+        console.log(response);
+      });
+  };
 
   messageError() {
     swal(
@@ -311,6 +314,10 @@ export class login extends Component {
     this.setState({ passwordconfirm: event.target.value });
   }
 
+  forgotemail(event) {
+    this.setState({ forgotemail: event.target.value });
+  }
+
   handleFile(e) {
     let file = e.target.files[0];
     console.log(file);
@@ -440,6 +447,50 @@ export class login extends Component {
     }
   }
 
+  send() {
+    if (this.state.forgotemail.length == 0) {
+      $(".txtForgot").css("borderColor", "red");
+    } else {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+      const apiUrl = "https://staging-api.jgo.com.ph/api/send-password-link";
+      let formdata = new FormData();
+      formdata.set("email", this.state.forgotemail);
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #e53935" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">Cannot proces. Try again later</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+    }
+  }
+
   render() {
     return (
       <>
@@ -469,7 +520,13 @@ export class login extends Component {
             style={{ marginTop: "-10px" }}
           >
             <div className="col-lg-6 text-center">
-              <p className="pForgot">forgot password?</p>
+              <p
+                className="pForgot"
+                data-toggle="modal"
+                data-target="#modalForgot"
+              >
+                forgot password?
+              </p>
             </div>
             <div className="col-lg-6 text-center">
               <a className="btn btnSubmit" onClick={this.login}>
@@ -507,14 +564,23 @@ export class login extends Component {
               </button>
             )}
           />
-          , ,
-          <button className="btnGoogle">
-            <img
-              src="Image/google.png"
-              style={{ width: "15px", marginRight: "5px" }}
-            />
-            Sign-in with Google
-          </button>
+
+          <GoogleLogin
+            clientId="621401186664-3u1rqm88q6jqbikq9n5ell020dt6aadc.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <button className="btnGoogle">
+                <img
+                  src="Image/google.png"
+                  style={{ width: "15px", marginRight: "5px" }}
+                />
+                Sign-in with Google
+              </button>
+            )}
+            buttonText="Login"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
           <p className="pDont">Don't have an account?</p>
           <p
             className="pSignup"
@@ -714,6 +780,54 @@ export class login extends Component {
                         <b></b>
                       </span>
                     </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="modal fade"
+          id="modalForgot"
+          tabIndex={-1}
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-body text-center modalSearch">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <p className="pModalVerify text-left">Forgot password</p>
+                      <p className="pModalTitleSub text-left">
+                        Please enter your current email and check the password
+                        reset link in your email.
+                      </p>
+                      <p className="pTxtDriver pReport">Email address</p>
+                      <input
+                        type="text"
+                        className="txtDriver txtForgot"
+                        value={this.state.forgotemail}
+                        onChange={this.forgotemail.bind(this)}
+                      ></input>
+                    </div>
+                    <div className="col-lg-12">
+                      <a
+                        className="btn btnSendissue"
+                        onClick={this.send.bind(this)}
+                        style={{ marginTop: "5px" }}
+                      >
+                        Confirm
+                        <span style={{ marginLeft: "40px" }}>
+                          <b></b>
+                          <b></b>
+                          <b></b>
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

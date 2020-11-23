@@ -82,7 +82,7 @@ export default function navbar() {
             <div className="col2 ml-auto">
               <ul className="nav navbar-nav" style={{ marginRight: "15px" }}>
                 <li className={index}>
-                  <Link href="/driver">
+                  <Link href="/">
                     <a className="nav-link" style={{ color: "white" }}>
                       Ride with Us
                     </a>

@@ -7,6 +7,7 @@ import NextNprogress from "nextjs-progressbar";
 import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import axios from "axios";
+import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
   const [user, setUser] = React.useState("");
@@ -302,38 +303,7 @@ function index() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conFooter">
-        <div className="row align-items-center">
-          <div className="col-lg-6">
-            <img
-              src="Image/logo.png"
-              className="img-fluid imgLogo"
-              style={{ width: "150px", marginLeft: "20px" }}
-            ></img>
-          </div>
-          <div className="col-lg-6">
-            <ul className="ulFooter">
-              <li className="liFooter">
-                <a href="#home">COMPANY</a>
-              </li>
-              <li className="liFooter">
-                <a href="#news">CONTACT US</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">POLICIES</a>
-              </li>
-              <li className="liFooter">
-                <a href="#contact">TERM & CONDITION</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-12">
-            <p className="text-center pFooter">
-              © 2020 JGO Philippines. - All Rights
-            </p>
-          </div>
-        </div>
-      </div>
+      <Footer></Footer>
     </>
   );
 }

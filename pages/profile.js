@@ -261,7 +261,6 @@ export default function profile() {
   };
 
   useEffect(() => {
-
     if (localStorage.getItem("saveprof") == 1) {
       successMessage();
       localStorage.removeItem("saveprof");
@@ -282,7 +281,6 @@ export default function profile() {
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
-
     });
 
     const apiUrl_view_tickets =
@@ -291,7 +289,7 @@ export default function profile() {
       "/open_tickets";
 
     axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-      console.log(result.data)
+      console.log(result.data);
       setListticket(result.data);
     });
 
@@ -332,8 +330,8 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        setTabledata(result.data.data.reverse());
-      
+        setTabledata(result.data.data);
+
         if (result.data.data) {
           result.data.data
             .filter(
@@ -722,10 +720,9 @@ export default function profile() {
     formdata.append("fname", fname);
     formdata.append("lname", lname);
     formdata.append("mname", mname);
-    if(newimage.length == 0) {
-      
-    }else {
+    if (newimage) {
       formdata.append("profile_pic", newimage);
+    } else {
     }
     formdata.append("email", emailprof);
     formdata.append("mobile_no", mobile);
@@ -736,7 +733,6 @@ export default function profile() {
     formdata.append("zip", zip);
     formdata.append("_method", "PATCH");
 
-
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
     axios
       .post(apiUrl, formdata, options)
@@ -745,6 +741,7 @@ export default function profile() {
         $(".btnSave").removeClass("btn--loading");
         localStorage.setItem("saveprof", "1");
         console.log(newimage);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -968,21 +965,38 @@ export default function profile() {
             </div>
           </div>
         );
+        const options1 = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "content-type": "application/json",
+            Authorization: "Bearer " + AuthService.getToken(),
+            xsrfCookieName: "XSRF-TOKEN",
+            xsrfHeaderName: "X-XSRF-TOKEN",
+          },
+        };
+
+        const apiUrl_view_tickets =
+          "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
+          AuthService.getId() +
+          "/open_tickets";
+
+        axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
+          console.log(result.data);
+          setListticket(result.data);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  
   function getChannel(e) {
-    var x = $(e.currentTarget).find("td:nth-child(6)").text()
-   channel_id = [`${x}`];
-
+    var x = $(e.currentTarget).find("td:nth-child(6)").text();
+    channel_id = [`${x}`];
   }
 
   function openchat() {
-    $(".divChatbox").show()
+    $(".divChatbox").show();
     router.push("/profile");
   }
 
@@ -1011,7 +1025,7 @@ export default function profile() {
         <div className="divChatbox">
           <Chat></Chat>
         </div>
-        <div className="divSidebar">  
+        <div className="divSidebar">
           <div className="divMenuSide">
             <div className="divIcon">
               <ul className="no-bullets">
@@ -1048,14 +1062,13 @@ export default function profile() {
         </div>
         <div className="row rowTop">
           <div className="col-lg-4">
-          <Link href = "/">
-          <img
-              src="Image/logo.png"
-              className="img-fluid"
-      
-              style={{ width: "120px", marginLeft: "40px" }}
-            ></img>
-          </Link>
+            <Link href="/">
+              <img
+                src="Image/logo.png"
+                className="img-fluid"
+                style={{ width: "120px", marginLeft: "40px" }}
+              ></img>
+            </Link>
           </div>
           <div className="col-lg-4 text-center"></div>
           <div className="col-lg-4">
@@ -1068,7 +1081,7 @@ export default function profile() {
                 {fname} {lname}
               </span>
               <div className="circle">
-                <img className = "navProf" src={profilepic} alt="" />
+                <img className="navProf" src={profilepic} alt="" />
               </div>
             </div>
           </div>
@@ -1106,14 +1119,14 @@ export default function profile() {
             </p>
           </div>
           <div className="col-lg-7 form-inline">
-            <div>
+            <div style={{ display: "none" }}>
               <Select
                 options={date}
                 styles={isToggled ? customStyles1 : customStyles}
                 placeholder="Select Date"
               />
             </div>
-            <div className="div">
+            <div>
               <Select
                 options={status}
                 styles={isToggled ? customStyles1 : customStyles}
@@ -1516,7 +1529,11 @@ export default function profile() {
                 </thead>
                 <tbody>
                   {listtickets.map((event, index) => (
-                    <tr key={event.id} className = "trSupport" onClick = {getChannel}>
+                    <tr
+                      key={event.id}
+                      className="trSupport"
+                      onClick={getChannel}
+                    >
                       <td
                         className={
                           localStorage.getItem("theme_status") == "light"
@@ -1542,7 +1559,14 @@ export default function profile() {
                             : "tddark"
                         }
                       >
-                        {event.created_at}
+                        {new Intl.DateTimeFormat("en-US", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                        }).format(Date.parse(event.created_at))}
                       </td>
                       <td
                         className={
@@ -1554,13 +1578,17 @@ export default function profile() {
                         {event.status}
                       </td>
                       <td>
-                        <button className="btnOpen" onClick = {openchat}>Open chat</button>
+                        <button className="btnOpen" onClick={openchat}>
+                          Open chat
+                        </button>
                       </td>
-                      <td className={
+                      <td
+                        className={
                           localStorage.getItem("theme_status") == "light"
                             ? "tdlight"
                             : "tddark"
-                        }>
+                        }
+                      >
                         {event.channel_id}
                       </td>
                     </tr>
@@ -1845,9 +1873,13 @@ export default function profile() {
                   <div className="col-lg-12">
                     <p className="pModalVerify">Reminder</p>
                     <p className="pModalTitleSub">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam,
+                      Once you input your card details, our payment system will
+                      deduct P1.00 - P5.00 for verification purposes. You will
+                      then be asked to check how much was debited from your
+                      account to be inputted in the text box below. Upon
+                      completion of this process the amounted deducted will be
+                      debited back to your account and your credit card will be
+                      VERIFIED.
                     </p>
                   </div>
 
@@ -2050,7 +2082,7 @@ export default function profile() {
                       onClick={addissue}
                       style={{ marginTop: "5px" }}
                     >
-                      Add card
+                      Report issue
                       <span style={{ marginLeft: "40px" }}>
                         <b></b>
                         <b></b>
