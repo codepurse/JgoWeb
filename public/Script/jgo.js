@@ -26,6 +26,11 @@ $(document).ready(function () {
     $(".colMapTrack").css("left", width + 45);
   });
 
+  
+  $(".closeChat").click(function () {
+    $(".divChatbox").hide();
+  });
+
   var width = $(".colSidebar").width();
   var totalwidth = $(window).width() - width - 50;
   $(".colMapTrack").css("max-width", totalwidth);

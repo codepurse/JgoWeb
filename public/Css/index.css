@@ -3787,12 +3787,13 @@ video {
     background-color: #15181A;
     width: 370px;
     position: fixed;
-    right: 80px;
+    right: 10px;
     z-index: 99999;
     transition: all 0.2s;
     border-radius:15px;
-    bottom: 40px;
+    bottom: 10px;
     border: 1px solid #424242;
+    display: none;
 }
 
 .rowChatheader {
@@ -3830,13 +3831,15 @@ video {
     max-width: 240px;
     word-wrap: break-word;
     margin-left: -10px;
+    margin-bottom: 5px;
+    display: block !important;
 }
 
 .rowType {
     position: fixed;
     bottom: 20px;
-    width: 100%;
-    padding: 5px 20px;
+    width: 365px !important;
+    padding: 5px 5px;
 }
 
 .txtType {
@@ -3844,9 +3847,15 @@ video {
     color: white;
     background-color: #1E2126;
     padding: 8px;
-    width: 308px;
-    border-radius: 8px;
+    padding-left: 15px;
+    width: 270px;
+    border-radius: 25px;
     outline: none !important;
     caret-color: white;
 }
 
+.imgSend {
+    width: 25px;
+    margin-left: 15px;
+    cursor: pointer;
+}

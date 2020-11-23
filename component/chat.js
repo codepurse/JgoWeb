@@ -21,7 +21,12 @@ const Chat = () => {
         count: 100, // how many items to fetch
       },
       function (status, response) {
-        setMessages(response.messages);
+   
+        try {
+          setMessages(response.messages);
+        }catch(e){
+
+        }
       }
     );
 
@@ -63,13 +68,21 @@ const Chat = () => {
               overflow: "scroll",
             }}
           >
-            {Object.keys(messages).map((keyName, i) => (
-              <p className="pErrorSub">
-                {messages[keyName].entry.content
-                  ? messages[keyName].entry.content
-                  : messages[keyName].entry}
-              </p>
-            ))}
+            {Object.keys(messages).map((keyName, i) => {
+              try {
+                {
+                  return (
+                    <p className="pErrorSub">
+                      {messages[keyName].entry.content
+                        ? messages[keyName].entry.content
+                        : messages[keyName].entry}
+                    </p>
+                  );
+                }
+              } catch (e) {
+                
+              }
+            })}
           </div>
           <div
             style={{

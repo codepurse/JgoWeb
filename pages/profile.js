@@ -14,7 +14,7 @@ import Select from "react-select";
 import swal from "@sweetalert/with-react";
 import NextNprogress from "nextjs-progressbar";
 import Componentdidmount from "../component/componentdidmount";
-import Chat from "../component/chat";
+import Chat from "../component/chat1";
 import Link from "next/link";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
@@ -984,6 +984,10 @@ export default function profile() {
       });
   }
 
+  function openchat() {
+    $(".divChatbox").show()
+  }
+
   return (
     <>
       <Header></Header>
@@ -1551,7 +1555,7 @@ export default function profile() {
                         {event.status}
                       </td>
                       <td>
-                        <button className="btnOpen">Open chat</button>
+                        <button className="btnOpen" onClick = {openchat}>Open chat</button>
                       </td>
                     </tr>
                   ))}
