@@ -118,7 +118,7 @@ export class login extends Component {
     axios
     .get(
       apiUrl,
-      {
+      { 
         id: response.profileObj.id,
         email: response.profileObj.email,
         fname: response.profileObj.givenName,
