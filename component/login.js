@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin } from 'react-google-login';
 import Select from "react-select";
 import Router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
