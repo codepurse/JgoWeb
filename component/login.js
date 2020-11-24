@@ -154,10 +154,10 @@ export class login extends Component {
       },
     };
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/callback";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/details";
 
     axios
-      .get(
+      .post(
         apiUrl,
         {
           id: response.id,
@@ -168,18 +168,12 @@ export class login extends Component {
         options
       )
       .then((result) => {
-        this.setState({ email: response.email });
-        this.setState({ fname: response.first_name });
-        this.setState({ lname: response.last_name });
-        $("#modalRegister").modal("toggle");
+
         console.log(result);
         console.log(response);
       })
       .catch((err) => {
-        this.setState({ email: response.email });
-        this.setState({ fname: response.first_name });
-        this.setState({ lname: response.last_name });
-        $("#modalRegister").modal("toggle");
+    
 
         console.log(err);
         console.log(response);
