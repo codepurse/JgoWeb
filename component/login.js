@@ -107,7 +107,42 @@ export class login extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log(response);
+    console.log(response.profileObj);
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+      },
+    }
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/google/callback";
+    axios
+    .get(
+      apiUrl,
+      {
+        id: response.profileObj.id,
+        email: response.profileObj.email,
+        fname: response.profileObj.givenName,
+        lname: response.profileObj.familyName,
+      },
+      options
+    )
+    .then((result) => {
+      this.setState({ email: response.email });
+      this.setState({ fname: response.first_name });
+      this.setState({ lname: response.last_name });
+      $("#modalRegister").modal("toggle");
+      console.log(result);
+
+    })
+    .catch((err) => {
+      this.setState({ email: response.email });
+      this.setState({ fname: response.first_name });
+      this.setState({ lname: response.last_name });
+      $("#modalRegister").modal("toggle");
+
+      console.log(err);
+
+    });
   };
 
   responseFacebook = (response) => {
