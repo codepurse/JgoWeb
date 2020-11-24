@@ -135,6 +135,7 @@ export class login extends Component {
         $("#modalRegister").modal("toggle");
       }else {
         localStorage.setItem("google", JSON.stringify(result.data));
+        window.location.reload();
       }
       console.log(result.data);
     })
