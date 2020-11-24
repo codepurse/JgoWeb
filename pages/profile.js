@@ -307,7 +307,11 @@ export default function profile() {
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        setLatestbook(result.data.data.id);
+        try {
+          setLatestbook(result.data.data.id);
+        }catch(e) {
+          
+        }
       });
 
     const apiUrl2 =

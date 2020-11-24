@@ -6,25 +6,10 @@ class AuthService {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("google");
+    localStorage.removeItem("fb");
   }
 
-  getCurrentUser() {
-    if (localStorage.getItem("token")) {
-      const loggedInUser = localStorage.getItem("token");
-      if (localStorage.getItem("token")) {
-        const foundUser = JSON.parse(loggedInUser);
-        const fname = foundUser.user.fname;
-        return fname;
-      }
-    } else {
-      const loggedInUser = localStorage.getItem("google");
-      if (localStorage.getItem("google")) {
-        const foundUser = JSON.parse(loggedInUser);
-        const fname = foundUser.first_name;
-        return fname;
-      }
-    }
-  }
+
 
   getFullname() {
     if (localStorage.getItem("token")) {
@@ -34,9 +19,16 @@ class AuthService {
         const fname = foundUser.user.name;
         return fname;
       }
-    } else {
+    } else if (localStorage.getItem("google")) {
       const loggedInUser = localStorage.getItem("google");
       if (localStorage.getItem("google")) {
+        const foundUser = JSON.parse(loggedInUser);
+        const fname = foundUser.user.fname + " " + foundUser.user.lname;
+        return fname;
+      }
+    }else {
+      const loggedInUser = localStorage.getItem("fb");
+      if (localStorage.getItem("fb")) {
         const foundUser = JSON.parse(loggedInUser);
         const fname = foundUser.user.fname + " " + foundUser.user.lname;
         return fname;
@@ -52,9 +44,16 @@ class AuthService {
         const fname = foundUser.user.id;
         return fname;
       }
-    }else {
+    }else if (localStorage.getItem("google")) {
       const loggedInUser = localStorage.getItem("google");
       if (localStorage.getItem("google")) {
+        const foundUser = JSON.parse(loggedInUser);
+        const fname = foundUser.user.id;
+        return fname;
+      }
+    }else {
+      const loggedInUser = localStorage.getItem("fb");
+      if (localStorage.getItem("fb")) {
         const foundUser = JSON.parse(loggedInUser);
         const fname = foundUser.user.id;
         return fname;
@@ -70,9 +69,16 @@ class AuthService {
         const fname = foundUser.token;
         return fname;
       }
-    }else{
+    }else if (localStorage.getItem("token")) {
       const loggedInUser = localStorage.getItem("google");
       if (localStorage.getItem("google")) {
+        const foundUser = JSON.parse(loggedInUser);
+        const fname = foundUser.token;
+        return fname;
+      }
+    } else {
+      const loggedInUser = localStorage.getItem("fb");
+      if (localStorage.getItem("fb")) {
         const foundUser = JSON.parse(loggedInUser);
         const fname = foundUser.token;
         return fname;
@@ -82,7 +88,8 @@ class AuthService {
 
   checkLogin() {
     const loggedInUser = localStorage.getItem("token");
-    const loggedInUserFb = localStorage.getItem("google");
+    const loggedInUserFb = localStorage.getItem("fb");
+    const loggedInUsergoogle = localStorage.getItem("google");
     if (loggedInUserFb) {
       const foundUser = JSON.parse(loggedInUser);
 

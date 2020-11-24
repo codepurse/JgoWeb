@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from "react-google-login";
 import Select from "react-select";
 import Router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
@@ -111,42 +111,40 @@ export class login extends Component {
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
-        "content-type": "application/json", 
+        "content-type": "application/json",
       },
-    }
+    };
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/google/details";
     axios
-    .post(
-      apiUrl,
-      { 
-        id: response.profileObj.id,
-        email: response.profileObj.email,
-        fname: response.profileObj.givenName,
-        lname: response.profileObj.familyName,
-      },
-      options
-    )
-    .then((result) => {
-  
-      if (result.data.message) {
-        this.setState({ email: response.profileObj.email, });
-        this.setState({ fname: response.profileObj.givenName });
-        this.setState({ lname: response.profileObj.familyName});
-        $("#modalRegister").modal("toggle");
-      }else {
-        localStorage.setItem("google", JSON.stringify(result.data));
-        window.location.reload();
-      }
-      console.log(result.data);
-    })
-    .catch((err) => {
- 
-      console.log(err);
-  
-    });
+      .post(
+        apiUrl,
+        {
+          id: response.profileObj.id,
+          email: response.profileObj.email,
+          fname: response.profileObj.givenName,
+          lname: response.profileObj.familyName,
+        },
+        options
+      )
+      .then((result) => {
+        if (result.data.message) {
+          this.setState({ email: response.profileObj.email });
+          this.setState({ fname: response.profileObj.givenName });
+          this.setState({ lname: response.profileObj.familyName });
+          $("#modalRegister").modal("toggle");
+        } else {
+          localStorage.setItem("google", JSON.stringify(result.data));
+          window.location.reload();
+        }
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   responseFacebook = (response) => {
+    console.log(response);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -168,13 +166,19 @@ export class login extends Component {
         options
       )
       .then((result) => {
-
-        console.log(result);
-        console.log(response);
+        if (result.data.message) {
+          this.setState({ email: response.email });
+          this.setState({ fname: response.first_name });
+          this.setState({ lname: response.last_name });
+          $("#modalRegister").modal("toggle");
+        } else {
+          localStorage.setItem("fb", JSON.stringify(result.data));
+          window.location.reload();
+          console.log(result.data);
+        }
+        console.log(result.data);
       })
       .catch((err) => {
-    
-
         console.log(err);
         console.log(response);
       });
@@ -598,7 +602,11 @@ export class login extends Component {
           <GoogleLogin
             clientId="621401186664-3u1rqm88q6jqbikq9n5ell020dt6aadc.apps.googleusercontent.com"
             render={(renderProps) => (
-              <button className="btnGoogle"  onClick={renderProps.onClick} disabled={renderProps.disabled}>
+              <button
+                className="btnGoogle"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
                 <img
                   src="Image/google.png"
                   style={{ width: "15px", marginRight: "5px" }}
