@@ -602,10 +602,14 @@ export default function profile() {
       formdata.set("new_password", newpass);
 
       const apiUrl = "https://staging-api.jgo.com.ph/api/auth/change-password";
+
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
-          console.log(result.message());
+          console.log(result);
+          $("#modalChangepass").modal("toggle");
+          AuthService.logout();
+          router.push("/");
         })
         .catch((err) => {
           swal(
@@ -624,7 +628,7 @@ export default function profile() {
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
                     <p className="pErrorSub">
-                      The input credentials is invalid'
+                      The input credentials is invalid.
                     </p>
                   </div>
                 </div>
@@ -838,7 +842,7 @@ export default function profile() {
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
-        console.log(result.data.data.redirectUrl);
+        console.log(result);
         window.open(result.data.data.redirectUrl, "_blank");
         $(".btnAddcard").removeClass("btn--loading");
       })
@@ -1619,7 +1623,7 @@ export default function profile() {
               </p>
               <p className="pModalTitleSub pchangesub">
                 Your new password must be different from previous used
-                passwords.
+                passwords.You account will be logout if its successfull.
               </p>
               <hr
                 style={{

@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from "react";
 import Header from "../component/header";
 import Footer from "../component/footer";
-import Navbar from "../component/navbar";
+import Navbar from "../component/navbar1";
 import NextNprogress from "nextjs-progressbar";
 import Link from "next/link";
 import Componentdidmount from "../component/componentdidmount";
