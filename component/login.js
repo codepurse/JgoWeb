@@ -127,17 +127,17 @@ export class login extends Component {
       options
     )
     .then((result) => {
-      this.setState({ email: response.email });
-      this.setState({ fname: response.first_name });
-      this.setState({ lname: response.last_name });
+      this.setState({ email: response.profileObj.email, });
+      this.setState({ fname: response.profileObj.givenName });
+      this.setState({ lname: response.profileObj.familyName});
       $("#modalRegister").modal("toggle");
       console.log(result);
 
     })
     .catch((err) => {
-      this.setState({ email: response.email });
-      this.setState({ fname: response.first_name });
-      this.setState({ lname: response.last_name });
+      this.setState({ email: response.profileObj.email, });
+      this.setState({ fname: response.profileObj.givenName });
+      this.setState({ lname: response.profileObj.familyName});
       $("#modalRegister").modal("toggle");
 
       console.log(err);
