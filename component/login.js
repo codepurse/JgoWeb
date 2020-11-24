@@ -128,6 +128,7 @@ export class login extends Component {
     )
     .then((result) => {
       localStorage.setItem("google", JSON.stringify(result.data));
+      window.location.reload();
       console.log(result.data);
     })
     .catch((err) => {

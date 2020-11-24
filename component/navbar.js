@@ -14,7 +14,7 @@ export default function navbar() {
   const [fname, setFname] = React.useState("");
 
   function loginForm(e) {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") || localStorage.getItem("google")) {
       router.push("/profile");
     } else {
       $(".colMain").hide();
