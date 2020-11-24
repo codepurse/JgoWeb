@@ -127,16 +127,19 @@ export class login extends Component {
       options
     )
     .then((result) => {
-      localStorage.setItem("google", JSON.stringify(result.data));
   
+      if (result.data.message) {
+        this.setState({ email: response.profileObj.email, });
+        this.setState({ fname: response.profileObj.givenName });
+        this.setState({ lname: response.profileObj.familyName});
+        $("#modalRegister").modal("toggle");
+      }else {
+        localStorage.setItem("google", JSON.stringify(result.data));
+      }
       console.log(result.data);
     })
     .catch((err) => {
  
-      this.setState({ email: response.profileObj.email, });
-      this.setState({ fname: response.profileObj.givenName });
-      this.setState({ lname: response.profileObj.familyName});
-      $("#modalRegister").modal("toggle");
       console.log(err);
   
     });
