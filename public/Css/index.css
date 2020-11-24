@@ -2638,6 +2638,15 @@ label:active:after {
     display: none;
 }
 
+.pWalletno {
+    font-family: 'GilroyMedium';
+    font-size: 0.9rem;
+    color: #d32f2f;
+    margin-top: 5px;
+    margin-bottom: -20px;
+    display: none;
+}
+
 /* Customer profile  */
 
 .conProf {

@@ -28,6 +28,7 @@ export default function map() {
   const [listcard, setListcard] = React.useState([]);
   const [cardtoken, setCardToken] = React.useState("");
   const [wallet, setWallet] = React.useState("");
+  const [walletamount, setWalletamount] = React.useState("");
   var clickpayment = 0;
   const bookingtype = [
     { value: "1", label: "Document" },
@@ -245,7 +246,7 @@ export default function map() {
       value: localStorage.getItem("address"),
       label: localStorage.getItem("address"),
     });
-    setAddressDrop({  
+    setAddressDrop({
       value: localStorage.getItem("addressDrop"),
       label: localStorage.getItem("addressDrop"),
     });
@@ -550,7 +551,9 @@ export default function map() {
     $(e.currentTarget)
       .closest(".divStopOff")
       .find(".css-5sz5u5-singleValue")
-      .contents().filter((_, el) => el.nodeType === 3).remove();
+      .contents()
+      .filter((_, el) => el.nodeType === 3)
+      .remove();
 
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
@@ -631,7 +634,7 @@ export default function map() {
       headers: {
         Accept: "application/json, text/plain, */*",
         "content-type": "application/json",
-        Authorization: "Bearer " + tokenuser,
+        Authorization: "Bearer " + AuthService.getToken(),
       },
     };
 
@@ -647,6 +650,27 @@ export default function map() {
   function btnPlaceorder() {
     if (clickpayment == 1) {
       return false;
+    } else if (payment == "") {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2 col-sm-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10 col-sm-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Please select a payment method to proceed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     } else {
       if (payment.length == 0) {
         x = 0;
@@ -678,7 +702,7 @@ export default function map() {
           headers: {
             Accept: "application/json, text/plain, */*",
             "content-type": "application/json",
-            Authorization: "Bearer " + tokenuser,
+            Authorization: "Bearer " + AuthService.getToken(),
           },
         };
 
@@ -987,8 +1011,13 @@ export default function map() {
     $(".imgCheck").hide();
     $(".divCod").css("border", "1px solid #373A41");
     $(e.currentTarget).find(".imgCheck").fadeIn(150);
-    setPayment("jgowallet");
+
     $(e.currentTarget).css("border", "1px solid #FDBF00");
+    if (wallet < price) {
+      $(".pWalletno").show();
+    } else {
+      setPayment("jgowallet");
+    }
   }
 
   function setPaymentCard(e) {
@@ -1020,7 +1049,11 @@ export default function map() {
               style={{ padding: "40px 0px" }}
             >
               <div className="col-lg-3">
-                <img src="Image/logo.png" className="img-fluid imgLogo"></img>
+                <Link href = "/">
+                  <a>
+                  <img src="Image/logo.png" className="img-fluid imgLogo"></img>
+                  </a>
+                </Link>
               </div>
               <div className="col-lg-9">
                 <ul className="my-row">
@@ -1074,7 +1107,6 @@ export default function map() {
                   className="img-fluid imgMap tooltip-primary"
                   onClick={opensweetalert}
                   data-toggle="tooltip"
-               
                   data-placement="top"
                   title="Click the map to set the exact location"
                 ></img>
@@ -1194,340 +1226,340 @@ export default function map() {
 
             {/* Stop off number 2 */}
 
-            <div className = "divlistStop">
-            <div
-              onClick={() => ((click = 3), setId(3))}
-         
-              className="divStopoff1 divStopOff div1" id = "divStopoff"
-            >
-              <p className="pPick" style={{ marginTop: "30px" }}>
-                {" "}
-                <img
-                  src="Image/mapgps.svg"
-                  className="img-fluid imgGps"
-                  style={{ marginRight: "15px" }}
-                ></img>
-                Stop Off Location
-              </p>
-
+            <div className="divlistStop">
               <div
-                className="form-inline"
-                style={{ width: "100%", marginLeft: "5%" }}
+                onClick={() => ((click = 3), setId(3))}
+                className="divStopoff1 divStopOff div1"
+                id="divStopoff"
               >
-                <GooglePlacesAutocomplete
-                  selectProps={{
-                    instanceId: "3",
-                    className: "selectPlaces",
-                    onChange: handleChangeStop,
-                    styles: customStyles2,
-                  }}
-                  autocompletionRequest={{
-                    componentRestrictions: {
-                      country: ["ph"],
-                    },
-                  }}
-                />
-                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
-                <img
-                  src="Image/remove.png"
-                  className="img-fluid  imgDelete"
-                  id="3"
-                  onClick={deleteAdd}
-                ></img>
-              </div>
-              <div className="divHide">
-                <div className="divAdd">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtName txtValidation txtAdditional"
-                        onChange={(evt) => updateInputValue(evt)}
-                        placeholder="Name"
-                      ></input>
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtAdditional"
-                        onChange={(evt) => updateInputValueAdd(evt)}
-                        placeholder="Note"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <Select
-                        options={bookingtype}
-                        styles={isToggled ? customStyles4 : customStyles}
-                        onChange={handleChangeCategory}
-                        placeholder="Select Category"
-                        onClick={() => (click = 3)}
-                      />
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid imgGps"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
+
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "3",
+                      className: "selectPlaces",
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="3"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={isToggled ? customStyles4 : customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 3)}
+                        />
+                      </div>
                     </div>
                   </div>
+                  <p className="pAdd">&#x2b; Add details</p>
                 </div>
-                <p className="pAdd">&#x2b; Add details</p>
               </div>
-            </div>
 
-            {/* Stop off number 3 */}
-
-            <div
-              onClick={() => ((click = 4), setId(4))}
-            
-              className="divStopoff2 divStopOff div1" id = "divStopoff"
-            >
-              <p className="pPick" style={{ marginTop: "30px" }}>
-                {" "}
-                <img
-                  src="Image/mapgps.svg"
-                  className="img-fluid"
-                  style={{ marginRight: "15px" }}
-                ></img>
-                Stop Off Location
-              </p>
+              {/* Stop off number 3 */}
 
               <div
-                className="form-inline"
-                style={{ width: "100%", marginLeft: "5%" }}
+                onClick={() => ((click = 4), setId(4))}
+                className="divStopoff2 divStopOff div1"
+                id="divStopoff"
               >
-                <GooglePlacesAutocomplete
-                  selectProps={{
-                    instanceId: "4",
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
 
-                    onChange: handleChangeStop,
-                    styles: customStyles2,
-                  }}
-                  autocompletionRequest={{
-                    componentRestrictions: {
-                      country: ["ph"],
-                    },
-                  }}
-                />
-                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
-                <img
-                  src="Image/remove.png"
-                  className="img-fluid  imgDelete"
-                  id="4"
-                  onClick={deleteAdd}
-                ></img>
-              </div>
-              <div className="divHide">
-                <div className="divAdd">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtName txtValidation txtAdditional"
-                        onChange={(evt) => updateInputValue(evt)}
-                        placeholder="Name"
-                      ></input>
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtAdditional"
-                        onChange={(evt) => updateInputValueAdd(evt)}
-                        placeholder="Note"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <Select
-                        options={bookingtype}
-                        styles={isToggled ? customStyles4 : customStyles}
-                        onChange={handleChangeCategory}
-                        placeholder="Select Category"
-                        onClick={() => (click = 4)}
-                      />
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "4",
+
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="4"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={isToggled ? customStyles4 : customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 4)}
+                        />
+                      </div>
                     </div>
                   </div>
+                  <p className="pAdd">&#x2b; Add details</p>
                 </div>
-                <p className="pAdd">&#x2b; Add details</p>
               </div>
-            </div>
 
-            {/* Stop off number 4 */}
-
-            <div
-              onClick={() => ((click = 5), setId(5))}
-             
-              className="divStopoff3 divStopOff div1" id = "divStopoff"
-            >
-              <p className="pPick" style={{ marginTop: "30px" }}>
-                {" "}
-                <img
-                  src="Image/mapgps.svg"
-                  className="img-fluid"
-                  style={{ marginRight: "15px" }}
-                ></img>
-                Stop Off Location
-              </p>
+              {/* Stop off number 4 */}
 
               <div
-                className="form-inline"
-                style={{ width: "100%", marginLeft: "5%" }}
+                onClick={() => ((click = 5), setId(5))}
+                className="divStopoff3 divStopOff div1"
+                id="divStopoff"
               >
-                <GooglePlacesAutocomplete
-                  selectProps={{
-                    instanceId: "5",
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
 
-                    onChange: handleChangeStop,
-                    styles: customStyles2,
-                  }}
-                  autocompletionRequest={{
-                    componentRestrictions: {
-                      country: ["ph"],
-                    },
-                  }}
-                />
-                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
-                <img
-                  src="Image/remove.png"
-                  className="img-fluid  imgDelete"
-                  id="4"
-                  onClick={deleteAdd}
-                ></img>
-              </div>
-              <div className="divHide">
-                <div className="divAdd">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtName txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValue(evt)}
-                        placeholder="Name"
-                      ></input>
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtAdditional"
-                        onChange={(evt) => updateInputValueAdd(evt)}
-                        placeholder="Note"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <Select
-                        options={bookingtype}
-                        styles={isToggled ? customStyles4 : customStyles}
-                        onChange={handleChangeCategory}
-                        placeholder="Select Category"
-                        onClick={() => (click = 5)}
-                      />
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "5",
+
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="4"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={isToggled ? customStyles4 : customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 5)}
+                        />
+                      </div>
                     </div>
                   </div>
+                  <p className="pAdd">&#x2b; Add details</p>
                 </div>
-                <p className="pAdd">&#x2b; Add details</p>
               </div>
-            </div>
 
-            {/* Stop off number 5 */}
-
-            <div
-              onClick={() => ((click = 6), setId(6))}
-           
-              className="divStopoff4 divStopOff div1" id = "divStopoff"
-            >
-              <p className="pPick" style={{ marginTop: "30px" }}>
-                {" "}
-                <img
-                  src="Image/mapgps.svg"
-                  className="img-fluid"
-                  style={{ marginRight: "15px" }}
-                ></img>
-                Stop Off Location
-              </p>
+              {/* Stop off number 5 */}
 
               <div
-                className="form-inline"
-                style={{ width: "100%", marginLeft: "5%" }}
+                onClick={() => ((click = 6), setId(6))}
+                className="divStopoff4 divStopOff div1"
+                id="divStopoff"
               >
-                <GooglePlacesAutocomplete
-                  selectProps={{
-                    instanceId: "6",
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
 
-                    onChange: handleChangeStop,
-                    styles: customStyles2,
-                  }}
-                  autocompletionRequest={{
-                    componentRestrictions: {
-                      country: ["ph"],
-                    },
-                  }}
-                />
-                <img src="Image/maps.png" className="img-fluid imgMap1"></img>
-                <img
-                  src="Image/remove.png"
-                  className="img-fluid  imgDelete"
-                  id="4"
-                  onClick={deleteAdd}
-                ></img>
-              </div>
-              <div className="divHide">
-                <div className="divAdd">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtName txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValue(evt)}
-                        placeholder="Name"
-                      ></input>
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtValidation  txtAdditional"
-                        onChange={(evt) => updateInputValueNumber(evt)}
-                        placeholder="Contact Number"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        type="text"
-                        className="txtNumber txtAdditional"
-                        onChange={(evt) => updateInputValueAdd(evt)}
-                        placeholder="Note"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <Select
-                        options={bookingtype}
-                        styles={customStyles}
-                        onChange={handleChangeCategory}
-                        placeholder="Select Category"
-                        onClick={() => (click = 6)}
-                      />
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "6",
+
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="4"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 6)}
+                        />
+                      </div>
                     </div>
                   </div>
+                  <p className="pAdd">&#x2b; Add details</p>
                 </div>
-                <p className="pAdd">&#x2b; Add details</p>
               </div>
-            </div>
             </div>
 
             <button className="btnAddStopoff">Add Stop-off</button>
@@ -1742,7 +1774,7 @@ export default function map() {
                   </div>
                 </div>
               </div>
-
+              <p className="pWalletno">Insufficient Jgo wallet amount</p>
               <p
                 className="pMode"
                 style={{ fontSize: "1rem", marginTop: "30px" }}
