@@ -568,7 +568,7 @@ export class login extends Component {
           <GoogleLogin
             clientId="621401186664-3u1rqm88q6jqbikq9n5ell020dt6aadc.apps.googleusercontent.com"
             render={(renderProps) => (
-              <button className="btnGoogle">
+              <button className="btnGoogle"  onClick={renderProps.onClick} disabled={renderProps.disabled}>
                 <img
                   src="Image/google.png"
                   style={{ width: "15px", marginRight: "5px" }}
