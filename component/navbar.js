@@ -14,7 +14,7 @@ export default function navbar() {
   const [fname, setFname] = React.useState("");
 
   function loginForm(e) {
-    if (localStorage.getItem("token") || localStorage.getItem("tokenFb")) {
+    if (localStorage.getItem("token")) {
       router.push("/profile");
     } else {
       $(".colMain").hide();
@@ -55,7 +55,7 @@ export default function navbar() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("token") || localStorage.getItem("tokenFb")) {
+    if (localStorage.getItem("token") || localStorage.getItem("google")) {
       return setFname(AuthService.getFullname());
     } else {
       setFname("LOGIN");

@@ -17,8 +17,8 @@ class AuthService {
         return fname;
       }
     } else {
-      const loggedInUser = localStorage.getItem("tokenFb");
-      if (localStorage.getItem("tokenFb")) {
+      const loggedInUser = localStorage.getItem("google");
+      if (localStorage.getItem("google")) {
         const foundUser = JSON.parse(loggedInUser);
         const fname = foundUser.first_name;
         return fname;
@@ -35,10 +35,10 @@ class AuthService {
         return fname;
       }
     } else {
-      const loggedInUser = localStorage.getItem("tokenFb");
-      if (localStorage.getItem("tokenFb")) {
+      const loggedInUser = localStorage.getItem("google");
+      if (localStorage.getItem("google")) {
         const foundUser = JSON.parse(loggedInUser);
-        const fname = foundUser.name;
+        const fname = foundUser.user.fname + " " + foundUser.user.lname;
         return fname;
       }
     }
@@ -53,10 +53,10 @@ class AuthService {
         return fname;
       }
     }else {
-      const loggedInUser = localStorage.getItem("tokenFb");
-      if (localStorage.getItem("tokenFb")) {
+      const loggedInUser = localStorage.getItem("google");
+      if (localStorage.getItem("google")) {
         const foundUser = JSON.parse(loggedInUser);
-        const fname = foundUser.id;
+        const fname = foundUser.user.id;
         return fname;
       }
     }
@@ -71,10 +71,10 @@ class AuthService {
         return fname;
       }
     }else{
-      const loggedInUser = localStorage.getItem("tokenFb");
-      if (localStorage.getItem("tokenFb")) {
+      const loggedInUser = localStorage.getItem("google");
+      if (localStorage.getItem("google")) {
         const foundUser = JSON.parse(loggedInUser);
-        const fname = foundUser.accessToken;
+        const fname = foundUser.token;
         return fname;
       }
     }
@@ -82,7 +82,7 @@ class AuthService {
 
   checkLogin() {
     const loggedInUser = localStorage.getItem("token");
-    const loggedInUserFb = localStorage.getItem("tokenFb");
+    const loggedInUserFb = localStorage.getItem("google");
     if (loggedInUserFb) {
       const foundUser = JSON.parse(loggedInUser);
 

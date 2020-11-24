@@ -111,7 +111,7 @@ export class login extends Component {
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
+        "content-type": "application/json", 
       },
     }
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/google/details";
@@ -127,15 +127,15 @@ export class login extends Component {
       options
     )
     .then((result) => {
+      localStorage.setItem("google", JSON.stringify(result.data));
+      console.log(result.data);
+    })
+    .catch((err) => {
+ 
       this.setState({ email: response.profileObj.email, });
       this.setState({ fname: response.profileObj.givenName });
       this.setState({ lname: response.profileObj.familyName});
       $("#modalRegister").modal("toggle");
-      console.log(result);
-    })
-    .catch((err) => {
- 
-  
       console.log(err);
   
     });
