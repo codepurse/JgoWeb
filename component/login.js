@@ -116,7 +116,7 @@ export class login extends Component {
     }
     const apiUrl = "https://staging-api.jgo.com.ph/api/auth/google/details";
     axios
-    .get(
+    .post(
       apiUrl,
       { 
         id: response.profileObj.id,
