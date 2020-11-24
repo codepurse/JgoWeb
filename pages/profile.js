@@ -36,6 +36,7 @@ export default function profile() {
   const [firstrun, setFirstrun] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [showmore, setShowmore] = React.useState("5");
+  const [latestbook, setLatestbook] = React.useState("");
 
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -96,6 +97,30 @@ export default function profile() {
       $("#exampleModal").modal("hide");
       router.push("/tracking");
     }
+  }
+
+  function cancelbook() {
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
+
+    axios
+      .post(apiUrl, { booking_id: latestbook }, options1)
+      .then((result) => {
+        console.log(latestbook)
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function successMessage() {
@@ -275,6 +300,15 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
+
+    const apiUrllatest =
+      "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
+
+    axios
+      .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        setLatestbook(result.data.data.id);
+      });
 
     const apiUrl2 =
       "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
@@ -543,7 +577,7 @@ export default function profile() {
     });
     $("tbody").each(function () {
       var list = $(this).children("tr");
-      $(this).html(list.get().reverse());
+      $(this).html(list.get());
     });
   }
 
@@ -1168,7 +1202,7 @@ export default function profile() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tabledata.reverse().map((event, index) => (
+                  {tabledata.map((event, index) => (
                     <tr key={event.id}>
                       <td
                         className={
@@ -1722,6 +1756,9 @@ export default function profile() {
                         <b></b>
                       </span>
                     </a>
+                    <p className="pCancelbook" onClick={cancelbook}>
+                      Cancel Booking
+                    </p>
                   </div>
                 </div>
               </div>

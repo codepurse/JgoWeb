@@ -2122,6 +2122,20 @@ td {
     display: none;
 }
 
+.pCancelbook {
+    font-family: 'GilroyMedium';
+    color: #FFDD9A;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: -10px;
+    cursor: pointer;
+}
+
+.pCancelbook:hover {
+    text-decoration: underline;
+}
+
 .pSearching {
     font-family: 'GilroyMedium';
     color: whitesmoke;
