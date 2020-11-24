@@ -5,7 +5,7 @@ const API_URL = "http://localhost:8080/api/auth/";
 class AuthService {
   logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("tokenFb");
+    localStorage.removeItem("google");
   }
 
   getCurrentUser() {
