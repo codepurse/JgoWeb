@@ -101,6 +101,11 @@ export class login extends Component {
       activeEmail: "",
       profile_name: "",
       forgotemail: "",
+      requestid: "",
+      otp1: "",
+      otp2: "",
+      otp3: "",
+      otp4: "",
     };
 
     this.login = this.login.bind(this);
@@ -183,6 +188,96 @@ export class login extends Component {
         console.log(response);
       });
   };
+
+  goOtp(e) {
+    e.preventDefault();
+    $(e.currentTarget).addClass("btn--loading");
+    if (this.state.fname == "") {
+      $(".pFname").css("color", "#d32f2f");
+      $(".txtFname").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.lname == "") {
+      $(".pLname").css("color", "#d32f2f");
+      $(".txtLname").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.mobile == "") {
+      $(".pMobile").css("color", "#d32f2f");
+      $(".txtMobile").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.email == "") {
+      $(".pEmail").css("color", "#d32f2f");
+      $(".txtEmail").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.password == "") {
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+    if (this.state.password != this.state.passwordconfirm) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      $(".btn").removeClass("btn--loading");
+    }
+
+    if (this.state.password < 6 || this.state.password > 16) {
+      $(".pConfirmPass").css("color", "#d32f2f");
+      $(".txtConfirmPass").css("borderColor", "#d32f2f");
+      $(".pPassword").css("color", "#d32f2f");
+      $(".txtPassword").css("borderColor", "#d32f2f");
+      $(".pError").show();
+      $(".btn").removeClass("btn--loading");
+    } else {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+      const apiUrl =
+        "https://staging-api.jgo.com.ph/api/sms/send/otp/" + this.state.mobile;
+      axios
+        .post(apiUrl, {}, options)
+        .then((result) => {
+          $(".btn").removeClass("btn--loading");
+          console.log(result);
+          this.setState({ requestid: result.data.data.request_id });
+          $("#modalOtp").modal("toggle");
+        })
+        .catch((err) => {
+          console.log(apiUrl);
+          $(".btn").removeClass("btn--loading");
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #c62828" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      Something happened please contact our customer support.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+    }
+  }
 
   messageError() {
     swal(
@@ -352,6 +447,19 @@ export class login extends Component {
     this.setState({ forgotemail: event.target.value });
   }
 
+  otp1(event) {
+    this.setState({ otp1: event.target.value });
+  }
+  otp2(event) {
+    this.setState({ otp2: event.target.value });
+  }
+  otp3(event) {
+    this.setState({ otp3: event.target.value });
+  }
+  otp4(event) {
+    this.setState({ otp4: event.target.value });
+  }
+
   handleFile(e) {
     let file = e.target.files[0];
     console.log(file);
@@ -362,50 +470,29 @@ export class login extends Component {
   onBtnClick = () => this.inputFileRef.current.click();
 
   register(e) {
-    e.preventDefault();
-    $(e.currentTarget).addClass("btn--loading");
-    if (this.state.fname == "") {
-      $(".pFname").css("color", "#d32f2f");
-      $(".txtFname").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
-    if (this.state.lname == "") {
-      $(".pLname").css("color", "#d32f2f");
-      $(".txtLname").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
-    if (this.state.mobile == "") {
-      $(".pMobile").css("color", "#d32f2f");
-      $(".txtMobile").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
-    if (this.state.email == "") {
-      $(".pEmail").css("color", "#d32f2f");
-      $(".txtEmail").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
-    if (this.state.password == "") {
-      $(".pPassword").css("color", "#d32f2f");
-      $(".txtPassword").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
-    if (this.state.password != this.state.passwordconfirm) {
-      $(".pConfirmPass").css("color", "#d32f2f");
-      $(".txtConfirmPass").css("borderColor", "#d32f2f");
-      $(".pPassword").css("color", "#d32f2f");
-      $(".txtPassword").css("borderColor", "#d32f2f");
-      $(".btn").removeClass("btn--loading");
-    }
+    $(".btnotp").addClass("btn--loading");
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+      },
+    };
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/sms/verify/otp/" +
+      this.state.requestid +
+      "/" +
+      this.state.otp1 +
+      this.state.otp2 +
+      this.state.otp3 +
+      this.state.otp4;
 
-    if (this.state.password < 6 || this.state.password > 16) {
-      $(".pConfirmPass").css("color", "#d32f2f");
-      $(".txtConfirmPass").css("borderColor", "#d32f2f");
-      $(".pPassword").css("color", "#d32f2f");
-      $(".txtPassword").css("borderColor", "#d32f2f");
-      $(".pError").show();
-      $(".btn").removeClass("btn--loading");
-    } else {
-      const options = {
+    axios
+      .post(apiUrl, {}, options)
+      .then((result) => {
+        console.log(result);
+        
+   
+      const options1 = {
         headers: {
           Accept: "application/json, text/plain, */*",
           "content-type": "application/json",
@@ -450,21 +537,14 @@ export class login extends Component {
         formdata.set("password", this.state.password);
         formdata.set("password_confirmation", this.state.passwordconfirm);
       }
-      let config = {
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            Math.floor((progressEvent.loaded * 100) / progressEvent.total)
-          );
-        },
-      };
 
       const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
       axios
-        .post(apiUrl, formdata, options, config)
+        .post(apiUrl, formdata, options1)
         .then((result) => {
-          $("#exampleModal").modal("hide");
+          $("#modalOtp").modal("hide");
           if (result.status == "201") {
-            $(".btn").removeClass("btn--loading");
+            $(".btnotp").removeClass("btn--loading");
             successMessage();
           }
         })
@@ -478,7 +558,28 @@ export class login extends Component {
             }
           } catch (e) {}
         });
-    }
+      })
+      .catch((err) => {
+        console.log(err);
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">Invalid OTP.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      });
   }
 
   send() {
@@ -809,7 +910,7 @@ export class login extends Component {
                   <div className="col-lg-12">
                     <a
                       className="btn btnSubmitDriver"
-                      onClick={this.register.bind(this)}
+                      onClick={this.goOtp.bind(this)}
                     >
                       SIGNUP
                       <span style={{ marginLeft: "40px" }}>
@@ -856,6 +957,91 @@ export class login extends Component {
                       <a
                         className="btn btnSendissue"
                         onClick={this.send.bind(this)}
+                        style={{ marginTop: "5px" }}
+                      >
+                        Confirm
+                        <span style={{ marginLeft: "40px" }}>
+                          <b></b>
+                          <b></b>
+                          <b></b>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="modal fade"
+          id="modalOtp"
+          tabIndex={-1}
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-body text-center modalSearch">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <p className="pModalVerify text-center">
+                        OTP Verification
+                      </p>
+                      <p className="pModalTitleSub text-center">
+                        We have sent you one time password to your mobile.
+                      </p>
+                      <form
+                        method="get"
+                        className="digit-group"
+                        data-group-name="digits"
+                        data-autosubmit="false"
+                        autoComplete="off"
+                      >
+                        <input
+                          type="text"
+                          id="digit-1"
+                          name="digit-1"
+                          data-next="digit-2"
+                          value={this.state.otp1}
+                          onChange={this.otp1.bind(this)}
+                        />
+                        <input
+                          type="text"
+                          id="digit-2"
+                          name="digit-2"
+                          data-next="digit-3"
+                          data-previous="digit-1"
+                          value={this.state.otp2}
+                          onChange={this.otp2.bind(this)}
+                        />
+                        <input
+                          type="text"
+                          id="digit-3"
+                          name="digit-3"
+                          data-next="digit-4"
+                          data-previous="digit-2"
+                          value={this.state.otp3}
+                          onChange={this.otp3.bind(this)}
+                        />
+                        <input
+                          type="text"
+                          id="digit-3"
+                          name="digit-3"
+                          data-next="digit-4"
+                          data-previous="digit-2"
+                          value={this.state.otp4}
+                          onChange={this.otp4.bind(this)}
+                        />
+                      </form>
+                    </div>
+                    <div className="col-lg-12">
+                      <a
+                        className="btn btnSendissue btnotp"
+                        onClick={this.register.bind(this)}
                         style={{ marginTop: "5px" }}
                       >
                         Confirm

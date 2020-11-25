@@ -468,7 +468,6 @@ export default function map() {
   function getServices2() {
     setServices(2);
 
-
     if (addservices.indexOf("2") < 0) {
       addservices.push("2");
       console.log(addservices);
@@ -483,10 +482,9 @@ export default function map() {
       getRate();
       console.log(addservices);
     }
-
   }
   function getServices3() {
-       setServices(3);
+    setServices(3);
     if (addservices.indexOf("3") < 0) {
       addservices.push("3");
       console.log(addservices);
@@ -635,7 +633,6 @@ export default function map() {
         coordinate[2].lng
       );
       ratedata.set("drop_off_locations[1][booking_order]", "2");
-  
     }
     if (coordinate[3]) {
       ratedata.set(
@@ -647,7 +644,6 @@ export default function map() {
         coordinate[3].lng
       );
       ratedata.set("drop_off_locations[2][booking_order]", "3");
-     
     }
     if (coordinate[4]) {
       ratedata.set(
@@ -659,7 +655,6 @@ export default function map() {
         coordinate[4].lng
       );
       ratedata.set("drop_off_locations[3][booking_order]", "4");
-  
     }
     if (coordinate[5]) {
       ratedata.set(
@@ -675,13 +670,13 @@ export default function map() {
     }
 
     if (addservices[0]) {
-      ratedata.set("additional_services[0]", addservices[0])
+      ratedata.set("additional_services[0]", addservices[0]);
     }
     if (addservices[1]) {
-      ratedata.set("additional_services[1]", addservices[1])
+      ratedata.set("additional_services[1]", addservices[1]);
     }
     if (addservices[2]) {
-      ratedata.set("additional_services[2]", addservices[2])
+      ratedata.set("additional_services[2]", addservices[2]);
     }
 
     const apiUrl_rate =
@@ -700,22 +695,6 @@ export default function map() {
         console.log(result);
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
-      })
-      .catch((err) => {});
-
-    const optionsDistance = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-      },
-    };
-
-    const apiDistance =
-      "https://maps.googleapis.com/maps/api/directions/json?origin=14.5995,120.9842&destination=14.5764,121.0851&key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4";
-    axios
-      .post(apiDistance, {}, optionsDistance)
-      .then((result) => {
-        console.log(result);
       })
       .catch((err) => {});
   }
@@ -850,7 +829,12 @@ export default function map() {
 
         formdata.set("contact_name", coordinate[0].detailsname);
         formdata.set("contact_number", coordinate[0].detailsnumber);
-        formdata.set("note", coordinate[0].detailsAdd);
+        if (coordinate[0].detailsAdd) {
+          formdata.set("note", coordinate[0].detailsAdd);
+        }
+        else {
+          formdata.set("note", "No notes to display");
+        }
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
@@ -882,6 +866,15 @@ export default function map() {
           "drop_off_locations[0][contact_number]",
           coordinate[1].detailsnumber
         );
+
+        if (coordinate[1].detailsAdd) {
+          formdata.set(
+            "drop_off_locations[0][notes]",
+            coordinate[1].detailsAdd
+          );
+        } else {
+          formdata.set("drop_off_locations[0][notes]", "No notes to display");
+        }
 
         if (coordinate[1].category) {
           formdata.set(
@@ -927,6 +920,14 @@ export default function map() {
           }
           formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
           formdata.set("additional_services[1]", services);
+          if (coordinate[2].detailsAdd) {
+            formdata.set(
+              "drop_off_locations[1][notes]",
+              coordinate[2].detailsAdd
+            );
+          } else {
+            formdata.set("drop_off_locations[1][notes]", "No notes to display");
+          }
         }
 
         if (coordinate[3]) {
@@ -961,6 +962,11 @@ export default function map() {
           }
           formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
           formdata.set("additional_services[2]", services);
+          if (coordinate[3].detailsAdd) {
+            formdata.set("drop_off_locations[2][notes]",coordinate[3].detailsAdd)
+          } else {
+            formdata.set("drop_off_locations[2][notes]","No notes to display")
+          }
         }
 
         if (coordinate[4]) {
@@ -995,6 +1001,11 @@ export default function map() {
           }
           formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
           formdata.set("additional_services[3]", services);
+          if (coordinate[4].detailsAdd) {
+            formdata.set("drop_off_locations[3][notes]",coordinate[4].detailsAdd)
+          } else {
+            formdata.set("drop_off_locations[3][notes]","No notes to display")
+          }
         }
 
         const apiUrl_rate =

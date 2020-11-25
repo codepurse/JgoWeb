@@ -317,6 +317,12 @@ export default function profile() {
       },
     };
 
+    const apiservices =
+      "https://staging-api.jgo.com.ph/api/auth/additional_services";
+      axios.get(apiservices, {}, options1).then((result) => {
+        console.log(result);
+      });
+
     const apiUrllatest =
       "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
 
@@ -372,8 +378,7 @@ export default function profile() {
         "content-type": "application/json",
         Authorization: "Bearer " + AuthService.getToken(),
         xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-        "Content-Length": "X-Actual-Content-Length",
+        xsrfHeaderName: "X-XSRF-TOKEN"
       },
     };
 
@@ -382,6 +387,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
+        console.log(result);
         setTabledata(result.data.data);
 
         if (result.data.data) {

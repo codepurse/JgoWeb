@@ -5,8 +5,17 @@ $(document).ready(function () {
     });
   });
 
+  $("#modalOtp").on("shown.bs.modal", function () {
+    $("#modalRegister").modal("toggle");
+  });
+
   $("#exampleModal").on("hidden.bs.modal", function () {
     $(".modal-backdrop").hide();
+  });
+
+  
+  $("#modalOtp").on("hidden.bs.modal", function () {
+    $("#modalRegister").modal("toggle");
   });
 
   try {
@@ -134,16 +143,12 @@ $(document).ready(function () {
       $(this).css("background-color", "#FFFE00");
       $("p", this).css("color", "#283148");
     } else {
-    
-
       if ($(this).css("background-color") == "rgb(255, 254, 0)") {
         $(this).css("background-color", "transparent");
         $("p", this).css("color", "white");
-     
       } else {
         $(this).css("background-color", "#FFFE00");
         $("p", this).css("color", "black");
-     
       }
     }
   });
@@ -397,4 +402,36 @@ $(document).ready(function () {
       "color: #212121 !important; font-weight: 600 !important"
     );
   }
+
+  $(".digit-group")
+    .find("input")
+    .each(function () {
+      $(this).attr("maxlength", 1);
+      $(this).on("keyup", function (e) {
+        var parent = $($(this).parent());
+
+        if (e.keyCode === 8 || e.keyCode === 37) {
+          var prev = parent.find("input#" + $(this).data("previous"));
+
+          if (prev.length) {
+            $(prev).select();
+          }
+        } else if (
+          (e.keyCode >= 48 && e.keyCode <= 57) ||
+          (e.keyCode >= 65 && e.keyCode <= 90) ||
+          (e.keyCode >= 96 && e.keyCode <= 105) ||
+          e.keyCode === 39
+        ) {
+          var next = parent.find("input#" + $(this).data("next"));
+
+          if (next.length) {
+            $(next).select();
+          } else {
+            if (parent.data("autosubmit")) {
+              parent.submit();
+            }
+          }
+        }
+      });
+    });
 });
