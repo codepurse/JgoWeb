@@ -13,7 +13,6 @@ function MapDirectionsRenderer(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  
     const { places, travelMode } = props;
 
     const waypoints = places.map((p) => ({
@@ -32,14 +31,22 @@ function MapDirectionsRenderer(props) {
         waypoints: waypoints,
       },
       (result, status) => {
+        {
+          Object.keys(result.routes[0].legs).map(
+            (keyname, i) =>
+              (durationmap =
+                Number(durationmap) +
+                Number(result.routes[0].legs[keyname].duration.value))
+          );
+        }
+
         if (status === google.maps.DirectionsStatus.OK) {
           setDirections(result);
         } else {
         }
       }
     );
-   
-  },[props]);
+  }, [props]);
 
   if (error) {
     return <h1>{error}</h1>;

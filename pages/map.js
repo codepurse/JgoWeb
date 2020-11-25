@@ -448,12 +448,59 @@ export default function map() {
 
   function getServices1() {
     setServices(1);
+
+    if (addservices.indexOf("1") < 0) {
+      addservices.push("1");
+      console.log(addservices);
+      getRate();
+    } else {
+      for (var i in addservices) {
+        if (addservices[i] == "1") {
+          addservices.splice(i, 1);
+
+          break;
+        }
+      }
+      getRate();
+      console.log(addservices);
+    }
   }
   function getServices2() {
     setServices(2);
+
+
+    if (addservices.indexOf("2") < 0) {
+      addservices.push("2");
+      console.log(addservices);
+      getRate();
+    } else {
+      for (var i in addservices) {
+        if (addservices[i] == "2") {
+          addservices.splice(i, 1);
+          break;
+        }
+      }
+      getRate();
+      console.log(addservices);
+    }
+
   }
   function getServices3() {
-    setServices(3);
+       setServices(3);
+    if (addservices.indexOf("3") < 0) {
+      addservices.push("3");
+      console.log(addservices);
+      getRate();
+    } else {
+      for (var i in addservices) {
+        if (addservices[i] == "3") {
+          addservices.splice(i, 1);
+          break;
+        }
+      }
+      getRate();
+      console.log(addservices);
+    }
   }
 
   {
@@ -577,7 +624,6 @@ export default function map() {
       coordinate[1].lng
     );
     ratedata.set("drop_off_locations[0][booking_order]", "1");
-    ratedata.set("additional_services[0]", services);
 
     if (coordinate[2]) {
       ratedata.set(
@@ -589,7 +635,7 @@ export default function map() {
         coordinate[2].lng
       );
       ratedata.set("drop_off_locations[1][booking_order]", "2");
-      ratedata.set("additional_services[1]", services);
+  
     }
     if (coordinate[3]) {
       ratedata.set(
@@ -601,7 +647,7 @@ export default function map() {
         coordinate[3].lng
       );
       ratedata.set("drop_off_locations[2][booking_order]", "3");
-      ratedata.set("additional_services[2]", services);
+     
     }
     if (coordinate[4]) {
       ratedata.set(
@@ -613,7 +659,7 @@ export default function map() {
         coordinate[4].lng
       );
       ratedata.set("drop_off_locations[3][booking_order]", "4");
-      ratedata.set("additional_services[3]", services);
+  
     }
     if (coordinate[5]) {
       ratedata.set(
@@ -626,6 +672,16 @@ export default function map() {
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
       ratedata.set("additional_services[4]", services);
+    }
+
+    if (addservices[0]) {
+      ratedata.set("additional_services[0]", addservices[0])
+    }
+    if (addservices[1]) {
+      ratedata.set("additional_services[1]", addservices[1])
+    }
+    if (addservices[2]) {
+      ratedata.set("additional_services[2]", addservices[2])
     }
 
     const apiUrl_rate =
@@ -647,24 +703,21 @@ export default function map() {
       })
       .catch((err) => {});
 
-
- const optionsDistance = {
+    const optionsDistance = {
       headers: {
         Accept: "application/json, text/plain, */*",
         "content-type": "application/json",
-    
       },
     };
 
- const apiDistance =
+    const apiDistance =
       "https://maps.googleapis.com/maps/api/directions/json?origin=14.5995,120.9842&destination=14.5764,121.0851&key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4";
-      axios
-      .post(apiDistance, {},optionsDistance)
+    axios
+      .post(apiDistance, {}, optionsDistance)
       .then((result) => {
         console.log(result);
-     
       })
-      .catch((err) => {});  
+      .catch((err) => {});
   }
 
   function btnPlaceorder() {
@@ -681,7 +734,10 @@ export default function map() {
               <div className="col-lg-2 col-sm-2">
                 <img src="Image/complain.png" style={{ width: "32px" }}></img>
               </div>
-              <div className="col-lg-10 col-sm-10" style={{ textAlign: "left" }}>
+              <div
+                className="col-lg-10 col-sm-10"
+                style={{ textAlign: "left" }}
+              >
                 <p className="pError">Warning</p>
                 <p className="pErrorSub">
                   Please select a payment method to proceed.
@@ -798,7 +854,7 @@ export default function map() {
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
-
+        formdata.set("duration", Number(durationmap / 60) + " mins");
         formdata.set("payment_method", payment);
         if (payment == "debit_credit") {
           formdata.set("client_token", cardtoken);
@@ -1035,6 +1091,7 @@ export default function map() {
     $(e.currentTarget).css("border", "1px solid #FDBF00");
     if (wallet < price) {
       $(".pWalletno").show();
+      setPayment("");
     } else {
       setPayment("jgowallet");
     }
@@ -1069,9 +1126,12 @@ export default function map() {
               style={{ padding: "40px 0px" }}
             >
               <div className="col-lg-3">
-                <Link href = "/">
+                <Link href="/">
                   <a>
-                  <img src="Image/logo.png" className="img-fluid imgLogo"></img>
+                    <img
+                      src="Image/logo.png"
+                      className="img-fluid imgLogo"
+                    ></img>
                   </a>
                 </Link>
               </div>
@@ -1674,12 +1734,7 @@ export default function map() {
                   </p>
                 </div>
                 <div className="col-lg-4">
-                  <div
-                    className="boxAdditional"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                    onClick={getServices1}
-                  >
+                  <div className="boxAdditional" onClick={getServices1}>
                     <p className="pAdditonalBox">Insulated Box</p>
                   </div>
                 </div>

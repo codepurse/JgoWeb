@@ -5,6 +5,10 @@ $(document).ready(function () {
     });
   });
 
+  $("#exampleModal").on("hidden.bs.modal", function () {
+    $(".modal-backdrop").hide();
+  });
+
   try {
     const $menuBtn = document.querySelector(".menu-btn");
     let isMenuOpen = false;
@@ -34,9 +38,6 @@ $(document).ready(function () {
     alert("ASdas");
     $(".divChatbox").show();
   });
-
-
-
 
   var width = $(".colSidebar").width();
   var totalwidth = $(window).width() - width - 50;
@@ -133,10 +134,17 @@ $(document).ready(function () {
       $(this).css("background-color", "#FFFE00");
       $("p", this).css("color", "#283148");
     } else {
-      $(".boxAdditional").css("background-color", "transparent");
-      $(".boxAdditional >p").css("color", "white");
-      $(this).css("background-color", "#FFFE00");
-      $("p", this).css("color", "black");
+    
+
+      if ($(this).css("background-color") == "rgb(255, 254, 0)") {
+        $(this).css("background-color", "transparent");
+        $("p", this).css("color", "white");
+     
+      } else {
+        $(this).css("background-color", "#FFFE00");
+        $("p", this).css("color", "black");
+     
+      }
     }
   });
 

@@ -218,6 +218,7 @@ export default function profile() {
     );
     const listener = {
       message: (message) => {
+        console.log(message);
         setMessage(message.message.status);
         let mes = message;
 

@@ -28,3 +28,7 @@ channel_id = [];
 addpayment = "";
 
 showmodal = "";
+
+durationmap = ""
+
+addservices = [];
