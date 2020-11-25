@@ -176,7 +176,9 @@
         max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
-        display: none !important;
+        position: absolute !important;
+        top: 80%;
+       
     }
     .divBookDetails1 {
         display: block !important;
@@ -2731,9 +2733,7 @@ label:active:after {
 
 /* Tracking */
 
-.divBookDetails1 {
-    display: none;
-}
+
 
 .colSidebar {
     padding: 0px;
@@ -2888,6 +2888,7 @@ label:active:after {
     right: 0;
     z-index: 99999;
     width: 80%;
+    display: none;
 }
 
 .p5Sub {

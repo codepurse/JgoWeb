@@ -100,7 +100,7 @@ export default function profile() {
   }
 
   function cancelbook() {
-    const options1 = {
+    const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
         "content-type": "application/json",
@@ -110,17 +110,32 @@ export default function profile() {
       },
     };
     const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
+      "https://staging-api.jgo.com.ph/api/auth/cancelBookings";
 
-    axios
-      .post(apiUrl, { booking_id: latestbook }, options1)
-      .then((result) => {
-        console.log(latestbook)
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
+      $("#exampleModal").modal("hide");
+      $(".modal-backdrop").hide();
+      swal( 
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #00C853" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/success.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Verified</p>
+                <p className="pErrorSub">Your booking is successfully cancelled.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+      refresh();
+    });
+
   }
 
   function successMessage() {
@@ -309,9 +324,7 @@ export default function profile() {
       .then((result) => {
         try {
           setLatestbook(result.data.data.id);
-        }catch(e) {
-          
-        }
+        } catch (e) {}
       });
 
     const apiUrl2 =

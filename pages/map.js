@@ -641,6 +641,7 @@ export default function map() {
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
+        console.log(result);
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
       })

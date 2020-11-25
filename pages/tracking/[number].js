@@ -58,8 +58,6 @@ function Post() {
     }
   }, [dropoff_loc]);
 
-  var timer = setInterval(myTimer, 30000);
-  function myTimer() {}
 
   useEffect(() => {
     if (driver_loc) {
