@@ -773,7 +773,7 @@ export default function map() {
         let formdata = new FormData();
         formdata.set("customer_id", AuthService.getId());
 
-        formdata.set("contact_name", "asdasd");
+        formdata.set("contact_name", coordinate[0].detailsname);
         formdata.set("contact_number", coordinate[0].detailsnumber);
         formdata.set("note", coordinate[0].detailsAdd);
         formdata.set("pick_up_address", address.label);
