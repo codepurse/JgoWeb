@@ -646,6 +646,25 @@ export default function map() {
         setPrice(Number(price).toFixed(2));
       })
       .catch((err) => {});
+
+
+ const optionsDistance = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+    
+      },
+    };
+
+ const apiDistance =
+      "https://maps.googleapis.com/maps/api/directions/json?origin=14.5995,120.9842&destination=14.5764,121.0851&key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4";
+      axios
+      .post(apiDistance, {},optionsDistance)
+      .then((result) => {
+        console.log(result);
+     
+      })
+      .catch((err) => {});  
   }
 
   function btnPlaceorder() {
