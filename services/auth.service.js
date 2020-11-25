@@ -69,7 +69,7 @@ class AuthService {
         const fname = foundUser.token;
         return fname;
       }
-    }else if (localStorage.getItem("token")) {
+    }else if (localStorage.getItem("google")) {
       const loggedInUser = localStorage.getItem("google");
       if (localStorage.getItem("google")) {
         const foundUser = JSON.parse(loggedInUser);
