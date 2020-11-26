@@ -264,6 +264,19 @@ export default function map() {
       },
     };
 
+    const apiUrllatest =
+      "https://staging-api.jgo.com.ph/api/auth/additional_services";
+
+    axios
+      .get(apiUrllatest, {}, options1)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(options1);
+        console.log(err);
+      });
+
     const apiUrl2 =
       "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
 
@@ -831,8 +844,7 @@ export default function map() {
         formdata.set("contact_number", coordinate[0].detailsnumber);
         if (coordinate[0].detailsAdd) {
           formdata.set("note", coordinate[0].detailsAdd);
-        }
-        else {
+        } else {
           formdata.set("note", "No notes to display");
         }
         formdata.set("pick_up_address", address.label);
@@ -963,9 +975,12 @@ export default function map() {
           formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
           formdata.set("additional_services[2]", services);
           if (coordinate[3].detailsAdd) {
-            formdata.set("drop_off_locations[2][notes]",coordinate[3].detailsAdd)
+            formdata.set(
+              "drop_off_locations[2][notes]",
+              coordinate[3].detailsAdd
+            );
           } else {
-            formdata.set("drop_off_locations[2][notes]","No notes to display")
+            formdata.set("drop_off_locations[2][notes]", "No notes to display");
           }
         }
 
@@ -1002,9 +1017,12 @@ export default function map() {
           formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
           formdata.set("additional_services[3]", services);
           if (coordinate[4].detailsAdd) {
-            formdata.set("drop_off_locations[3][notes]",coordinate[4].detailsAdd)
+            formdata.set(
+              "drop_off_locations[3][notes]",
+              coordinate[4].detailsAdd
+            );
           } else {
-            formdata.set("drop_off_locations[3][notes]","No notes to display")
+            formdata.set("drop_off_locations[3][notes]", "No notes to display");
           }
         }
 

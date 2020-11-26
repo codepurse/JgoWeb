@@ -17,6 +17,7 @@ import Componentdidmount from "../component/componentdidmount";
 import Chat from "../component/chat1";
 import Link from "next/link";
 import PubNub from "pubnub";
+import ReactPaginate from "react-paginate";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 export default function profile() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function profile() {
   const [tableid, settableid] = React.useState("1");
   const [count, setCount] = React.useState("");
   const [activeCount, setACtivecount] = React.useState("");
+  const [pages, setPages] = React.useState("");
   const [statusdropdown, setStatus] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [oldpass, setOldpass] = React.useState("");
@@ -109,13 +111,12 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/cancelBookings";
+    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/cancelBookings";
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
-      swal( 
+      swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
             <div
@@ -127,7 +128,9 @@ export default function profile() {
               </div>
               <div className="col-lg-10" style={{ textAlign: "left" }}>
                 <p className="pError">Verified</p>
-                <p className="pErrorSub">Your booking is successfully cancelled.</p>
+                <p className="pErrorSub">
+                  Your booking is successfully cancelled.
+                </p>
               </div>
             </div>
           </div>
@@ -135,7 +138,6 @@ export default function profile() {
       );
       refresh();
     });
-
   }
 
   function successMessage() {
@@ -176,7 +178,7 @@ export default function profile() {
       .then((result) => {
         setTabledata(result.data.data);
         tablemap = result.data.data;
-        setCount(result.data.data.length);
+        setCount(result.data.meta.total);
         if (result.data.data.length === 0) {
           $(".pNo").show();
         }
@@ -317,7 +319,6 @@ export default function profile() {
       },
     };
 
-
     const apiUrllatest =
       "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
 
@@ -373,7 +374,7 @@ export default function profile() {
         "content-type": "application/json",
         Authorization: "Bearer " + AuthService.getToken(),
         xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN"
+        xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
 
@@ -396,12 +397,10 @@ export default function profile() {
                 : null
             );
         }
-        if ($("#table tbody tr").length > 5) {
-          $(".btnShowmore").show();
-        }
-        show(0, 5);
+
         tablemap = result.data.data;
-        setCount(result.data.data.length);
+        setCount(result.data.meta.total);
+        setPages(result.data.meta.last_page);
         $(".Box").hide();
         if (result.data.data.length === 0) {
           $(".pNo").show();
@@ -448,6 +447,61 @@ export default function profile() {
 
   function showmoretable() {
     show(0, $("#table tbody tr").length + 5);
+  }
+
+  function nextTable() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrl =
+      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=3";
+
+    axios
+      .post(apiUrl, { customer_id: AuthService.getId() }, options)
+      .then((result) => {
+        console.log(result);
+        setTabledata(result.data.data);
+
+        if (result.data.data) {
+          result.data.data
+            .filter(
+              (event) => event.id === Number(localStorage.getItem("activeid"))
+            )
+            .map((data) =>
+              data.status == "Looking for Driver"
+                ? $("#exampleModal").modal("show")
+                : null
+            );
+        }
+
+        tablemap = result.data.data;
+
+        $(".Box").hide();
+        if (result.data.data.length === 0) {
+          $(".pNo").show();
+        }
+
+        const active = result.data.data.filter(
+          (obj) =>
+            obj.status == "Looking for Driver" ||
+            obj.status == "Driver found" ||
+            obj.status == "Arrived at Pick Up"
+        );
+        setACtivecount(active.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function changePage(e) {
+    console.log($(e.selected));
   }
 
   function logout() {
@@ -1173,6 +1227,7 @@ export default function profile() {
             <p className="pTotalBookings">
               {count} Total Bookings
               <span className="pActiveBookings">{activeCount} Active</span>
+              <span className="pActiveBookings">{pages} Pages</span>
             </p>
           </div>
           <div className="col-lg-7 form-inline">
@@ -1280,15 +1335,26 @@ export default function profile() {
               <span></span>
             </div>
             <div className="text-center">
-              <button
-                className="btnShowmore"
-                onClick={showmoretable}
-                style={{ display: "none" }}
-              >
+              <button className="btnShowmore" onClick={nextTable}>
                 Show more
               </button>
             </div>
+           <div className = "text-center">
+           <ReactPaginate
+              previousLabel={"PREV"}
+              nextLabel={"NEXT"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={pages}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={2}
+              onPageChange={changePage}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+            />
           </div>
+           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">

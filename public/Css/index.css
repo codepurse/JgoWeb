@@ -2239,7 +2239,6 @@ td {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    display: none;
     margin-bottom: 20px;
 }
 
@@ -3933,4 +3932,58 @@ video {
 
   .pBack:hover {
       color: #FFDD9A !important;
+  }
+
+
+  /* Pagination */
+  .previous , .next {
+    font-family: 'GilroyMedium';
+    color: #212121 !important;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: white;
+    padding: 5px 20px !important;
+    border-radius: 5px;
+    margin: auto 8px !important;
+  }
+
+  .pagination {
+      margin: 0 auto !important;
+      display: flex !important;
+      width: max-content;
+  }
+
+
+  .pagination >li {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 15px !important;
+    border-radius: 5px !important;
+    transition: all 0.2s;
+  }
+
+  .pagination >li:hover {
+      color: #FFE900;
+  }
+
+  .pages {
+    border: 0px !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .active {
+      background-color: #FECE2F;
+      color: #212121 !important;
+      border: 0px !important;
+      outline: none !important;
+      box-shadow: none !important;
+  }
+
+  .active >a {
+    border: 0px !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
