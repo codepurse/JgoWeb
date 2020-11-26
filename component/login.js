@@ -55,6 +55,11 @@ function successMessage() {
   );
 }
 
+if (process.browser) {
+
+}
+
+
 function btntry() {
   document.getElementById("aUsername").innerHTML = "ASdas";
 }
@@ -110,6 +115,7 @@ export class login extends Component {
 
     this.login = this.login.bind(this);
   }
+ 
 
   responseGoogle = (response) => {
     console.log(response.profileObj);
@@ -190,32 +196,38 @@ export class login extends Component {
   };
 
   goOtp(e) {
+    var clear = 0;
     e.preventDefault();
     $(e.currentTarget).addClass("btn--loading");
     if (this.state.fname == "") {
       $(".pFname").css("color", "#d32f2f");
       $(".txtFname").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
     if (this.state.lname == "") {
       $(".pLname").css("color", "#d32f2f");
       $(".txtLname").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
     if (this.state.mobile == "") {
       $(".pMobile").css("color", "#d32f2f");
       $(".txtMobile").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
     if (this.state.email == "") {
       $(".pEmail").css("color", "#d32f2f");
       $(".txtEmail").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
     if (this.state.password == "") {
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
     if (this.state.password != this.state.passwordconfirm) {
       $(".pConfirmPass").css("color", "#d32f2f");
@@ -223,6 +235,7 @@ export class login extends Component {
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      clear = 1;
     }
 
     if (this.state.password < 6 || this.state.password > 16) {
@@ -232,50 +245,50 @@ export class login extends Component {
       $(".txtPassword").css("borderColor", "#d32f2f");
       $(".pError").show();
       $(".btn").removeClass("btn--loading");
+      clear = 1;
+    }
+
+    var str = this.state.mobile;
+    var firstchar = str.charAt(0);
+    if (firstchar == "0" || firstchar == 0) {
+      var str = str.replace(/^./, "63");
+      console.log(str);
     } else {
+      console.log(str);
+    }
+
+    if (clear == 0) {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
           "content-type": "application/json",
         },
       };
-      const apiUrl =
-        "https://staging-api.jgo.com.ph/api/sms/send/otp/" + this.state.mobile;
+      const apiUrl = "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
+
       axios
         .post(apiUrl, {}, options)
         .then((result) => {
+          clear == 0;
           $(".btn").removeClass("btn--loading");
-          console.log(result);
-          this.setState({ requestid: result.data.data.request_id });
+          console.log(result.data.request_id);
+          this.setState({ requestid: result.data.request_id });
+          sessionStorage.setItem("otp","1");
+          $("#modalRegister").modal("toggle");
           $("#modalOtp").modal("toggle");
         })
         .catch((err) => {
-          console.log(apiUrl);
+          console.log(err);
           $(".btn").removeClass("btn--loading");
-          swal(
-            <div style={{ width: "450px", padding: "10px" }}>
-              <div className="container">
-                <div
-                  className="row align-items-center"
-                  style={{ borderLeft: "3px solid #c62828" }}
-                >
-                  <div className="col-lg-2">
-                    <img
-                      src="Image/warning.png"
-                      style={{ width: "32px" }}
-                    ></img>
-                  </div>
-                  <div className="col-lg-10" style={{ textAlign: "left" }}>
-                    <p className="pError">Error</p>
-                    <p className="pErrorSub">
-                      Something happened please contact our customer support.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
         });
+    }
+  }
+
+  checkotp() {
+    if(sessionStorage.getItem("otp") == 1) {
+      $("#modalOtp").modal("toggle");
+    }else {
+      $("#modalRegister").modal("toggle");
     }
   }
 
@@ -490,77 +503,79 @@ export class login extends Component {
       .post(apiUrl, {}, options)
       .then((result) => {
         console.log(result);
-        
-   
-      const options1 = {
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "content-type": "application/json",
-        },
-      };
-      if (this.state.profile) {
-      } else {
-        this.setState({ profile: "" });
-      }
-      let file = this.state.profile;
-      let formdata = new FormData();
-      try {
-        formdata.set("fname", this.state.fname);
-        formdata.set("lname", this.state.lname);
-        formdata.set("mname", this.state.mname);
-        formdata.append(
-          "profile_pic",
-          this.state.profile,
-          this.state.profile.name
-        );
-        formdata.set("email", this.state.email);
-        formdata.set("mobile_no", this.state.mobile);
-        formdata.set("address", this.state.address);
-        formdata.set("city", this.state.city);
-        formdata.set("state", this.state.province);
-        formdata.set("country", "Philippines");
-        formdata.set("zip", this.state.zip);
-        formdata.set("password", this.state.password);
-        formdata.set("password_confirmation", this.state.password);
-      } catch (e) {
-        formdata.set("fname", this.state.fname);
-        formdata.set("lname", this.state.lname);
-        formdata.set("mname", this.state.mname);
-        formdata.append("profile_pic", "");
-        formdata.set("email", this.state.email);
-        formdata.set("mobile_no", this.state.mobile);
-        formdata.set("address", this.state.address);
-        formdata.set("city", this.state.city);
-        formdata.set("state", this.state.province);
-        formdata.set("country", "Philippines");
-        formdata.set("zip", this.state.zip);
-        formdata.set("password", this.state.password);
-        formdata.set("password_confirmation", this.state.passwordconfirm);
-      }
+        sessionStorage.set("otp","0");
+        const options1 = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "content-type": "application/json",
+          },
+        };
+        if (this.state.profile) {
+        } else {
+          this.setState({ profile: "" });
+        }
+        let file = this.state.profile;
+        let formdata = new FormData();
+        try {
+          formdata.set("fname", this.state.fname);
+          formdata.set("lname", this.state.lname);
+          formdata.set("mname", this.state.mname);
+          formdata.append(
+            "profile_pic",
+            this.state.profile,
+            this.state.profile.name
+          );
+          formdata.set("email", this.state.email);
+          formdata.set("mobile_no", this.state.mobile);
+          formdata.set("address", this.state.address);
+          formdata.set("city", this.state.city);
+          formdata.set("state", this.state.province);
+          formdata.set("country", "Philippines");
+          formdata.set("zip", this.state.zip);
+          formdata.set("password", this.state.password);
+          formdata.set("password_confirmation", this.state.password);
+        } catch (e) {
+          formdata.set("fname", this.state.fname);
+          formdata.set("lname", this.state.lname);
+          formdata.set("mname", this.state.mname);
+          formdata.append("profile_pic", "");
+          formdata.set("email", this.state.email);
+          formdata.set("mobile_no", this.state.mobile);
+          formdata.set("address", this.state.address);
+          formdata.set("city", this.state.city);
+          formdata.set("state", this.state.province);
+          formdata.set("country", "Philippines");
+          formdata.set("zip", this.state.zip);
+          formdata.set("password", this.state.password);
+          formdata.set("password_confirmation", this.state.passwordconfirm);
+        }
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
-      axios
-        .post(apiUrl, formdata, options1)
-        .then((result) => {
-          $("#modalOtp").modal("hide");
-          if (result.status == "201") {
-            $(".btnotp").removeClass("btn--loading");
-            successMessage();
-          }
-        })
-        .catch((err) => {
-          $(".btn").removeClass("btn--loading");
-          try {
-            $("#exampleModal").css("z-index", "1");
-            $(".modal-backdrop").hide();
-            this.setState({ errorEmail: err.response.data.errors.email[0] });
-            if (err.response.data.errors.email[0]) {
+        const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
+        axios
+          .post(apiUrl, formdata, options1)
+          .then((result) => {
+            $("#modalOtp").modal("hide");
+            if (result.status == "201") {
+              $(".btnotp").removeClass("btn--loading");
+              successMessage();
+              
             }
-          } catch (e) {}
-        });
+          })
+          .catch((err) => {
+            $(".btn").removeClass("btn--loading");
+            try {
+              $("#exampleModal").css("z-index", "1");
+              $(".modal-backdrop").hide();
+              this.setState({ errorEmail: err.response.data.errors.email[0] });
+              if (err.response.data.errors.email[0]) {
+              }
+            } catch (e) {}
+            
+          });
       })
       .catch((err) => {
-        console.log(err);
+         $(".btn").removeClass("btn--loading");
+        console.log(apiUrl);
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
             <div className="container">
@@ -720,12 +735,14 @@ export class login extends Component {
             onFailure={this.responseGoogle}
             cookiePolicy={"single_host_origin"}
           />
-          <p className="pDont">Don't have an account?</p>
+          <p className="pDont"     data-toggle="modal"
+                data-target="#modalOtp">Don't have an account?</p>
           <p
             className="pSignup"
-            data-toggle="modal"
-            data-target="#modalRegister"
+       
+            onClick = {this.checkotp.bind(this)}
           >
+            
             sign-up
           </p>
         </div>
@@ -793,6 +810,7 @@ export class login extends Component {
                   </div>
                   <div className="col-lg-4">
                     <p className="pTxtDriver pMobile">Mobile Number</p>
+
                     <input
                       type="text"
                       value={this.state.mobile}
@@ -987,12 +1005,17 @@ export class login extends Component {
               <div className="modal-body text-center modalSearch">
                 <div className="container">
                   <div className="row">
+                    <div className = 'col-lg-12 text-left'>
+                      <p className = "pBack">
+                      &#8592; Back
+                      </p>
+                    </div>
                     <div className="col-lg-12">
                       <p className="pModalVerify text-center">
                         OTP Verification
                       </p>
                       <p className="pModalTitleSub text-center">
-                        We have sent you one time password to your mobile.
+                        We have sent you one time password to your mobile. The otp vill expired in 5 minutes.
                       </p>
                       <form
                         method="get"
@@ -1029,10 +1052,10 @@ export class login extends Component {
                         />
                         <input
                           type="text"
-                          id="digit-3"
-                          name="digit-3"
-                          data-next="digit-4"
-                          data-previous="digit-2"
+                          id="digit-4"
+                          name="digit-4"
+                          data-next="digit-5"
+                          data-previous="digit-3"
                           value={this.state.otp4}
                           onChange={this.otp4.bind(this)}
                         />
@@ -1040,7 +1063,7 @@ export class login extends Component {
                     </div>
                     <div className="col-lg-12">
                       <a
-                        className="btn btnSendissue btnotp"
+                        className="btn btnotp"
                         onClick={this.register.bind(this)}
                         style={{ marginTop: "5px" }}
                       >

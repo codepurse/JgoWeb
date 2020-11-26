@@ -22,12 +22,12 @@ function index() {
   }, []);
 
   function book() {
-    if(AuthService.getToken()) {
-      document.getElementById('mainCon').scrollIntoView();
-    $(".colMain").hide();
-    $(".colLogin").hide();
-    $(".colDeliver").fadeIn(250);
-    }else {
+    if (AuthService.getToken()) {
+      document.getElementById("mainCon").scrollIntoView();
+      $(".colMain").hide();
+      $(".colLogin").hide();
+      $(".colDeliver").fadeIn(250);
+    } else {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -36,16 +36,11 @@ function index() {
               style={{ borderLeft: "3px solid #FFE900" }}
             >
               <div className="col-lg-2">
-                <img
-                  src="Image/complain.png"
-                  style={{ width: "32px" }}
-                ></img>
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
               </div>
               <div className="col-lg-10" style={{ textAlign: "left" }}>
                 <p className="pError">Warning</p>
-                <p className="pErrorSub">
-                  Login first before you book
-                </p>
+                <p className="pErrorSub">Login first before you book</p>
               </div>
             </div>
           </div>
@@ -61,7 +56,7 @@ function index() {
         <Header></Header>
         <Navbar></Navbar>
         <Componentdidmount></Componentdidmount>
-        <div className="container h-100" id = "mainCon">
+        <div className="container h-100" id="mainCon">
           <div className="row h-100 align-items-center">
             <div className="col-lg-6">
               <img src="Image/imgindex.png" className="img-fluid"></img>
@@ -169,7 +164,9 @@ function index() {
                   also carry and bring your clothing to the areas that we are
                   available in.
                 </p>
-                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
               <div className="divBox1 divCloth" style={{ display: "none" }}>
                 <img src="Image/clothing.svg" className="imgIconLarge"></img>
@@ -178,7 +175,9 @@ function index() {
                   We can also carry and bring your clothing to the areas that we
                   are available in.
                 </p>
-                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
               <div className="divBox1 divMedic" style={{ display: "none" }}>
                 <img src="Image/medical.svg" className="imgIconLarge"></img>
@@ -189,7 +188,9 @@ function index() {
                   include the note and the name of the doctor who recommended
                   it. Thank you.
                 </p>
-                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
               <div className="divBox1 divFragile" style={{ display: "none" }}>
                 <img
@@ -201,7 +202,9 @@ function index() {
                   Sending fragile objects can be quite a hassle. But you can
                   trust us to deliver them on time and with care.
                 </p>
-                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
               <div className="divBox1 divOthers" style={{ display: "none" }}>
                 <img src="Image/other.svg" className="imgIconLarge"></img>
@@ -211,7 +214,9 @@ function index() {
                   mentioned categories. So long as it is an item that is legal
                   and approved by law.
                 </p>
-                <button className="btnBookServices" onClick={book}>BOOK A DELIVERY</button>
+                <button className="btnBookServices" onClick={book}>
+                  BOOK A DELIVERY
+                </button>
               </div>
             </div>
           </div>
@@ -238,7 +243,10 @@ function index() {
                   care of your delivery worries and see that all it takes is one
                   book away with JGO!
                 </p>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
+                <div
+                  className="row"
+                  style={{ marginBottom: "30px", display: "none" }}
+                >
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -248,7 +256,10 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
+                <div
+                  className="row"
+                  style={{ marginBottom: "30px", display: "none" }}
+                >
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -258,7 +269,10 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
+                <div
+                  className="row"
+                  style={{ marginBottom: "30px", display: "none" }}
+                >
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>
@@ -268,7 +282,10 @@ function index() {
                     </p>
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: "30px", display: "none" }}>
+                <div
+                  className="row"
+                  style={{ marginBottom: "30px", display: "none" }}
+                >
                   <div className="col-lg-1">
                     <img src="Image/check.svg" style={{ width: "35px" }}></img>
                   </div>

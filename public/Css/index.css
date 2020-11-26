@@ -2845,12 +2845,7 @@ label:active:after {
     margin-bottom: 0px;
 }
 
-.pMobile, .pLisence {
-    font-family: 'GilroyMedium';
-    color: #212121;
-    font-size: 1rem;
-    margin-bottom: 0px;
-}
+
 
 .pLisence {
     font-size: 0.8rem;
@@ -3907,15 +3902,35 @@ video {
     margin: 0 5px;
     margin-bottom: 15px;
   }
-  .digit-group .splitter {
-    padding: 0 5px;
-    color: white;
-    font-size: 24px;
-  }
   
   .prompt {
     margin-bottom: 20px;
     font-size: 20px;
     color: white;
   }
+
+  .btnotp {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 1rem;
+    background-color: transparent !important;
+    border: 1px solid #FFE900 !important;
+    border-radius: 25px !important;
+    padding: 10px;
+    margin-top: 10px;   
+    width: 150px !important;
+    outline: none !important;
+  }
   
+  .pBack {
+    font-family: 'GilroyMedium';
+    color: white;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pBack:hover {
+      color: #FFDD9A !important;
+  }

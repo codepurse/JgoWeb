@@ -5,18 +5,11 @@ $(document).ready(function () {
     });
   });
 
-  $("#modalOtp").on("shown.bs.modal", function () {
-    $("#modalRegister").modal("toggle");
-  });
-
   $("#exampleModal").on("hidden.bs.modal", function () {
     $(".modal-backdrop").hide();
   });
 
-  
-  $("#modalOtp").on("hidden.bs.modal", function () {
-    $("#modalRegister").modal("toggle");
-  });
+
 
   try {
     const $menuBtn = document.querySelector(".menu-btn");
@@ -302,6 +295,18 @@ $(document).ready(function () {
     }
   });
 
+  $(".pBack").click(function () {
+  
+    if (confirm('Are you sure you want to register again? Your mobile number will not be available in the next 5 minutes.')) {
+      $("#modalRegister").modal("toggle");
+      $("#modalOtp").modal("toggle");
+      console.log('Thing was saved to the database.');
+    } else {
+     
+      console.log('Thing was not saved to the database.');
+    }
+  });
+
   function light() {
     $("#__next , body, html").css("background-color", "#fff");
     $(".pDashboard").css("color", "#212121");
@@ -434,4 +439,8 @@ $(document).ready(function () {
         }
       });
     });
+
+  $(window).on("beforeunload", function () {
+    return "";
+  });
 });
