@@ -1146,7 +1146,7 @@ export default function map() {
                   </a>
                 </Link>
               </div>
-              <div className="col-lg-9">
+              <div className="col-lg-9 col-sm-9 col-9">
                 <ul className="my-row">
                   <Link href="/profile">
                     <a>

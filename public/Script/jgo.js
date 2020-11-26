@@ -9,8 +9,6 @@ $(document).ready(function () {
     $(".modal-backdrop").hide();
   });
 
-
-
   try {
     const $menuBtn = document.querySelector(".menu-btn");
     let isMenuOpen = false;
@@ -80,17 +78,21 @@ $(document).ready(function () {
   var y = 0;
 
   $(".btnAddStopoff").click(function () {
+    $(".div1:visible").each(function () {
+      if (
+        $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
+        $(this).css("display") == "table-footer-group"
+      ) {
+        alert("Please fill up first the stop locations");
+        return false;
+      }
+    });
+
     if (
       $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
       $(".divStopoff1").css("display") == "none"
     ) {
       $(".divStopoff1").css("display", "table-footer-group");
-    } else if (
-      $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff1").css("display") == "table-footer-group"
-    ) {
-      alert("Please fill up first the stop locations");
-      return false;
     } else if (
       $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
       $(".divStopoff2").css("display") == "none"
@@ -99,12 +101,6 @@ $(document).ready(function () {
         $(this).css("display", "block");
       });
       $(".divStopoff2").css("display", "table-footer-group");
-      return false;
-    } else if (
-      $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff2").css("display") == "table-footer-group"
-    ) {
-      alert("Please fill up first the stop locations");
       return false;
     } else if (
       $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0 &&
@@ -296,14 +292,16 @@ $(document).ready(function () {
   });
 
   $(".pBack").click(function () {
-  
-    if (confirm('Are you sure you want to register again? Your mobile number will not be available in the next 5 minutes.')) {
+    if (
+      confirm(
+        "Are you sure you want to register again? Your mobile number will not be available in the next 5 minutes."
+      )
+    ) {
       $("#modalRegister").modal("toggle");
       $("#modalOtp").modal("toggle");
-      console.log('Thing was saved to the database.');
+      console.log("Thing was saved to the database.");
     } else {
-     
-      console.log('Thing was not saved to the database.');
+      console.log("Thing was not saved to the database.");
     }
   });
 
@@ -439,6 +437,4 @@ $(document).ready(function () {
         }
       });
     });
-
-
 });
