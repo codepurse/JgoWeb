@@ -317,11 +317,6 @@ export default function profile() {
       },
     };
 
-    const apiservices =
-      "https://staging-api.jgo.com.ph/api/auth/additional_services";
-      axios.get(apiservices, {}, options1).then((result) => {
-        console.log(result);
-      });
 
     const apiUrllatest =
       "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";

@@ -56,9 +56,7 @@ function successMessage() {
 }
 
 if (process.browser) {
-
 }
-
 
 function btntry() {
   document.getElementById("aUsername").innerHTML = "ASdas";
@@ -115,7 +113,6 @@ export class login extends Component {
 
     this.login = this.login.bind(this);
   }
- 
 
   responseGoogle = (response) => {
     console.log(response.profileObj);
@@ -273,7 +270,7 @@ export class login extends Component {
           $(".btn").removeClass("btn--loading");
           console.log(result.data.request_id);
           this.setState({ requestid: result.data.request_id });
-          sessionStorage.setItem("otp","1");
+          sessionStorage.setItem("otp", "1");
           $("#modalRegister").modal("toggle");
           $("#modalOtp").modal("toggle");
         })
@@ -285,9 +282,9 @@ export class login extends Component {
   }
 
   checkotp() {
-    if(sessionStorage.getItem("otp") == 1) {
+    if (sessionStorage.getItem("otp") == 1) {
       $("#modalOtp").modal("toggle");
-    }else {
+    } else {
       $("#modalRegister").modal("toggle");
     }
   }
@@ -503,7 +500,7 @@ export class login extends Component {
       .post(apiUrl, {}, options)
       .then((result) => {
         console.log(result);
-        sessionStorage.set("otp","0");
+        sessionStorage.setItem("otp", "0");
         const options1 = {
           headers: {
             Accept: "application/json, text/plain, */*",
@@ -558,23 +555,38 @@ export class login extends Component {
             if (result.status == "201") {
               $(".btnotp").removeClass("btn--loading");
               successMessage();
-              
             }
           })
           .catch((err) => {
             $(".btn").removeClass("btn--loading");
-            try {
-              $("#exampleModal").css("z-index", "1");
-              $(".modal-backdrop").hide();
-              this.setState({ errorEmail: err.response.data.errors.email[0] });
-              if (err.response.data.errors.email[0]) {
-              }
-            } catch (e) {}
-            
+            $("#modalOtp").modal("hide");
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #c62828" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/warning.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Error</p>
+                      <p className="pErrorSub">
+                        The information you entered is Invalid.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
           });
       })
       .catch((err) => {
-         $(".btn").removeClass("btn--loading");
+        $(".btn").removeClass("btn--loading");
         console.log(apiUrl);
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
@@ -735,14 +747,10 @@ export class login extends Component {
             onFailure={this.responseGoogle}
             cookiePolicy={"single_host_origin"}
           />
-          <p className="pDont"     data-toggle="modal"
-                data-target="#modalOtp">Don't have an account?</p>
-          <p
-            className="pSignup"
-       
-            onClick = {this.checkotp.bind(this)}
-          >
-            
+          <p className="pDont" data-toggle="modal" data-target="#modalOtp">
+            Don't have an account?
+          </p>
+          <p className="pSignup" onClick={this.checkotp.bind(this)}>
             sign-up
           </p>
         </div>
@@ -1005,17 +1013,16 @@ export class login extends Component {
               <div className="modal-body text-center modalSearch">
                 <div className="container">
                   <div className="row">
-                    <div className = 'col-lg-12 text-left'>
-                      <p className = "pBack">
-                      &#8592; Back
-                      </p>
+                    <div className="col-lg-12 text-left">
+                      <p className="pBack">&#8592; Back</p>
                     </div>
                     <div className="col-lg-12">
                       <p className="pModalVerify text-center">
                         OTP Verification
                       </p>
                       <p className="pModalTitleSub text-center">
-                        We have sent you one time password to your mobile. The otp vill expired in 5 minutes.
+                        We have sent you one time password to your mobile. The
+                        otp vill expired in 5 minutes.
                       </p>
                       <form
                         method="get"
