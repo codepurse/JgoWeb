@@ -77,6 +77,9 @@
         margin-top: 20px !important;
         margin-bottom: 40px !important;
     }
+    .carousel-item .active {
+        background-color: white !important;
+    }
     .divBoxCarousel {
         width: auto !important;
         padding: 20px !important;
@@ -3242,7 +3245,7 @@ label:active:after {
 
 .accordion button[aria-expanded="true"]+.accordion-content {
     opacity: 1;
-    max-height: 9em;
+    max-height: 50em;
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear;
     will-change: opacity, max-height;
@@ -3974,7 +3977,7 @@ video {
     box-shadow: none !important;
   }
 
-  .active {
+  .activepage {
       background-color: #FECE2F;
       color: #212121 !important;
       border: 0px !important;
@@ -3982,7 +3985,7 @@ video {
       box-shadow: none !important;
   }
 
-  .active >a {
+  .activepage >a {
     border: 0px !important;
     outline: none !important;
     box-shadow: none !important;

@@ -312,7 +312,7 @@ function index() {
             </div>
             <div className="col-lg-6">
               <img
-                src="Image/Man.png"
+                src="Image/coming.png"
                 className="img-fluid mx-auto d-flex"
                 style={{ width: "80%" }}
               ></img>

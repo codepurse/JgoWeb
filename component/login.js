@@ -713,7 +713,7 @@ export class login extends Component {
             </div>
           </div>
           <FacebookLogin
-            appId="1163566050712002"
+            appId="422679449137250"
             callback={this.responseFacebook}
             fields="id,name,first_name,last_name,email"
             render={(renderProps) => (
@@ -728,7 +728,7 @@ export class login extends Component {
           />
 
           <GoogleLogin
-            clientId="621401186664-3u1rqm88q6jqbikq9n5ell020dt6aadc.apps.googleusercontent.com"
+            clientId="258044414360-ro51ta5g4v89lh98rgv3t4058plmesn8.apps.googleusercontent.com"
             render={(renderProps) => (
               <button
                 className="btnGoogle"

@@ -180,6 +180,7 @@ export default function profile() {
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         if (result.data.data.length === 0) {
+          $(".reactPaginate").hide();
           $(".pNo").show();
         }
         const active = result.data.data.filter(
@@ -403,6 +404,7 @@ export default function profile() {
         setPages(result.data.meta.last_page);
         $(".Box").hide();
         if (result.data.data.length === 0) {
+          $(".reactPaginate").hide();
           $(".pNo").show();
         }
 
@@ -445,11 +447,12 @@ export default function profile() {
       });
   }, []);
 
-  function showmoretable() {
-    show(0, $("#table tbody tr").length + 5);
-  }
 
-  function nextTable() {
+  function changePage(e) {
+    $(".Box").show();
+    $("tbody tr").hide();
+    console.log(e.selected + 1);
+    var x = (e.selected + 1);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -460,14 +463,15 @@ export default function profile() {
       },
     };
     const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=3";
+      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=" +
+     x;
 
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         console.log(result);
         setTabledata(result.data.data);
-
+        $("table").fadeIn(150);
         if (result.data.data) {
           result.data.data
             .filter(
@@ -484,6 +488,7 @@ export default function profile() {
 
         $(".Box").hide();
         if (result.data.data.length === 0) {
+          $('.reactPaginate').hide();
           $(".pNo").show();
         }
 
@@ -498,10 +503,6 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function changePage(e) {
-    console.log($(e.selected));
   }
 
   function logout() {
@@ -1227,7 +1228,7 @@ export default function profile() {
             <p className="pTotalBookings">
               {count} Total Bookings
               <span className="pActiveBookings">{activeCount} Active</span>
-              <span className="pActiveBookings">{pages} Pages</span>
+        
             </p>
           </div>
           <div className="col-lg-7 form-inline">
@@ -1334,27 +1335,23 @@ export default function profile() {
               <span></span>
               <span></span>
             </div>
-            <div className="text-center">
-              <button className="btnShowmore" onClick={nextTable}>
-                Show more
-              </button>
+        
+            <div className="text-center reactPaginate" style = {{margin: "20px 0px"}}>
+              <ReactPaginate
+                previousLabel={"PREV"}
+                nextLabel={"NEXT"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pages}
+                marginPagesDisplayed={1}
+                pageRangeDisplayed={2}
+                onPageChange={changePage}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"activepage"}
+              />
             </div>
-           <div className = "text-center">
-           <ReactPaginate
-              previousLabel={"PREV"}
-              nextLabel={"NEXT"}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={pages}
-              marginPagesDisplayed={1}
-              pageRangeDisplayed={2}
-              onPageChange={changePage}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-            />
           </div>
-           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">

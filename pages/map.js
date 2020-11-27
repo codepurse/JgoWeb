@@ -29,6 +29,7 @@ export default function map() {
   const [cardtoken, setCardToken] = React.useState("");
   const [wallet, setWallet] = React.useState("");
   const [walletamount, setWalletamount] = React.useState("");
+  const [addservices, setAddservices] = React.useState([])
   var clickpayment = 0;
   const bookingtype = [
     { value: "1", label: "Document" },
@@ -263,18 +264,17 @@ export default function map() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-
-    const apiUrllatest =
-      "https://staging-api.jgo.com.ph/api/auth/additional_services";
+    console.log(options1);
+    const api = "https://staging-api.jgo.com.ph/api/auth/additional_services";
 
     axios
-      .get(apiUrllatest, {}, options1)
+      .get(api, options1)
       .then((result) => {
-        console.log(result);
+        console.log(result.data.data);
+        setAddservices(result.data.data)
       })
       .catch((err) => {
-        console.log(options1);
-        console.log(err);
+        console.log(err.response.data);
       });
 
     const apiUrl2 =
