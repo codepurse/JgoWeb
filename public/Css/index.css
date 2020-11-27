@@ -3837,13 +3837,12 @@ video {
     font-weight: 600;
     color: #2E2E2E;
     font-size: 0.85rem;
-    margin-bottom: 0px;
     border-radius: 20px;
     width: max-content;
     max-width: 240px;
     word-wrap: break-word;
     margin-left: -10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: block !important;
 }
 
@@ -3858,6 +3857,8 @@ video {
     border-radius: 20px !important;
     margin-left: auto !important;
     font-weight: normal;
+    max-width: 240px;
+    word-wrap: break-word !important;
     width: max-content;
 }
 

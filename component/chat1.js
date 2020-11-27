@@ -4,6 +4,7 @@ import AuthService from "../services/auth.service";
 import "../component/map/config";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 import "../component/map/config";
@@ -12,13 +13,14 @@ const pubnub = new PubNub({
   publishKey: "pub-c-701ebbe8-c393-43d5-a389-9ef5391a8fe9",
   subscribeKey: "sub-c-958ab632-1d8d-11eb-8a07-eaf684f78515",
 });
-const channels1 = channel_id;
 
 const Chat = () => {
   const channels = channel_id;
   const pubnub = usePubNub();
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState([[]]);
+  const [lenghtmess, setLenght] = useState("");
+
   useEffect(() => {
     pubnub.history(
       {
@@ -27,38 +29,62 @@ const Chat = () => {
       },
       function (status, response) {
         try {
+          {
+            Object.keys(response.messages).map((keyName, i) => {
+              try {
+                console.log(response.messages[keyName].entry.client_message);
+              } catch (e) {}
+            });
+          }
+        } catch (e) {}
+        try {
+          console.log(response.messages);
+          setLenght(response.messages.length);
           setMessages(response.messages);
         } catch (e) {}
       }
     );
+  }, [channels]);
 
+  useEffect(() => {
     pubnub.addListener({
       message: (messageEvent) => {
-        setMessages([...messages, messageEvent.message]);
+        pubnub.history(
+          {
+            channel: channels,
+            count: 100, // how many items to fetch
+          },
+          function (status, response) {
+            try {
+              console.log(response.messages);
+              setMessages(response.messages);
+            } catch (e) {}
+          }
+        );
       },
     });
     pubnub.subscribe({ channels });
 
     var myscroll = $(".rowChat");
     myscroll.scrollTop(myscroll.get(0).scrollHeight);
-  }, [messages, channels, channel_id]);
+  }, [channels, messages]);
 
   const sendMessage = useCallback(
     async (message) => {
       await pubnub.publish({
         channel: channel_id,
-        message,
+        message: {
+          content: message,
+          type: 1,
+          id: Math.random().toString(16).substr(2),
+          client_message: true,
+        },
       });
 
       setInput("");
     },
-    [pubnub,setInput]
+    [pubnub, setInput]
   );
-
-  useEffect(() => {
-   
-    console.log("asdasd");
-  }, [channels1]);
 
   function onKeyPress(e) {
     if (e.which === 13) {
@@ -91,7 +117,7 @@ const Chat = () => {
               type="text"
               className="txtType"
               placeholder="Type something.."
-              value = {input}
+              value={input}
               onKeyPress={onKeyPress}
               onChange={(e) => setInput(e.target.value)}
             ></input>
@@ -105,33 +131,36 @@ const Chat = () => {
             ></img>
           </div>
         </div>
-        <div className="row rowChat">
-          <div className="col-lg-12 align-self-end colChat">
-            <div className="row" style={{ margin: "10px 0px" }}>
-              <div className="col-lg-12" style={{ width: "100%" }}>
-                {Object.keys(messages).map((keyName, i) => {
-                  try {
-                    {
-                      if(messages[keyName].entry.content) {
-                        return (
-                          <p className="pChatuser">
-                          {messages[keyName].entry.content}
-                        </p>
-                        )
-                      }else {
-                        return(
-                          <p className="pChatright">
-                          {messages[keyName].entry}
-                        </p>
-                        )
+        <PerfectScrollbar
+          options={{ suppressScrollX: true }}
+          style={{ height: "100%" }}
+        >
+          <div className="row rowChat">
+            <div className="col-lg-12 align-self-end colChat">
+              <div className="row" style={{ margin: "10px 0px" }}>
+                <div className="col-lg-12" style={{ width: "100%" }}>
+                  {messages.map((event, i) => {
+                    try {
+                      {
+                        if (event.entry.client_message) {
+                          return (
+                            <p className="pChatuser">{event.entry.content}</p>
+                          );
+                        } else {
+                          return (
+                            <p className="pChatright">{event.entry.content}</p>
+                          );
+                        }
                       }
+                    } catch (e) {
+                      console.log(e);
                     }
-                  } catch (e) {}
-                })}
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </PerfectScrollbar>
       </div>
     </>
   );

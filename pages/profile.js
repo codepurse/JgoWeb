@@ -61,6 +61,7 @@ export default function profile() {
   const [verify, setVerify] = React.useState("");
   const [clienttoken, setClientToken] = React.useState("");
   const [bookingid, setBookingid] = React.useState("");
+  const [titleissue, setTitleissue] = React.useState("");
   const [description, setDescription] = React.useState("");
 
   const [listtickets, setListticket] = React.useState([]);
@@ -196,14 +197,6 @@ export default function profile() {
       });
   }
 
-  function show(min, max) {
-    var $table = $("#table"),
-      $rows = $table.find("tbody tr");
-    min = min ? min - 1 : 0;
-    max = max ? max : $rows.length;
-    $rows.hide().slice(min, max).fadeIn();
-    return false;
-  }
 
   function driverfound() {
     $("#exampleModal").modal("show");
@@ -810,6 +803,10 @@ export default function profile() {
     setBookingid(e.target.value);
   }
 
+  function tittle_change(e) {
+    setTitleissue(e.target.value);
+  }
+
   function description_change(e) {
     setDescription(e.target.value);
   }
@@ -1039,67 +1036,111 @@ export default function profile() {
   }
 
   function addissue() {
-    const options = {
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-      },
-    };
-    const random_num = Math.floor(Math.random() * 90000) + 10000;
-    const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
-    let formdata = new FormData();
-    formdata.set("user_id", AuthService.getId());
-    formdata.set("channel_id", "Channel-customersupport-" + random_num);
-    formdata.set("reference_id", random_num);
-    formdata.set("details", description);
-    formdata.set("booking_id", bookingid);
-    axios
-      .post(apiUrl, formdata, options)
-      .then((result) => {
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #00C853" }}
-              >
-                <div className="col-lg-2">
-                  <img src="Image/success.png" style={{ width: "32px" }}></img>
-                </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Success</p>
-                  <p className="pErrorSub">
-                    Your ticket is successfully created.
-                  </p>
+    var clear = 0;
+    if (titleissue  == "") {
+      clear = 1;
+      $(".txtTitle").css("border","1px solid red");
+    }else {
+      $(".txtTitle").css("border","1px solid  #2c2c2c");
+    }
+
+    if (description == "") {
+      clear = 1;
+       $(".txtDescription").css("border","1px solid red");
+      return false;
+    }else {
+      $(".txtDescription").css("border","1px solid  #2c2c2c");
+    }
+
+
+    if (clear == 0) {
+      const options = {
+        headers: {
+          Accept: "application/json",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+        },
+      };
+      const random_num = Math.floor(Math.random() * 90000) + 10000;
+      const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
+      let formdata = new FormData();
+      formdata.set("user_id", AuthService.getId());
+      formdata.set("channel_id", "Channel-customersupport-" + random_num);
+      formdata.set("details", description);
+      formdata.set("title",titleissue);
+      if(bookingid) {
+        formdata.set("tracking_id", bookingid);
+      }
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          $("#modalReport").modal("hide");
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #00C853" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/success.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Success</p>
+                    <p className="pErrorSub">
+                      Your ticket is successfully created.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-        const options1 = {
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "content-type": "application/json",
-            Authorization: "Bearer " + AuthService.getToken(),
-            xsrfCookieName: "XSRF-TOKEN",
-            xsrfHeaderName: "X-XSRF-TOKEN",
-          },
-        };
-
-        const apiUrl_view_tickets =
-          "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
-          AuthService.getId() +
-          "/open_tickets";
-
-        axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-          console.log(result.data);
-          setListticket(result.data);
+          );
+          const options1 = {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "content-type": "application/json",
+              Authorization: "Bearer " + AuthService.getToken(),
+              xsrfCookieName: "XSRF-TOKEN",
+              xsrfHeaderName: "X-XSRF-TOKEN",
+            },
+          };
+  
+          const apiUrl_view_tickets =
+            "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
+            AuthService.getId() +
+            "/open_tickets";
+  
+          axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
+            console.log(result.data);
+            setListticket(result.data);
+          });
+        })
+        .catch((err) => {
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #FFE900" }}
+                >
+                  <div className="col-lg-2 col-sm-2">
+                    <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div
+                    className="col-lg-10 col-sm-10"
+                    style={{ textAlign: "left" }}
+                  >
+                    <p className="pError">Warning</p>
+                    <p className="pErrorSub">
+                      Your issue was not successfully delivered.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }
   }
 
   function getChannel(e) {
@@ -2183,16 +2224,23 @@ export default function profile() {
                     <p className="pModalTitleSub text-left">
                       Please specify the exact details of your issue.
                     </p>
-                    <p className="pTxtDriver pReport">Booking ID</p>
+                    <p className="pTxtDriver pReport">Booking ID (Optional)</p>
                     <input
                       type="text"
                       className="txtDriver txtFname"
                       value={bookingid}
                       onChange={booking_change}
                     ></input>
+                       <p className="pTxtDriver pReport">Title</p>
+                    <input
+                      type="text"
+                      className="txtDriver txtFname txtTitle"
+                      value={titleissue}
+                      onChange={tittle_change}
+                    ></input>
                     <p className="pTxtDriver pReport">Description</p>
                     <textarea
-                      className="txtDriver"
+                      className="txtDriver txtDescription"
                       value={description}
                       onChange={description_change}
                       rows={4}
