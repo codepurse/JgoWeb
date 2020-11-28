@@ -4,7 +4,7 @@ import AuthService from "../services/auth.service";
 import "../component/map/config";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
-import PerfectScrollbar from "react-perfect-scrollbar";
+
 import PubNub from "pubnub";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 import "../component/map/config";
@@ -131,12 +131,9 @@ const Chat = () => {
             ></img>
           </div>
         </div>
-        <PerfectScrollbar
-          options={{ suppressScrollX: true }}
-          style={{ height: "100%" }}
-        >
+   
           <div className="row rowChat">
-            <div className="col-lg-12 align-self-end colChat">
+            <div className="col-lg-12 align-self-end">
               <div className="row" style={{ margin: "10px 0px" }}>
                 <div className="col-lg-12" style={{ width: "100%" }}>
                   {messages.map((event, i) => {
@@ -160,7 +157,7 @@ const Chat = () => {
               </div>
             </div>
           </div>
-        </PerfectScrollbar>
+
       </div>
     </>
   );

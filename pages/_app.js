@@ -1,4 +1,4 @@
-
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import App from 'next/app'
 import 'leaflet/dist/leaflet.css';
 function MyApp({ Component, pageProps }) {

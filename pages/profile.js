@@ -197,7 +197,6 @@ export default function profile() {
       });
   }
 
-
   function driverfound() {
     $("#exampleModal").modal("show");
     $(".imgLoading").attr("src", "Image/found.gif");
@@ -440,12 +439,11 @@ export default function profile() {
       });
   }, []);
 
-
   function changePage(e) {
     $(".Box").show();
     $("tbody tr").hide();
     console.log(e.selected + 1);
-    var x = (e.selected + 1);
+    var x = e.selected + 1;
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -456,8 +454,7 @@ export default function profile() {
       },
     };
     const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=" +
-     x;
+      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=" + x;
 
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
@@ -481,7 +478,7 @@ export default function profile() {
 
         $(".Box").hide();
         if (result.data.data.length === 0) {
-          $('.reactPaginate').hide();
+          $(".reactPaginate").hide();
           $(".pNo").show();
         }
 
@@ -812,51 +809,106 @@ export default function profile() {
   }
 
   function saveprof() {
-    $(".btnSave").addClass("btn--loading");
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
-
-    let formdata = new FormData();
-
-    formdata.append("id", AuthService.getId());
-    formdata.append("fname", fname);
-    formdata.append("lname", lname);
-    formdata.append("mname", mname);
-    if (newimage) {
-      formdata.append("profile_pic", newimage);
+    var clear = 0;
+    if (!fname) {
+      $("#txtFnameprof").css("border", "1px solid red");
+      clear = 1;
     } else {
+      $("#txtFnameprof").css("border", "1px solid #2c2c2c");
+      clear = 0;
     }
-    formdata.append("email", emailprof);
-    formdata.append("mobile_no", mobile);
-    formdata.append("address", address);
-    formdata.append("city", city);
-    formdata.append("state", state1);
-    formdata.append("country", "Philippines");
-    formdata.append("zip", zip);
-    formdata.append("_method", "PATCH");
+    if (!lname) {
+      $("#txtLnameprof").css("border", "1px solid red");
+      clear = 1;
+    } else {
+      $("#txtLnameprof").css("border", "1px solid #2c2c2c");
+      clear = 0;
+    }
+    if (!emailprof) {
+      $("#txtEmailprof").css("border", "1px solid red");
+      clear = 1;
+    } else {
+      $("#txtEmailprof").css("border", "1px solid #2c2c2c");
+      clear = 0;
+    }
+    if (!mobile) {
+      $("#txtMobileprof").css("border", "1px solid red");
+      clear = 1;
+    } else {
+      $("#txtMobileprof").css("border", "1px solid #2c2c2c");
+      clear = 0;
+    }
+    if (!address) {
+      $("#txtAddressprof").css("border", "1px solid red");
+      clear = 1;
+    } else {
+      $("#txtAddressprof").css("border", "1px solid #2c2c2c");
+      clear = 0;
+    }
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
-    axios
-      .post(apiUrl, formdata, options)
-      .then((result) => {
-        console.log(result);
-        $(".btnSave").removeClass("btn--loading");
-        localStorage.setItem("saveprof", "1");
-        console.log(newimage);
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(data);
-        $(".btnSave").removeClass("btn--loading");
-      });
+    if (clear == 0) {
+      $(".btnSave").addClass("btn--loading");
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+        },
+      };
+
+      let formdata = new FormData();
+
+      formdata.append("id", AuthService.getId());
+
+      formdata.append("fname", fname);
+
+      formdata.append("lname", lname);
+      formdata.append("mname", mname);
+      if (newimage) {
+        formdata.append("profile_pic", newimage);
+      } else {
+      }
+      formdata.append("email", emailprof);
+      formdata.append("mobile_no", mobile);
+      if (state1) {
+        formdata.append("state", state1);
+      }
+      if (zip) {
+        formdata.append("zip", zip);
+      }
+
+      if (city) {
+        formdata.append("city", city);
+      }
+
+      if (mname) {
+        formdata.append("city", city);
+      }
+
+      formdata.append("address", address);
+
+      formdata.append("country", "ph");
+
+      formdata.append("_method", "PATCH");
+
+      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
+      axios
+        .post(apiUrl, formdata, options)
+        .then((result) => {
+          console.log(result);
+          $(".btnSave").removeClass("btn--loading");
+          localStorage.setItem("saveprof", "1");
+          console.log(newimage);
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+
+          $(".btnSave").removeClass("btn--loading");
+        });
+    }
   }
 
   function saveprof1() {
@@ -934,7 +986,7 @@ export default function profile() {
   }
 
   function addCard() {
-    $(".btnAddcard").addClass("btn--loading");
+    $(".btnVerify").addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json",
@@ -949,10 +1001,10 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         window.open(result.data.data.redirectUrl, "_blank");
-        $(".btnAddcard").removeClass("btn--loading");
+        $(".btnVerify").removeClass("btn--loading");
       })
       .catch((err) => {
-        $(".btnAddcard").removeClass("btn--loading");
+        $(".btnVerify").removeClass("btn--loading");
         console.log(err);
       });
   }
@@ -1037,21 +1089,20 @@ export default function profile() {
 
   function addissue() {
     var clear = 0;
-    if (titleissue  == "") {
+    if (titleissue == "") {
       clear = 1;
-      $(".txtTitle").css("border","1px solid red");
-    }else {
-      $(".txtTitle").css("border","1px solid  #2c2c2c");
+      $(".txtTitle").css("border", "1px solid red");
+    } else {
+      $(".txtTitle").css("border", "1px solid  #2c2c2c");
     }
 
     if (description == "") {
       clear = 1;
-       $(".txtDescription").css("border","1px solid red");
+      $(".txtDescription").css("border", "1px solid red");
       return false;
-    }else {
-      $(".txtDescription").css("border","1px solid  #2c2c2c");
+    } else {
+      $(".txtDescription").css("border", "1px solid  #2c2c2c");
     }
-
 
     if (clear == 0) {
       const options = {
@@ -1067,8 +1118,8 @@ export default function profile() {
       formdata.set("user_id", AuthService.getId());
       formdata.set("channel_id", "Channel-customersupport-" + random_num);
       formdata.set("details", description);
-      formdata.set("title",titleissue);
-      if(bookingid) {
+      formdata.set("title", titleissue);
+      if (bookingid) {
         formdata.set("tracking_id", bookingid);
       }
       axios
@@ -1083,7 +1134,10 @@ export default function profile() {
                   style={{ borderLeft: "3px solid #00C853" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/success.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/success.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Success</p>
@@ -1104,12 +1158,12 @@ export default function profile() {
               xsrfHeaderName: "X-XSRF-TOKEN",
             },
           };
-  
+
           const apiUrl_view_tickets =
             "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
             AuthService.getId() +
             "/open_tickets";
-  
+
           axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
             console.log(result.data);
             setListticket(result.data);
@@ -1124,7 +1178,10 @@ export default function profile() {
                   style={{ borderLeft: "3px solid #FFE900" }}
                 >
                   <div className="col-lg-2 col-sm-2">
-                    <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/complain.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div
                     className="col-lg-10 col-sm-10"
@@ -1269,7 +1326,6 @@ export default function profile() {
             <p className="pTotalBookings">
               {count} Total Bookings
               <span className="pActiveBookings">{activeCount} Active</span>
-        
             </p>
           </div>
           <div className="col-lg-7 form-inline">
@@ -1376,8 +1432,11 @@ export default function profile() {
               <span></span>
               <span></span>
             </div>
-        
-            <div className="text-center reactPaginate" style = {{margin: "20px 0px"}}>
+
+            <div
+              className="text-center reactPaginate"
+              style={{ margin: "20px 0px" }}
+            >
               <ReactPaginate
                 previousLabel={"PREV"}
                 nextLabel={"NEXT"}
@@ -1444,6 +1503,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtFname txtprof"
+                id="txtFnameprof"
                 value={fname}
                 onChange={fname_change}
               ></input>
@@ -1455,6 +1515,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtprof"
+                id = "txtMiddleprof"
                 value={mname}
                 onChange={mname_change}
               ></input>
@@ -1467,6 +1528,7 @@ export default function profile() {
                 type="text"
                 className="txtDriver txtLname txtprof"
                 value={lname}
+                id="#txtLnameprof"
                 onChange={lname_change}
               ></input>
             </div>
@@ -1477,6 +1539,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtEmail txtprof"
+                id="txtEmailprof"
                 value={emailprof}
                 onChange={email_change}
               ></input>
@@ -1489,6 +1552,7 @@ export default function profile() {
                 type="text"
                 className="txtDriver txtMobile txtprof"
                 value={mobile}
+                id="txtMobileprof"
                 onChange={mobile_change}
               ></input>
             </div>
@@ -1499,6 +1563,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtprof"
+                id="txtAddressprof"
                 value={address}
                 onChange={address_change}
               ></input>
@@ -2047,14 +2112,14 @@ export default function profile() {
                     </p>
                   </div>
 
-                  <div className="col-lg-5">
+                  <div className="col-lg-12 text-center">
                     <a
                       className="btn btnVerify "
                       onClick={addCard}
                       style={{ marginTop: "5px" }}
                     >
                       Add card
-                      <span style={{ marginLeft: "40px" }}>
+                      <span style={{ marginLeft: "71px" }}>
                         <b></b>
                         <b></b>
                         <b></b>
@@ -2231,7 +2296,7 @@ export default function profile() {
                       value={bookingid}
                       onChange={booking_change}
                     ></input>
-                       <p className="pTxtDriver pReport">Title</p>
+                    <p className="pTxtDriver pReport">Title</p>
                     <input
                       type="text"
                       className="txtDriver txtFname txtTitle"

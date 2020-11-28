@@ -181,7 +181,6 @@
         height: auto !important;
         position: absolute !important;
         top: 80%;
-       
     }
     .divBookDetails1 {
         display: block !important;
@@ -246,6 +245,14 @@
 :root {
     --maincolor: #FFE900;
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
+}
+
+/* Works on Chrome/Edge/Safari */
+
 
 
 body, html {
@@ -887,6 +894,7 @@ hr {
     cursor: pointer;
     transition: all 0.2s;
     padding: 7px;
+    margin-bottom: 15px;
 }
 
 .pAdditonalBox {
@@ -1350,7 +1358,7 @@ hr {
 }
 
 .mainConDriver {
-    height: 100vh;  
+    height: 100vh;
 }
 
 .nav-driver {
@@ -1920,6 +1928,15 @@ td {
     border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.intransittrack {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #FDA41B;
+    text-transform: capitalize;
+    margin-bottom: 0px;
 }
 
 .arrived, .complete {
@@ -2735,8 +2752,6 @@ label:active:after {
 
 /* Tracking */
 
-
-
 .colSidebar {
     padding: 0px;
     background-color: white !important;
@@ -2757,7 +2772,7 @@ label:active:after {
     padding-top: 10px important;
     min-width: 380px;
     max-width: 380px;
-    height: 100%;
+    height: auto;
     z-index: 99;
     background-color: white !important;
     position: relative;
@@ -2846,8 +2861,6 @@ label:active:after {
     font-size: 1rem !important;
     margin-bottom: 0px;
 }
-
-
 
 .pLisence {
     font-size: 0.8rem;
@@ -3598,8 +3611,9 @@ video {
     height: 38px;
     margin-top: -5px;
     outline: none !important;
-    width: 400px !important;
+    width: 200px !important;
     border-radius: 8px !important;
+
 }
 
 .p10 {
@@ -3821,8 +3835,16 @@ video {
 
 .rowChat {
     height: 365px;
+    max-height: 365px !important;
     overflow-y: auto;
     margin-top: 40px;
+    scrollbar-width: thin !important;          /* "auto" or "thin"  */
+    scrollbar-color: blue orange !important;
+}
+
+.colChat {
+    scrollbar-width: thin !important;          /* "auto" or "thin"  */
+    scrollbar-color: blue orange !important;
 }
 
 .imgChat {
@@ -3887,9 +3909,8 @@ video {
     cursor: pointer;
 }
 
-
-
 /* OTP */
+
 .digit-group input {
     width: 30px;
     height: 50px;
@@ -3904,15 +3925,15 @@ video {
     border-radius: 5px;
     margin: 0 5px;
     margin-bottom: 15px;
-  }
-  
-  .prompt {
+}
+
+.prompt {
     margin-bottom: 20px;
     font-size: 20px;
     color: white;
-  }
+}
 
-  .btnotp {
+.btnotp {
     font-family: 'GilroyMedium';
     color: white;
     font-size: 1rem;
@@ -3920,27 +3941,27 @@ video {
     border: 1px solid #FFE900 !important;
     border-radius: 25px !important;
     padding: 10px;
-    margin-top: 10px;   
+    margin-top: 10px;
     width: 150px !important;
     outline: none !important;
-  }
-  
-  .pBack {
+}
+
+.pBack {
     font-family: 'GilroyMedium';
     color: white;
     margin-bottom: 5px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.2s;
-  }
+}
 
-  .pBack:hover {
-      color: #FFDD9A !important;
-  }
+.pBack:hover {
+    color: #FFDD9A !important;
+}
 
+/* Pagination */
 
-  /* Pagination */
-  .previous , .next {
+.previous, .next {
     font-family: 'GilroyMedium';
     color: #212121 !important;
     font-weight: 600;
@@ -3949,16 +3970,15 @@ video {
     padding: 5px 20px !important;
     border-radius: 5px;
     margin: auto 8px !important;
-  }
+}
 
-  .pagination {
-      margin: 0 auto !important;
-      display: flex !important;
-      width: max-content;
-  }
+.pagination {
+    margin: 0 auto !important;
+    display: flex !important;
+    width: max-content;
+}
 
-
-  .pagination >li {
+.pagination>li {
     font-family: 'GilroyMedium';
     color: whitesmoke;
     font-weight: 600;
@@ -3966,28 +3986,28 @@ video {
     padding: 5px 15px !important;
     border-radius: 5px !important;
     transition: all 0.2s;
-  }
+}
 
-  .pagination >li:hover {
-      color: #FFE900;
-  }
+.pagination>li:hover {
+    color: #FFE900;
+}
 
-  .pages {
+.pages {
     border: 0px !important;
     outline: none !important;
     box-shadow: none !important;
-  }
+}
 
-  .activepage {
-      background-color: #FECE2F;
-      color: #212121 !important;
-      border: 0px !important;
-      outline: none !important;
-      box-shadow: none !important;
-  }
-
-  .activepage >a {
+.activepage {
+    background-color: #FECE2F;
+    color: #212121 !important;
     border: 0px !important;
     outline: none !important;
     box-shadow: none !important;
-  }
+}
+
+.activepage>a {
+    border: 0px !important;
+    outline: none !important;
+    box-shadow: none !important;
+}

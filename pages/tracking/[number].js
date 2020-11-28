@@ -27,7 +27,7 @@ function Post() {
   const statusColor = (value) => {
     switch (value) {
       case "in transit":
-        return "intransit";
+        return "intransittrack";
       case "Arrived":
         return "arrivedtrack";
       case "Complete":

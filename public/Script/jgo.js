@@ -125,6 +125,29 @@ $(document).ready(function () {
     }
   });
 
+ try {
+  const $boxadd = document.querySelector(".boxAdditional");
+  $boxadd.addEventListener("click", () => {
+    alert("asdsa");
+    if (localStorage.getItem("theme_status") == "light") {
+      $(".boxAdditional").css("background-color", "transparent");
+      $(".boxAdditional >p").css("color", "#283148");
+      $(this).css("background-color", "#FFFE00");
+      $("p", this).css("color", "#283148");
+    } else {
+      if ($(this).css("background-color") == "rgb(255, 254, 0)") {
+        $(this).css("background-color", "transparent");
+        $("p", this).css("color", "white");
+      } else {
+        $(this).css("background-color", "#FFFE00");
+        $("p", this).css("color", "black");
+      }
+    }
+  });
+ }catch(e) {
+
+ }
+
   $(".boxAdditional").click(function () {
     if (localStorage.getItem("theme_status") == "light") {
       $(".boxAdditional").css("background-color", "transparent");

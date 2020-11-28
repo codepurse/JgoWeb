@@ -29,7 +29,9 @@ export default function map() {
   const [cardtoken, setCardToken] = React.useState("");
   const [wallet, setWallet] = React.useState("");
   const [walletamount, setWalletamount] = React.useState("");
-  const [addservices, setAddservices] = React.useState([])
+  const [addservices, setAddservices] = React.useState([]);
+  const [addlistservice, setAddlistservice] = React.useState([]);
+  var loopservices = 0;
   var clickpayment = 0;
   const bookingtype = [
     { value: "1", label: "Document" },
@@ -271,7 +273,7 @@ export default function map() {
       .get(api, options1)
       .then((result) => {
         console.log(result.data.data);
-        setAddservices(result.data.data)
+        setAddservices(result.data.data);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -297,7 +299,7 @@ export default function map() {
   }
   const [payment, setPayment] = React.useState("");
   const [price, setPrice] = React.useState("");
-  const [services, setServices] = React.useState("1");
+  const [services, setServices] = React.useState([]);
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
@@ -459,59 +461,40 @@ export default function map() {
     }
   };
 
-  function getServices1() {
-    setServices(1);
+  function getservice(e) {
+    loopservices = 0;
+    var idservice = $(e.currentTarget).attr("id");
 
-    if (addservices.indexOf("1") < 0) {
-      addservices.push("1");
-      console.log(addservices);
+    if (addlistservice.indexOf(idservice) < 0) {
+      addlistservice.push(idservice);
+      console.log(addlistservice);
       getRate();
     } else {
-      for (var i in addservices) {
-        if (addservices[i] == "1") {
-          addservices.splice(i, 1);
+      for (var i in addlistservice) {
+        if (addlistservice[i] == idservice) {
+          addlistservice.splice(i, 1);
 
           break;
         }
       }
-      getRate();
-      console.log(addservices);
-    }
-  }
-  function getServices2() {
-    setServices(2);
 
-    if (addservices.indexOf("2") < 0) {
-      addservices.push("2");
-      console.log(addservices);
-      getRate();
-    } else {
-      for (var i in addservices) {
-        if (addservices[i] == "2") {
-          addservices.splice(i, 1);
-          break;
-        }
-      }
-      getRate();
-      console.log(addservices);
+      console.log(addlistservice);
     }
-  }
-  function getServices3() {
-    setServices(3);
-    if (addservices.indexOf("3") < 0) {
-      addservices.push("3");
-      console.log(addservices);
-      getRate();
+    if (localStorage.getItem("theme_status") == "light") {
+      $(".boxAdditional").css("background-color", "transparent");
+      $(".boxAdditional >p").css("color", "#283148");
+      $(this).css("background-color", "#FFFE00");
+      $("p", this).css("color", "#283148");
     } else {
-      for (var i in addservices) {
-        if (addservices[i] == "3") {
-          addservices.splice(i, 1);
-          break;
-        }
+      if ($(e.currentTarget).css("background-color") == "rgb(255, 254, 0)") {
+        $(e.currentTarget).css("background-color", "transparent");
+        $("p", e.currentTarget).css("color", "white");
+      } else {
+        $(e.currentTarget).css("background-color", "#FFFE00");
+        $("p", e.currentTarget).css("color", "black");
       }
-      getRate();
-      console.log(addservices);
     }
+    getRate();
   }
 
   {
@@ -679,18 +662,12 @@ export default function map() {
         coordinate[5].lng
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
-      ratedata.set("additional_services[4]", services);
     }
 
-    if (addservices[0]) {
-      ratedata.set("additional_services[0]", addservices[0]);
-    }
-    if (addservices[1]) {
-      ratedata.set("additional_services[1]", addservices[1]);
-    }
-    if (addservices[2]) {
-      ratedata.set("additional_services[2]", addservices[2]);
-    }
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]",addservice),
+      loopservices = loopservices + 1
+    });
 
     const apiUrl_rate =
       "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
@@ -786,7 +763,6 @@ export default function map() {
           coordinate[1].lng
         );
         ratedata.set("drop_off_locations[0][booking_order]", "1");
-        ratedata.set("additional_services[0]", services);
 
         if (coordinate[2]) {
           ratedata.set(
@@ -798,7 +774,6 @@ export default function map() {
             coordinate[2].lng
           );
           ratedata.set("drop_off_locations[1][booking_order]", "2");
-          ratedata.set("additional_services[1]", services);
         }
         if (coordinate[3]) {
           ratedata.set(
@@ -810,7 +785,6 @@ export default function map() {
             coordinate[3].lng
           );
           ratedata.set("drop_off_locations[2][booking_order]", "3");
-          ratedata.set("additional_services[2]", services);
         }
         if (coordinate[4]) {
           ratedata.set(
@@ -822,7 +796,6 @@ export default function map() {
             coordinate[4].lng
           );
           ratedata.set("drop_off_locations[3][booking_order]", "4");
-          ratedata.set("additional_services[3]", services);
         }
         if (coordinate[5]) {
           ratedata.set(
@@ -834,7 +807,6 @@ export default function map() {
             coordinate[5].lng
           );
           ratedata.set("drop_off_locations[4][booking_order]", "5");
-          ratedata.set("additional_services[4]", services);
         }
 
         let formdata = new FormData();
@@ -897,7 +869,6 @@ export default function map() {
           formdata.set("drop_off_locations[0][category_id]", "1");
         }
         formdata.set("drop_off_locations[0][distance]", "5.4");
-        formdata.set("additional_services[0]", services);
 
         if (coordinate[2]) {
           formdata.set(
@@ -931,7 +902,7 @@ export default function map() {
             formdata.set("drop_off_locations[1][category_id]", "1");
           }
           formdata.set("drop_off_locations[1][distance]", "5.382620231139828");
-          formdata.set("additional_services[1]", services);
+
           if (coordinate[2].detailsAdd) {
             formdata.set(
               "drop_off_locations[1][notes]",
@@ -973,7 +944,7 @@ export default function map() {
             formdata.set("drop_off_locations[2][category_id]", "1");
           }
           formdata.set("drop_off_locations[2][distance]", "5.382620231139828");
-          formdata.set("additional_services[2]", services);
+
           if (coordinate[3].detailsAdd) {
             formdata.set(
               "drop_off_locations[2][notes]",
@@ -1015,7 +986,7 @@ export default function map() {
             formdata.set("drop_off_locations[3][category_id]", "1");
           }
           formdata.set("drop_off_locations[3][distance]", "5.382620231139828");
-          formdata.set("additional_services[3]", services);
+
           if (coordinate[4].detailsAdd) {
             formdata.set(
               "drop_off_locations[3][notes]",
@@ -1762,26 +1733,21 @@ export default function map() {
                     Additional Services
                   </p>
                 </div>
-                <div className="col-lg-4">
-                  <div className="boxAdditional" onClick={getServices1}>
-                    <p className="pAdditonalBox">Insulated Box</p>
-                  </div>
-                </div>
-                <div className="col-lg-4 ">
-                  <div className="boxAdditional">
-                    <p className="pAdditonalBox" onClick={getServices2}>
-                      Cash Handling
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-lg-4">
-                  <div className="boxAdditional" onClick={getServices3}>
-                    <p className="pAdditonalBox">Pabili Service</p>
-                  </div>
-                </div>
+                {addservices
+                  .filter((event) => event.is_active == 1)
+                  .map((event) => (
+                    <div className="col-lg-4">
+                      <div
+                        className="boxAdditional"
+                        id={event.id}
+                        onClick={getservice}
+                      >
+                        <p className="pAdditonalBox">{event.name}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
-              <div className="row " style={{ marginTop: "20px" }}>
+              <div className="row " style={{ marginTop: "5px" }}>
                 <div className="col-lg-12">
                   <p className="pPayment">Payment</p>
                 </div>
