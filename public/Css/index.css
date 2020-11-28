@@ -179,11 +179,26 @@
         max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
-        position: absolute !important;
-        top: 80%;
+        position: absolute;
+        top: 75%;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+        -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+        box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
+        border: 1px solid lightgray;
+        z-index: 9999;
+    }
+    .colMapTrack  {
+        position: block !important;
+        left: 0px !important
     }
     .divBookDetails1 {
         display: block !important;
+
+    }
+    .divBookDetails {
+        display: none !important;
     }
 }
 

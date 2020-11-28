@@ -226,6 +226,7 @@ export default function map() {
     /* Setting the address of pickoff and dropoff after the page loaded */
   }
   useEffect(() => {
+    coordinate.length = 2;
     console.log(AuthService.getId());
     if (AuthService.getToken()) {
       $(".conMap").fadeIn(200);
@@ -809,6 +810,12 @@ export default function map() {
           ratedata.set("drop_off_locations[4][booking_order]", "5");
         }
 
+        addlistservice.map((addservice) => {
+          ratedata.set("additional_services[" + loopservices + "]",addservice),
+          loopservices = loopservices + 1
+        });
+    
+
         let formdata = new FormData();
         formdata.set("customer_id", AuthService.getId());
 
@@ -996,6 +1003,11 @@ export default function map() {
             formdata.set("drop_off_locations[3][notes]", "No notes to display");
           }
         }
+
+        addlistservice.map((addservice) => {
+          formdata.set("additional_services[" + loopservices + "]",addservice),
+          loopservices = loopservices + 1
+        });
 
         const apiUrl_rate =
           "https://staging-api.jgo.com.ph/api/auth/calculate-rate";

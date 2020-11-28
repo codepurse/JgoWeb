@@ -78,75 +78,82 @@ $(document).ready(function () {
   var y = 0;
 
   $(".btnAddStopoff").click(function () {
-    $(".div1:visible").each(function () {
-      if (
-        $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
-        $(this).css("display") == "table-footer-group"
-      ) {
-        alert("Please fill up first the stop locations");
-        return false;
+    var clear = 0;
+    $(".div1:visible")
+      .each(function () {
+        if (
+          $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
+          $(this).css("display") == "table-footer-group"
+        ) {
+          alert("Please fill up first the stop locations");
+          clear = 1;
+          return false;
+        }
+      })
+      .promise()
+      .done(function () {
+        if (clear == 0) {
+          if (
+            $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff1").css("display") == "none"
+          ) {
+            $(".divStopoff1").css("display", "table-footer-group");
+          } else if (
+            $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff2").css("display") == "none"
+          ) {
+            $(".div1:visible").each(function () {
+              $(this).css("display", "block");
+            });
+            $(".divStopoff2").css("display", "table-footer-group");
+            return false;
+          } else if (
+            $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff3").css("display") == "none"
+          ) {
+            $(".div1:visible").each(function () {
+              $(this).css("display", "block");
+            });
+            $(".divStopoff3").css("display", "table-footer-group");
+            return false;
+          } else if (
+            $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff4").css("display") == "none"
+          ) {
+            $(".div1:visible").each(function () {
+              $(this).css("display", "block");
+            });
+            $(".divStopoff4").css("display", "table-footer-group");
+            return false;
+          } else {
+            alert("maximum");
+          }
+        }
+      });
+
+   
+  });
+
+  try {
+    const $boxadd = document.querySelector(".boxAdditional");
+    $boxadd.addEventListener("click", () => {
+      alert("asdsa");
+      if (localStorage.getItem("theme_status") == "light") {
+        $(".boxAdditional").css("background-color", "transparent");
+        $(".boxAdditional >p").css("color", "#283148");
+        $(this).css("background-color", "#FFFE00");
+        $("p", this).css("color", "#283148");
+      } else {
+        if ($(this).css("background-color") == "rgb(255, 254, 0)") {
+          $(this).css("background-color", "transparent");
+          $("p", this).css("color", "white");
+        } else {
+          $(this).css("background-color", "#FFFE00");
+          $("p", this).css("color", "black");
+        }
       }
     });
-
-    if (
-      $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff1").css("display") == "none"
-    ) {
-      $(".divStopoff1").css("display", "table-footer-group");
-    } else if (
-      $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff2").css("display") == "none"
-    ) {
-      $(".div1:visible").each(function () {
-        $(this).css("display", "block");
-      });
-      $(".divStopoff2").css("display", "table-footer-group");
-      return false;
-    } else if (
-      $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff3").css("display") == "none"
-    ) {
-      $(".div1:visible").each(function () {
-        $(this).css("display", "block");
-      });
-      $(".divStopoff3").css("display", "table-footer-group");
-      return false;
-    } else if (
-      $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0 &&
-      $(".divStopoff4").css("display") == "none"
-    ) {
-      $(".div1:visible").each(function () {
-        $(this).css("display", "block");
-      });
-      $(".divStopoff4").css("display", "table-footer-group");
-      return false;
-    } else {
-      alert("maximum");
-    }
-  });
-
- try {
-  const $boxadd = document.querySelector(".boxAdditional");
-  $boxadd.addEventListener("click", () => {
-    alert("asdsa");
-    if (localStorage.getItem("theme_status") == "light") {
-      $(".boxAdditional").css("background-color", "transparent");
-      $(".boxAdditional >p").css("color", "#283148");
-      $(this).css("background-color", "#FFFE00");
-      $("p", this).css("color", "#283148");
-    } else {
-      if ($(this).css("background-color") == "rgb(255, 254, 0)") {
-        $(this).css("background-color", "transparent");
-        $("p", this).css("color", "white");
-      } else {
-        $(this).css("background-color", "#FFFE00");
-        $("p", this).css("color", "black");
-      }
-    }
-  });
- }catch(e) {
-
- }
+  } catch (e) {}
 
   $(".boxAdditional").click(function () {
     if (localStorage.getItem("theme_status") == "light") {
