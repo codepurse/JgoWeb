@@ -180,7 +180,7 @@
         width: 100% !important;
         height: auto !important;
         position: absolute;
-        top: calc(100vh - 150px) !important;
+        top: calc(100vh - 150px);
         border-top-left-radius: 25px;
         border-top-right-radius: 25px;
         -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
