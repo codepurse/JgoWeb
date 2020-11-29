@@ -22,6 +22,7 @@ function Post() {
   const [driver_lng, setDriverlng] = React.useState("");
   const [trackingnum, setTrackingnum] = React.useState("");
   const [profilepic, setProfilepic] = React.useState("");
+  const [estimated, setEstimated] = React.useState("");
   const router = useRouter();
   const { number } = router.query;
   const today = Date.now();
@@ -114,6 +115,7 @@ function Post() {
               "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
                 result.data.data.booking_details.driver.profile_pic
             );
+            setEstimated(result.data.data.booking_details.duration);
           } catch (e) {}
 
           const pickoffloc = {
@@ -225,10 +227,21 @@ function Post() {
                 </div>
               </div>
             </div>
+
+            <div className="divEstimated">
+            <hr className="hrTrack"></hr>
+              <div className="row">
+                <div className="col-lg-6 col-sm-7 col-7">
+                  <p className="pEstimated">Estimated time duration</p>
+                </div>
+                <div className="col-lg-6 col-sm-5 col-5 text-center">
+                  <p className="pEstimatedtime">{estimated}</p>
+                </div>
+              </div>
+            </div>
             <div className="divDriver">
-            <hr className = "hrTrack"></hr>
+             
               <div className="row align-items-center">
-            
                 <div className="col-lg-3 col-sm-3 col-3">
                   <div className="divProfimg">
                     <img src={profilepic} className="img-fluid"></img>
@@ -241,9 +254,10 @@ function Post() {
                 </div>
                 <div className="col-lg-3 col-sm-3 col-3">
                   <img
-                    src="../Image/viber.png" className = "mx-auto d-flex imgCall"
+                    src="../Image/viber.png"
+                    className="mx-auto d-flex imgCall"
                   ></img>
-                  <p className = "pMessagetrack text-center">Message</p>
+                  <p className="pMessagetrack text-center">Message</p>
                 </div>
               </div>
             </div>
@@ -316,7 +330,6 @@ function Post() {
                                     year: "numeric",
                                     month: "2-digit",
                                     day: "2-digit",
-                                  
                                   }).format(Date.parse(event.created_at))}
                                 </p>
                               </div>
@@ -327,7 +340,6 @@ function Post() {
                                     year: "numeric",
                                     month: "2-digit",
                                     day: "2-digit",
-                                 
                                   }).format(Date.parse(event.updated_at))}
                                 </p>
                               </div>

@@ -30,7 +30,7 @@ $(document).ready(function () {
     $(".colMapTrack").css("left", width + 45);
     var width = $(window).width();
     if(width < 500) {
-      $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 150px)");
+      $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 160px)");
     }
   });
 
@@ -81,7 +81,7 @@ $(document).ready(function () {
   });
 
   $(".hrTrack").click(function () {
-    $(".colSideTrack, .colSidebar").css("top","auto");
+    $(".colSideTrack, .colSidebar").css("top","25px");
   });
   var y = 0;
 
