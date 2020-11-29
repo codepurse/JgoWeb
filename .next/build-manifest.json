@@ -14,10 +14,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/404": [
+    "/": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/404.js"
+      "static/chunks/pages/index.js"
     ],
     "/_app": [
       "static/chunks/main.js",
@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/tracking/[number]": [
+    "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/tracking/[number].js"
+      "static/chunks/pages/profile.js"
     ]
   },
   "ampFirstPages": []

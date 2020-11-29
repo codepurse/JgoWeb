@@ -68,6 +68,9 @@ export default function profile() {
   const inputFileRef = useRef(null);
 
   function handleFile(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL("https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png")
+    console.log(reader.result);
     let file = e.target.files[0];
     setProfilename(file.name);
     console.log(file);
@@ -327,6 +330,7 @@ export default function profile() {
       "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
 
     axios.post(apiUrl2, {}, options1).then((result) => {
+      console.log(result.data)
       setListcard(result.data.user_card_details);
     });
 
@@ -851,7 +855,7 @@ export default function profile() {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
-          "content-type": "application/json",
+          "content-type": "application/json, multipart/form-data",
           Authorization: "Bearer " + AuthService.getToken(),
           xsrfCookieName: "XSRF-TOKEN",
           xsrfHeaderName: "X-XSRF-TOKEN",
@@ -869,6 +873,7 @@ export default function profile() {
       if (newimage) {
         formdata.append("profile_pic", newimage);
       } else {
+        formdata.append("profile_pic", "https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png");
       }
       formdata.append("email", emailprof);
       formdata.append("mobile_no", mobile);
@@ -882,7 +887,7 @@ export default function profile() {
       if (city) {
         formdata.append("city", city);
       }
-
+      
       if (mname) {
         formdata.append("city", city);
       }
@@ -905,7 +910,24 @@ export default function profile() {
         })
         .catch((err) => {
           console.log(err);
-
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #e53935" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">Something wrong. Please contact our customer support.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
           $(".btnSave").removeClass("btn--loading");
         });
     }
@@ -965,7 +987,7 @@ export default function profile() {
         address: address,
         city: city,
         state: state1,
-        country: country,
+        country: "ph",
         zip: zip,
       };
 
@@ -1000,7 +1022,36 @@ export default function profile() {
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
         console.log(result);
-        window.open(result.data.data.redirectUrl, "_blank");
+        if(result.data.data.redirectUrl) {
+          window.open(result.data.data.redirectUrl, "_blank");
+        }else {
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #FFE900" }}
+                >
+                  <div className="col-lg-2 col-sm-2">
+                    <img
+                      src="Image/complain.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div
+                    className="col-lg-10 col-sm-10"
+                    style={{ textAlign: "left" }}
+                  >
+                    <p className="pError">Warning</p>
+                    <p className="pErrorSub">
+                      Please complete your profile information before adding a card.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
         $(".btnVerify").removeClass("btn--loading");
       })
       .catch((err) => {
@@ -1037,8 +1088,40 @@ export default function profile() {
       .post(apiUrl, formdata, options)
       .then((result) => {
         console.log(result.data);
-        $("#paymentrequest").val(result.data.encoded_xml);
-        document.getElementById("paygate_frm").submit();
+        $(".btnAddcard").removeClass("btn--loading");
+
+        if (result.data.encoded_xml) {
+          $("#paymentrequest").val(result.data.encoded_xml)
+          document.getElementById("paygate_frm").submit();
+        }else {
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #FFE900" }}
+                >
+                  <div className="col-lg-2 col-sm-2">
+                    <img
+                      src="Image/complain.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div
+                    className="col-lg-10 col-sm-10"
+                    style={{ textAlign: "left" }}
+                  >
+                    <p className="pError">Warning</p>
+                    <p className="pErrorSub">
+                      Please complete your profile information before adding a card.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -1351,7 +1434,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtSearch"
-                placeholder="Search id"
+                placeholder="Search id, tracking number or location"
               ></input>
             </div>
           </div>

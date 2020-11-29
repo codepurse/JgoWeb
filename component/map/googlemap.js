@@ -60,6 +60,12 @@ function MapDirectionsRenderer(props) {
             strokeOpacity: 8,
             strokeColor: "#FDD835",
           },
+          markerOptions: {
+            icon: {
+              scaledSize: new google.maps.Size(35, 35),
+              url: "",
+            },
+          },
         }}
       />
     )
@@ -350,7 +356,7 @@ const Map = withGoogleMap((props) => (
     {props.markers.map((marker, index) => {
       const position = { lat: marker.lat, lng: marker.lng };
 
-      return <Marker key={index} position={position} />;
+      return <Marker key={index} position={position} icon = "Image/navigation.png" />;
     })}
     <MapDirectionsRenderer
       places={props.markers}

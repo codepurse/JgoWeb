@@ -147,7 +147,26 @@ export class login extends Component {
         console.log(result.data);
       })
       .catch((err) => {
-        console.log(err);
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #c62828" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">
+                    Goole sign-in failed. You may contact our customer support or try again later.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       });
   };
 
@@ -610,6 +629,7 @@ export class login extends Component {
   }
 
   send() {
+    $(".btnSendissue").addClass("btn--loading");
     if (this.state.forgotemail.length == 0) {
       $(".txtForgot").css("borderColor", "red");
     } else {
@@ -625,9 +645,31 @@ export class login extends Component {
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
+          $(".btnSendissue").removeClass("btn--loading");
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #00C853" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/success.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Success</p>
+                    <p className="pErrorSub">
+                      We have sent to your email the reset password link.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
           console.log(result);
         })
         .catch((err) => {
+          $(".btnSendissue").removeClass("btn--loading");
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -643,7 +685,7 @@ export class login extends Component {
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
-                    <p className="pErrorSub">Cannot proces. Try again later</p>
+                    <p className="pErrorSub">We can't find a user with that e-mail address.</p>
                   </div>
                 </div>
               </div>
@@ -986,7 +1028,7 @@ export class login extends Component {
                         style={{ marginTop: "5px" }}
                       >
                         Confirm
-                        <span style={{ marginLeft: "40px" }}>
+                        <span style={{ marginLeft: "70px" }}>
                           <b></b>
                           <b></b>
                           <b></b>
