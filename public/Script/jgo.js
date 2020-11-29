@@ -28,6 +28,10 @@ $(document).ready(function () {
 
   $(window).resize(function () {
     $(".colMapTrack").css("left", width + 45);
+    var width = $(window).width();
+    if(width < 500) {
+      $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 150px)");
+    }
   });
 
   $(".closeChat").click(function () {
@@ -74,6 +78,10 @@ $(document).ready(function () {
 
   $(".pAdd").click(function () {
     $(this).closest(".divHide").find(".divAdd").fadeIn(200);
+  });
+
+  $(".hrTrack").click(function () {
+    $(".colSideTrack, .colSidebar").css("top","auto");
   });
   var y = 0;
 

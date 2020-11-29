@@ -180,7 +180,7 @@
         width: 100% !important;
         height: auto !important;
         position: absolute;
-        top: 75%;
+        top: calc(100vh - 150px) !important;
         border-top-left-radius: 25px;
         border-top-right-radius: 25px;
         -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
@@ -188,14 +188,14 @@
         box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
         border: 1px solid lightgray;
         z-index: 9999;
+        
     }
-    .colMapTrack  {
+    .colMapTrack {
         position: block !important;
         left: 0px !important
     }
     .divBookDetails1 {
         display: block !important;
-
     }
     .divBookDetails {
         display: none !important;
@@ -267,8 +267,6 @@
 }
 
 /* Works on Chrome/Edge/Safari */
-
-
 
 body, html {
     width: 100%;
@@ -2774,6 +2772,7 @@ label:active:after {
     padding-bottom: 20px;
     min-width: 380px;
     max-width: 380px;
+    transition: all 0.5s;
 }
 
 .colSideTrack {
@@ -2791,6 +2790,7 @@ label:active:after {
     z-index: 99;
     background-color: white !important;
     position: relative;
+    transition: all 0.5s;
 }
 
 .conSide {
@@ -2844,13 +2844,14 @@ label:active:after {
     padding: 20px;
     border-radius: 10px;
     margin-top: 10px;
+    position: relative;
 }
 
 .divProfimg {
-    border-radius: 20px;
-    height: 70px;
-    width: 70px;
-    overflow: hidden;
+    border-radius: 10px;
+    height: 55px;
+    width: 55px;
+    overflow: hidden !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2858,9 +2859,9 @@ label:active:after {
 }
 
 .divProfimg>img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
 }
 
 .pDriverName {
@@ -2868,6 +2869,28 @@ label:active:after {
     font-weight: 600;
     color: #212121;
     font-size: 1.1rem;
+    margin-bottom: 0px;
+}
+
+.pMobiledriver {
+    font-size: 0.8rem !important;
+    margin-bottom: 0px;
+    color: #11183F !important;
+    font-weight: 600;
+    display: none;
+}
+
+.imgCall {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.pMessagetrack {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    margin-top: 5px;
+    color: #212121 !important;
+    font-size: 0.7rem !important;
     margin-bottom: 0px;
 }
 
@@ -2905,7 +2928,7 @@ label:active:after {
     padding: 10px;
     border-radius: 10px;
     margin-top: 15px;
-    position: absolute;
+    position: fixed;
     top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -2913,7 +2936,6 @@ label:active:after {
     right: 0;
     z-index: 99999;
     width: 80%;
-    display: none;
 }
 
 .p5Sub {
@@ -2921,6 +2943,18 @@ label:active:after {
     font-weight: 600;
     font-size: 1rem !important;
     margin-bottom: 0px !important;
+}
+
+.hrTrack {
+    background-color: lightgray;
+    height: 2px;
+    margin-top: 0px;
+    position: absolute;
+    border-radius: 10px;
+    top: -15px;
+    width: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .pPickTrack {
@@ -3628,7 +3662,6 @@ video {
     outline: none !important;
     width: 200px !important;
     border-radius: 8px !important;
-
 }
 
 .p10 {
@@ -3853,12 +3886,14 @@ video {
     max-height: 365px !important;
     overflow-y: auto;
     margin-top: 40px;
-    scrollbar-width: thin !important;          /* "auto" or "thin"  */
+    scrollbar-width: thin !important;
+    /* "auto" or "thin"  */
     scrollbar-color: blue orange !important;
 }
 
 .colChat {
-    scrollbar-width: thin !important;          /* "auto" or "thin"  */
+    scrollbar-width: thin !important;
+    /* "auto" or "thin"  */
     scrollbar-color: blue orange !important;
 }
 

@@ -21,6 +21,7 @@ function Post() {
   const [driver_lat, setDriverlat] = React.useState("");
   const [driver_lng, setDriverlng] = React.useState("");
   const [trackingnum, setTrackingnum] = React.useState("");
+  const [profilepic, setProfilepic] = React.useState("");
   const router = useRouter();
   const { number } = router.query;
   const today = Date.now();
@@ -57,7 +58,6 @@ function Post() {
       }
     }
   }, [dropoff_loc]);
-
 
   useEffect(() => {
     if (driver_loc) {
@@ -110,6 +110,10 @@ function Post() {
                 " " +
                 result.data.data.booking_details.driver.lname
             );
+            setProfilepic(
+              "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+                result.data.data.booking_details.driver.profile_pic
+            );
           } catch (e) {}
 
           const pickoffloc = {
@@ -124,12 +128,11 @@ function Post() {
         })
         .catch((err) => {});
     }, 10000);
-    console.clear();
+
     return () => clearInterval(interval);
   });
 
   useEffect(() => {
-    console.clear();
     let scripts = [{ src: "../Script/jgo.js" }];
     scripts.map((item) => {
       const script = document.createElement("script");
@@ -201,8 +204,8 @@ function Post() {
       <div className="container-fluid  h-100">
         <div className="divBookDetails1">
           <div className="row">
-            <div className = "col-lg-12 text-center">
-            <p className="p5">Tracking number</p>
+            <div className="col-lg-12 text-center">
+              <p className="p5">Tracking number</p>
               <p className="pFullname p5Sub">{trackingnum}</p>
             </div>
           </div>
@@ -222,20 +225,25 @@ function Post() {
                 </div>
               </div>
             </div>
-            <div className="divDriver" style={{ display: "none" }}>
-              <div className="row">
+            <div className="divDriver">
+            <hr className = "hrTrack"></hr>
+              <div className="row align-items-center">
+            
+                <div className="col-lg-3 col-sm-3 col-3">
+                  <div className="divProfimg">
+                    <img src={profilepic} className="img-fluid"></img>
+                  </div>
+                </div>
                 <div className="col-lg-6 col-sm-6 col-6">
                   <p className="pPickTrack">Driver</p>
                   <p className="pFullname pPickLock">{driver}</p>
+                  <p className="pFullname pMobiledriver">{mobile}</p>
                 </div>
-                <div className="col-lg-6 col-sm-6 col-6">
-                  <p className="pPickTrack">Mobile</p>
-                  <p className="pFullname pPickLock">{mobile}</p>
-                </div>
-                <div className="col-lg-3" style={{ display: "none" }}>
-                  <div className="divProfimg ">
-                    <img src="Image/sample.jpeg" className="imgDriver"></img>
-                  </div>
+                <div className="col-lg-3 col-sm-3 col-3">
+                  <img
+                    src="../Image/viber.png" className = "mx-auto d-flex imgCall"
+                  ></img>
+                  <p className = "pMessagetrack text-center">Message</p>
                 </div>
               </div>
             </div>
@@ -301,29 +309,25 @@ function Post() {
                                 paddingTop: "10px",
                               }}
                             >
-                              <div className="col-lg-6">
+                              <div className="col-lg-6 col-sm-6 col-6">
                                 <p className="pPickTrack">Create date</p>
                                 <p className="pFullname  pDatetrack">
                                   {new Intl.DateTimeFormat("en-US", {
                                     year: "numeric",
                                     month: "2-digit",
                                     day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit",
+                                  
                                   }).format(Date.parse(event.created_at))}
                                 </p>
                               </div>
-                              <div className="col-lg-6 ">
+                              <div className="col-lg-6 col-sm-6 col-6">
                                 <p className="pPickTrack">Completed date</p>
                                 <p className="pFullname  pDatetrack">
                                   {new Intl.DateTimeFormat("en-US", {
                                     year: "numeric",
                                     month: "2-digit",
                                     day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit",
+                                 
                                   }).format(Date.parse(event.updated_at))}
                                 </p>
                               </div>
