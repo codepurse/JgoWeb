@@ -931,7 +931,7 @@ function driver() {
               </Link>
             </div>
             <div className="col-lg-4">
-              <Link href="/">
+              <Link href="/main">
                 <a style={{ textDecoration: "none" }}>
                   <div className="divStep">
                     <div className="divInside">
