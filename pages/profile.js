@@ -70,7 +70,7 @@ export default function profile() {
 
   function handleFile(e) {
     const reader = new FileReader();
-   
+
     let file = e.target.files[0];
     setProfilename(file.name);
     console.log(file);
@@ -660,6 +660,22 @@ export default function profile() {
         $("#modalVerify").modal("hide");
         $(".modal-backdrop").hide();
         $(".btnVerify").removeClass("btn--loading");
+        const options1 = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "content-type": "application/json",
+            Authorization: "Bearer " + AuthService.getToken(),
+            xsrfCookieName: "XSRF-TOKEN",
+            xsrfHeaderName: "X-XSRF-TOKEN",
+          },
+        };
+        const apiUrl2 =
+          "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+
+        axios.post(apiUrl2, {}, options1).then((result) => {
+          console.log(result.data);
+          setListcard(result.data.user_card_details);
+        });
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
             <div className="container">
@@ -672,9 +688,7 @@ export default function profile() {
                 </div>
                 <div className="col-lg-10" style={{ textAlign: "left" }}>
                   <p className="pError">Verified</p>
-                  <p className="pErrorSub">
-                   Card successfully verified.
-                  </p>
+                  <p className="pErrorSub">Card successfully verified.</p>
                 </div>
               </div>
             </div>
@@ -691,15 +705,13 @@ export default function profile() {
                 style={{ borderLeft: "3px solid #e53935" }}
               >
                 <div className="col-lg-2">
-                  <img
-                    src="Image/warning.png"
-                    style={{ width: "32px" }}
-                  ></img>
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
                 </div>
                 <div className="col-lg-10" style={{ textAlign: "left" }}>
                   <p className="pError">Error</p>
                   <p className="pErrorSub">
-                    Something went wrong. If you entered the correct amount, please contact our customer support.
+                    Something went wrong. If you entered the correct amount,
+                    please contact our customer support.
                   </p>
                 </div>
               </div>
@@ -1102,7 +1114,7 @@ export default function profile() {
   }
 
   function addCard() {
-    $(".btnVerify").addClass("btn--loading");
+    $(".btnVerify1").addClass("btn--loading");
     const options = {
       headers: {
         Accept: "application/json",
@@ -1147,10 +1159,10 @@ export default function profile() {
             </div>
           );
         }
-        $(".btnVerify").removeClass("btn--loading");
+        $(".btnVerify1").removeClass("btn--loading");
       })
       .catch((err) => {
-        $(".btnVerify").removeClass("btn--loading");
+        $(".btnVerify1").removeClass("btn--loading");
         console.log(err);
       });
   }
@@ -1456,7 +1468,11 @@ export default function profile() {
               <img
                 src="Image/logo.png"
                 className="img-fluid"
-                style={{ width: "120px", marginLeft: "40px",cursor: "pointer" }}
+                style={{
+                  width: "120px",
+                  marginLeft: "40px",
+                  cursor: "pointer",
+                }}
               ></img>
             </Link>
           </div>
@@ -1735,7 +1751,7 @@ export default function profile() {
                 value={mobile}
                 id="txtMobileprof"
                 onChange={mobile_change}
-                maxLength = "12"
+                maxLength="12"
               ></input>
             </div>
           </div>
@@ -1872,7 +1888,11 @@ export default function profile() {
                 <div className="divCardList" onClick={getcardToken}>
                   <img src="Image/chip.png" className="img-fluid imgChip"></img>
                   <img
-                    src="Image/mastertype.png"
+                    src={
+                      event.cardType == "MASTERCARD"
+                        ? "Image/mastertype.png"
+                        : "Image/visa.png"
+                    }
                     className="img-fluid imgCardType"
                   ></img>
                   <div className="divCardDetails">
@@ -1937,7 +1957,10 @@ export default function profile() {
                 </thead>
                 <tbody>
                   {listtickets
-                    .filter((event) => event.status == "ongoing" ||event.status == "new" )
+                    .filter(
+                      (event) =>
+                        event.status == "ongoing" || event.status == "new"
+                    )
                     .map((event, index) => (
                       <tr
                         key={event.id}
@@ -2298,7 +2321,7 @@ export default function profile() {
 
                   <div className="col-lg-12 text-center">
                     <a
-                      className="btn btnVerify "
+                      className="btn btnVerify1 "
                       onClick={addCard}
                       style={{ marginTop: "5px" }}
                     >
@@ -2395,7 +2418,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={country}
-                      readOnly = "readonly"
+                      readOnly="readonly"
                     ></input>
                   </div>
                   <div className="col-lg-6">

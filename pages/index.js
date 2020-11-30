@@ -338,7 +338,6 @@ function driver() {
       submitClick = 0;
     }
 
-  
     if (profile == "") {
       $(".divProfile").css("borderColor", "#d32f2f");
       clear = 1;
@@ -369,7 +368,7 @@ function driver() {
       clear = 1;
       setErrvehicle("0");
     } else {
-       $(".pCity").css("color", "white");
+      $(".pCity").css("color", "white");
       setErrvehicle("1");
     }
 
@@ -412,9 +411,7 @@ function driver() {
       }
     };
 
-
-
-    if(validateStr(password) == false) {
+    if (validateStr(password) == false) {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       $(".pPassword").css("color", "#d32f2f");
@@ -451,7 +448,6 @@ function driver() {
       $(".pError").show();
       submitClick = 0;
     }
-
 
     if (clear == 0) {
       submitClick = 1;
@@ -787,20 +783,13 @@ function driver() {
       </div>
 
       <div className="container-fluid conDriver2 conHide">
-   
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7">
               <div className="divEasy" style={{ marginRight: "0px" }}>
                 <img
-                  src="Image/logoblack.png"
+                  src="Image/easyappnew.png"
                   className="img-fluid imgEasy"
-                 
-                ></img>
-                <img
-                  src="Image/easyapp.png"
-                  className="img-fluid imgEasy"
-                  
                 ></img>
               </div>
               <div className="divBoxCarousel carousel">
@@ -971,29 +960,21 @@ function driver() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <img
-                src="Image/artwork.jpg"
-                className="img-fluid imgArtwork"
-              ></img>
+              <img src="Image/Amity.png" className="img-fluid imgArtwork"></img>
               <p className="pArtwork"></p>
             </div>
             <div className="col-lg-6">
               <div className="divAbout">
-                <p className="pAboutus">ABOUT US</p>
+                <p className="pAboutus" style={{ display: "none" }}>
+                  ABOUT US
+                </p>
                 <p className="pAboutusSub">
-                  JGO Delivery Services Inc. was founded by Jose Miguel O.
-                  Garcia with the help of his father, Jose Vicente E. Garcia.
-                  Having an already established company that provides manpower
-                  “JG Manpower”, they thought of a way to help with the high
-                  demand of courier services in the Philippines. So following
-                  his father’s footsteps, Miguel wanted to have his own business
-                  that would provide quality service to people in the local
-                  community. Thus JGO was created as a subsidiary company under
-                  JG Manpower. As a delivery service provider, you can rely on
-                  JGO to assist you in handling goods from one hand to another.
-                  Safely and quickly. In a busy world like ours, these are what
-                  matter. As your delivery assistants, we are always ready for
-                  you, we are always on the go. JGO Maaasahan.
+                  I'm sure we've all travelled to a foreign destination in our
+                  lives. The culture, food, people, architecture, and wonder
+                  fill our excitement in these unfamiliar lands. These are some
+                  of the few things you can't help but long for. Now that things
+                  are different, we can only but form a picture of what it'd be
+                  like if we were to experience them once more.
                 </p>
               </div>
             </div>
