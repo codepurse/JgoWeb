@@ -131,7 +131,7 @@ export default function training() {
                 <div className="mx-auto text-center">
                   <Link href = "https://docs.google.com/forms/d/1ZJS6n5Mj_jo9KcROoglK1YfCTfcUQLJn9z-QAnh_KCo/prefill?gxids=7628">
                     <a>
-                    <button className="btnBegin">Begin Test</button>
+                    <button className="btnBegin">BEGIN TEST</button>
                     </a>
                   </Link>
                 </div>

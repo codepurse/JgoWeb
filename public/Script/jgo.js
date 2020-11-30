@@ -337,6 +337,7 @@ $(document).ready(function () {
     ) {
       $("#modalRegister").modal("toggle");
       $("#modalOtp").modal("toggle");
+      sessionStorage.removeItem("otp");
       console.log("Thing was saved to the database.");
     } else {
       console.log("Thing was not saved to the database.");

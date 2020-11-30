@@ -199,6 +199,9 @@
     .divBookDetails {
         display: none !important;
     }
+    .divEstimated {
+        display: block !important;
+    }
 }
 
 .divNavbar {
@@ -260,10 +263,7 @@
     --maincolor: #FFE900;
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: blue orange;
-}
+
 
 /* Works on Chrome/Edge/Safari */
 
@@ -1552,7 +1552,7 @@ hr {
 
 .pStepTitle {
     font-family: 'ProximaNovaBlack', sans-serif;
-    color: #898989;
+    color: #424242;
     font-size: 2rem;
     text-align: center;
     margin-top: 20px;
@@ -2847,6 +2847,7 @@ label:active:after {
     padding-top: 15px;
     margin-top: -30px;
     z-index: 9;
+    display: none;
 }
 
 .pEstimated {
@@ -2972,6 +2973,7 @@ label:active:after {
     right: 0;
     z-index: 99999;
     width: 80%;
+    display: none;
 }
 
 .p5Sub {
@@ -3697,7 +3699,7 @@ video {
     height: 38px;
     margin-top: -5px;
     outline: none !important;
-    width: 200px !important;
+    width: 100% !important;
     border-radius: 8px !important;
 }
 
@@ -3923,16 +3925,9 @@ video {
     max-height: 365px !important;
     overflow-y: auto;
     margin-top: 40px;
-    scrollbar-width: thin !important;
-    /* "auto" or "thin"  */
-    scrollbar-color: blue orange !important;
+
 }
 
-.colChat {
-    scrollbar-width: thin !important;
-    /* "auto" or "thin"  */
-    scrollbar-color: blue orange !important;
-}
 
 .imgChat {
     width: 40px !important;

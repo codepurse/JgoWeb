@@ -70,10 +70,7 @@ export default function profile() {
 
   function handleFile(e) {
     const reader = new FileReader();
-    reader.readAsDataURL(
-      "https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png"
-    );
-    console.log(reader.result);
+   
     let file = e.target.files[0];
     setProfilename(file.name);
     console.log(file);
@@ -639,6 +636,7 @@ export default function profile() {
   }
 
   function getVerify(e) {
+    $(".btnVerify").addClass("btn--loading");
     console.log(clienttoken);
     console.log(verify);
     const options = {
@@ -659,9 +657,55 @@ export default function profile() {
       .post(apiUrl, { client_token: clienttoken, amount: verify }, options)
       .then((result) => {
         console.log(result);
+        $("#modalVerify").modal("hide");
+        $(".modal-backdrop").hide();
+        $(".btnVerify").removeClass("btn--loading");
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #00C853" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/success.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Verified</p>
+                  <p className="pErrorSub">
+                   Card successfully verified.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       })
       .catch((err) => {
-        console.log(err);
+        $(".btnVerify").removeClass("btn--loading");
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img
+                    src="Image/warning.png"
+                    style={{ width: "32px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">
+                    Something went wrong. If you entered the correct amount, please contact our customer support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       });
   }
 
@@ -816,7 +860,10 @@ export default function profile() {
   }
 
   function mobile_change(e) {
-    setMobile(e.target.value);
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === "" || re.test(e.target.value)) {
+      setMobile(e.target.value);
+    }
   }
 
   function address_change(e) {
@@ -1409,7 +1456,7 @@ export default function profile() {
               <img
                 src="Image/logo.png"
                 className="img-fluid"
-                style={{ width: "120px", marginLeft: "40px" }}
+                style={{ width: "120px", marginLeft: "40px",cursor: "pointer" }}
               ></img>
             </Link>
           </div>
@@ -1673,6 +1720,7 @@ export default function profile() {
                 type="text"
                 className="txtDriver txtEmail txtprof"
                 id="txtEmailprof"
+                readonly="readonly"
                 value={emailprof}
                 onChange={email_change}
               ></input>
@@ -1687,6 +1735,7 @@ export default function profile() {
                 value={mobile}
                 id="txtMobileprof"
                 onChange={mobile_change}
+                maxLength = "12"
               ></input>
             </div>
           </div>
@@ -1776,7 +1825,7 @@ export default function profile() {
             <div style={{ marginTop: "10px" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
-              <span className="spanCheckSettings">Enable toolips</span>
+              <span className="spanCheckSettings">Enable tooltips</span>
             </div>
             <p className="pSettingsTitle" style={{ marginTop: "20px" }}>
               Password
@@ -1864,7 +1913,7 @@ export default function profile() {
               data-toggle="modal"
               data-target="#modalReport"
             >
-              + Report issue
+              + Create issue
             </button>
           </div>
         </div>
@@ -2121,7 +2170,7 @@ export default function profile() {
                   <div className="col-lg-4">
                     <a className="btn btnVerify" onClick={getVerify}>
                       Verify
-                      <span style={{ marginLeft: "40px" }}>
+                      <span style={{ marginLeft: "20px" }}>
                         <b></b>
                         <b></b>
                         <b></b>
@@ -2206,7 +2255,7 @@ export default function profile() {
                       onClick={goTopup}
                       style={{ marginTop: "10px" }}
                     >
-                      Add card
+                      Proceed
                       <span style={{ marginLeft: "10px" }}>
                         <b></b>
                         <b></b>
@@ -2346,6 +2395,7 @@ export default function profile() {
                       type="text"
                       className="txtDriver txtFname"
                       value={country}
+                      readOnly = "readonly"
                     ></input>
                   </div>
                   <div className="col-lg-6">

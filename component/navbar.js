@@ -14,7 +14,11 @@ export default function navbar() {
   const [fname, setFname] = React.useState("");
 
   function loginForm(e) {
-    if (localStorage.getItem("token") || localStorage.getItem("google") || localStorage.getItem("fb"))  {
+    if (
+      localStorage.getItem("token") ||
+      localStorage.getItem("google") ||
+      localStorage.getItem("fb")
+    ) {
       router.push("/profile");
     } else {
       $(".colMain").hide();
@@ -55,7 +59,11 @@ export default function navbar() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("token") || localStorage.getItem("google") || localStorage.getItem("fb")) {
+    if (
+      localStorage.getItem("token") ||
+      localStorage.getItem("google") ||
+      localStorage.getItem("fb")
+    ) {
       return setFname(AuthService.getFullname());
     } else {
       setFname("LOGIN");
@@ -70,13 +78,15 @@ export default function navbar() {
       >
         <div className="container-fluid">
           <nav className="navbar-brand" href="#">
-            <a href="#">
-              <img
-                src="Image/logo.png"
-                className="img-fluid imgLogo imglogonav"
-                style={{ marginLeft: "15px" }}
-              />
-            </a>
+            <Link href="/">
+              <a>
+                <img
+                  src="Image/logo.png"
+                  className="img-fluid imgLogo imglogonav"
+                  style={{ marginLeft: "15px" }}
+                />
+              </a>
+            </Link>
           </nav>
           <div className="collapse navbar-collapse" id="collapse">
             <div className="col2 ml-auto">

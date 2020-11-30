@@ -160,7 +160,8 @@ export class login extends Component {
                 <div className="col-lg-10" style={{ textAlign: "left" }}>
                   <p className="pError">Error</p>
                   <p className="pErrorSub">
-                    Goole sign-in failed. You may contact our customer support or try again later.
+                    Goole sign-in failed. You may contact our customer support
+                    or try again later.
                   </p>
                 </div>
               </div>
@@ -251,10 +252,11 @@ export class login extends Component {
       $(".pPassword").css("color", "#d32f2f");
       $(".txtPassword").css("borderColor", "#d32f2f");
       $(".btn").removeClass("btn--loading");
+      $(".pErrormatch").show();
       clear = 1;
     }
 
-    if (this.state.password < 6 || this.state.password > 16) {
+    if (this.state.password < 8 || this.state.password > 16) {
       $(".pConfirmPass").css("color", "#d32f2f");
       $(".txtConfirmPass").css("borderColor", "#d32f2f");
       $(".pPassword").css("color", "#d32f2f");
@@ -280,22 +282,77 @@ export class login extends Component {
           "content-type": "application/json",
         },
       };
-      const apiUrl = "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
-
+      const apiUrl =
+        "https://staging-api.jgo.com.ph/api/auth/check-if-number-exist";
       axios
-        .post(apiUrl, {}, options)
+        .post(apiUrl, { mobile_no: this.state.mobile }, options)
         .then((result) => {
-          clear == 0;
-          $(".btn").removeClass("btn--loading");
-          console.log(result.data.request_id);
-          this.setState({ requestid: result.data.request_id });
-          sessionStorage.setItem("otp", "1");
-          $("#modalRegister").modal("toggle");
-          $("#modalOtp").modal("toggle");
+          const options = {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "content-type": "application/json",
+            },
+          };
+          const apiUrl = "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
+        
+          axios
+            .post(apiUrl, {}, options)
+            .then((result) => {
+              clear == 0;
+              $(".btn").removeClass("btn--loading");
+              console.log(result.data.request_id);
+              this.setState({ requestid: result.data.request_id });
+              sessionStorage.setItem("otp", "1");
+              $("#modalRegister").modal("toggle");
+              $("#modalOtp").modal("toggle");
+            })
+            .catch((err) => {
+              swal(
+                <div style={{ width: "450px", padding: "10px" }}>
+                  <div className="container">
+                    <div
+                      className="row align-items-center"
+                      style={{ borderLeft: "3px solid #c62828" }}
+                    >
+                      <div className="col-lg-2">
+                        <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                      </div>
+                      <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <p className="pError">Error</p>
+                        <p className="pErrorSub">
+                          OTP not sent. Please try again or contact our customer support.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+              $(".btn").removeClass("btn--loading");
+            });
         })
         .catch((err) => {
-          console.log(err);
           $(".btn").removeClass("btn--loading");
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #c62828" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      The entered mobile number is already taken.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+  
         });
     }
   }
@@ -574,9 +631,11 @@ export class login extends Component {
             if (result.status == "201") {
               $(".btnotp").removeClass("btn--loading");
               successMessage();
+              sessionStorage.removeItem("otp");
             }
           })
           .catch((err) => {
+            sessionStorage.removeItem("otp");
             $(".btn").removeClass("btn--loading");
             $("#modalOtp").modal("hide");
             swal(
@@ -654,7 +713,10 @@ export class login extends Component {
                   style={{ borderLeft: "3px solid #00C853" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/success.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/success.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Success</p>
@@ -685,7 +747,9 @@ export class login extends Component {
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
-                    <p className="pErrorSub">We can't find a user with that e-mail address.</p>
+                    <p className="pErrorSub">
+                      We can't find a user with that e-mail address.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -935,6 +999,7 @@ export class login extends Component {
                       className="txtDriver txtPassword"
                       onChange={this.password.bind(this)}
                     ></input>
+                    <p className="pErrormatch">Password did not match.</p>
                     <p className="pError">Password must be 6-16 characters.</p>
                   </div>
                   <div className="col-lg-6">

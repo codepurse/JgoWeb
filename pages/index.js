@@ -787,7 +787,7 @@ function driver() {
       </div>
 
       <div className="container-fluid conDriver2 conHide">
-        <img src="Image/bar.png" className="imgBar"></img>
+   
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7">
@@ -1177,7 +1177,7 @@ function driver() {
                 </div>
                 <div className="col-lg-4">
                   <p className="pTxtDriver pLisence" style={{ color: "white" }}>
-                    Lisence Number
+                    License Number
                   </p>
                   <input
                     type="text"
