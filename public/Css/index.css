@@ -2670,6 +2670,14 @@ label:active:after {
     margin-top: -5px;
     display: none;
 }
+.pErrormatch {
+    font-family: 'ProximaNova', sans-serif;
+    font-size: 0.9rem;
+    color: #d32f2f;
+    margin-bottom: 8px;
+    margin-top: -5px;
+    display: none;
+}
 
 .pWalletno {
     font-family: 'GilroyMedium';
