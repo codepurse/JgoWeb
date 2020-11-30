@@ -29,6 +29,7 @@ export default function profile() {
   const [activeCount, setACtivecount] = React.useState("");
   const [pages, setPages] = React.useState("");
   const [statusdropdown, setStatus] = React.useState("");
+  const [usertype, setUsertype] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [oldpass, setOldpass] = React.useState("");
   const [confirmoldpass, setConfirmoldpass] = React.useState("");
@@ -69,7 +70,9 @@ export default function profile() {
 
   function handleFile(e) {
     const reader = new FileReader();
-    reader.readAsDataURL("https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png")
+    reader.readAsDataURL(
+      "https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png"
+    );
     console.log(reader.result);
     let file = e.target.files[0];
     setProfilename(file.name);
@@ -244,6 +247,10 @@ export default function profile() {
   }, [message]);
 
   const date = [{ value: "October", label: "October" }];
+  const user_type = [
+    { value: "driver", label: "Driver" },
+    { value: "customer", label: "Customer" },
+  ];
 
   const customStyles = {
     control: (base, state) => ({
@@ -269,6 +276,33 @@ export default function profile() {
     container: (base) => ({
       ...base,
       width: "150px",
+    }),
+  };
+
+  const style_issue = {
+    control: (base, state) => ({
+      ...base,
+      background: "transparent",
+      color: "white",
+      border: "1px solid #2c2c2c",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "100%",
     }),
   };
 
@@ -330,7 +364,7 @@ export default function profile() {
       "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
 
     axios.post(apiUrl2, {}, options1).then((result) => {
-      console.log(result.data)
+      console.log(result.data);
       setListcard(result.data.user_card_details);
     });
 
@@ -631,6 +665,11 @@ export default function profile() {
       });
   }
 
+  function usertypechange(value) {
+    var value = value.value.toLowerCase();
+    setUsertype(value.label);
+  }
+
   function handlestatuschange(value) {
     var value = value.value.toLowerCase();
     setStatus(value.label);
@@ -873,7 +912,10 @@ export default function profile() {
       if (newimage) {
         formdata.append("profile_pic", newimage);
       } else {
-        formdata.append("profile_pic", "https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png");
+        formdata.append(
+          "profile_pic",
+          "https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png"
+        );
       }
       formdata.append("email", emailprof);
       formdata.append("mobile_no", mobile);
@@ -887,7 +929,7 @@ export default function profile() {
       if (city) {
         formdata.append("city", city);
       }
-      
+
       if (mname) {
         formdata.append("city", city);
       }
@@ -918,11 +960,16 @@ export default function profile() {
                   style={{ borderLeft: "3px solid #e53935" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
-                    <p className="pErrorSub">Something wrong. Please contact our customer support.</p>
+                    <p className="pErrorSub">
+                      Something wrong. Please contact our customer support.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1022,9 +1069,9 @@ export default function profile() {
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
         console.log(result);
-        if(result.data.data.redirectUrl) {
+        if (result.data.data.redirectUrl) {
           window.open(result.data.data.redirectUrl, "_blank");
-        }else {
+        } else {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -1044,7 +1091,8 @@ export default function profile() {
                   >
                     <p className="pError">Warning</p>
                     <p className="pErrorSub">
-                      Please complete your profile information before adding a card.
+                      Please complete your profile information before adding a
+                      card.
                     </p>
                   </div>
                 </div>
@@ -1091,9 +1139,9 @@ export default function profile() {
         $(".btnAddcard").removeClass("btn--loading");
 
         if (result.data.encoded_xml) {
-          $("#paymentrequest").val(result.data.encoded_xml)
+          $("#paymentrequest").val(result.data.encoded_xml);
           document.getElementById("paygate_frm").submit();
-        }else {
+        } else {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -1113,7 +1161,8 @@ export default function profile() {
                   >
                     <p className="pError">Warning</p>
                     <p className="pErrorSub">
-                      Please complete your profile information before adding a card.
+                      Please complete your profile information before adding a
+                      card.
                     </p>
                   </div>
                 </div>
@@ -1121,7 +1170,6 @@ export default function profile() {
             </div>
           );
         }
-        
       })
       .catch((err) => {
         console.log(err);
@@ -1198,6 +1246,7 @@ export default function profile() {
       const random_num = Math.floor(Math.random() * 90000) + 10000;
       const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
       let formdata = new FormData();
+      formdata.set("user_type", usertype);
       formdata.set("user_id", AuthService.getId());
       formdata.set("channel_id", "Channel-customersupport-" + random_num);
       formdata.set("details", description);
@@ -1209,6 +1258,7 @@ export default function profile() {
         .post(apiUrl, formdata, options)
         .then((result) => {
           $("#modalReport").modal("hide");
+          $(".modal-backdrop").hide();
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -1598,7 +1648,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtprof"
-                id = "txtMiddleprof"
+                id="txtMiddleprof"
                 value={mname}
                 onChange={mname_change}
               ></input>
@@ -1830,78 +1880,80 @@ export default function profile() {
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
                     <th>Booking Id</th>
-                    <th>Ticket Id</th>
+                    <th>Title</th>
                     <th>Created Date</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {listtickets.map((event, index) => (
-                    <tr
-                      key={event.id}
-                      className="trSupport"
-                      onClick={getChannel}
-                    >
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
+                  {listtickets
+                    .filter((event) => event.status == "ongoing" ||event.status == "new" )
+                    .map((event, index) => (
+                      <tr
+                        key={event.id}
+                        className="trSupport"
+                        onClick={getChannel}
                       >
-                        {event.booking_id}
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {event.ticket_id}
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {new Intl.DateTimeFormat("en-US", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit",
-                        }).format(Date.parse(event.created_at))}
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {event.status}
-                      </td>
-                      <td>
-                        <button className="btnOpen" onClick={openchat}>
-                          Open chat
-                        </button>
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {event.channel_id}
-                      </td>
-                    </tr>
-                  ))}
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.booking_id}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.title}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {new Intl.DateTimeFormat("en-US", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                          }).format(Date.parse(event.created_at))}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.status}
+                        </td>
+                        <td>
+                          <button className="btnOpen" onClick={openchat}>
+                            Open chat
+                          </button>
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.channel_id}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -2372,7 +2424,19 @@ export default function profile() {
                     <p className="pModalTitleSub text-left">
                       Please specify the exact details of your issue.
                     </p>
-                    <p className="pTxtDriver pReport">Booking ID (Optional)</p>
+                    <p className="pTxtDriver pReport">User type</p>
+                    <Select
+                      options={user_type}
+                      styles={style_issue}
+                      value={usertype}
+                      onChange={usertypechange}
+                    />
+                    <p
+                      className="pTxtDriver pReport"
+                      style={{ marginTop: "10px" }}
+                    >
+                      Booking ID (Optional)
+                    </p>
                     <input
                       type="text"
                       className="txtDriver txtFname"
