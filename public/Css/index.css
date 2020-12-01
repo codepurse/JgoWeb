@@ -409,7 +409,8 @@ body, html {
 }
 
 .imgEasy {
-    width: 150px;
+    width: 300px;
+    margin-bottom: -30px;
 }
 
 .pWhat {
@@ -1584,6 +1585,13 @@ hr {
     margin: 0 auto;
 }
 
+.conAbout1 {
+    padding: 40px;
+    background-color: white !important;
+    border: 0px !important
+}
+
+
 .pAboutus {
     font-family: 'ProximaNovaBlack', sans-serif;
     color: #FFFF3B;
@@ -1593,8 +1601,11 @@ hr {
 
 .pAboutusSub {
     font-family: 'ProximaNova', sans-serif;
-    color: #FFFF3B;
+    color: #424242;
+    font-weight: 600;
     font-size: 1rem;
+    max-width: 650px;
+    margin: 0 auto;
 }
 
 .imgArtwork {

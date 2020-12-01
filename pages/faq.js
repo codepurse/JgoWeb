@@ -10,7 +10,6 @@ function showModal() {
   localStorage.setItem("showmodal", "1");
 }
 
-
 export default function faq() {
   return (
     <>
@@ -28,7 +27,9 @@ export default function faq() {
           <div className="row align-items-center h-100">
             <div className="col-lg-12 text-center">
               <Link href="/">
-                <p className="liNav"   onClick={showModal}>Ride with Us</p>
+                <p className="liNav" onClick={showModal}>
+                  Ride with Us
+                </p>
               </Link>
               <Link href="/support">
                 <p className="liNav">JGO Support</p>
@@ -66,7 +67,7 @@ export default function faq() {
                     <a
                       className="nav-link nav-driver"
                       style={{ color: "white" }}
-                      onClick = {showModal}
+                      onClick={showModal}
                     >
                       Ride with Us
                     </a>
@@ -648,6 +649,30 @@ export default function faq() {
           </div>
         </div>
       </div>
+      <div className="container-fluid conHide conAbout1">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12 text-center">
+              <p className="pFaq">ABOUT US</p>
+              <p className = "pAboutusSub text-center">
+                JGO Delivery Services Inc. was founded by Jose Miguel O. Garcia
+                with the help of his father, Jose Vicente E. Garcia. Having an
+                already established company that provides manpower “JG
+                Manpower”, they thought of a way to help with the high demand of
+                courier services in the Philippines. So following his father’s
+                footsteps, Miguel wanted to have his own business that would
+                provide quality service to people in the local community. Thus
+                JGO was created as a subsidiary company under JG Manpower. As a
+                delivery service provider, you can rely on JGO to assist you in
+                handling goods from one hand to another. Safely and quickly. In
+                a busy world like ours, these are what matter. As your delivery
+                assistants, we are always ready for you, we are always on the
+                go. JGO Maaasahan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className="container-fluid conHide "
         id="contact"
@@ -688,12 +713,10 @@ export default function faq() {
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
             <div className="col-lg-6">
-              <p className="pContact1">
-                For PR, Partnerships, and Goverment-related concerns
-              </p>
+              <p className="pContact1">Contact Us</p>
             </div>
             <div className="col-lg-6">
-              <p className="pContact2">Email us at pr.ph@jgo.manpo.com</p>
+              <p className="pContact2">(02) 85634498</p>
             </div>
           </div>
         </div>

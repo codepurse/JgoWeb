@@ -788,7 +788,7 @@ function driver() {
             <div className="col-lg-7">
               <div className="divEasy" style={{ marginRight: "0px" }}>
                 <img
-                  src="Image/easyappnew.png"
+                  src="Image/jgoeasy.png"
                   className="img-fluid imgEasy"
                 ></img>
               </div>
