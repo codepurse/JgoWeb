@@ -1599,13 +1599,20 @@ hr {
     margin-bottom: 5px;
 }
 
-.pAboutusSub {
+.pAboutusSub1 {
     font-family: 'ProximaNova', sans-serif;
     color: #424242;
     font-weight: 600;
     font-size: 1rem;
     max-width: 650px;
     margin: 0 auto;
+}
+
+.pAboutusSub1 {
+    font-family: 'ProximaNova', sans-serif;
+    color: #FFFF3B;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 .imgArtwork {

@@ -968,7 +968,7 @@ function driver() {
                 <p className="pAboutus" style={{ display: "none" }}>
                   ABOUT US
                 </p>
-                <p className="pAboutusSub">
+                <p className="pAboutusSub1">
                   I'm sure we've all travelled to a foreign destination in our
                   lives. The culture, food, people, architecture, and wonder
                   fill our excitement in these unfamiliar lands. These are some

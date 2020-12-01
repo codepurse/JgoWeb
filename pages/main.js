@@ -10,16 +10,9 @@ import axios from "axios";
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
-  const [user, setUser] = React.useState("");
-  const [fname, setFname] = React.useState("");
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("token");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-    }
-    console.log(localStorage.getItem("tokenFb"));
-  }, []);
+
+
 
   function book() {
     if (AuthService.getToken()) {
