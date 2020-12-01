@@ -303,19 +303,11 @@ function index() {
       <div className="container-fluid con4">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6">
-              <p className="pComingsoon">COMING SOON</p>
-              <p className="pComingSub">
-                Order before cut off and we will deliver your groceries on the
-                same day!
+            <div className="col-lg-12">
+              <p className="pComingsoon text-center">COMING SOON</p>
+              <p className="pComingSub text-center">
+                We have something exiciting for you!
               </p>
-            </div>
-            <div className="col-lg-6">
-              <img
-                src="Image/coming.png"
-                className="img-fluid mx-auto d-flex"
-                style={{ width: "80%" }}
-              ></img>
             </div>
           </div>
         </div>

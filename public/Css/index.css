@@ -488,11 +488,8 @@ body, html {
 }
 
 .con4 {
-    background-image: url("/Image/foodbg.png");
-    background-size: cover;
-    background-position: 50% 50%;
-    background-color: #FFF257;
-    padding-top: 5%;
+    background-color: #e8e4c9;
+    padding: 40px;
 }
 
 .pComingsoon {
