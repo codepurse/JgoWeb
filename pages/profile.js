@@ -105,6 +105,40 @@ export default function profile() {
     }
   }
 
+  function gotoTrack(e) {
+    var trackid = $(e.currentTarget).parent("td").parent("tr").children().closest("td:nth-child(2)").html();
+    tabledata.filter((event) => event.tracking_id == trackid).map((number) =>
+      
+      {if (number.status == "Canceled") {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">
+                    Canceled booking cannot be tracked.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }else {
+        window.open('/tracking/'+ $(e.currentTarget).parent("td").parent("tr").children().closest("td:nth-child(2)").html(),'_blank');
+      }}
+    
+    );
+    
+  
+  }
+
   function cancelbook() {
     const options = {
       headers: {
@@ -575,11 +609,7 @@ export default function profile() {
     $(".conPayment").hide();
   }
 
-  function doubleclickTable() {
-    $("#table").on("click", "tr", function (e) {
-      window.open("/tracking/" + $(this).children().closest("td").html());
-    });
-  }
+
 
   function hovertable() {
     $("tr")
@@ -1294,6 +1324,7 @@ export default function profile() {
       $(".txtDescription").css("border", "1px solid  #2c2c2c");
     }
 
+
     if (clear == 0) {
       const options = {
         headers: {
@@ -1558,20 +1589,32 @@ export default function profile() {
               <table
                 className="table"
                 id="table"
-                onDoubleClick={doubleclickTable}
+          
+                
                 onMouseOver={hovertable}
               >
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
+                    <th></th>
                     <th>Tracking ID</th>
                     <th>Price</th>
                     <th>Pickup Address</th>
                     <th>Drop Location</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody
+                  style={{
+                    overflowY: "scroll",
+                    overflowX: "hidden",
+                    height: "100px",
+                  }}
+                >
                   {tabledata.map((event, index) => (
                     <tr key={event.id}>
+                      <td className = "tdButton">
+                      <img src = "Image/track.png" className = "img-fluid imgTrack" onClick = {gotoTrack}></img>
+                      <img src = "Image/cancel.png" className = "img-fluid imgCancel"></img>
+                      </td>
                       <td
                         className={
                           localStorage.getItem("theme_status") == "light"
@@ -1590,6 +1633,7 @@ export default function profile() {
                       >
                         {event.total}
                       </td>
+
                       <td
                         className={
                           localStorage.getItem("theme_status") == "light"
@@ -1943,7 +1987,7 @@ export default function profile() {
               <table
                 className="table"
                 id="table"
-                onDoubleClick={doubleclickTable}
+               
                 onMouseOver={hovertable}
               >
                 <thead>

@@ -1910,6 +1910,41 @@ td {
     padding-bottom: 0.5em !important;
 }
 
+.btnTracktable {
+    font-family: 'GilroyMedium' !important;
+    color: #424242 !important;
+    font-weight: 600 !important;
+    background-color: #FFE900 !important;
+    border: 0px;
+    width: 100%;
+    padding-top: 12px !important;
+    border-radius: 8px !important;
+}
+
+.imgTrack {
+    background-color: #2D9CFC;
+    padding: 7px;
+    border-radius: 5px;
+    width: 32px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+.tdButton {
+    min-width: 130px;
+    max-width: 130px;
+    overflow: hidden;
+}
+
+.imgCancel {
+    background-color: #ED3450;
+    padding: 7px;
+    border-radius: 5px;
+    width: 32px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
 .tdlight {
     color: #424242;
 }

@@ -9,6 +9,13 @@ $(document).ready(function () {
     $(".modal-backdrop").hide();
   });
 
+ 
+
+  $(".imgTrack").click(function () {
+    alert("asdas");
+    console.log($(this).children().closest("td:nth-child(2)").html());
+  });
+
   try {
     const $menuBtn = document.querySelector(".menu-btn");
     let isMenuOpen = false;
@@ -29,7 +36,7 @@ $(document).ready(function () {
   $(window).resize(function () {
     $(".colMapTrack").css("left", width + 45);
     var width = $(window).width();
-    if(width < 500) {
+    if (width < 500) {
       $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 160px)");
     }
   });
@@ -81,7 +88,7 @@ $(document).ready(function () {
   });
 
   $(".hrTrack").click(function () {
-    $(".colSideTrack, .colSidebar").css("top","25px");
+    $(".colSideTrack, .colSidebar").css("top", "25px");
   });
   var y = 0;
 
@@ -102,12 +109,14 @@ $(document).ready(function () {
       .done(function () {
         if (clear == 0) {
           if (
-            $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length ==
+              0 &&
             $(".divStopoff1").css("display") == "none"
           ) {
             $(".divStopoff1").css("display", "table-footer-group");
           } else if (
-            $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length ==
+              0 &&
             $(".divStopoff2").css("display") == "none"
           ) {
             $(".div1:visible").each(function () {
@@ -116,7 +125,8 @@ $(document).ready(function () {
             $(".divStopoff2").css("display", "table-footer-group");
             return false;
           } else if (
-            $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length ==
+              0 &&
             $(".divStopoff3").css("display") == "none"
           ) {
             $(".div1:visible").each(function () {
@@ -125,7 +135,8 @@ $(document).ready(function () {
             $(".divStopoff3").css("display", "table-footer-group");
             return false;
           } else if (
-            $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length ==
+              0 &&
             $(".divStopoff4").css("display") == "none"
           ) {
             $(".div1:visible").each(function () {
@@ -138,8 +149,6 @@ $(document).ready(function () {
           }
         }
       });
-
-   
   });
 
   try {
