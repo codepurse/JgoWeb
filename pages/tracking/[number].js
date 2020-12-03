@@ -136,10 +136,10 @@ function Post() {
 
   function sendSms() {
     if (/Android/i.test(navigator.userAgent)) {
-      window.location.href = "sms:1234567890?&body=message"
+      window.location.href = "sms:"+ {mobile} +"?&body="
     }
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.location.href = "sms:1234567890?&body=message"
+      window.location.href = "sms:"+ {mobile} +"?&body="
     }
   }
 
