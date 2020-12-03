@@ -135,12 +135,12 @@ function Post() {
   });
 
   function sendSms() {
-   
-    if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
-      alert('mobile');
-     }else {
-      alert("unknown")
-     }
+    if (/Android/i.test(navigator.userAgent)) {
+      window.location.href = "sms:1234567890?&body=message"
+    }
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      window.location.href = "sms:1234567890?&body=message"
+    }
   }
 
   useEffect(() => {
