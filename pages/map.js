@@ -666,8 +666,8 @@ export default function map() {
     }
 
     addlistservice.map((addservice) => {
-      ratedata.set("additional_services[" + loopservices + "]",addservice),
-      loopservices = loopservices + 1
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
     });
 
     const apiUrl_rate =
@@ -742,7 +742,7 @@ export default function map() {
         );
       } else {
         clickpayment = 1;
-
+        console.log(addlistservice);
         $(".btnPayment").addClass("btn--loading");
         const options = {
           headers: {
@@ -810,11 +810,17 @@ export default function map() {
           ratedata.set("drop_off_locations[4][booking_order]", "5");
         }
 
-        addlistservice.map((addservice) => {
-          ratedata.set("additional_services[" + loopservices + "]",addservice),
-          loopservices = loopservices + 1
-        });
-    
+        if (addlistservice === undefined || addlistservice.length == 0) {
+          ratedata.set("additional_services", []);
+        } else {
+          addlistservice.map((addservice) => {
+            ratedata.set(
+              "additional_services[" + loopservices + "]",
+              addservice
+            ),
+              (loopservices = loopservices + 1);
+          });
+        }
 
         let formdata = new FormData();
         formdata.set("customer_id", AuthService.getId());
@@ -1004,10 +1010,17 @@ export default function map() {
           }
         }
 
-        addlistservice.map((addservice) => {
-          formdata.set("additional_services[" + loopservices + "]",addservice),
-          loopservices = loopservices + 1
-        });
+        if (addlistservice === undefined || addlistservice.length == 0) {
+          formdata.set("additional_services[]","");
+        } else {
+          addlistservice.map((addservice) => {
+            formdata.set(
+              "additional_services[" + loopservices + "]",
+              addservice
+            ),
+              (loopservices = loopservices + 1);
+          });
+        }
 
         const apiUrl_rate =
           "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
@@ -1023,6 +1036,7 @@ export default function map() {
             axios
               .post(apiUrl, formdata, options)
               .then((result) => {
+                console.log(result);
                 localStorage.setItem("activeid", result.data.data);
                 router.push("/profile");
               })
@@ -1034,7 +1048,9 @@ export default function map() {
                 $(".btnPayment").removeClass("btn--loading");
               });
           })
-          .catch((err) => {});
+          .catch((err) => {
+            $(".btnPayment").removeClass("btn--loading");
+          });
       }
     }
   }
@@ -1121,7 +1137,7 @@ export default function map() {
 
     $(".divCod").css("border", "1px solid #373A41");
     $(".imgCheck").hide();
-    $(".divListcard").find(".imgCheck").fadeIn(150);
+    $(e.currentTarget).find(".imgCheck").fadeIn(150);
   }
 
   return (

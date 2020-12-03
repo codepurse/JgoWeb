@@ -134,6 +134,15 @@ function Post() {
     return () => clearInterval(interval);
   });
 
+  function sendSms() {
+   
+    if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+      alert('mobile');
+     }else {
+      alert("unknown")
+     }
+  }
+
   useEffect(() => {
     let scripts = [{ src: "../Script/jgo.js" }];
     scripts.map((item) => {
@@ -213,7 +222,10 @@ function Post() {
           </div>
         </div>
 
-        <div className="row h-100" style={{ padding: "0px" }}>
+        <div
+          className="row h-100"
+          style={{ padding: "0px", backgroundColor: "white" }}
+        >
           <div className="col-lg-3 colSidebar colSideTrack">
             <div className="divBookDetails">
               <div className="row">
@@ -223,13 +235,13 @@ function Post() {
                 </div>
                 <div className="col-lg-6 col-sm-6 col-6">
                   <p className="p5">Last updated</p>
-                  <p className="pFullname p5Sub">2 mins ago</p>
+                  <p className="pFullname p5Sub">30 secs ago</p>
                 </div>
               </div>
             </div>
 
             <div className="divEstimated">
-            <hr className="hrTrack"></hr>
+              <hr className="hrTrack"></hr>
               <div className="row">
                 <div className="col-lg-6 col-sm-7 col-7">
                   <p className="pEstimated">Estimated time duration</p>
@@ -240,7 +252,6 @@ function Post() {
               </div>
             </div>
             <div className="divDriver">
-             
               <div className="row align-items-center">
                 <div className="col-lg-3 col-sm-3 col-3">
                   <div className="divProfimg">
@@ -253,11 +264,13 @@ function Post() {
                   <p className="pFullname pMobiledriver">{mobile}</p>
                 </div>
                 <div className="col-lg-3 col-sm-3 col-3">
-                  <img
-                    src="../Image/viber.png"
-                    className="mx-auto d-flex imgCall"
-                  ></img>
-                  <p className="pMessagetrack text-center">Message</p>
+                  <a onClick={sendSms}>
+                    <img
+                      src="../Image/viber.png"
+                      className="mx-auto d-flex imgCall"
+                    ></img>
+                    <p className="pMessagetrack text-center">Message</p>
+                  </a>
                 </div>
               </div>
             </div>

@@ -9,12 +9,6 @@ $(document).ready(function () {
     $(".modal-backdrop").hide();
   });
 
- 
-
-  $(".imgTrack").click(function () {
-    alert("asdas");
-    console.log($(this).children().closest("td:nth-child(2)").html());
-  });
 
   try {
     const $menuBtn = document.querySelector(".menu-btn");
@@ -34,7 +28,7 @@ $(document).ready(function () {
   } catch (e) {}
 
   $(window).resize(function () {
-    $(".colMapTrack").css("left", width + 45);
+    $(".colMapTrack").css("left", width);
     var width = $(window).width();
     if (width < 500) {
       $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 160px)");
