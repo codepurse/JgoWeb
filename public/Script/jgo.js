@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
   $("#driverModal").on("shown.bs.modal", function () {
     $(function () {
@@ -86,6 +88,7 @@ $(document).ready(function () {
   });
   var y = 0;
 
+
   $(".btnAddStopoff").click(function () {
     var clear = 0;
     $(".div1:visible")
@@ -94,14 +97,17 @@ $(document).ready(function () {
           $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
           $(this).css("display") == "table-footer-group"
         ) {
-          alert("Please fill up first the stop locations");
+          $(this).find(".css-kvzrv0-control").css("border",'1px solid #ED3450');
+          window.reactFunction();
           clear = 1;
           return false;
         }
       })
       .promise()
       .done(function () {
+      
         if (clear == 0) {
+          $(".css-kvzrv0-control").css("border",'1px solid #2c2c2c');
           if (
             $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length ==
               0 &&

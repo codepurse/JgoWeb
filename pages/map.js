@@ -222,10 +222,30 @@ export default function map() {
     );
   }
 
-  {
-    /* Setting the address of pickoff and dropoff after the page loaded */
-  }
+ 
   useEffect(() => {
+    window.reactFunction = () => {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Fill up the missing locations before adding one.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
     coordinate.length = 2;
     console.log(AuthService.getId());
     if (AuthService.getToken()) {

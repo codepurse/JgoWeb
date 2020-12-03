@@ -197,7 +197,7 @@ export default function profile() {
               var end = moment(number.updated_at); // another date
               var duration = moment.duration(now.diff(end));
               var min = Math.floor(duration.asMinutes());
-              if(min < 3) {
+              if (min < 3) {
                 $("#exampleModal").modal("hide");
                 $(".modal-backdrop").hide();
                 swal(
@@ -213,7 +213,10 @@ export default function profile() {
                             style={{ width: "32px" }}
                           ></img>
                         </div>
-                        <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
                           <p className="pError">Verified</p>
                           <p className="pErrorSub">
                             Your booking is successfully cancelled.
@@ -224,7 +227,7 @@ export default function profile() {
                   </div>
                 );
                 refresh();
-              }else {
+              } else {
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -238,7 +241,10 @@ export default function profile() {
                             style={{ width: "32px" }}
                           ></img>
                         </div>
-                        <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
                           <p className="pError">Error</p>
                           <p className="pErrorSub">
                             This booking cannot be canceled.
@@ -371,6 +377,8 @@ export default function profile() {
     });
   }
 
+ 
+
   function successMessage() {
     swal(
       <div style={{ width: "450px", padding: "10px" }}>
@@ -439,7 +447,14 @@ export default function profile() {
     cancel();
   }
 
+
   useEffect(() => {
+    window.reactFunction = () => {
+      console.log("Test");
+    };
+    window.fn = function(){
+      console.log("Test");
+    }
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
