@@ -2755,6 +2755,10 @@ label:active:after {
     display: none;
 }
 
+.imgRefresh {
+    width: 20px;
+}
+
 /* Customer profile  */
 
 .conProf {
@@ -4181,4 +4185,34 @@ video {
     border: 0px !important;
     outline: none !important;
     box-shadow: none !important;
+}
+
+.pSuccess {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: whitesmoke;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.pSuccessSub {
+    font-family: 'GilroyMedium';
+    color: #EEEEEE;
+    font-size: 1rem;
+    width: 380px;
+    margin: 0 auto;
+}
+
+.btnProfile {
+    font-family: 'GilroyMedium';
+    color: #212121;
+    background-color: #FADD5D;
+    font-weight: 600;
+    font-size: 0.9rem;
+    width: 250px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 0px;
+    margin-top: 15px;
 }

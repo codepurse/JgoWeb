@@ -32,3 +32,5 @@ showmodal = "";
 durationmap = ""
 
 addservices = [];
+
+refreshcard = 0;

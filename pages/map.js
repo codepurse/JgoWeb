@@ -222,7 +222,6 @@ export default function map() {
     );
   }
 
- 
   useEffect(() => {
     window.reactFunction = () => {
       swal(
@@ -1031,7 +1030,7 @@ export default function map() {
         }
 
         if (addlistservice === undefined || addlistservice.length == 0) {
-          formdata.set("additional_services[]","");
+          formdata.set("additional_services[]", "");
         } else {
           addlistservice.map((addservice) => {
             formdata.set(
@@ -1057,18 +1056,100 @@ export default function map() {
               .post(apiUrl, formdata, options)
               .then((result) => {
                 console.log(result);
-                localStorage.setItem("activeid", result.data.data);
-                router.push("/profile");
+                if (result.data.status == "Failed") {
+                  $(".btnPayment").removeClass("btn--loading");
+                  swal(
+                    <div style={{ width: "450px", padding: "10px" }}>
+                      <div className="container">
+                        <div
+                          className="row align-items-center"
+                          style={{ borderLeft: "3px solid #e53935" }}
+                        >
+                          <div className="col-lg-2">
+                            <img
+                              src="Image/warning.png"
+                              style={{ width: "32px" }}
+                            ></img>
+                          </div>
+                          <div
+                            className="col-lg-10"
+                            style={{ textAlign: "left" }}
+                          >
+                            <p className="pError">Error</p>
+                            <p className="pErrorSub">
+                              Booking cannot be procesed. Please contact our
+                              customer support.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                } else {
+                  localStorage.setItem("activeid", result.data.data);
+                  router.push("/profile");
+                }
               })
               .catch((err) => {
                 for (var pair of formdata.entries()) {
                   console.log(pair[0] + ", " + pair[1]);
                 }
+                swal(
+                  <div style={{ width: "450px", padding: "10px" }}>
+                    <div className="container">
+                      <div
+                        className="row align-items-center"
+                        style={{ borderLeft: "3px solid #e53935" }}
+                      >
+                        <div className="col-lg-2">
+                          <img
+                            src="Image/warning.png"
+                            style={{ width: "32px" }}
+                          ></img>
+                        </div>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
+                          <p className="pError">Error</p>
+                          <p className="pErrorSub">
+                            Booking cannot be procesed. Please contact our
+                            customer support.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
                 clickpayment = 0;
                 $(".btnPayment").removeClass("btn--loading");
               });
           })
           .catch((err) => {
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #e53935" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/warning.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Error</p>
+                      <p className="pErrorSub">
+                        Booking cannot be procesed. Please contact our customer
+                        support.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
             $(".btnPayment").removeClass("btn--loading");
           });
       }
@@ -1893,13 +1974,19 @@ export default function map() {
                 </div>
               </div>
               <p className="pWalletno">Insufficient Jgo wallet amount</p>
-              <p
-                className="pMode"
-                style={{ fontSize: "1rem", marginTop: "30px" }}
-              >
-                Payment Details
-              </p>
-
+              <div className="row">
+                <div className="col-lg-8">
+                  <p
+                    className="pMode"
+                    style={{ fontSize: "1rem", marginTop: "30px" }}
+                  >
+                    Payment Details
+                  </p>
+                </div>
+                <div className = 'col-lg-4 align-self-end'>
+                  <img src = "Image/refresh.png" className = "img-fluid ml-auto imgRefresh"></img>
+                </div>
+              </div>
               {listcard
                 .filter((event) => event.maskedCardNumber !== null)
                 .map((event) => (

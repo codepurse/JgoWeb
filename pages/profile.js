@@ -19,8 +19,10 @@ import Link from "next/link";
 import PubNub from "pubnub";
 import ReactPaginate from "react-paginate";
 import { PubNubProvider, usePubNub } from "pubnub-react";
+
 export default function profile() {
   const router = useRouter();
+  const refreshPage = refreshcard;
   var cancel;
   const [full_name, setFull_name] = React.useState("");
   const [tabledata, setTabledata] = React.useState([]);
@@ -68,6 +70,7 @@ export default function profile() {
 
   const [listtickets, setListticket] = React.useState([]);
   const inputFileRef = useRef(null);
+
 
   function handleFile(e) {
     const reader = new FileReader();
@@ -446,6 +449,11 @@ export default function profile() {
     $(".pCancelbook").hide();
     cancel();
   }
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log("asdas");
+  },[refreshPage]);
 
 
   useEffect(() => {
