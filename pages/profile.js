@@ -109,6 +109,7 @@ export default function profile() {
     }
   }
 
+
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
       .parent("td")
@@ -944,6 +945,9 @@ export default function profile() {
     $(".btnVerify").addClass("btn--loading");
     console.log(clienttoken);
     console.log(verify);
+    var amountverify = Math.floor(verify);
+    var amountverifyfloat = parseFloat(amountverify).toFixed(2);
+    console.log(amountverifyfloat);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -959,7 +963,7 @@ export default function profile() {
     formdata.set("clientToken", clienttoken);
     formdata.set("amount", Number(verify));
     axios
-      .post(apiUrl, { client_token: clienttoken, amount: verify }, options)
+      .post(apiUrl, { client_token: clienttoken, amount: amountverifyfloat }, options)
       .then((result) => {
         console.log(result);
         $("#modalVerify").modal("hide");
@@ -1001,6 +1005,7 @@ export default function profile() {
         );
       })
       .catch((err) => {
+       
         $(".btnVerify").removeClass("btn--loading");
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
@@ -1813,7 +1818,7 @@ export default function profile() {
               <li onClick={payment} className="liPayment">
                 PAYMENT
               </li>
-              <li onClick={support} className="liPayment">
+              <li onClick={support}>
                 SUPPORT
               </li>
             </ul>
@@ -2641,7 +2646,7 @@ export default function profile() {
                       style={{ marginTop: "5px" }}
                     >
                       Add card
-                      <span style={{ marginLeft: "71px" }}>
+                      <span style={{ marginLeft: "40px" }}>
                         <b></b>
                         <b></b>
                         <b></b>

@@ -218,6 +218,13 @@
     src: url(../Font/proxima_ssv/Proxima-Nova-Bold.otf);
 }
 
+
+@font-face {
+    font-family: ProximaNovaBlack;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
+}
+
+
 @font-face {
     font-family: ProximaNovaExtraBold;
     src: url(../Font/proxima_ssv/Proxima-Nova-Extrabold.otf);
@@ -2757,6 +2764,8 @@ label:active:after {
 
 .imgRefresh {
     width: 20px;
+    margin-top: -13px !important;
+    cursor: pointer;
 }
 
 /* Customer profile  */
@@ -4215,4 +4224,34 @@ video {
     border-radius: 8px;
     border: 0px;
     margin-top: 15px;
+}
+
+.divLoading {
+    display: none;
+}
+
+.btnanimate {
+    margin: 0 auto !important;
+    text-align: center !important;
+    width: 100%;
+    background-color:  transparent !important;
+}
+
+.btnanimate:hover {
+    background-color:  transparent !important;
+}
+
+.spanAnimate {
+    text-align: center important;
+    width: max-content !important;
+    margin: 0 auto !important;
+}
+
+/*  About */
+
+.p11 {
+    font-family: "ProximaNovaBold";
+    color: white;
+    font-size: 3.5rem;
+    margin-top: 10px;
 }

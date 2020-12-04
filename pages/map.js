@@ -709,6 +709,28 @@ export default function map() {
       .catch((err) => {});
   }
 
+  function getCard() {
+    $(".divLoading").show();
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    const apiUrl2 =
+      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+
+    axios.post(apiUrl2, {}, options1).then((result) => {
+      console.log(result.data);
+      $(".divLoading").hide();
+      setListcard(result.data.user_card_details);
+    });
+  }
+
   function btnPlaceorder() {
     if (clickpayment == 1) {
       return false;
@@ -1058,6 +1080,7 @@ export default function map() {
                 console.log(result);
                 if (result.data.status == "Failed") {
                   $(".btnPayment").removeClass("btn--loading");
+                  console.log(cardtoken);
                   swal(
                     <div style={{ width: "450px", padding: "10px" }}>
                       <div className="container">
@@ -1983,9 +2006,23 @@ export default function map() {
                     Payment Details
                   </p>
                 </div>
-                <div className = 'col-lg-4 align-self-end'>
-                  <img src = "Image/refresh.png" className = "img-fluid ml-auto imgRefresh"></img>
+                <div className="col-lg-4 align-self-end text-right">
+                  <img
+                    src="Image/refresh.png"
+                    className="img-fluid imgRefresh"
+                    onClick={getCard}
+                  ></img>
                 </div>
+              </div>
+              <div className="divLoading">
+                <a className="btn btnanimate btn--loading">
+                  Verify
+                  <span className="spanAnimate">
+                    <b></b>
+                    <b></b>
+                    <b></b>
+                  </span>
+                </a>
               </div>
               {listcard
                 .filter((event) => event.maskedCardNumber !== null)
@@ -1998,7 +2035,11 @@ export default function map() {
                     <div className="row align-items-center">
                       <div className="col-lg-3">
                         <img
-                          src="Image/mastertype.png"
+                          src={
+                            event.cardType == "MASTERCARD"
+                              ? "Image/mastertype.png"
+                              : "Image/visa.png"
+                          }
                           className="imgCard"
                         ></img>
                       </div>

@@ -55,6 +55,13 @@ export class navbar1 extends Component {
                   JGO Support
                 </a>
               </li>
+              <Link href="/">
+                <li>
+                  <a className="nav-link nav-driver" style={{ color: "white" }}>
+                   About Us
+                  </a>
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
