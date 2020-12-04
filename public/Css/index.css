@@ -726,6 +726,20 @@ hr {
     margin-bottom: 0px;
 }
 
+.divPassword {
+    position: relative;
+}
+
+.imgEye {
+    color: white;
+    font-size: 1.1rem;
+    position: absolute;
+    right: 10px;
+    margin-top: 20px;
+    cursor: pointer !important;
+}
+
+
 /* map */
 
 .imgLogo {
@@ -4249,9 +4263,20 @@ video {
 
 /*  About */
 
+.conAbout {
+    background-color: #262626;
+}
+
 .p11 {
     font-family: "ProximaNovaBold";
     color: white;
     font-size: 3.5rem;
     margin-top: 10px;
+}
+
+.p12 {
+    font-family: "ProximaNova";
+    color: #EDF4F3;
+    font-size: 1rem;
+    margin-top: 2px;
 }

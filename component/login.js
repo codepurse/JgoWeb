@@ -293,8 +293,9 @@ export class login extends Component {
               "content-type": "application/json",
             },
           };
-          const apiUrl = "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
-        
+          const apiUrl =
+            "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
+
           axios
             .post(apiUrl, {}, options)
             .then((result) => {
@@ -315,12 +316,16 @@ export class login extends Component {
                       style={{ borderLeft: "3px solid #c62828" }}
                     >
                       <div className="col-lg-2">
-                        <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                        <img
+                          src="Image/warning.png"
+                          style={{ width: "32px" }}
+                        ></img>
                       </div>
                       <div className="col-lg-10" style={{ textAlign: "left" }}>
                         <p className="pError">Error</p>
                         <p className="pErrorSub">
-                          OTP not sent. Please try again or contact our customer support.
+                          OTP not sent. Please try again or contact our customer
+                          support.
                         </p>
                       </div>
                     </div>
@@ -340,7 +345,10 @@ export class login extends Component {
                   style={{ borderLeft: "3px solid #c62828" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
@@ -352,7 +360,6 @@ export class login extends Component {
               </div>
             </div>
           );
-  
         });
     }
   }
@@ -386,6 +393,28 @@ export class login extends Component {
         </div>
       </div>
     );
+  }
+
+  showpass(e) {
+    var x = document.getElementById("txtpassword");
+    if (x.type === "password") {
+      x.type = "text";
+      $(e.currentTarget).css("color", "yellow");
+    } else {
+      $(e.currentTarget).css("color", "white");
+      x.type = "password";
+    }
+  }
+
+  showpass1(e) {
+    var x = document.getElementById("txtpassword1");
+    if (x.type === "password") {
+      x.type = "text";
+      $(e.currentTarget).css("color", "yellow");
+    } else {
+      $(e.currentTarget).css("color", "white");
+      x.type = "password";
+    }
   }
 
   componentDidMount() {
@@ -498,7 +527,11 @@ export class login extends Component {
     }
   }
   mobile(event) {
-    this.setState({ mobile: event.target.value });
+    const re = /^[0-9\b]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      this.setState({ mobile: event.target.value });
+    }
+
     if (event.target.value == "") {
     } else {
     }
@@ -515,7 +548,10 @@ export class login extends Component {
     this.setState({ country: event.target.value });
   }
   zip(event) {
-    this.setState({ zip: event.target.value });
+    const re = /^[0-9\b]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      this.setState({ zip: event.target.value });
+    }
   }
 
   password(event) {
@@ -930,6 +966,7 @@ export class login extends Component {
                       value={this.state.mobile}
                       className="txtDriver txtMobile"
                       onChange={this.mobile.bind(this)}
+                      maxlength="12"
                     ></input>
                   </div>
                 </div>
@@ -993,23 +1030,41 @@ export class login extends Component {
                 <div className="row">
                   <div className="col-lg-6">
                     <p className="pTxtDriver pPassword">Password</p>
-                    <input
-                      value={this.state.password}
-                      type="password"
-                      className="txtDriver txtPassword"
-                      onChange={this.password.bind(this)}
-                    ></input>
+
+                    <div className="divPassword">
+                      <input
+                        value={this.state.password}
+                        type="password"
+                        id="txtpassword"
+                        className="txtDriver txtPassword"
+                        onChange={this.password.bind(this)}
+                      ></input>
+
+                      <i
+                        className="far fa-eye imgEye"
+                        onClick={this.showpass.bind(this)}
+                      ></i>
+                    </div>
                     <p className="pErrormatch">Password did not match.</p>
                     <p className="pError">Password must be 6-16 characters.</p>
                   </div>
+
                   <div className="col-lg-6">
                     <p className="pTxtDriver pConfirmPass">Confirm Password</p>
-                    <input
-                      type="password"
-                      value={this.state.passwordconfirm}
-                      className="txtDriver txtConfirmPass"
-                      onChange={this.passwordConfirm.bind(this)}
-                    ></input>
+                    <div className="divPassword">
+                      <input
+                        type="password"
+                        id="txtpassword1"
+                        value={this.state.passwordconfirm}
+                        className="txtDriver txtConfirmPass"
+                        onChange={this.passwordConfirm.bind(this)}
+                      ></input>
+                      <i
+                      className="far fa-eye imgEye"
+                      onClick={this.showpass1.bind(this)}
+                    ></i>
+                    </div>
+                    
                   </div>
                 </div>
 
