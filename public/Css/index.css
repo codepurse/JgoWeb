@@ -218,12 +218,10 @@
     src: url(../Font/proxima_ssv/Proxima-Nova-Bold.otf);
 }
 
-
 @font-face {
     font-family: ProximaNovaBlack;
     src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
 }
-
 
 @font-face {
     font-family: ProximaNovaExtraBold;
@@ -269,8 +267,6 @@
 :root {
     --maincolor: #FFE900;
 }
-
-
 
 /* Works on Chrome/Edge/Safari */
 
@@ -738,7 +734,6 @@ hr {
     margin-top: 20px;
     cursor: pointer !important;
 }
-
 
 /* map */
 
@@ -1611,7 +1606,6 @@ hr {
     background-color: white !important;
     border: 0px !important
 }
-
 
 .pAboutus {
     font-family: 'ProximaNovaBlack', sans-serif;
@@ -2758,6 +2752,7 @@ label:active:after {
     margin-top: -5px;
     display: none;
 }
+
 .pErrormatch {
     font-family: 'ProximaNova', sans-serif;
     font-size: 0.9rem;
@@ -3095,7 +3090,6 @@ label:active:after {
     width: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
-  
 }
 
 .pPickTrack {
@@ -3326,6 +3320,21 @@ label:active:after {
     background-repeat: no-repeat;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+.pInvi {
+    font-family: "GilroyMedium" !important;
+    font-weight: 600;
+    color: #2E2E2E;
+    font-size: 0.85rem;
+    padding: 14px 15px;
+    color: #ef5350;
+    border-radius: 20px !important;
+    margin-left: auto !important;
+    font-weight: normal;
+    text-align: center;
+    word-wrap: break-word !important;
+
 }
 
 .divChat {
@@ -4041,9 +4050,7 @@ video {
     max-height: 365px !important;
     overflow-y: auto;
     margin-top: 40px;
-
 }
-
 
 .imgChat {
     width: 40px !important;
@@ -4248,11 +4255,11 @@ video {
     margin: 0 auto !important;
     text-align: center !important;
     width: 100%;
-    background-color:  transparent !important;
+    background-color: transparent !important;
 }
 
 .btnanimate:hover {
-    background-color:  transparent !important;
+    background-color: transparent !important;
 }
 
 .spanAnimate {
@@ -4265,6 +4272,8 @@ video {
 
 .conAbout {
     background-color: #262626;
+    position: relative;
+ 
 }
 
 .p11 {
@@ -4278,5 +4287,24 @@ video {
     font-family: "ProximaNova";
     color: #EDF4F3;
     font-size: 1rem;
-    margin-top: 2px;
+    margin-top: -10px;
 }
+
+.colLeftabout {
+   
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+}
+
+.bg {  
+    position: absolute;
+    top: 10px;
+    left: 50%; 
+    width: 50%; 
+    height: 100%;
+    background-image: url('/Image/about.png');
+    background-position: 0 0; 
+    background-repeat:no-repeat; 
+    background-size: cover;
+   }

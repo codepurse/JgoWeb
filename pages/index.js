@@ -555,6 +555,28 @@ function driver() {
     );
   }
 
+  function showpass(e) {
+    var x = document.getElementById("txtPassword");
+    if (x.type === "password") {
+      x.type = "text";
+      $(e.currentTarget).css("color", "yellow");
+    } else {
+      $(e.currentTarget).css("color", "white");
+      x.type = "password";
+    }
+  }
+
+    function showpass1(e) {
+    var x = document.getElementById("txtConfirmPass");
+    if (x.type === "password") {
+      x.type = "text";
+      $(e.currentTarget).css("color", "yellow");
+    } else {
+      $(e.currentTarget).css("color", "white");
+      x.type = "password";
+    }
+  }
+
   function resetValue() {
     setfname("");
     setmname("");
@@ -1116,25 +1138,33 @@ function driver() {
               <div className="row">
                 <div className="col-lg-6">
                   <p className="pTxtDriver pPassword">Password</p>
-                  <input
-                    value={password}
-                    type="password"
-                    className="txtDriver txtPassword"
-                    onChange={password_change}
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Password should have number, letters and special character."
-                  ></input>
+                  <div className="divPassword">
+                    <input
+                      value={password}
+                      type="password"
+                      id = "txtPassword"
+                      className="txtDriver txtPassword"
+                      onChange={password_change}
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Password should have number, letters and special character."
+                    ></input>
+                     <i className="far fa-eye imgEye" onClick={showpass}></i>
+                  </div>
                   <p className="pError">Password must be 6-16 characters.</p>
                 </div>
                 <div className="col-lg-6">
                   <p className="pTxtDriver pConfirmPass">Confirm Password</p>
-                  <input
-                    type="password"
-                    value={passwordconfirm}
-                    className="txtDriver txtConfirmPass"
-                    onChange={passwordconfirm_change}
-                  ></input>
+                  <div className="divPassword">
+                    <input
+                      type="password"
+                      id = "txtConfirmPass"
+                      value={passwordconfirm}
+                      className="txtDriver txtConfirmPass"
+                      onChange={passwordconfirm_change}
+                    ></input>
+                    <i className="far fa-eye imgEye" onClick={showpass1}></i>
+                  </div>
                 </div>
               </div>
 

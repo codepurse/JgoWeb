@@ -1060,11 +1060,10 @@ export class login extends Component {
                         onChange={this.passwordConfirm.bind(this)}
                       ></input>
                       <i
-                      className="far fa-eye imgEye"
-                      onClick={this.showpass1.bind(this)}
-                    ></i>
+                        className="far fa-eye imgEye"
+                        onClick={this.showpass1.bind(this)}
+                      ></i>
                     </div>
-                    
                   </div>
                 </div>
 

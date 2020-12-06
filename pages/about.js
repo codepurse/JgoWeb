@@ -22,7 +22,9 @@ export default function about() {
       <NextNprogress color="#EDC728" />
       <Navbar></Navbar>
       <div className="container-fluid h-100 conAbout">
-        <div className="container h-100">
+      <div class="bg"></div>
+        <div className="container h-100 " style={{ position: "relative" }}>
+         
           <div className="row h-100 align-items-center">
             <div className="col-lg-6">
               <div className="form-inline">
@@ -43,6 +45,7 @@ export default function about() {
                 we bring them work opportunities for a better life.
               </p>
             </div>
+            <div className="col-lg-6 "></div>
           </div>
         </div>
       </div>

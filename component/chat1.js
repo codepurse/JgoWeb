@@ -55,10 +55,16 @@ const Chat = () => {
             count: 100, // how many items to fetch
           },
           function (status, response) {
-            try {
-              console.log(response.messages);
-              setMessages(response.messages);
-            } catch (e) {}
+            if (response.messages) {
+              try {
+                console.log(response.messages);
+                setMessages(response.messages);
+              } catch (e) {}
+            }else {
+              $(".pInvi").show();
+            }
+
+           
           }
         );
       },
@@ -136,6 +142,7 @@ const Chat = () => {
             <div className="col-lg-12 align-self-end">
               <div className="row" style={{ margin: "10px 0px" }}>
                 <div className="col-lg-12" style={{ width: "100%" }}>
+                <p className="pInvi">Please do not provide your personal data. Our agent will contact you soon.</p>
                   {messages.map((event, i) => {
                     try {
                       {
