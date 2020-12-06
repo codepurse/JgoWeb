@@ -458,7 +458,7 @@ body, html {
 }
 
 .con3 {
-    background-color: #454542;
+    background-color: #4F5560;
     padding: 5% 5px;
 }
 
@@ -471,7 +471,7 @@ body, html {
 }
 
 .divBoxCheck {
-    background-color: #2B2B2A;
+    background-color: #232A38;
     border-radius: 25px;
     padding: 40px;
 }
@@ -2860,6 +2860,14 @@ label:active:after {
 }
 
 /* Tracking */
+
+.conSearchtrack {
+ background-color: white;
+}
+
+.conTracking {
+    display: none;
+}
 
 .colSidebar {
     padding: 0px;

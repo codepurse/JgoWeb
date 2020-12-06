@@ -8,8 +8,11 @@ import axios from "axios";
 import "../component/map/config";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
+import AuthService from "../services/auth.service";
+import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
 function driver() {
+  const router = useRouter();
   var clear = 0;
   var submitClick = 0;
   const [fname, setfname] = React.useState("");
@@ -91,6 +94,15 @@ function driver() {
     setOcrclearance(file.name);
     setOcr(file);
     $(".divOcr").css("borderColor", "#2c2c2c");
+  }
+
+  function goSupport() {
+    if (AuthService.getToken()) {
+      router.push("/profile");
+   
+    }else (
+      alert('asdas')
+    )
   }
 
   const customStyles1 = {
@@ -720,7 +732,7 @@ function driver() {
                     </a>
                   </li>
                 </Link>
-                <li>
+                <li onClick = {goSupport}>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                     JGO Support
                   </a>

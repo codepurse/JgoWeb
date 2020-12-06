@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import Link from "next/link";
+import AuthService from "../services/auth.service";
+import Router, { useRouter } from "next/router";
 export class navbar1 extends Component {
   showModal() {
     localStorage.setItem("showmodal", "1");
   }
 
+  gpSupport() {
+    if (AuthService.getToken()) {
+      Router.push("/profile");
+    }else (
+      alert('asdas')
+    )
+  }
   render() {
     return (
       <nav
@@ -50,7 +59,7 @@ export class navbar1 extends Component {
                   </a>
                 </li>
               </Link>
-              <li>
+              <li onClick = {this.goSupport}>
                 <a className="nav-link nav-driver" style={{ color: "white" }}>
                   JGO Support
                 </a>

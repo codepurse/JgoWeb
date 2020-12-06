@@ -128,7 +128,13 @@ function Post() {
           tracks.push(pickoffloc);
           router.push("/tracking/" + number);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          if (err.response.status == 500) {
+            router.push("../404");
+          }else {
+
+          }
+        });
     }, 10000);
 
     return () => clearInterval(interval);
@@ -165,6 +171,8 @@ function Post() {
     axios
       .post(apiUrl, { tracking_id: { number } }, options)
       .then((result) => {
+        $(".conSearchtrack").hide();
+        $(".conTracking").fadeIn(150);
         console.log(result.data.data);
         setDropoffloc(
           result.data.data.booking_details.booking_drop_off_location
@@ -201,7 +209,11 @@ function Post() {
         router.push("/tracking/" + number);
       })
       .catch((err) => {
-        router.push("../404");
+        if (err.response.status == 500) {
+         
+        }else {
+
+        }
       });
   }, [number]);
 
@@ -211,8 +223,14 @@ function Post() {
       <Head>
         <link rel="stylesheet" href="../Css/index.css"></link>
       </Head>
-
-      <div className="container-fluid  h-100">
+    <div className = "container-fluid h-100 conSearchtrack">
+      <div className = 'row h-100 align-items-center'>
+        <div className = "col-lg-12 text-center">
+        <img src = "../Image/searching.gif" className = "img-fluid mx-auto d-flex" style = {{width: "140px"}}></img>
+        </div>
+      </div>
+    </div>
+      <div className="container-fluid  h-100 conTracking">
         <div className="divBookDetails1">
           <div className="row">
             <div className="col-lg-12 text-center">
