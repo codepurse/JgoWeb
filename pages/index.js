@@ -99,10 +99,7 @@ function driver() {
   function goSupport() {
     if (AuthService.getToken()) {
       router.push("/profile");
-   
-    }else (
-      alert('asdas')
-    )
+    } else $("#modalSupport").modal("toggle");
   }
 
   const customStyles1 = {
@@ -578,7 +575,7 @@ function driver() {
     }
   }
 
-    function showpass1(e) {
+  function showpass1(e) {
     var x = document.getElementById("txtConfirmPass");
     if (x.type === "password") {
       x.type = "text";
@@ -732,7 +729,7 @@ function driver() {
                     </a>
                   </li>
                 </Link>
-                <li onClick = {goSupport}>
+                <li onClick={goSupport}>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                     JGO Support
                   </a>
@@ -999,9 +996,10 @@ function driver() {
             </div>
             <div className="col-lg-6">
               <div className="divAbout">
-                <p className="pAboutus" style={{ display: "none" }}>
+                <p className="pAboutus">
                   ABOUT US
                 </p>
+                <p className = "pBy">BY: Manuel Homer T. Almelor Jr</p>
                 <p className="pAboutusSub1">
                   I'm sure we've all travelled to a foreign destination in our
                   lives. The culture, food, people, architecture, and wonder
@@ -1154,14 +1152,14 @@ function driver() {
                     <input
                       value={password}
                       type="password"
-                      id = "txtPassword"
+                      id="txtPassword"
                       className="txtDriver txtPassword"
                       onChange={password_change}
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Password should have number, letters and special character."
                     ></input>
-                     <i className="far fa-eye imgEye" onClick={showpass}></i>
+                    <i className="far fa-eye imgEye" onClick={showpass}></i>
                   </div>
                   <p className="pError">Password must be 6-16 characters.</p>
                 </div>
@@ -1170,7 +1168,7 @@ function driver() {
                   <div className="divPassword">
                     <input
                       type="password"
-                      id = "txtConfirmPass"
+                      id="txtConfirmPass"
                       value={passwordconfirm}
                       className="txtDriver txtConfirmPass"
                       onChange={passwordconfirm_change}
@@ -1309,6 +1307,47 @@ function driver() {
                       <b></b>
                     </span>
                   </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalSupport"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify">Reminder</p>
+                    <p className="pModalTitleSub">
+                      You need to login to access the support page or you can go
+                      directly to contact us.
+                    </p>
+                  </div>
+                  <div className="col-lg-6 mx-auto text-center d-flex">
+                    <Link href="/faq#contact">
+                    
+                        <button className="btn1">Contact Us</button>
+                    
+                    </Link>
+                  </div>
+                  <div className="col-lg-6 mx-auto text-center d-flex">
+                    <Link href="/main">
+                      
+                        <button className="btn1">Login</button>
+                      
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

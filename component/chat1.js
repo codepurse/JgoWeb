@@ -55,6 +55,7 @@ const Chat = () => {
             count: 100, // how many items to fetch
           },
           function (status, response) {
+           try {
             if (response.messages) {
               try {
                 console.log(response.messages);
@@ -63,8 +64,9 @@ const Chat = () => {
             }else {
               $(".pInvi").show();
             }
+           }catch(e) {
 
-           
+           }
           }
         );
       },

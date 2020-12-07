@@ -3,6 +3,7 @@ import Header from "../component/header";
 import Navbar from "../component/navbar1";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
+import Footer from "../component/footer";
 import NextNprogress from "nextjs-progressbar";
 export default function privacy_policy() {
   return (
@@ -465,6 +466,7 @@ export default function privacy_policy() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

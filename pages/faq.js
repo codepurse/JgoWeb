@@ -1,6 +1,5 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
-import Navbar from "../component/navbar1";
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
@@ -11,6 +10,11 @@ function showModal() {
 }
 
 export default function faq() {
+  useEffect(() => {
+    $(".modal-backdrop").hide();
+  },[])
+  
+
   return (
     <>
       <Header></Header>

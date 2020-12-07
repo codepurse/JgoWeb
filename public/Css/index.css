@@ -458,20 +458,19 @@ body, html {
 }
 
 .con3 {
-    background-color: #4F5560;
+    background-color: #1C1A19;
     padding: 5% 5px;
 }
 
 .pOntime {
     font-family: 'GilroyBold';
-    font-weight: bold;
     font-size: 3rem;
     color: #FFFE00;
     line-height: 3.5rem;
 }
 
 .divBoxCheck {
-    background-color: #232A38;
+    background-color: #212121;
     border-radius: 25px;
     padding: 40px;
 }
@@ -1607,31 +1606,35 @@ hr {
     border: 0px !important
 }
 
-.pAboutus {
-    font-family: 'ProximaNovaBlack', sans-serif;
-    color: #FFFF3B;
-    font-size: 3rem;
-    margin-bottom: 5px;
-}
-
-.pAboutusSub1 {
-    font-family: 'ProximaNova', sans-serif;
-    color: #424242;
-    font-weight: 600;
-    font-size: 1rem;
+.pBy {
+    font-family: "GilroyMedium" !important;
+    color:lightgray;
+    font-size: 1.1rem;
     max-width: 650px;
     margin: 0 auto;
 }
 
-.pAboutusSub1 {
-    font-family: 'ProximaNova', sans-serif;
-    color: #FFFF3B;
-    font-weight: 600;
-    font-size: 1rem;
+.pAboutus {
+    font-family: 'ProximaNovaBlack', sans-serif;
+    color: #FFE900;
+    font-size: 3rem;
+    margin-bottom: 0px;
 }
+
+.pAboutusSub1 {
+    font-family: "GilroyMedium" !important;
+    color: whitesmoke;
+    font-size: 1.2rem;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+
 
 .imgArtwork {
     border-radius: 25px;
+    width: 90%;
 }
 
 .conAbout {
@@ -2742,6 +2745,23 @@ label:active:after {
     width: 150px;
     float: right;
     outline: none !important;
+}
+
+.btn1 {
+    font-family: 'GilroyMedium';
+    color: white;
+    font-size: 0.9rem;
+    background-color: transparent !important;
+    border: 1px solid #FFE900 !important;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+    outline: none !important;
+    transition: all 0.2s;
+}
+
+.btn1:hover {
+  color: #EDC728;
 }
 
 .pError {
@@ -4279,9 +4299,8 @@ video {
 /*  About */
 
 .conAbout {
-    background-color: #262626;
+    background-color: #1C1A19;
     position: relative;
- 
 }
 
 .p11 {

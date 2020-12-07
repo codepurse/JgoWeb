@@ -3,7 +3,7 @@ import Header from "../component/header";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
-
+import Footer from "../component/footer";
 function showModal() {
   localStorage.setItem("showmodal","1");
 }
@@ -170,7 +170,7 @@ export default function privacy_policy() {
                 User shall not use the Software or the Services for any
                 commercial purposes. Other than the license to use the Software
                 as herein provided, no other license or right is granted to the
-                Use and ownership of the Software and all other rights are
+                use and ownership of the Software and all other rights are
                 hereby expressly reserved by JGO Delivery User shall not:
               </p>
               <ul className="ulPrivacy">
@@ -211,11 +211,7 @@ export default function privacy_policy() {
                 with the prevailing "Rates" on the Software (an "Order") and
                 under terms and conditions provided in Annex "A".
               </p>
-              <p className="pPrivacySub">
-                JGO Delivery provides Services to facilitate the perfection and
-                performance of the Contract between the User and the
-                Participating Driver, as follows:
-              </p>
+             
               <p className="pPrivacySub">
                 JGO Delivery provides Services to facilitate the perfection and
                 performance of the Contract between the User and the
@@ -249,14 +245,6 @@ export default function privacy_policy() {
                 independently fulfilled by the Participating Driver pursuant to
                 the Contract with the User. JGO Delivery is not a party to the
                 Contract.
-              </p>
-              <p className="pPrivacySub">
-                JGO Delivery reserves the right, but shall not be obliged, to
-                pursue investigations and/or inquiries on the conduct and/or
-                alleged violations by Participating Drivers based on User's
-                reports or complaints, and to impose appropriate penalties or
-                consequences on the Participating Drivers, at the sole and
-                absolute discretion of JGO Delivery.
               </p>
               <p className="pPrivacySub">
                 JGO Delivery reserves the right, but shall not be obliged, to
@@ -323,7 +311,7 @@ export default function privacy_policy() {
                 deducted from the User's Wallet. If an Order is cancelled within
                 sixty (60) minutes before the start of the Order pickup time,
                 JGO Delivery will automatically undo the transaction for
-                debiting of funds from the User's Wallet..
+                debiting of funds from the User's Wallet.
               </p>
               <p className="pPrivacySub">
                 3.10 For and in consideration for the performance of the
@@ -387,7 +375,7 @@ export default function privacy_policy() {
                 and/or the Contract with the Participating Driver.
               </p>
               <p className="pPrivacySub pTitleprivacy">Disclaimer</p>
-              <p className="pPrivacySub">
+              <p className="pPrivacySub pTitleprivacy">
                 The User hereby expressly agrees and acknowledges that:
               </p>
               <p className="pPrivacySub">
@@ -519,7 +507,7 @@ export default function privacy_policy() {
                 its owner.
               </p>
               <p className="pPrivacySub pTitleprivacy">
-                Confidentiality and Protection of Business Interests of \ JGO
+                Confidentiality and Protection of Business Interests of JGO
                 Delivery and Software Users
               </p>
               <p className="pPrivacySub">
@@ -556,18 +544,6 @@ export default function privacy_policy() {
                 representatives, and/or the Participating Drivers
               </p>
               <p className="pPrivacySub pTitleprivacy">Miscellaneous</p>
-              <p className="pPrivacySub">
-                9.1 Non-Circumvention. The User hereby agrees for himself or
-                herself, their officers, directors, agents, associates and any
-                related parties, that they will not, directly or indirectly,
-                contact, deal with or otherwise become involved with the
-                Participating Drivers, any entity or any other entities or
-                parties introduced, directly or indirectly, by or through the
-                other party, its officers, directors, agents or associates, for
-                the purpose of avoiding the payment to JGO Delivery of profits,
-                fees or otherwise, without the specific written approval of JGO
-                Delivery.
-              </p>
               <p className="pPrivacySub">
                 9.1 Non-Circumvention. The User hereby agrees for himself or
                 herself, their officers, directors, agents, associates and any
@@ -1033,6 +1009,7 @@ export default function privacy_policy() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

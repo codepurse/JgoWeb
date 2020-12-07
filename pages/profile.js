@@ -1615,7 +1615,7 @@ export default function profile() {
       const random_num = Math.floor(Math.random() * 90000) + 10000;
       const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
       let formdata = new FormData();
-      formdata.set("user_type", usertype);
+      formdata.set("user_type", "Customer");
       formdata.set("user_id", AuthService.getId());
       formdata.set("channel_id", "Channel-customersupport-" + random_num);
       formdata.set("details", description);
@@ -2818,12 +2818,7 @@ export default function profile() {
                       Please specify the exact details of your issue.
                     </p>
                     <p className="pTxtDriver pReport">User type</p>
-                    <Select
-                      options={user_type}
-                      styles={style_issue}
-                      value={usertype}
-                      onChange={usertypechange}
-                    />
+                 
                     <p
                       className="pTxtDriver pReport"
                       style={{ marginTop: "10px" }}

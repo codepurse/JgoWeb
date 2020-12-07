@@ -6,13 +6,13 @@ import Deliver from "../component/deliver";
 import NextNprogress from "nextjs-progressbar";
 import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
-import axios from "axios";
+
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
-
-
-
+  useEffect(() => {
+    $(".modal-backdrop").hide();
+  }, []);
 
   function book() {
     if (AuthService.getToken()) {

@@ -104,7 +104,7 @@ export default function navbar() {
                   </a>
                 </li>
                 <li className={contact}>
-                  <Link href="/support">
+                  <Link href="/profile">
                     <a className="nav-link" style={{ color: "white" }}>
                       JGO Support
                     </a>
