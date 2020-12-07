@@ -4,11 +4,21 @@ import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
 import Footer from "../component/footer";
+import AuthService from "../services/auth.service";
+import { useRouter } from "next/router";
 function showModal() {
   localStorage.setItem("showmodal","1");
 }
 
 export default function privacy_policy() {
+  const router = useRouter();
+
+  function goSupport() {
+    if (AuthService.getToken()) {
+      router.push("/profile");
+    } else $("#modalSupport").modal("toggle");
+  }
+
   return (
     <>
       <Header />
@@ -27,9 +37,9 @@ export default function privacy_policy() {
               <Link href="/">
                 <p className="liNav" onClick = {showModal}>Ride with Us</p>
               </Link>
-              <Link href="/support">
-                <p className="liNav">JGO Support</p>
-              </Link>
+             
+                <p className="liNav" onClick = {goSupport}>JGO Support</p>
+           
             </div>
           </div>
         </div>
@@ -78,7 +88,7 @@ export default function privacy_policy() {
                         Deliver Now
                       </a>
                     </li>
-                    <li>
+                    <li onClick = {goSupport}>
                       <a
                         className="nav-link nav-driver"
                         style={{ color: "white" }}

@@ -13,6 +13,7 @@ import NextNprogress from "nextjs-progressbar";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import Navbar from "../component/navbar1";
+import Footer from "../component/footer";
 
 export default function about() {
   return (
@@ -49,6 +50,7 @@ export default function about() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

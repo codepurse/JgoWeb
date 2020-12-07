@@ -221,7 +221,7 @@ function index() {
             <div className="col-lg-5 align-self-center">
               <img
                 src="Image/horse.png"
-                className="img-fluid"
+                className="img-fluid imghorse"
                 style={{ width: "70%" }}
               ></img>
             </div>

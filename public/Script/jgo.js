@@ -1,6 +1,42 @@
-
-
 $(document).ready(function () {
+  var getLastPartOfUrl = function ($url) {
+    var url = $url;
+    var urlsplit = url.split("/");
+    var lastpart = urlsplit[urlsplit.length - 1];
+    if (lastpart === "") {
+      lastpart = urlsplit[urlsplit.length - 2];
+    }
+    return lastpart;
+  };
+ 
+  try {
+    $(window).scroll(function () {
+      var lasturl = (getLastPartOfUrl($(location).attr("href")));
+     if (lasturl === "main") {
+      var top_of_element = $(".imghorse").offset().top;
+      var bottom_of_element =
+        $(".imghorse").offset().top + $(".imghorse").outerHeight();
+      var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+      var top_of_screen = $(window).scrollTop();
+
+      if (
+        bottom_of_screen > top_of_element &&
+        top_of_screen < bottom_of_element
+      ) {
+        $(".imghorse").addClass(
+          "animate__animated animate__lightSpeedInLeft animate__faster"
+        );
+      } else {
+        $(".imghorse").removeClass(
+          "animate__animated animate__lightSpeedInLeft"
+        );
+      }
+     }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
   $("#driverModal").on("shown.bs.modal", function () {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
@@ -10,7 +46,6 @@ $(document).ready(function () {
   $("#exampleModal").on("hidden.bs.modal", function () {
     $(".modal-backdrop").hide();
   });
-
 
   try {
     const $menuBtn = document.querySelector(".menu-btn");
@@ -88,7 +123,6 @@ $(document).ready(function () {
   });
   var y = 0;
 
-
   $(".btnAddStopoff").click(function () {
     var clear = 0;
     $(".div1:visible")
@@ -97,7 +131,9 @@ $(document).ready(function () {
           $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
           $(this).css("display") == "table-footer-group"
         ) {
-          $(this).find(".css-kvzrv0-control").css("border",'1px solid #ED3450');
+          $(this)
+            .find(".css-kvzrv0-control")
+            .css("border", "1px solid #ED3450");
           window.reactFunction();
           clear = 1;
           return false;
@@ -105,9 +141,8 @@ $(document).ready(function () {
       })
       .promise()
       .done(function () {
-      
         if (clear == 0) {
-          $(".css-kvzrv0-control").css("border",'1px solid #2c2c2c');
+          $(".css-kvzrv0-control").css("border", "1px solid #2c2c2c");
           if (
             $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length ==
               0 &&
