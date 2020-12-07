@@ -734,6 +734,16 @@ function driver() {
                     JGO Support
                   </a>
                 </li>
+                  <Link href="/about">
+                  <li>
+                    <a
+                      className="nav-link nav-driver"
+                      style={{ color: "white" }}
+                    >
+                      About Us
+                    </a>
+                  </li>
+                </Link>
               </ul>
             </div>
           </div>
@@ -997,7 +1007,7 @@ function driver() {
             <div className="col-lg-6">
               <div className="divAbout">
                 <p className="pAboutus">
-                  ABOUT US
+                  AMITY
                 </p>
                 <p className = "pBy">BY: Manuel Homer T. Almelor Jr</p>
                 <p className="pAboutusSub1">

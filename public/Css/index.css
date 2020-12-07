@@ -450,8 +450,6 @@ body, html {
     cursor: pointer;
     border: 0px;
     border-radius: 10px;
-    padding: 8px 20px;
-    margin-top: 20px;
     -webkit-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     -moz-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
@@ -2905,6 +2903,12 @@ label:active:after {
     transition: all 0.2s;
 }
 
+.pTrackheader {
+    font-family: 'ProximaNovaBold', sans-serif;
+    color: #2e2e2e;
+    font-size: 4rem;
+}
+
 .colSideTrack {
     -webkit-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
@@ -2935,7 +2939,6 @@ label:active:after {
 .conSearch {
     background-color: #F3F6FC !important;
     position: fixed;
-    z-index: 9999999;
 }
 
 .colMapTrack {
@@ -3201,6 +3204,7 @@ label:active:after {
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     padding: 40px;
+    margin-top: -27.5%;
 }
 
 .pBooking {
@@ -3281,6 +3285,7 @@ label:active:after {
     background-repeat: no-repeat;
     padding-top: 30px;
     height: 100vh;
+    max-height: 900px !important;
 }
 
 .pSino {

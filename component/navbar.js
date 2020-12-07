@@ -13,6 +13,33 @@ export default function navbar() {
   const login = router.pathname === "/login" ? "activeNav" : "";
   const [fname, setFname] = React.useState("");
 
+
+
+  function goSupport() {
+    if (AuthService.getToken()) {
+      router.push("/profile");
+    } else  {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">You need to login to access the support page or you can go directly to contact us.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
   function loginForm(e) {
     if (
       localStorage.getItem("token") ||
@@ -103,12 +130,10 @@ export default function navbar() {
                     Deliver Now
                   </a>
                 </li>
-                <li className={contact}>
-                  <Link href="/profile">
-                    <a className="nav-link" style={{ color: "white" }}>
-                      JGO Support
-                    </a>
-                  </Link>
+                <li className={contact} onClick = {goSupport}>
+                  <a className="nav-link" style={{ color: "white" }}>
+                    JGO Support
+                  </a>
                 </li>
                 <li className={login} onClick={loginForm}>
                   <a
@@ -124,6 +149,47 @@ export default function navbar() {
           </div>
         </div>
       </nav>
+      <div
+        className="modal fade"
+        id="modalSupport"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <p className="pModalVerify">Reminder</p>
+                    <p className="pModalTitleSub">
+                      You need to login to access the support page or you can go
+                      directly to contact us.
+                    </p>
+                  </div>
+                  <div className="col-lg-6 mx-auto text-center d-flex">
+                    <Link href="/faq#contact">
+                    
+                        <button className="btn1">Contact Us</button>
+                    
+                    </Link>
+                  </div>
+                  <div className="col-lg-6 mx-auto text-center d-flex">
+                    <Link href="/main">
+                      
+                        <button className="btn1">Login</button>
+                      
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    
   );
 }
