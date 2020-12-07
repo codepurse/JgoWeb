@@ -8,30 +8,30 @@ $(document).ready(function () {
     }
     return lastpart;
   };
- 
+
   try {
     $(window).scroll(function () {
-      var lasturl = (getLastPartOfUrl($(location).attr("href")));
-     if (lasturl === "main") {
-      var top_of_element = $(".imghorse").offset().top;
-      var bottom_of_element =
-        $(".imghorse").offset().top + $(".imghorse").outerHeight();
-      var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
-      var top_of_screen = $(window).scrollTop();
+      var lasturl = getLastPartOfUrl($(location).attr("href"));
+      if (lasturl === "main") {
+        var top_of_element = $(".imghorse").offset().top;
+        var bottom_of_element =
+          $(".imghorse").offset().top + $(".imghorse").outerHeight();
+        var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+        var top_of_screen = $(window).scrollTop();
 
-      if (
-        bottom_of_screen > top_of_element &&
-        top_of_screen < bottom_of_element
-      ) {
-        $(".imghorse").addClass(
-          "animate__animated animate__lightSpeedInLeft animate__faster"
-        );
-      } else {
-        $(".imghorse").removeClass(
-          "animate__animated animate__lightSpeedInLeft"
-        );
+        if (
+          bottom_of_screen > top_of_element &&
+          top_of_screen < bottom_of_element
+        ) {
+          $(".imghorse").addClass(
+            "animate__animated animate__lightSpeedInLeft animate__faster"
+          );
+        } else {
+          $(".imghorse").removeClass(
+            "animate__animated animate__lightSpeedInLeft"
+          );
+        }
       }
-     }
     });
   } catch (e) {
     console.log(e);
@@ -256,26 +256,56 @@ $(document).ready(function () {
   });
 
   $(".BoxFood").click(function () {
+    $(".conServices")
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/foodbg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divFood").fadeIn(200);
   });
   $(".BoxDocu").click(function () {
+    $(".conServices")
+    .fadeTo("fast", 0.3, function () {
+      $(".conServices").css("background-image", "url(/Image/docubg.png)");
+    })
+    .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divDocu").fadeIn(200);
   });
   $(".BoxCloth").click(function () {
+    $(".conServices")
+    .fadeTo("fast", 0.3, function () {
+      $(".conServices").css("background-image", "url(/Image/clothesbg.png)");
+    })
+    .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divCloth").fadeIn(200);
   });
   $(".BoxMedic").click(function () {
+    $(".conServices")
+    .fadeTo("fast", 0.3, function () {
+      $(".conServices").css("background-image", "url(/Image/medbg.png)");
+    })
+    .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divMedic").fadeIn(200);
   });
   $(".BoxFragile").click(function () {
+    $(".conServices")
+    .fadeTo("fast", 0.3, function () {
+      $(".conServices").css("background-image", "url(/Image/fragilebg.png)");
+    })
+    .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divFragile").fadeIn(200);
   });
   $(".BoxOther").click(function () {
+    $(".conServices")
+    .fadeTo("fast", 0.3, function () {
+      $(".conServices").css("background-image", "url(/Image/otherbg.png)");
+    })
+    .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divOthers").fadeIn(200);
   });

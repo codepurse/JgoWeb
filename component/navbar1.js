@@ -3,17 +3,21 @@ import Link from "next/link";
 import AuthService from "../services/auth.service";
 import Router, { useRouter } from "next/router";
 export class navbar1 extends Component {
+
+
   showModal() {
     localStorage.setItem("showmodal", "1");
   }
 
-  gpSupport() {
+  goSupport() {
     if (AuthService.getToken()) {
       Router.push("/profile");
     }else (
       alert('asdas')
     )
   }
+
+ 
   render() {
     return (
       <nav

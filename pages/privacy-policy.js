@@ -5,7 +5,17 @@ import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import Footer from "../component/footer";
 import NextNprogress from "nextjs-progressbar";
+import AuthService from "../services/auth.service";
+import { useRouter } from "next/router";
 export default function privacy_policy() {
+  const router = useRouter();
+
+  function goSupport() {
+    if (AuthService.getToken()) {
+      router.push("/profile");
+    } else $("#modalSupport").modal("toggle");
+  }
+
   return (
     <>
       <Header />

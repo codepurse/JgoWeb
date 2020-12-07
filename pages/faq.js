@@ -4,12 +4,20 @@ import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
-
+import AuthService from "../services/auth.service";
+import { useRouter } from "next/router";
 function showModal() {
   localStorage.setItem("showmodal", "1");
 }
 
 export default function faq() {
+  const router = useRouter();
+  function goSupport() {
+    if (AuthService.getToken()) {
+      router.push("/profile");
+    } else $("#modalSupport").modal("toggle");
+  }
+
   useEffect(() => {
     $(".modal-backdrop").hide();
   },[])
@@ -87,7 +95,7 @@ export default function faq() {
                     </a>
                   </li>
                 </Link>
-                <li>
+                <li onClick = {goSupport}>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                     JGO Support
                   </a>

@@ -29,6 +29,11 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/faq": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/faq.js"
+    ],
     "/main": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
