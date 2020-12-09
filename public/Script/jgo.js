@@ -29,9 +29,13 @@ $(document).ready(function () {
     $menuBtn.addEventListener("click", () => {
       if (!isMenuOpen) {
         $(".conHide").fadeOut(100);
+        $(".imgLogo").fadeOut(100);
+        $(".imglogo").fadeOut(100);
         $(".divMenu").fadeIn(200);
         $menuBtn.classList.add("open");
       } else {
+        $(".imgLogo").fadeIn(100);
+        $(".imglogo").fadeIn(100);
         $(".conHide").fadeIn(100);
         $(".divMenu").fadeOut(150);
         $menuBtn.classList.remove("open");

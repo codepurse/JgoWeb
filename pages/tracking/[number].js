@@ -55,9 +55,11 @@ function Post() {
             icon: "../Image/navigation.png",
           };
           tracks.push(dropoff);
+          
         });
       }
     }
+    router.push("/tracking/" + number);
   }, [dropoff_loc]);
 
   useEffect(() => {
@@ -71,6 +73,7 @@ function Post() {
       };
       tracks.push(dropoff);
     }
+    router.push("/tracking/" + number);
   }, [driver_loc]);
 
   useEffect(() => {
@@ -141,11 +144,12 @@ function Post() {
   });
 
   function sendSms() {
+    alert(mobile);
     if (/Android/i.test(navigator.userAgent)) {
-      window.location.href = "sms:"+ {mobile} +"?&body="
+      window.location.href = "sms:"+ {mobile} +";?&body=sample"
     }
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.location.href = "sms:"+ {mobile} +"?&body="
+      window.location.href = "sms:"+ {mobile} +";?&body=sample"
     }
   }
 
@@ -195,7 +199,13 @@ function Post() {
               " " +
               result.data.data.booking_details.driver.lname
           );
+          setProfilepic(
+            "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+              result.data.data.booking_details.driver.profile_pic
+          );
+          setEstimated(result.data.data.booking_details.duration);
         } catch (e) {}
+
         $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
         const pickoffloc = {
           id: 5,

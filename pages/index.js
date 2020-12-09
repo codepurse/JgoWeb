@@ -11,7 +11,9 @@ import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
+import Mobilenav from "../component/mobilenav";
 import Navbar from "../component/navbar1";
+
 function driver() {
   const router = useRouter();
   var clear = 0;
@@ -671,26 +673,9 @@ function driver() {
           <div className="menu-btn__burger"></div>
         </div>
       </div>
-
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row align-items-center h-100">
-            <div className="col-lg-12 text-center">
-              <p
-                className="liNav"
-                data-toggle="modal"
-                data-target="#driverModal"
-              >
-                Ride with Us
-              </p>
-
-              <Link href="/support">
-                <p className="liNav">JGO Support</p>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+    
+      <Mobilenav></Mobilenav>
+   
       <div
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
@@ -955,7 +940,9 @@ function driver() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+     <div className = "conHide">
+     <Footer></Footer>
+     </div>
       <div
         className="modal fade"
         id="driverModal"
