@@ -13,6 +13,12 @@
         width: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        max-height: auto !important;
+    
+    }
+    .con {
+        max-height: auto !important;
+        height: auto !important;
     }
     .conDriver {
         height: 100% !important;
@@ -26,7 +32,7 @@
         height: auto !important;
         margin: 0 auto !important;
         display: flex !important;
-        margin-top: -20px !important;
+        margin-top: -100px !important;
     }
     .imgPhone {
         width: 100% !important;
@@ -40,7 +46,10 @@
     }
     .rowDriver {
         margin-left: 0px !important;
+        height: auto !important;
     }
+
+
     .rowComing {
         margin-left: 0px !important;
     }
@@ -65,7 +74,7 @@
         align-self: flex-start !important;
     }
     .divEasy {
-        width: 100px;
+        width: 50% !important;
         margin: 0 auto !important;
         display: flex !important;
     }
@@ -90,6 +99,7 @@
     .divStep {
         margin-bottom: 20px !important;
         height: auto !important;
+        max-height: none !important;
     }
     .conStep {
         width: 100% !important;
@@ -131,6 +141,9 @@
     .conRider {
         height: auto !important;
     }
+    .conDriver2, .mainConDriver ,.con, .conDriver {
+        max-height: none !important;
+    }
     .divSino {
         position: relative !important;
         display: block !important;
@@ -147,6 +160,16 @@
     }
     .imgTara {
         width: 150px !important;
+    }
+    .imgArtwork {
+        width: 100% !important;
+    }
+    .pAboutus {
+        font-size: 2rem !important;
+        text-align: center;
+    }
+    .pBy, .pAboutusSub1 {
+        text-align: center !important;
     }
     /* privacy */
     .pPrivacy {
@@ -282,7 +305,7 @@ body, html {
 }
 
 .con {
-    max-height: 900px !important;
+    max-height: 900px;
 }
 
 .tooltip {
@@ -314,7 +337,7 @@ body, html {
 
 .mainCon {
     background-color: #262626;
-    max-height: 900px !important;
+    max-height: 900px;
 }
 
 .pText {
@@ -450,6 +473,7 @@ body, html {
     cursor: pointer;
     border: 0px;
     border-radius: 10px;
+    padding: 8px;
     -webkit-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     -moz-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
@@ -1397,7 +1421,7 @@ hr {
     -webkit-filter: blur(0.5px);
     overflow: hidden;
     opacity: 1.0;
-    max-height: 820px !important;
+    max-height: 820px;
 }
 
 .nav-driver {
@@ -1421,7 +1445,7 @@ hr {
     -webkit-filter: blur(0.5px);
     overflow: hidden;
     opacity: 1.0;
-    max-height: 820px !important;
+    max-height: 820px;
     display: none;
 }
 
@@ -1526,6 +1550,7 @@ hr {
     font-family: 'ProximaNova', sans-serif;
     color: #464743;
     padding-bottom: 15%;
+    text-align: justify;
 }
 
 .carousel-indicators li {
@@ -1555,12 +1580,19 @@ hr {
     width: 100%;
     padding: 10px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #323232;
+    border: 1px solid lightgray;
     cursor: pointer;
     transition: all 0.2s;
     min-height: 510px;
     max-height: 510px;
+    cursor: pointer;
 }
+
+.divStep:hover {
+    transform: scale(1.1);
+}
+
+
 
 .divStepActive {
     background-color: rgb(255, 254, 59) !important;
@@ -2906,7 +2938,7 @@ label:active:after {
 .pTrackheader {
     font-family: 'ProximaNovaBold', sans-serif;
     color: #2e2e2e;
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .colSideTrack {
@@ -2934,6 +2966,10 @@ label:active:after {
     height: 100%;
     z-index: 99;
     background-color: white !important;
+}
+
+.conNavtrac {
+    background-color: #212121 !important;
 }
 
 .conSearch {
@@ -3204,7 +3240,7 @@ label:active:after {
     -moz-box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     box-shadow: 2px 2px 30px 0px rgba(150, 150, 150, 0.33);
     padding: 40px;
-    margin-top: -27.5%;
+    margin-top: -25.5%;
 }
 
 .pBooking {

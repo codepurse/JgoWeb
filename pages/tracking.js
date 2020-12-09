@@ -3,6 +3,7 @@ import Googlemap from "../component/map/maptracking";
 import Header from "../component/header";
 import { useRouter } from "next/router";
 import swal from "@sweetalert/with-react";
+import Navbar from "../component/navbar1";
 import Componentdidmount from "../component/componentdidmount";
 
 import axios from "axios";
@@ -98,7 +99,11 @@ export default function tracking() {
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
+      <div className = "container-fluid conNavtrac" style = {{backgroundColor: "#212121"}}>
+      <Navbar></Navbar>
+      </div>
       <div className="container-fluid h-100 conSearch">
+  
         <div
           className="row h-100 align-items-center"
           style={{ padding: "0px" }}

@@ -9,33 +9,9 @@ $(document).ready(function () {
     return lastpart;
   };
 
-  try {
-    $(window).scroll(function () {
-      var lasturl = getLastPartOfUrl($(location).attr("href"));
-      if (lasturl === "main") {
-        var top_of_element = $(".imghorse").offset().top;
-        var bottom_of_element =
-          $(".imghorse").offset().top + $(".imghorse").outerHeight();
-        var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
-        var top_of_screen = $(window).scrollTop();
-
-        if (
-          bottom_of_screen > top_of_element &&
-          top_of_screen < bottom_of_element
-        ) {
-          $(".imghorse").addClass(
-            "animate__animated animate__lightSpeedInLeft animate__faster"
-          );
-        } else {
-          $(".imghorse").removeClass(
-            "animate__animated animate__lightSpeedInLeft"
-          );
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-  }
+ 
+  
+ 
 
   $("#driverModal").on("shown.bs.modal", function () {
     $(function () {

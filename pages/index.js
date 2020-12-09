@@ -11,6 +11,7 @@ import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
+import Navbar from "../component/navbar1";
 function driver() {
   const router = useRouter();
   var clear = 0;
@@ -662,6 +663,7 @@ function driver() {
       </Head>
       <Header />
       <Componentdidmount></Componentdidmount>
+      <Navbar></Navbar>
       <NextNprogress color="#EDC728" />
 
       <div className="divNavbar">
@@ -693,76 +695,6 @@ function driver() {
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
       >
-        <nav
-          className="navbar navbar-expand-md fixed-top"
-          style={{ padding: "20px 20px" }}
-        >
-          <nav className="navbar-brand" href="#">
-            <a href="#">
-              <img
-                src="Image/logo.png"
-                className="img-fluid imglogo imglogonav"
-                style={{ width: "130px", marginLeft: "20px" }}
-              />
-            </a>
-          </nav>
-          <div className="collapse navbar-collapse" id="collapse">
-            <div className="col2 ml-auto">
-              <ul className="nav navbar-nav">
-                <li>
-                  <a
-                    className="nav-link nav-driver"
-                    data-toggle="modal"
-                    data-target="#driverModal"
-                    style={{ color: "white" }}
-                  >
-                    Ride with Us
-                  </a>
-                </li>
-                <Link href="/main">
-                  <li>
-                    <a
-                      className="nav-link nav-driver"
-                      style={{ color: "white" }}
-                    >
-                      Deliver Now
-                    </a>
-                  </li>
-                </Link>
-                <li onClick={goSupport}>
-                  <a className="nav-link nav-driver" style={{ color: "white" }}>
-                    JGO Support
-                  </a>
-                </li>
-                  <Link href="/about">
-                  <li>
-                    <a
-                      className="nav-link nav-driver"
-                      style={{ color: "white" }}
-                    >
-                      About Us
-                    </a>
-                  </li>
-                </Link>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <div className="container-fluid divCovid" style={{ display: "none" }}>
-          <div className="row">
-            <div className="col-lg-12">
-              <p className="pCloseCovid">&#215;</p>
-              <p className="pCovid"> Safety Measures for COVID – 19</p>
-              <p className="pCovidSub">
-                Here at JGO we prioritize the health and safety of everyone. It
-                is our goal to ensure that even with the current situation we
-                are able to provide the quality service that we promise.
-                Remember, we are all in this together. Learn more.
-              </p>
-            </div>
-          </div>
-        </div>
         <div className="conDriver"></div>
         <div className="container con conHide">
           <div className="row rowDriver" style={{ marginLeft: "50px" }}>
@@ -826,7 +758,7 @@ function driver() {
       <div className="container-fluid conDriver2 conHide">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-7">
+            <div className="col-lg-7 col-sm-12 col-12">
               <div className="divEasy" style={{ marginRight: "0px" }}>
                 <img
                   src="Image/jgoeasy.png"

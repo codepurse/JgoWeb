@@ -56,7 +56,7 @@ export class navbar1 extends Component {
                   </a>
                 </li>
               </Link>
-              <Link href="/">
+              <Link href="/main">
                 <li>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                     Deliver Now

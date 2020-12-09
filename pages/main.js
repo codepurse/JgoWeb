@@ -217,15 +217,15 @@ function index() {
       </div>
       <div className="container-fluid con3">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-5 align-self-center">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
               <img
-                src="Image/horse.png"
-                className="img-fluid imghorse"
-                style={{ width: "70%" }}
+                src="Image/circle.png"
+                className="img-fluid"
+                style={{ width: "100%" }}
               ></img>
             </div>
-            <div className="col-lg-7 text-center">
+            <div className="col-lg-6 text-center">
               <p className="pOntime">
                 &#8369;60 Flat Rate <br></br>&#8369;5 Per Km
               </p>
@@ -305,7 +305,9 @@ function index() {
           </div>
         </div>
       </div>
+      <div className = "conHide">
       <Footer></Footer>
+      </div>
     </>
   );
 }
