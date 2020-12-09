@@ -30,7 +30,7 @@ export default function about() {
         </div>
       </div>
       <Mobilenav></Mobilenav>
-      <div className="container-fluid h-100 conAbout">
+      <div className="container-fluid h-100 conAbout conHide">
       <div class="bg"></div>
         <div className="container h-100 " style={{ position: "relative" }}>
          

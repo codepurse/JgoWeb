@@ -7,6 +7,7 @@ import Footer from "../component/footer";
 import NextNprogress from "nextjs-progressbar";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
+import Mobilenav from "../component/mobilenav";
 export default function privacy_policy() {
   const router = useRouter();
 
@@ -27,25 +28,7 @@ export default function privacy_policy() {
         </div>
       </div>
 
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="ulNav">
-                <li
-                  className="liNav"
-                  data-toggle="modal"
-                  data-target="#driverModal"
-                >
-                  Ride with Us
-                </li>
-                <li className="liNav">Deliver Now</li>
-                <li className="liNav">JGO Support</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+    <Mobilenav></Mobilenav>
       <div className="container-fluid conHide">
         <div className="row">
           <div className="col-lg-12">
@@ -476,7 +459,9 @@ export default function privacy_policy() {
           </div>
         </div>
       </div>
+      <div className = "conHide">
       <Footer></Footer>
+      </div>
     </>
   );
 }

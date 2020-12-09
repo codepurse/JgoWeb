@@ -5,7 +5,9 @@ import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
 import NextNprogress from "nextjs-progressbar";
 import AuthService from "../services/auth.service";
+import Mobilenav from "../component/mobilenav";
 import { useRouter } from "next/router";
+import Navbar from "../component/navbar1";
 function showModal() {
   localStorage.setItem("showmodal", "1");
 }
@@ -20,91 +22,21 @@ export default function faq() {
 
   useEffect(() => {
     $(".modal-backdrop").hide();
-  },[])
-  
+  }, []);
 
   return (
     <>
       <Header></Header>
       <Componentdidmount></Componentdidmount>
       <NextNprogress color="#EDC728" />
+      <Navbar></Navbar>
       <div className="divNavbar">
         <div className="menu-btn">
           <div className="menu-btn__burger"></div>
         </div>
       </div>
+      <Mobilenav></Mobilenav>
 
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row align-items-center h-100">
-            <div className="col-lg-12 text-center">
-              <Link href="/">
-                <p className="liNav" onClick={showModal}>
-                  Ride with Us
-                </p>
-              </Link>
-              <Link href="/support">
-                <p className="liNav">JGO Support</p>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid conblack">
-        <nav
-          className="navbar navbar-expand-md fixed-top conblack"
-          style={{ padding: "20px 20px" }}
-        >
-          <button
-            className="navbar-toggler"
-            data-toggle="collapse"
-            data-target="#collapse"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <nav className="navbar-brand" href="#">
-            <a href="#">
-              <img
-                src="Image/logo.png"
-                className="img-fluid imglogo"
-                style={{ width: "130px", marginLeft: "20px" }}
-              />
-            </a>
-          </nav>
-          <div className="collapse navbar-collapse" id="collapse">
-            <div className="col2 ml-auto">
-              <ul className="nav navbar-nav">
-                <Link href="/">
-                  <li>
-                    <a
-                      className="nav-link nav-driver"
-                      style={{ color: "white" }}
-                      onClick={showModal}
-                    >
-                      Ride with Us
-                    </a>
-                  </li>
-                </Link>
-                <Link href="/">
-                  <li>
-                    <a
-                      className="nav-link nav-driver"
-                      style={{ color: "white" }}
-                    >
-                      Deliver Now
-                    </a>
-                  </li>
-                </Link>
-                <li onClick = {goSupport}>
-                  <a className="nav-link nav-driver" style={{ color: "white" }}>
-                    JGO Support
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
       <div className="container-fluid conFaq conHide">
         <div className="container" style={{ paddingTop: "150px" }}>
           <div className="row">
@@ -661,26 +593,20 @@ export default function faq() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conHide conAbout1">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 text-center">
-              <p className="pFaq">ABOUT US</p>
-              <p className = "pAboutusSub text-center">
-                JGO Delivery Services Inc. was founded by Jose Miguel O. Garcia
-                with the help of his father, Jose Vicente E. Garcia. Having an
-                already established company that provides manpower “JG
-                Manpower”, they thought of a way to help with the high demand of
-                courier services in the Philippines. So following his father’s
-                footsteps, Miguel wanted to have his own business that would
-                provide quality service to people in the local community. Thus
-                JGO was created as a subsidiary company under JG Manpower. As a
-                delivery service provider, you can rely on JGO to assist you in
-                handling goods from one hand to another. Safely and quickly. In
-                a busy world like ours, these are what matter. As your delivery
-                assistants, we are always ready for you, we are always on the
-                go. JGO Maaasahan.
-              </p>
+      <div className="container-fluid conFaqmap conHide">
+        <div className="row" style = {{padding: "0px"}}>
+          <div className="col-lg-12" style = {{padding: "0px"}}>
+            <div id="googleMap" style = {{padding: "0px"}}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.106561444371!2d120.99639031489468!3d14.478569989880306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ce7b517c1a79%3A0xcccd8f656dede7e3!2s8161%20Dr%20Arcadio%20Santos%20Ave%2C%20Para%C3%B1aque%2C%201700%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1607525028376!5m2!1sen!2sph"
+                width= "100%"
+                height="100%"
+                frameBorder={0}
+                style={{ border: 0 }}
+                allowFullScreen
+                aria-hidden="false"
+                tabIndex={0}
+              />
             </div>
           </div>
         </div>
@@ -733,7 +659,9 @@ export default function faq() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <div className="conHide">
+        <Footer></Footer>
+      </div>
     </>
   );
 }

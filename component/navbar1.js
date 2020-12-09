@@ -6,6 +6,12 @@ import Router, { useRouter } from "next/router";
 
 export class navbar1 extends Component {
 
+  componentDidMount() {
+    if(Router.pathname == "/faq" || Router.pathname == "/tracking") {
+      $(".fixed-top").addClass("conblack");
+    }
+  }
+
 
   showModal() {
     localStorage.setItem("showmodal", "1");
@@ -70,7 +76,7 @@ export class navbar1 extends Component {
                   JGO Support
                 </a>
               </li>
-              <Link href="/">
+              <Link href="/about">
                 <li>
                   <a className="nav-link nav-driver" style={{ color: "white" }}>
                    About Us

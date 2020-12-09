@@ -34,7 +34,7 @@ export class header extends Component {
           integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
           crossorigin="anonymous"
         ></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4&libraries=places&callback=myMap"></script>
         <link
           href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap"
           rel="stylesheet"
@@ -63,6 +63,7 @@ export class header extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
+        
       </Head>
     );
   }

@@ -6,8 +6,11 @@ import NextNprogress from "nextjs-progressbar";
 import Footer from "../component/footer";
 import AuthService from "../services/auth.service";
 import { useRouter } from "next/router";
+import Navbar from "../component/navbar1";
+import Mobilenav from "../component/mobilenav";
+
 function showModal() {
-  localStorage.setItem("showmodal","1");
+  localStorage.setItem("showmodal", "1");
 }
 
 export default function privacy_policy() {
@@ -29,79 +32,9 @@ export default function privacy_policy() {
           <div className="menu-btn__burger"></div>
         </div>
       </div>
-
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row align-items-center h-100">
-            <div className="col-lg-12 text-center">
-              <Link href="/">
-                <p className="liNav" onClick = {showModal}>Ride with Us</p>
-              </Link>
-             
-                <p className="liNav" onClick = {goSupport}>JGO Support</p>
-           
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-12">
-            <nav
-              className="navbar navbar-expand-md fixed-top"
-              style={{ padding: "20px 20px" }}
-            >
-              <button
-                className="navbar-toggler"
-                data-toggle="collapse"
-                data-target="#collapse"
-              >
-                <span className="navbar-toggler-icon" />
-              </button>
-              <nav className="navbar-brand" href="#">
-                <Link href="/">
-                  <img
-                    src="Image/logo.png"
-                    className="img-fluid imgLogo"
-                    style={{ width: "150px", marginTop: "10px" }}
-                  />
-                </Link>
-              </nav>
-              <div className="collapse navbar-collapse" id="collapse">
-                <div className="col2 ml-auto">
-                  <ul className="nav navbar-nav">
-                    <li>
-                      <a
-                        className="nav-link nav-driver"
-                        data-toggle="modal"
-                        data-target="#driverModal"
-                        style={{ color: "white" }}
-                      >
-                        Ride with Us
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="nav-link nav-driver"
-                        style={{ color: "white" }}
-                      >
-                        Deliver Now
-                      </a>
-                    </li>
-                    <li onClick = {goSupport}>
-                      <a
-                        className="nav-link nav-driver"
-                        style={{ color: "white" }}
-                      >
-                        JGO Support
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
+      <Mobilenav></Mobilenav>
+      <Navbar></Navbar>
+      <div className="container-fluid conHide">
         <div className="container conHide" style={{ marginTop: "8%" }}>
           <div className="row">
             <div className="col-lg-12">
@@ -221,7 +154,7 @@ export default function privacy_policy() {
                 with the prevailing "Rates" on the Software (an "Order") and
                 under terms and conditions provided in Annex "A".
               </p>
-             
+
               <p className="pPrivacySub">
                 JGO Delivery provides Services to facilitate the perfection and
                 performance of the Contract between the User and the
@@ -1019,7 +952,9 @@ export default function privacy_policy() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <div className="conHide">
+        <Footer></Footer>
+      </div>
     </>
   );
 }

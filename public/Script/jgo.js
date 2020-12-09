@@ -9,10 +9,6 @@ $(document).ready(function () {
     return lastpart;
   };
 
- 
-  
- 
-
   $("#driverModal").on("shown.bs.modal", function () {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
@@ -246,46 +242,46 @@ $(document).ready(function () {
   });
   $(".BoxDocu").click(function () {
     $(".conServices")
-    .fadeTo("fast", 0.3, function () {
-      $(".conServices").css("background-image", "url(/Image/docubg.png)");
-    })
-    .fadeTo("fast", 1);
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/docubg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divDocu").fadeIn(200);
   });
   $(".BoxCloth").click(function () {
     $(".conServices")
-    .fadeTo("fast", 0.3, function () {
-      $(".conServices").css("background-image", "url(/Image/clothesbg.png)");
-    })
-    .fadeTo("fast", 1);
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/clothesbg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divCloth").fadeIn(200);
   });
   $(".BoxMedic").click(function () {
     $(".conServices")
-    .fadeTo("fast", 0.3, function () {
-      $(".conServices").css("background-image", "url(/Image/medbg.png)");
-    })
-    .fadeTo("fast", 1);
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/medbg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divMedic").fadeIn(200);
   });
   $(".BoxFragile").click(function () {
     $(".conServices")
-    .fadeTo("fast", 0.3, function () {
-      $(".conServices").css("background-image", "url(/Image/fragilebg.png)");
-    })
-    .fadeTo("fast", 1);
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/fragilebg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divFragile").fadeIn(200);
   });
   $(".BoxOther").click(function () {
     $(".conServices")
-    .fadeTo("fast", 0.3, function () {
-      $(".conServices").css("background-image", "url(/Image/otherbg.png)");
-    })
-    .fadeTo("fast", 1);
+      .fadeTo("fast", 0.3, function () {
+        $(".conServices").css("background-image", "url(/Image/otherbg.png)");
+      })
+      .fadeTo("fast", 1);
     $(".divBox1").hide();
     $(".divOthers").fadeIn(200);
   });
@@ -530,4 +526,13 @@ $(document).ready(function () {
         }
       });
     });
+    function myMap() {
+      var mapProp = {
+        center: new google.maps.LatLng(51.508742, -0.12085),
+        zoom: 5,
+      };
+      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    }
 });
+
+ 

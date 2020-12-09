@@ -149,7 +149,7 @@ function Post() {
       window.location.href = `sms:${mobile};?&body=sample`
     }
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.location.href = "sms:"+ {mobile} +";?&body=sample"
+      window.location.href = `sms:${mobile};?&body=sample`
     }
   }
 

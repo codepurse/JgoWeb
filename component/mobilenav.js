@@ -1,9 +1,22 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
+import router, { useRouter } from "next/router";
 export class mobilenav extends Component {
   ride() {
-    localStorage.setItem("showmodal", "1");
+    if(router.pathname == "/") {
+      const $menuBtn = document.querySelector(".menu-btn");
+      $menuBtn.classList.remove("open");
+      $(".imgLogo").fadeIn(100);
+      $(".imglogo").fadeIn(100);
+      $(".conHide").fadeIn(100);
+      $(".divMenu").fadeOut(150);
+      $(".divMenu").fadeOut(150);
+      $("#driverModal").modal("toggle");
+    }else {
+      localStorage.setItem("showmodal", "1");
+    }
+   
   }
   deliver() {
     const $menuBtn = document.querySelector(".menu-btn");

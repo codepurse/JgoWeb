@@ -639,6 +639,10 @@ function driver() {
     localStorage.removeItem("token");
   }
 
+  function closeModal() {
+    $("#driverModal").modal("toggle");
+  }
+
   return (
     <>
       <Head>
@@ -939,7 +943,7 @@ function driver() {
             </div>
           </div>
         </div>
-      </div>
+      </div>  
      <div className = "conHide">
      <Footer></Footer>
      </div>
@@ -958,6 +962,7 @@ function driver() {
         >
           <div className="modal-content">
             <div className="modal-body modalDriver">
+              <img src = "Image/close.png" className = "img-fluid" style = {{width: "20px",marginBottom: "10px",float: "right"}} onClick = {closeModal}></img>
               <p className="pModalTitle">Jgo - Driver registration form</p>
               <p className="pModalTitleSub">
                 Fill-up all the requird fields. After you submit we will send a
