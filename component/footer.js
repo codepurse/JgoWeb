@@ -6,11 +6,13 @@ export class footer extends Component {
       <div className="container-fluid conFooter">
         <div className="row align-items-center">
           <div className="col-lg-6 col-sm-12">
-            <img
-              src="Image/logo.png"
-              className="img-fluid imgLogo imgLogoFooter"
-              style={{ width: "150px", marginLeft: "20px" }}
-            ></img>
+            <Link href="/">
+              <img
+                src="Image/logo.png"
+                className="img-fluid imgLogo imgLogoFooter"
+                style={{ width: "150px", marginLeft: "20px" }}
+              ></img>
+            </Link>
           </div>
           <div className="col-lg-6 col-sm-12">
             <ul className="ulFooter">

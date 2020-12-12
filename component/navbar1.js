@@ -2,6 +2,20 @@ import React, { Component } from "react";
 import Link from "next/link";
 import AuthService from "../services/auth.service";
 import Router, { useRouter } from "next/router";
+import swal from "@sweetalert/with-react";
+
+
+function  goLogin() {
+  swal.close();
+  Router.push("/main");
+}
+
+function contact() {
+  swal.close();
+  Router.push("/faq#contact");
+}
+
+
 
 
 export class navbar1 extends Component {
@@ -17,11 +31,32 @@ export class navbar1 extends Component {
     localStorage.setItem("showmodal", "1");
   }
 
+  
   goSupport() {
     if (AuthService.getToken()) {
       Router.push("/profile");
     }else (
-      alert('asdas')
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #c62828" }}
+            >
+            
+              <div className="col-lg-12" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">
+                  You need to login to proceed to support page or your may go to our contact us page.
+                </p>
+               <div className = "form-inline" style = {{marginTop: "5px"}}>
+                  <p className = "pSwal" onClick = {contact}>Contact Us</p> <p className = "pSwal" onClick = {goLogin}>Login</p>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     )
   }
 

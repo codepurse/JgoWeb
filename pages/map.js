@@ -31,6 +31,8 @@ export default function map() {
   const [walletamount, setWalletamount] = React.useState("");
   const [addservices, setAddservices] = React.useState([]);
   const [addlistservice, setAddlistservice] = React.useState([]);
+  const [locationDropdown, setlocationDropdown] = React.useState([]);
+  const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
   const bookingtype = [
@@ -41,6 +43,7 @@ export default function map() {
     { value: "5", label: "Fragile" },
     { value: "6", label: "Others" },
   ];
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -183,12 +186,14 @@ export default function map() {
         "dropofflat"
       );
       const origin = {
+        address: localStorage.getItem("address"),
         lat: parseFloat(global.config.place.deliver.pickofflat),
         lng: parseFloat(global.config.place.deliver.pickofflng),
         id: "1",
       };
       coordinate.push(origin);
       const destination = {
+        address: localStorage.getItem("addressDrop"),
         lat: parseFloat(global.config.place.deliver.dropofflat),
         lng: parseFloat(global.config.place.deliver.dropofflng),
         id: "2",
@@ -629,6 +634,8 @@ export default function map() {
   }
 
   function getRate() {
+    $(".pPrice").hide();
+    $(".divLoading").show();
     let ratedata = new FormData();
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -705,6 +712,8 @@ export default function map() {
         console.log(result);
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
+        $(".divLoading").hide();
+        $(".pPrice").show();
       })
       .catch((err) => {});
   }
@@ -1180,6 +1189,17 @@ export default function map() {
   }
 
   function gotoPayment() {
+    const promises = coordinate.map((event) =>
+      locationCod.push({
+        value: event.address,
+        label: event.address,
+      })
+    );
+
+    Promise.all(promises).then(setlocationDropdown(locationCod), endPromise());
+  }
+
+  function endPromise() {
     var x = 1;
     $(".divStopOff:visible")
       .find(".txtValidation")
@@ -1217,6 +1237,7 @@ export default function map() {
       .done(function () {
         if (x == 1) {
           getRate();
+
           $("#exampleModalCenter").modal("toggle");
         }
       });
@@ -1911,6 +1932,16 @@ export default function map() {
                   ></img>
                 </div>
                 <div className="col-lg-10">
+                  <div className="divLoading">
+                    <a className="btn btngetprice btn--loading">
+                      Verify
+                      <span className="spanAnimate">
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                  </div>
                   <p className="pPrice">&#8369;{price}</p>
                   <p className="pPriceSub">
                     This is your final payment, please review and confirm your
@@ -1968,6 +1999,14 @@ export default function map() {
                   </div>
                   <div className="col-lg-4">
                     <p className="pPriceModal">&#8369;{price}</p>
+                  </div>
+                  <div className="col-lg-12">
+                    <Select
+                      options={locationDropdown}
+                      styles={isToggled ? customStyles4 : customStyles}
+                      onChange={handleChangeCategory}
+                      placeholder="Select location"
+                    />
                   </div>
                 </div>
               </div>

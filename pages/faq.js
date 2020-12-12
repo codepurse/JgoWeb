@@ -8,6 +8,7 @@ import AuthService from "../services/auth.service";
 import Mobilenav from "../component/mobilenav";
 import { useRouter } from "next/router";
 import Navbar from "../component/navbar1";
+import App from 'next/app'
 function showModal() {
   localStorage.setItem("showmodal", "1");
 }

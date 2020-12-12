@@ -316,6 +316,21 @@ body, html {
     background-color: #212427;
 }
 
+.pSwal {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pSwal:hover {
+    text-decoration: underline;
+}
+
 .con {
     max-height: 900px;
 }
@@ -753,6 +768,7 @@ hr {
 }
 
 .pErrorSub {
+    font-family: 'GilroyMedium';
     margin-bottom: 0px;
 }
 
@@ -770,6 +786,7 @@ hr {
 }
 
 /* map */
+
 
 .imgLogo {
     width: 150px;
@@ -1198,6 +1215,22 @@ hr {
 }
 
 .btnPayment {
+    background-color: transparent;
+    font-family: 'GilroySemiBold';
+    color: white;
+    border-radius: 50px;
+    border: 1px solid #FECE2F !important;
+    width: 100%;
+    max-height: 45px;
+    min-height: 45px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding-bottom: -10px !important;
+    outline: none !important;
+}
+
+.btnPrice {
     background-color: transparent;
     font-family: 'GilroySemiBold';
     color: white;
@@ -3449,8 +3482,8 @@ label:active:after {
 
 .conFaqmap {
     padding: 0px;
-    padding-top: 40px;
     background-color: white;
+   
 }
 
 .conFaq {
@@ -3458,6 +3491,7 @@ label:active:after {
     -webkit-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
     -moz-box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
     box-shadow: 0px 0px 5px 1px rgba(66, 66, 66, 0.73);
+    padding-bottom: 40px;
 }
 
 .pFaq {
@@ -4356,6 +4390,13 @@ video {
     margin: 0 auto !important;
     text-align: center !important;
     width: 100%;
+    background-color: transparent !important;
+}
+
+.btngetprice {
+    margin-left: 0px !important;
+    text-align: left !important;
+    width: auto !important;
     background-color: transparent !important;
 }
 

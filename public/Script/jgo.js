@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  if(window.scrollY > 0){
+    $(".fixed-top").css("background", "#1A1A1A");
+    $(".fixed-top").css("z-index", "9");
+   }
+
   var getLastPartOfUrl = function ($url) {
     var url = $url;
     var urlsplit = url.split("/");
