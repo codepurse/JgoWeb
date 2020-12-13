@@ -26,7 +26,9 @@ export default function map() {
   const [click_id, setId] = React.useState("");
   const [isToggled, setIsToggled] = React.useState(false);
   const [listcard, setListcard] = React.useState([]);
+  const [codloc, setcodLoc] = React.useState("");
   const [cardtoken, setCardToken] = React.useState("");
+  const [weight, setWeight] = React.useState("0-10KG");
   const [wallet, setWallet] = React.useState("");
   const [walletamount, setWalletamount] = React.useState("");
   const [addservices, setAddservices] = React.useState([]);
@@ -486,6 +488,18 @@ export default function map() {
     }
   };
 
+  function slideChange(e) {
+    $(".pWeight").text(e.target.value);
+    if(e.target.value < 11) {
+      setWeight("0-10KG")
+    }else if (e.target.value < 16) {
+      setWeight("11-15KG")
+    }else if (e.target.value < 21) {
+      setWeight("16-20KG")
+    }
+    console.log(e.target.value);
+  }
+
   function getservice(e) {
     loopservices = 0;
     var idservice = $(e.currentTarget).attr("id");
@@ -570,6 +584,11 @@ export default function map() {
     } catch (err) {
       console.log(event.value);
     }
+  }
+
+  function handleChangeLocation(event) {
+    setcodLoc(event.value);
+    console.log(event.value);
   }
 
   {
@@ -767,7 +786,15 @@ export default function map() {
           </div>
         </div>
       );
-    } else {
+    }else if (payment == "cod") {
+      if (codloc) {
+
+      }else {
+        alert("asdas");
+      }
+    }
+    
+    else {
       if (payment.length == 0) {
         x = 0;
         swal(
@@ -891,6 +918,10 @@ export default function map() {
           formdata.set("client_token", cardtoken);
         } else {
         }
+        if (payment == "cod") {
+          formdata.set("is_collection_point", codloc);
+        }
+        formdata.set("weight",weight)
 
         formdata.set(
           "drop_off_locations[0][drop_off_address]",
@@ -1189,9 +1220,10 @@ export default function map() {
   }
 
   function gotoPayment() {
+    var countlocation = 0;
     const promises = coordinate.map((event) =>
       locationCod.push({
-        value: event.address,
+        value: Number(event.id) - 1,
         label: event.address,
       })
     );
@@ -1900,7 +1932,11 @@ export default function map() {
                   <p className="pNote">Note: MAXIMUM WEIGHT IS 10kg</p>
                 </div>
               </div>
-              <div className="row" style={{ marginTop: "30px" }}>
+
+              <div
+                className="row"
+                style={{ marginTop: "30px", display: "none" }}
+              >
                 <div className="col-lg-12">
                   <p className="pAdditional" style={{ fontSize: "0.9rem" }}>
                     Additional Services
@@ -1919,6 +1955,32 @@ export default function map() {
                       </div>
                     </div>
                   ))}
+              </div>
+              <div className="row">
+                <div className="col-lg-12">
+                  <p className="pPayment">Weight</p>
+                </div>
+                <div className="col-lg-2">
+                <img
+                    src="Image/package.png"
+                    className="img-fluid imgGps"
+                    style={{ width: "30px", marginLeft: "18px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10">
+                <span className="pWeight">0</span><span className="pKg">Kg</span>
+                  <div className="slidecontainer">
+                    <input
+                      type="range"
+                      min={0}
+                      max={20}
+                      defaultValue={0}
+                      className="slider"
+                      id="myRange"
+                      onChange = {slideChange}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="row " style={{ marginTop: "5px" }}>
                 <div className="col-lg-12">
@@ -2001,10 +2063,11 @@ export default function map() {
                     <p className="pPriceModal">&#8369;{price}</p>
                   </div>
                   <div className="col-lg-12">
+                  <p className="pCodSub" style = {{marginTop: "10px"}}>Who will pay?</p>
                     <Select
                       options={locationDropdown}
                       styles={isToggled ? customStyles4 : customStyles}
-                      onChange={handleChangeCategory}
+                      onChange={handleChangeLocation}
                       placeholder="Select location"
                     />
                   </div>

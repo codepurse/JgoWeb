@@ -787,6 +787,39 @@ hr {
 
 /* map */
 
+.slider {
+    -webkit-appearance: none;
+    width: 90%;
+    height: 5px;
+    border-radius: 10px;
+    background: #FADD5D;
+    outline: none;
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: whitesmoke;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;   
+    border-radius: 50%;
+    background: whitesmoke;
+    cursor: pointer;
+  }
 
 .imgLogo {
     width: 150px;
@@ -1066,6 +1099,14 @@ hr {
     font-family: 'GilroyBold';
     color: white;
     font-size: 2rem;
+    margin: 0px;
+    margin-top: -10px;
+}
+
+.pWeight, .pKg {
+    font-family: 'GilroyBold';
+    color: white;
+    font-size: 1.5rem;
     margin: 0px;
     margin-top: -10px;
 }
