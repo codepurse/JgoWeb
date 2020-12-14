@@ -4,7 +4,9 @@ import Navbar from "../component/navbar1";
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 import Link from "next/link";
+import Mobilenav from "../component/mobilenav";
 import NextNprogress from "nextjs-progressbar";
+
 
 export default function training() {
   return (
@@ -18,20 +20,7 @@ export default function training() {
         </div>
       </div>
 
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row align-items-center h-100">
-            <div className="col-lg-12 text-center">
-              <Link href="/">
-                <p className="liNav">Ride with Us</p>
-              </Link>
-              <Link href="/support">
-                <p className="liNav">JGO Support</p>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+     <Mobilenav></Mobilenav>
       <div className="container-fluid">
         <Navbar></Navbar>
       </div>
@@ -110,19 +99,14 @@ export default function training() {
             <div className="col-lg-6">
               <div className="divEasy">
                 <img
-                  src="Image/logoblack.png"
+                  src="Image/jgoeasy.png"
                   className="img-fluid"
-                  style={{ width: "150px" }}
-                ></img>
-                <img
-                  src="Image/easyapp.png"
-                  className="img-fluid"
-                  style={{ width: "150px" }}
+                  style={{ width: "250px" }}
                 ></img>
               </div>
               <div
                 className="divBoxCarousel"
-                style={{ padding: "50px 20px", marginTop: "40px" }}
+                style={{ padding: "50px 20px" }}
               >
                 <p className="pRider text-center">
                   Kapag handa ka na, i click itong link para makapagumpisa ka na
