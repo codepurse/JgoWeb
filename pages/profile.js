@@ -966,7 +966,31 @@ export default function profile() {
       .post(apiUrl, { client_token: clienttoken, amount: amountverifyfloat }, options)
       .then((result) => {
         console.log(result);
-        $("#modalVerify").modal("hide");
+        if(result.data.data.cardDetails.cardStatus == 5 || result.data.data.cardDetails.cardStatus == 3) {
+          swal(
+            $(".btnVerify").removeClass("btn--loading"),
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #e53935" }}
+                >
+                  <div className="col-lg-2">
+                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      Something went wrong. If you entered the correct amount,
+                      please contact our customer support.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }else {
+          $("#modalVerify").modal("hide");
         $(".modal-backdrop").hide();
         $(".btnVerify").removeClass("btn--loading");
         const options1 = {
@@ -1003,6 +1027,8 @@ export default function profile() {
             </div>
           </div>
         );
+        }
+        
       })
       .catch((err) => {
        
