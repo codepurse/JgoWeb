@@ -128,6 +128,16 @@
     }
     .pSino {
         font-size: 1.2rem !important;
+        text-align: center;
+        margin-top: 20px !important;
+    }
+    .pSino1 {
+        width: auto !important;
+        text-align: justify !important;
+    }
+
+    .imgButtontra {
+        width: 180px !important;
     }
     .colAnthony {
         display: none !important;
@@ -3410,7 +3420,6 @@ label:active:after {
     font-family: 'ProximaNovaBlack', sans-serif;
     color: #4C4C4C;
     font-size: 2.5rem;
-    ;
     line-height: 0.9em;
 }
 
@@ -3483,11 +3492,35 @@ label:active:after {
     filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12)) drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12)) drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
 }
 
+.conTra {
+    background-color: white;
+    padding: 40px 5px;
+}
+
+.pSaJgo {
+    font-family: 'GilroyMedium';
+    color: #323232;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 0px; 
+    margin-top: 30px;
+}
+
 .conSinonew {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 3px 6px #00000029;
     padding: 30px 5px;
+}
+
+.imgTra {
+    width: 100px;
+}
+
+.p13 {
+    font-family: 'GilroyMedium';
+    color: #323232;
+    margin-top:10px;
 }
 
 .conSino1 {

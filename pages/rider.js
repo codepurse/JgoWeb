@@ -5,6 +5,7 @@ import Navbar from "../component/navbar1";
 import NextNprogress from "nextjs-progressbar";
 import Link from "next/link";
 import Componentdidmount from "../component/componentdidmount";
+import Mobilenav from "../component/mobilenav";
 
 function showModal() {
   localStorage.setItem("showmodal", "1");
@@ -23,22 +24,7 @@ export default function rider() {
         </div>
       </div>
 
-      <div className="container divMenu">
-        <div className="container divMenu1">
-          <div className="row align-items-center h-100">
-            <div className="col-lg-12 text-center">
-              <Link href="/">
-                <p className="liNav" onClick={showModal}>
-                  Ride with Us
-                </p>
-              </Link>
-              <Link href="/support">
-                <p className="liNav">JGO Support</p>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+     <Mobilenav></Mobilenav>
       <div className="container-fluid conRider conHide">
         <div className="container h-100">
           <div className="row h-100 rowRider">
@@ -152,10 +138,38 @@ export default function rider() {
         </div>
       </div>
 
-      <div className = "container-fluid conHide">
-        <div className = "container">
-          <div className = "row">
-            
+      <div className="container-fluid conHide conTra">
+        <div className="container">
+          <div className="row">
+            <img
+              src="Image/jgobutton.png"
+              className="img-fluid mx-auto d-flex  imgButtontra"
+              style = {{cursor: "pointer"}}
+            ></img>
+            <p className = "pSaJgo">
+              Sa JGO, gusto namin kayong bigyan ng oportunidad at matulungan
+              para kayo ay may kita at trabaho araw araw. Gusto namin na kami
+              ang magbibigay ng success sa inyong buhay. Nandito kami para sa
+              inyo, kaibigan.
+            </p>
+          </div>
+          <div className = "row" style = {{marginTop: "35px"}}>
+            <div className = "col-lg-3 col-sm-6 col-6 text-center">
+              <img src = "Image/tra1.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <p className = "p13">KUMITA</p>
+            </div>
+            <div className = "col-lg-3 col-sm-6 col-6  text-center">
+              <img src = "Image/tra2.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <p className = "p13">KAIBIGAN</p>
+            </div>
+            <div className = "col-lg-3 col-sm-6 col-6  text-center">
+              <img src = "Image/tra3.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <p className = "p13">OPPORTUNIDAD</p>
+            </div>
+            <div className = "col-lg-3 col-sm-6 col-6  text-center">
+              <img src = "Image/tra4.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <p className = "p13">TUMULONG</p>
+            </div>
           </div>
         </div>
       </div>
