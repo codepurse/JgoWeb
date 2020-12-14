@@ -66,7 +66,7 @@ export default function rider() {
           </div>
         </div>
       </div>
-      <div className="container-fluid conSino1">
+      <div className="container-fluid conHide conSino1">
         <div className="container conSinonew">
           <div className="row align-items-center">
             <div className="col-lg-4">
@@ -148,6 +148,14 @@ export default function rider() {
                 Maaasahan!
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className = "container-fluid conHide">
+        <div className = "container">
+          <div className = "row">
+            
           </div>
         </div>
       </div>
