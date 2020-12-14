@@ -63,7 +63,36 @@ export default function tracking() {
       axios
         .post(apiUrl, { tracking_id: id }, options)
         .then((result) => {
-          router.push("/tracking/" + id);
+           $(".btn").removeClass("btn--loading");
+          if (result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #FFE900" }}
+                  >
+                    <div className="col-lg-2 col-sm-2">
+                      <img
+                        src="Image/complain.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10"
+                      style={{ textAlign: "left" }}
+                    >
+                      <p className="pError">Warning</p>
+                      <p className="pErrorSub">Invalid tracking number.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }else {
+            router.push("/tracking/" + id);
+          }
+          console.log(result.data.data.booking_details.status);
         })
         .catch((err) => {
           $(".btn").removeClass("btn--loading");

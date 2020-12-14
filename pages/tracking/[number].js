@@ -92,44 +92,49 @@ function Post() {
       axios
         .post(apiUrl, { tracking_id: { number } }, options)
         .then((result) => {
-          console.log(result.data.data);
-          setDropoffloc(
-            result.data.data.booking_details.booking_drop_off_location
-          );
-          setBooking(result.data.data);
-          setTrackingnum(result.data.data.booking_details.tracking_id);
-          setDriverloc(result.data.data.driver_location[0]);
-          try {
-            setMobile(result.data.data.booking_details.driver.mobile_no);
-          } catch (e) {}
-          setPickup(result.data.data.booking_details.pick_up_address);
-          setPickupname(result.data.data.booking_details.contact_name);
-          setPickupmobile(result.data.data.booking_details.contact_number);
-          setPickupnote(result.data.data.booking_details.note);
-          setDriverlat(result.data.data.driver_location[0].driver_latitude);
-          setDriverlng(result.data.data.driver_location[0].driver_longitude);
-          try {
-            setDriver(
-              result.data.data.booking_details.driver.fname +
-                " " +
-                result.data.data.booking_details.driver.lname
+          if (result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
+            router.push("../404");
+          }else {
+            console.log(result.data.data);
+            setDropoffloc(
+              result.data.data.booking_details.booking_drop_off_location
             );
-            setProfilepic(
-              "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
-                result.data.data.booking_details.driver.profile_pic
-            );
-            setEstimated(result.data.data.booking_details.duration);
-          } catch (e) {}
-
-          const pickoffloc = {
-            id: 5,
-            name: "",
-            lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
-            lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
-            icon: "../Image/navigation.png",
-          };
-          tracks.push(pickoffloc);
-          router.push("/tracking/" + number);
+            setBooking(result.data.data);
+            setTrackingnum(result.data.data.booking_details.tracking_id);
+            setDriverloc(result.data.data.driver_location[0]);
+            try {
+              setMobile(result.data.data.booking_details.driver.mobile_no);
+            } catch (e) {}
+            setPickup(result.data.data.booking_details.pick_up_address);
+            setPickupname(result.data.data.booking_details.contact_name);
+            setPickupmobile(result.data.data.booking_details.contact_number);
+            setPickupnote(result.data.data.booking_details.note);
+            setDriverlat(result.data.data.driver_location[0].driver_latitude);
+            setDriverlng(result.data.data.driver_location[0].driver_longitude);
+            try {
+              setDriver(
+                result.data.data.booking_details.driver.fname +
+                  " " +
+                  result.data.data.booking_details.driver.lname
+              );
+              setProfilepic(
+                "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+                  result.data.data.booking_details.driver.profile_pic
+              );
+              setEstimated(result.data.data.booking_details.duration);
+            } catch (e) {}
+  
+            const pickoffloc = {
+              id: 5,
+              name: "",
+              lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
+              lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
+              icon: "../Image/navigation.png",
+            };
+            tracks.push(pickoffloc);
+            router.push("/tracking/" + number);
+          }
+          
         })
         .catch((err) => {
           if (err.response.status == 500) {
@@ -175,48 +180,53 @@ function Post() {
     axios
       .post(apiUrl, { tracking_id: { number } }, options)
       .then((result) => {
-        $(".conSearchtrack").hide();
-        $(".conTracking").fadeIn(150);
-        console.log(result.data.data);
-        setDropoffloc(
-          result.data.data.booking_details.booking_drop_off_location
-        );
-        setBooking(result.data.data);
-        setTrackingnum(result.data.data.booking_details.tracking_id);
-        setDriverloc(result.data.data.driver_location[0]);
-        try {
-          setMobile(result.data.data.booking_details.driver.mobile_no);
-        } catch (e) {}
-        setPickup(result.data.data.booking_details.pick_up_address);
-        setPickupname(result.data.data.booking_details.contact_name);
-        setPickupmobile(result.data.data.booking_details.contact_number);
-        setPickupnote(result.data.data.booking_details.note);
-        setDriverlat(result.data.data.driver_location[0].driver_latitude);
-        setDriverlng(result.data.data.driver_location[0].driver_longitude);
-        try {
-          setDriver(
-            result.data.data.booking_details.driver.fname +
-              " " +
-              result.data.data.booking_details.driver.lname
+        if  (result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
+          router.push("../404");
+        } else {
+          $(".conSearchtrack").hide();
+          $(".conTracking").fadeIn(150);
+          console.log(result.data.data);
+          setDropoffloc(
+            result.data.data.booking_details.booking_drop_off_location
           );
-          setProfilepic(
-            "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
-              result.data.data.booking_details.driver.profile_pic
-          );
-          setEstimated(result.data.data.booking_details.duration);
-        } catch (e) {}
-
-        $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
-        const pickoffloc = {
-          id: 5,
-          name: "",
-          lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
-          lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
-          icon: "../Image/navigation.png",
-        };
-
-        tracks.push(pickoffloc);
-        router.push("/tracking/" + number);
+          setBooking(result.data.data);
+          setTrackingnum(result.data.data.booking_details.tracking_id);
+          setDriverloc(result.data.data.driver_location[0]);
+          try {
+            setMobile(result.data.data.booking_details.driver.mobile_no);
+          } catch (e) {}
+          setPickup(result.data.data.booking_details.pick_up_address);
+          setPickupname(result.data.data.booking_details.contact_name);
+          setPickupmobile(result.data.data.booking_details.contact_number);
+          setPickupnote(result.data.data.booking_details.note);
+          setDriverlat(result.data.data.driver_location[0].driver_latitude);
+          setDriverlng(result.data.data.driver_location[0].driver_longitude);
+          try {
+            setDriver(
+              result.data.data.booking_details.driver.fname +
+                " " +
+                result.data.data.booking_details.driver.lname
+            );
+            setProfilepic(
+              "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+                result.data.data.booking_details.driver.profile_pic
+            );
+            setEstimated(result.data.data.booking_details.duration);
+          } catch (e) {}
+  
+          $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
+          const pickoffloc = {
+            id: 5,
+            name: "",
+            lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
+            lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
+            icon: "../Image/navigation.png",
+          };
+  
+          tracks.push(pickoffloc);
+          router.push("/tracking/" + number);
+        }
+       
       })
       .catch((err) => {
         if (err.response.status == 500) {

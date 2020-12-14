@@ -120,7 +120,7 @@ export default function profile() {
     tabledata
       .filter((event) => event.tracking_id == trackid)
       .map((number) => {
-        if (number.status == "Canceled") {
+        if (number.status == "Canceled" || number.status == "Complete") {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -137,7 +137,7 @@ export default function profile() {
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
                     <p className="pErrorSub">
-                      Canceled booking cannot be tracked.
+                      Completed and cancelled booking cannot be track.
                     </p>
                   </div>
                 </div>
@@ -968,7 +968,8 @@ export default function profile() {
         console.log(result);
         if(result.data.data.cardDetails.cardStatus == 5 || result.data.data.cardDetails.cardStatus == 3) {
           swal(
-            $(".btnVerify").removeClass("btn--loading"),
+            $(".btnVerify").removeClass("btn--loading"), $("#modalVerify").modal("hide"),
+            $(".modal-backdrop").hide(),
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
                 <div
@@ -993,7 +994,7 @@ export default function profile() {
           $("#modalVerify").modal("hide");
         $(".modal-backdrop").hide();
         $(".btnVerify").removeClass("btn--loading");
-        const options1 = {
+        const options1 = {  
           headers: {
             Accept: "application/json, text/plain, */*",
             "content-type": "application/json",
@@ -2257,7 +2258,7 @@ export default function profile() {
                       <div className="col-lg-5">
                         <p className="p9 text-left">Status</p>
                         <p className="p9Sub pVerified text-left ">
-                          {event.cardStatus == 1 ? "Not verified" : "Verified"}
+                          {event.cardStatus != "0" ? "Unverified" : "Verified"}
                         </p>
                       </div>
                     </div>

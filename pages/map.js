@@ -2148,7 +2148,7 @@ export default function map() {
                 </a>
               </div>
               {listcard
-                .filter((event) => event.maskedCardNumber !== null)
+                .filter((event) => event.maskedCardNumber !== null && event.cardStatus == "0")
                 .map((event) => (
                   <div className="divListcard" onClick={setPaymentCard}>
                     <img
