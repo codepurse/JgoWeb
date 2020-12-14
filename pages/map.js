@@ -490,12 +490,16 @@ export default function map() {
 
   function slideChange(e) {
     $(".pWeight").text(e.target.value);
-    if(e.target.value < 11) {
-      setWeight("0-10KG")
-    }else if (e.target.value < 16) {
-      setWeight("11-15KG")
-    }else if (e.target.value < 21) {
-      setWeight("16-20KG")
+    if (e.target.value < 11) {
+      setWeight("0-10KG");
+      $(".imgWeight1").fadeIn(150);
+      $(".imgWeight2").fadeOut(150);
+    } else if (e.target.value < 16) {
+      setWeight("11-15KG");
+    } else if (e.target.value < 21) {
+      setWeight("16-20KG");
+      $(".imgWeight1").fadeOut(150);
+      $(".imgWeight2").fadeIn(150);
     }
     console.log(e.target.value);
   }
@@ -786,15 +790,7 @@ export default function map() {
           </div>
         </div>
       );
-    }else if (payment == "cod") {
-      if (codloc) {
-
-      }else {
-        alert("asdas");
-      }
-    }
-    
-    else {
+    } else {
       if (payment.length == 0) {
         x = 0;
         swal(
@@ -817,7 +813,30 @@ export default function map() {
             </div>
           </div>
         );
-      } else {
+      }else if (payment == "cod" && codloc.length == 0) {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #FFE900" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Warning</p>
+                  <p className="pErrorSub">
+                    Please select a payment location.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      
+      else {
         clickpayment = 1;
         console.log(addlistservice);
         $(".btnPayment").addClass("btn--loading");
@@ -921,7 +940,7 @@ export default function map() {
         if (payment == "cod") {
           formdata.set("is_collection_point", codloc);
         }
-        formdata.set("weight",weight)
+        formdata.set("weight", weight);
 
         formdata.set(
           "drop_off_locations[0][drop_off_address]",
@@ -1925,12 +1944,6 @@ export default function map() {
                     </div>
                   </div>
                 </div>
-                <div
-                  className="col-lg-12 col-md-12 col-12"
-                  style={{ display: "none" }}
-                >
-                  <p className="pNote">Note: MAXIMUM WEIGHT IS 10kg</p>
-                </div>
               </div>
 
               <div
@@ -1961,14 +1974,20 @@ export default function map() {
                   <p className="pPayment">Weight</p>
                 </div>
                 <div className="col-lg-2">
-                <img
+                  <img
                     src="Image/package.png"
-                    className="img-fluid imgGps"
+                    className="img-fluid imgGps imgWeight1"
+                    style={{ width: "30px", marginLeft: "18px" }}
+                  ></img>
+                  <img
+                    src="Image/packages.png"
+                    className="img-fluid imgGps imgWeight2"
                     style={{ width: "30px", marginLeft: "18px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10">
-                <span className="pWeight">0</span><span className="pKg">Kg</span>
+                <div className="col-lg-10" style={{ marginTop: "-10px" }}>
+                  <span className="pWeight">0</span>
+                  <span className="pKg">Kg</span>
                   <div className="slidecontainer">
                     <input
                       type="range"
@@ -1977,12 +1996,12 @@ export default function map() {
                       defaultValue={0}
                       className="slider"
                       id="myRange"
-                      onChange = {slideChange}
+                      onChange={slideChange}
                     />
                   </div>
                 </div>
               </div>
-              <div className="row " style={{ marginTop: "5px" }}>
+              <div className="row " style={{ marginTop: "10px" }}>
                 <div className="col-lg-12">
                   <p className="pPayment">Payment</p>
                 </div>
@@ -2063,7 +2082,9 @@ export default function map() {
                     <p className="pPriceModal">&#8369;{price}</p>
                   </div>
                   <div className="col-lg-12">
-                  <p className="pCodSub" style = {{marginTop: "10px"}}>Who will pay?</p>
+                    <p className="pCodSub" style={{ marginTop: "10px" }}>
+                      Who will pay?
+                    </p>
                     <Select
                       options={locationDropdown}
                       styles={isToggled ? customStyles4 : customStyles}

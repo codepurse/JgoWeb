@@ -14,7 +14,6 @@
         margin: 0 !important;
         padding: 0 !important;
         max-height: auto !important;
-    
     }
     .con {
         max-height: auto !important;
@@ -48,8 +47,6 @@
         margin-left: 0px !important;
         height: auto !important;
     }
-
-
     .rowComing {
         margin-left: 0px !important;
     }
@@ -141,7 +138,7 @@
     .conRider {
         height: auto !important;
     }
-    .conDriver2, .mainConDriver ,.con, .conDriver {
+    .conDriver2, .mainConDriver, .con, .conDriver {
         max-height: none !important;
     }
     .divSino {
@@ -171,7 +168,6 @@
     .pBy {
         text-align: center !important;
     }
-
     .pAboutusSub1 {
         text-align: justify !important;
     }
@@ -229,7 +225,6 @@
     .divEstimated {
         display: block !important;
     }
-
     /* About */
     .p11 {
         font-size: 1.8rem !important;
@@ -797,13 +792,13 @@ hr {
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
-  }
-  
-  .slider:hover {
+}
+
+.slider:hover {
     opacity: 1;
-  }
-  
-  .slider::-webkit-slider-thumb {
+}
+
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -811,15 +806,15 @@ hr {
     border-radius: 50%;
     background: whitesmoke;
     cursor: pointer;
-  }
-  
-  .slider::-moz-range-thumb {
+}
+
+.slider::-moz-range-thumb {
     width: 20px;
-    height: 20px;   
+    height: 20px;
     border-radius: 50%;
     background: whitesmoke;
     cursor: pointer;
-  }
+}
 
 .imgLogo {
     width: 150px;
@@ -1109,6 +1104,10 @@ hr {
     font-size: 1.5rem;
     margin: 0px;
     margin-top: -10px;
+}
+
+.imgWeight2 {
+    display: none;
 }
 
 .pPriceSub {
@@ -1679,8 +1678,6 @@ hr {
     transform: scale(1.1);
 }
 
-
-
 .divStepActive {
     background-color: rgb(255, 254, 59) !important;
     border: 0px;
@@ -1726,7 +1723,7 @@ hr {
 
 .pBy {
     font-family: "GilroyMedium" !important;
-    color:lightgray;
+    color: lightgray;
     font-size: 1.1rem;
     max-width: 650px;
     margin: 0 auto;
@@ -1747,8 +1744,6 @@ hr {
     margin: 0 auto;
     margin-top: 10px;
 }
-
-
 
 .imgArtwork {
     border-radius: 25px;
@@ -2884,7 +2879,7 @@ label:active:after {
 }
 
 .btn1:hover {
-  color: #EDC728;
+    color: #EDC728;
 }
 
 .pError {
@@ -3005,7 +3000,7 @@ label:active:after {
 /* Tracking */
 
 .conSearchtrack {
- background-color: white;
+    background-color: white;
 }
 
 .conTracking {
@@ -3414,9 +3409,17 @@ label:active:after {
 .pSino {
     font-family: 'ProximaNovaBlack', sans-serif;
     color: #4C4C4C;
-    font-size: 4rem;
-    text-align: center;
+    font-size: 2.5rem;
+    ;
     line-height: 0.9em;
+}
+
+.pSino1 {
+    font-family: "Proxima";
+    color: #4C4C4C;
+    font-size: 1.2rem;
+    width: 600px;
+    margin-bottom: 0px;
 }
 
 .divSino1 {
@@ -3475,6 +3478,23 @@ label:active:after {
     margin-bottom: 0px;
 }
 
+.imgSino {
+    width: 250px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12)) drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12)) drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.conSinonew {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #00000029;
+    padding: 30px 5px;
+}
+
+.conSino1 {
+    padding: 40px 5px;
+    background-color: #F2F0F0;
+}
+
 .conChat {
     background: url('/Image/conChat.png');
     background-size: cover;
@@ -3496,7 +3516,6 @@ label:active:after {
     font-weight: normal;
     text-align: center;
     word-wrap: break-word !important;
-
 }
 
 .divChat {
@@ -3524,7 +3543,6 @@ label:active:after {
 .conFaqmap {
     padding: 0px;
     background-color: white;
-   
 }
 
 .conFaq {
@@ -3655,7 +3673,6 @@ label:active:after {
 
 .conblack {
     background-color: #262626 !important;
-   
 }
 
 .pContact1 {
@@ -4473,20 +4490,19 @@ video {
 }
 
 .colLeftabout {
-   
     background-repeat: no-repeat;
     height: 100vh;
     background-size: cover;
 }
 
-.bg {  
+.bg {
     position: absolute;
     top: 0px;
-    left: 50%; 
-    width: 50%; 
+    left: 50%;
+    width: 50%;
     height: 100%;
     background-image: url('/Image/aboutnew.png');
-    background-position: 0 0; 
-    background-repeat:no-repeat; 
+    background-position: 0 0;
+    background-repeat: no-repeat;
     background-size: cover;
-   }
+}

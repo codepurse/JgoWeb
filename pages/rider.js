@@ -28,7 +28,9 @@ export default function rider() {
           <div className="row align-items-center h-100">
             <div className="col-lg-12 text-center">
               <Link href="/">
-                <p className="liNav" onClick = {showModal}>Ride with Us</p>
+                <p className="liNav" onClick={showModal}>
+                  Ride with Us
+                </p>
               </Link>
               <Link href="/support">
                 <p className="liNav">JGO Support</p>
@@ -64,68 +66,92 @@ export default function rider() {
           </div>
         </div>
       </div>
-      <div
-        className="container-fluid conHide"
-        style={{ backgroundColor: "white", paddingTop: "40px" }}
-      >
-        <div className="container conSino">
-          <div className="row">
-            <div className="col-lg-12">
-              <p className="pSino">SINO BA SI JGO RIDER?</p>
+      <div className="container-fluid conSino1">
+        <div className="container conSinonew">
+          <div className="row align-items-center">
+            <div className="col-lg-4">
+              <img
+                src="Image/rider1.png"
+                className="img-fluid mx-auto d-flex imgSino"
+              ></img>
+            </div>
+            <div className="col-lg-8">
+              <p className="pSino">JGO RIDER AKO</p>
+              <p className="pSino1">
+                Ang pagiging isang JGO Rider ay hindi basta't basta lamang.
+                Dapat ay may mga sinusunod kang mga katangian.
+              </p>
             </div>
           </div>
-          <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-lg-5 colAnthony">
-              <img src="Image/Anthony 1.png" className="img-fluid"></img>
+          <div className="row align-items-center" style={{ marginTop: "25px" }}>
+            <div className="col-lg-4">
+              <img
+                src="Image/rider2.png"
+                className="img-fluid mx-auto d-flex imgSino"
+              ></img>
             </div>
-            <div className="col-lg-7" style={{ position: "relative" }}>
-              <div className="divSino1 divSino">
-                <p className="pBoxSino">MAGALANG</p>
-              </div>
-              <div className="divSino2 divSino">
-                <p className="pBoxSino">MABILIS</p>
-              </div>
-              <div className="divSino3 divSino">
-                <p className="pBoxSino">SAFE</p>
-              </div>
-              <div className="divSino4 divSino">
-                <p className="pBoxSino">LAGING NAKANGITI</p>
-              </div>
+            <div className="col-lg-8">
+              <p className="pSino">MAGALANG</p>
+              <p className="pSino1">
+                Importante na lagi tayong gumagalang sa ating mga binibigyan
+                serbisyo. Ito ay nasa ating kultura na ginagalang natin ang
+                ating kapwa.
+              </p>
+            </div>
+          </div>
+          <div className="row align-items-center" style={{ marginTop: "25px" }}>
+            <div className="col-lg-4">
+              <img
+                src="Image/rider3.png"
+                className="img-fluid mx-auto d-flex imgSino"
+              ></img>
+            </div>
+            <div className="col-lg-8">
+              <p className="pSino">MAINGAT</p>
+              <p className="pSino1">
+                Laging nagiingat si JGO Rider at sumusonod sa batas ng kalsada.
+                Pati na rin sa paghandle ng mga delivery niya. Lagi niyang
+                binibigyan pansin and mga kanyang dinadala sa iba't ibang kapwa
+                araw araw.
+              </p>
+            </div>
+          </div>
+          <div className="row align-items-center" style={{ marginTop: "25px" }}>
+            <div className="col-lg-4">
+              <img
+                src="Image/rider4.png"
+                className="img-fluid mx-auto d-flex imgSino"
+              ></img>
+            </div>
+            <div className="col-lg-8">
+              <p className="pSino">MAPAGKAPWA</p>
+              <p className="pSino1">
+                Hindi sapat na puro lang trabaho at walang tulong sa ating
+                kapwa. Gusto natin tayo ay umunlad at dapat tayo ay
+                nagtutulungan sa isa't isa.
+              </p>
+            </div>
+          </div>
+          <div className="row align-items-center" style={{ marginTop: "25px" }}>
+            <div className="col-lg-4">
+              <img
+                src="Image/rider5.png"
+                className="img-fluid mx-auto d-flex imgSino"
+              ></img>
+            </div>
+            <div className="col-lg-8">
+              <p className="pSino">MAASAHAN</p>
+              <p className="pSino1">
+                Ito si JGO Rider, siya ay maaasahan sa kanyang serbisyo.
+                Magalang, Maingat at Mapagkapwa. On – time siya at magaling mag
+                alaga ng mga gamit na kanyang idinideliver. Kaya si JGO Rider ay
+                Maaasahan!
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="container-fluid conChat conHide">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="divChat">
-                <div className="divChatblurred"></div>
-                <img src="Image/cloud1.png" className="img-fluid"></img>
-                <img
-                  src="Image/cloud2.png"
-                  className="img-fluid"
-                  style={{ marginTop: "10px" }}
-                ></img>
-                <img
-                  src="Image/cloud3.png"
-                  className="img-fluid"
-                  style={{ marginTop: "10px" }}
-                ></img>
-                <Link href="/">
-                  <a>
-                    <img
-                      src="Image/jgobutton.png"
-                      onClick={showModal}
-                      className="img-fluid mx-auto d-flex imgTara"
-                    ></img>
-                  </a>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <Footer></Footer>
     </>
   );
