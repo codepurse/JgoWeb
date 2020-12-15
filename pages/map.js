@@ -517,7 +517,11 @@ export default function map() {
   };
 
   function slideChange(e) {
-    getRate();
+   
+    $('#myRange').change(function() {
+      getRate();
+    });
+
     $(".pWeight").text(e.target.value);
     if (e.target.value < 11) {
       setWeight("0-10KG");

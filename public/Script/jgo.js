@@ -1,8 +1,8 @@
 $(document).ready(function () {
-  if(window.scrollY > 0){
+  if (window.scrollY > 0) {
     $(".fixed-top").css("background", "#1A1A1A");
     $(".fixed-top").css("z-index", "9");
-   }
+  }
 
   var getLastPartOfUrl = function ($url) {
     var url = $url;
@@ -328,6 +328,37 @@ $(document).ready(function () {
     }
   });
 
+  $("#carouselExampleIndicatorsmain").on(
+    "slid.bs.carousel",
+    function onSlide(ev) {
+      var id = ev.relatedTarget.id;
+      switch (id) {
+        case "1":
+          $(".pulse").fadeOut(100);
+
+          break;
+        case "2":
+          $(".pulse").attr("style","left: 39.2% !important; top: 15.1% !important");
+          $(".pulse").fadeIn(100);
+          break;
+        case "3":
+          $(".pulse").attr("style","left:61.5% !important; top: 37.3% !important");
+          $(".pulse").fadeIn(100);
+          break;
+        case "4":
+          $(".pulse").attr("style","left:39.2% !important;top: 59.3% !important");
+          $(".pulse").fadeIn(100);
+          break;
+        case "5":
+          $(".pulse").attr("style","left:17.2% !important;top: 37.3% !important");
+          $(".pulse").fadeIn(100);
+          break;
+        default:
+        //the id is none of the above
+      }
+    }
+  );
+
   const items = document.querySelectorAll(".accordion button");
 
   function toggleAccordion() {
@@ -531,13 +562,14 @@ $(document).ready(function () {
         }
       });
     });
-    function myMap() {
-      var mapProp = {
-        center: new google.maps.LatLng(51.508742, -0.12085),
-        zoom: 5,
-      };
-      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-    }
+  function myMap() {
+    var mapProp = {
+      center: new google.maps.LatLng(51.508742, -0.12085),
+      zoom: 5,
+    };
+    var map = new google.maps.Map(
+      document.getElementById("googleMap"),
+      mapProp
+    );
+  }
 });
-
- 

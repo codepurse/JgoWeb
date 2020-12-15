@@ -24,6 +24,8 @@ function index() {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
+            {" "}
+            input range slider call function when stop sliding
             <div
               className="row align-items-center"
               style={{ borderLeft: "3px solid #FFE900" }}
@@ -218,9 +220,10 @@ function index() {
       <div className="container-fluid con3">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6">
+            <div className="col-lg-6" style = {{position: "relative"}}>
+              <div className="circlepulse pulse"></div>
               <img
-                src="Image/circle.png"
+                src="Image/jgocircle.png"
                 className="img-fluid"
                 style={{ width: "100%" }}
               ></img>
@@ -229,63 +232,78 @@ function index() {
               <p className="pOntime">
                 &#8369;60 Flat Rate <br></br>&#8369;5 Per Km
               </p>
-              <div className="divBoxCheck">
-                <p className="pDivBoxCheck">
-                  With JGO, we want to provide you with the most convenient
-                  payment options and the most affordable prices. Let us take
-                  care of your delivery worries and see that all it takes is one
-                  book away with JGO!
-                </p>
+
+              <div className="divBoxCheck carousel">
                 <div
-                  className="row"
-                  style={{ marginBottom: "30px", display: "none" }}
+                  id="carouselExampleIndicatorsmain"
+                  className="carousel slide"
+                  data-ride="carousel"
                 >
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="row"
-                  style={{ marginBottom: "30px", display: "none" }}
-                >
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="row"
-                  style={{ marginBottom: "30px", display: "none" }}
-                >
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="row"
-                  style={{ marginBottom: "30px", display: "none" }}
-                >
-                  <div className="col-lg-1">
-                    <img src="Image/check.svg" style={{ width: "35px" }}></img>
-                  </div>
-                  <div className="col-lg-11">
-                    <p className="pCheck">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </p>
+                  <ol className="carousel-indicators">
+                    <li
+                      data-target="#carouselExampleIndicatorsmain"
+                      data-slide-to={0}
+                      className="active active1"
+                    />
+                    <li
+                      data-target="#carouselExampleIndicatorsmain"
+                      data-slide-to={1}
+                      className="active2"
+                    />
+                    <li
+                      data-target="#carouselExampleIndicatorsmain"
+                      data-slide-to={2}
+                    />
+                    <li
+                      data-target="#carouselExampleIndicatorsmain"
+                      data-slide-to={3}
+                    />
+                    <li
+                      data-target="#carouselExampleIndicatorsmain"
+                      data-slide-to={4}
+                    />
+                  </ol>
+                  <div className="carousel-inner">
+                    <div className="carousel-item active" id="1">
+                      <p className="pDivBoxCheck">
+                        With JGO, we want to provide you with the most
+                        convenient payment options and the most affordable
+                        prices. Let us take care of your delivery worries and
+                        see that all it takes is one book away with JGO!
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="2">
+                      <p className="pCarouselTitleMain">Affordable</p>
+                      <p className="pDivBoxCheck">
+                        Choose the pick up location and complete the necessary
+                        details.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="3">
+                      <p className="pCarouselTitleMain">Safe</p>
+                      <p className="pDivBoxCheck">
+                        Next is to fill out the drop off points and pick the
+                        category of the item being delivered.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="4">
+                      <p className="pCarouselTitleMain">Reliable</p>
+                      <p className="pDivBoxCheck">
+                        You can pick which additional services that will be
+                        needed for the delivery and indicate the mode of
+                        payment.
+                      </p>
+                    </div>
+                    <div className="carousel-item" id="5">
+                      <p className="pCarouselTitleMain">Quality</p>
+                      <p className="pDivBoxCheck">
+                        After clicking the book button, kindly wait for a while
+                        so that a rider can accept your delivery job. Once
+                        confirmed you can track your delivery in real time.You
+                        can pick which additional services that will be needed
+                        for the delivery and indicate the mode of payment.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -305,8 +323,8 @@ function index() {
           </div>
         </div>
       </div>
-      <div className = "conHide">
-      <Footer></Footer>
+      <div className="conHide">
+        <Footer></Footer>
       </div>
     </>
   );
