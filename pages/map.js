@@ -330,6 +330,7 @@ export default function map() {
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
+  const [stop3, setStop3] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null,
@@ -462,33 +463,61 @@ export default function map() {
     /* Stopoff #1 setting and passing data to array and to the component itself */
   }
 
-  const handleChangeStop = async (value) => {
+  const handleChangeStop = async (value, e) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    setAddressStop(value);
-    setcoordinateStop(latLng);
-    console.log(value.label);
-    try {
-      var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].lat = latLng.lat),
-        (places_data[objIndex].lng = latLng.lng),
-        console.log(coordinate);
-      router.push("/map");
-      getRate();
-    } catch (err) {
-      const destination = {
-        address: value.label,
-        lat: latLng.lat,
-        lng: latLng.lng,
-        id: click,
-      };
-      coordinate.push(destination);
-      router.push("/map");
-      getRate();
+    var str = value.label;
+    var n = str.includes("Metro Manila");
+    if (n === true) {
+      setAddressStop(value);
+      setcoordinateStop(latLng);
+      console.log(value.label);
+      try {
+        var objIndex = places_data.findIndex((obj) => obj.id == click);
+        (places_data[objIndex].lat = latLng.lat),
+          (places_data[objIndex].lng = latLng.lng),
+          console.log(coordinate);
+        router.push("/map");
+        getRate();
+      } catch (err) {
+        const destination = {
+          address: value.label,
+          lat: latLng.lat,
+          lng: latLng.lng,
+          id: click,
+        };
+        coordinate.push(destination);
+        router.push("/map");
+        getRate();
+      }
+    } else {
+      console.log(coordinate);
+      invalidLoc(),
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #FFE900" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Warning</p>
+                  <p className="pErrorSub">
+                    The entered address is not yet in our service area.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
     }
   };
 
   function slideChange(e) {
+    getRate();
     $(".pWeight").text(e.target.value);
     if (e.target.value < 11) {
       setWeight("0-10KG");
@@ -630,6 +659,21 @@ export default function map() {
   {
     /* Function to delete index in array */
   }
+  function invalidLoc() {
+    $("#" + click_id)
+      .closest(".divStopOff")
+      .find(".css-5sz5u5-singleValue")
+      .contents()
+      .filter((_, el) => el.nodeType === 3)
+      .remove();
+
+      for (var i = 0; i < places_data.length; i++) {
+        if (places_data[i].id == click_id) {
+          places_data.splice(i, 1);
+        }
+      }
+  }
+
   function deleteAdd(e) {
     $(e.currentTarget).closest(".divStopOff").fadeOut(150);
     $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").val("");
@@ -660,6 +704,7 @@ export default function map() {
     $(".pPrice").hide();
     $(".divLoading").show();
     let ratedata = new FormData();
+    ratedata.set("weight",weight);
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
     ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
@@ -813,7 +858,7 @@ export default function map() {
             </div>
           </div>
         );
-      }else if (payment == "cod" && codloc.length == 0) {
+      } else if (payment == "cod" && codloc.length == 0) {
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
             <div className="container">
@@ -826,17 +871,13 @@ export default function map() {
                 </div>
                 <div className="col-lg-10" style={{ textAlign: "left" }}>
                   <p className="pError">Warning</p>
-                  <p className="pErrorSub">
-                    Please select a payment location.
-                  </p>
+                  <p className="pErrorSub">Please select a payment location.</p>
                 </div>
               </div>
             </div>
           </div>
         );
-      }
-      
-      else {
+      } else {
         clickpayment = 1;
         console.log(addlistservice);
         $(".btnPayment").addClass("btn--loading");
@@ -1554,6 +1595,7 @@ export default function map() {
                     selectProps={{
                       instanceId: "3",
                       className: "selectPlaces",
+
                       onChange: handleChangeStop,
                       styles: customStyles2,
                     }}
@@ -2148,7 +2190,10 @@ export default function map() {
                 </a>
               </div>
               {listcard
-                .filter((event) => event.maskedCardNumber !== null && event.cardStatus == "0")
+                .filter(
+                  (event) =>
+                    event.maskedCardNumber !== null && event.cardStatus == "0"
+                )
                 .map((event) => (
                   <div className="divListcard" onClick={setPaymentCard}>
                     <img

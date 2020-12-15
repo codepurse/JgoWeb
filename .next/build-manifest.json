@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/404": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/404.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -29,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/map": [
+    "/main": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/map.js"
+      "static/chunks/pages/main.js"
     ],
-    "/tracking/[number]": [
+    "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/tracking/[number].js"
+      "static/chunks/pages/profile.js"
     ]
   },
   "ampFirstPages": []

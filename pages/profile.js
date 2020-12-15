@@ -776,10 +776,13 @@ export default function profile() {
         setZip(result.data.data.zip);
         setCity(result.data.data.city);
         setWallet(result.data.data.get_jgo_wallet.balance);
-        setProfle(
-          "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
-            result.data.data.profile_pic
-        );
+       
+        if(result.data.data.profile_pic) {
+          setProfle(
+            "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+              result.data.data.profile_pic
+          );
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -1824,7 +1827,7 @@ export default function profile() {
                 {fname} {lname}
               </span>
               <div className="circle">
-                <img className="navProf" src={profilepic} alt="" />
+                <img className="navProf" src={profilepic ? profilepic : "Image/profile.jpg"} alt="" />
               </div>
             </div>
           </div>
