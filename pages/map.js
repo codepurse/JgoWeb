@@ -516,12 +516,7 @@ export default function map() {
     }
   };
 
-  function slideChange(e) {
-   
-    $('#myRange').change(function() {
-      getRate();
-    });
-
+  function getWeight(e) {
     $(".pWeight").text(e.target.value);
     if (e.target.value < 11) {
       setWeight("0-10KG");
@@ -535,6 +530,10 @@ export default function map() {
       $(".imgWeight2").fadeIn(150);
     }
     console.log(e.target.value);
+  }
+
+  function setWeightrate(e) {
+    getRate();
   }
 
   function getservice(e) {
@@ -671,11 +670,11 @@ export default function map() {
       .filter((_, el) => el.nodeType === 3)
       .remove();
 
-      for (var i = 0; i < places_data.length; i++) {
-        if (places_data[i].id == click_id) {
-          places_data.splice(i, 1);
-        }
+    for (var i = 0; i < places_data.length; i++) {
+      if (places_data[i].id == click_id) {
+        places_data.splice(i, 1);
       }
+    }
   }
 
   function deleteAdd(e) {
@@ -708,7 +707,7 @@ export default function map() {
     $(".pPrice").hide();
     $(".divLoading").show();
     let ratedata = new FormData();
-    ratedata.set("weight",weight);
+    ratedata.set("weight", weight);
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
     ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
@@ -2042,12 +2041,13 @@ export default function map() {
                       defaultValue={0}
                       className="slider"
                       id="myRange"
-                      onChange={slideChange}
+                      onMouseUp={setWeightrate}
+                      onChange={getWeight}
                     />
                   </div>
                 </div>
               </div>
-              <div className="row " style={{ marginTop: "10px" }}>
+              <div className="row " style={{ marginTop: "15px" }}>
                 <div className="col-lg-12">
                   <p className="pPayment">Payment</p>
                 </div>
