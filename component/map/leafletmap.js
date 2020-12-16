@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Map, TileLayer, Popup, Marker, withLeaflet } from "react-leaflet";
 import "./config";
 import Geocode from "react-geocode";
+import L from "leaflet";
 import { geocodeByAddress } from "react-google-places-autocomplete";
+
+
 
 const MyMarker = (props) => {
   const initMarker = (ref) => {
@@ -14,7 +17,15 @@ const MyMarker = (props) => {
   return <Marker ref={initMarker} {...props} />;
 };
 
+let icon = L.icon({
+  iconUrl: ('../Image/navigation.png'),
+
+})
+
 class MapExample extends Component {
+
+  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -68,11 +79,12 @@ class MapExample extends Component {
         zoom={this.props.zoom}
         onClick={this.handleClick}
       >
-        <TileLayer    attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-          url='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
-        />
+          <TileLayer
+      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
         {this.state.currentPos && (
-          <MyMarker position={this.state.currentPos}>
+          <MyMarker position={this.state.currentPos} icon = {icon}>
             <Popup position={this.state.currentPos}>
               Current location: <pre>{this.state.address}</pre>
             </Popup>

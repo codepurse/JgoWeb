@@ -598,6 +598,10 @@ export default function map() {
     }
   }
 
+  function numberonly(e) {
+    console.log("asdas");
+  }
+
   {
     /* Passing address in additional details based on click value */
   }
@@ -1475,7 +1479,7 @@ export default function map() {
                         type="text"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
-                      
+                     
                         placeholder="Contact Number"
                        
                       />
