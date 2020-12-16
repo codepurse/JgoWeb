@@ -587,7 +587,7 @@ export default function map() {
 
   {
     /* Passing number in additional details based on click value */
-  }
+  }  
   function updateInputValueNumber(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -1475,7 +1475,9 @@ export default function map() {
                         type="text"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
+                      
                         placeholder="Contact Number"
+                       
                       />
                     </div>
                     <div className="col-lg-12">

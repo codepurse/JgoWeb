@@ -328,6 +328,10 @@ $(document).ready(function () {
     }
   });
 
+  $(".txtNumber").keypress(function (e) {
+    if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+});
+
   $("#carouselExampleIndicatorsmain").on(
     "slid.bs.carousel",
     function onSlide(ev) {
