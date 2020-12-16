@@ -8,7 +8,7 @@ import AuthService from "../services/auth.service";
 import Mobilenav from "../component/mobilenav";
 import { useRouter } from "next/router";
 import Navbar from "../component/navbar1";
-import App from 'next/app'
+import App from "next/app";
 function showModal() {
   localStorage.setItem("showmodal", "1");
 }
@@ -595,13 +595,13 @@ export default function faq() {
         </div>
       </div>
       <div className="container-fluid conFaqmap conHide">
-        <div className="row" style = {{padding: "0px"}}>
-          <div className="col-lg-12" style = {{padding: "0px"}}>
-            <div id="googleMap" style = {{padding: "0px"}}>
+        <div className="row" style={{ padding: "0px" }}>
+          <div className="col-lg-12" style={{ padding: "0px" }}>
+            <div id="googleMap" style={{ padding: "0px" }}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.106561444371!2d120.99639031489468!3d14.478569989880306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ce7b517c1a79%3A0xcccd8f656dede7e3!2s8161%20Dr%20Arcadio%20Santos%20Ave%2C%20Para%C3%B1aque%2C%201700%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1607525028376!5m2!1sen!2sph"
-                width= "100%"
-                height="100%"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.1109938444!2d120.99654431744386!3d14.4783154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf5d9c64192f%3A0x2748c3e08870c88d!2sJGO%20Delivery!5e0!3m2!1sen!2sph!4v1608079178583!5m2!1sen!2sph"
+                width={600}
+                height={450}
                 frameBorder={0}
                 style={{ border: 0 }}
                 allowFullScreen

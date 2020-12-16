@@ -29,6 +29,11 @@ export class navbar1 extends Component {
 
   showModal() {
     localStorage.setItem("showmodal", "1");
+    if(Router.pathname == "/") {
+      $("#driverModal").modal("toggle");
+    }else {
+      localStorage.setItem("showmodal", "1");
+    }
   }
 
   
