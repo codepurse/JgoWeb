@@ -34,6 +34,7 @@ export default function map() {
   const [addservices, setAddservices] = React.useState([]);
   const [addlistservice, setAddlistservice] = React.useState([]);
   const [locationDropdown, setlocationDropdown] = React.useState([]);
+ 
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -331,6 +332,10 @@ export default function map() {
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
   const [stop3, setStop3] = React.useState("");
+  const [stop4, setStop4] = React.useState("");
+  const [stop5, setStop5] = React.useState("");
+  const [stop6, setStop6] = React.useState("");
+  const [stop7, setStop7] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null,
@@ -469,7 +474,19 @@ export default function map() {
     var str = value.label;
     var n = str.includes("Metro Manila");
     if (n === true) {
-      setAddressStop(value);
+      if (click === 3) {
+        setStop3(value);
+      }
+      if (click === 4) {
+        setStop4(value);
+      }
+      if (click === 5) {
+        setStop5(value);
+      }
+      if (click === 6) {
+        setStop6(value);
+      }
+  
       setcoordinateStop(latLng);
       console.log(value.label);
       try {
@@ -492,7 +509,6 @@ export default function map() {
       }
     } else {
       console.log(coordinate);
-      invalidLoc(),
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
             <div className="container">
@@ -659,6 +675,32 @@ export default function map() {
         (places_data[objIndex].lng = coordinates.lng),
         console.log(coordinate);
       router.push("/map");
+    } else if (click > 2) {
+      var x = "setStop"+click
+      coordinates.lat = global.config.place.deliver.pickofflat;
+      coordinates.lng = global.config.place.deliver.dropofflang;
+      setStop+click({
+        value: global.config.place.deliver.pickoff,
+        label: global.config.place.deliver.pickoff,
+      });
+     try {
+      var objIndex = places_data.findIndex((obj) => obj.id == click);
+      (places_data[objIndex].lat = coordinates.lat),
+        (places_data[objIndex].lng = coordinates.lng),
+        console.log(coordinate);
+      router.push("/map");
+      getRate();
+     }catch(e) {
+      const destination = {
+        address: global.config.place.deliver.pickoff ,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        id: click,
+      };
+      coordinate.push(destination);
+      router.push("/map");
+      getRate();
+     }
     }
     swal.close();
   }
@@ -1604,7 +1646,7 @@ export default function map() {
                     selectProps={{
                       instanceId: "3",
                       className: "selectPlaces",
-
+                      value: stop3,
                       onChange: handleChangeStop,
                       styles: customStyles2,
                     }}
@@ -1614,7 +1656,7 @@ export default function map() {
                       },
                     }}
                   />
-                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img src="Image/maps.png" className="img-fluid imgMap1"  onClick={opensweetalert}></img>
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
@@ -1688,7 +1730,7 @@ export default function map() {
                   <GooglePlacesAutocomplete
                     selectProps={{
                       instanceId: "4",
-
+                      value: stop4,
                       onChange: handleChangeStop,
                       styles: customStyles2,
                     }}
@@ -1772,7 +1814,7 @@ export default function map() {
                   <GooglePlacesAutocomplete
                     selectProps={{
                       instanceId: "5",
-
+                      value: stop5,
                       onChange: handleChangeStop,
                       styles: customStyles2,
                     }}
@@ -1786,7 +1828,7 @@ export default function map() {
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
-                    id="4"
+                    id="5"
                     onClick={deleteAdd}
                   ></img>
                 </div>
@@ -1856,7 +1898,7 @@ export default function map() {
                   <GooglePlacesAutocomplete
                     selectProps={{
                       instanceId: "6",
-
+                      value: stop6,
                       onChange: handleChangeStop,
                       styles: customStyles2,
                     }}
@@ -1870,7 +1912,7 @@ export default function map() {
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
-                    id="4"
+                    id="6"
                     onClick={deleteAdd}
                   ></img>
                 </div>
