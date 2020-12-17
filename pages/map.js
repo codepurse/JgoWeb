@@ -34,7 +34,7 @@ export default function map() {
   const [addservices, setAddservices] = React.useState([]);
   const [addlistservice, setAddlistservice] = React.useState([]);
   const [locationDropdown, setlocationDropdown] = React.useState([]);
- 
+
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -211,6 +211,80 @@ export default function map() {
   {
     /* Modal for custom map */
   }
+
+  function btnAddstop() {
+    var clearstop = 0;
+    $(".div1:visible")
+      .each(function () {
+        if (
+          $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
+          $(this).css("display") == "table-footer-group"
+        ) {
+          $(this)
+            .find(".css-kvzrv0-control")
+            .css("border", "1px solid #ED3450");
+          window.reactFunction();
+          clearstop = 1;
+          return false;
+        }
+      })
+      .promise()
+      .done(function () {
+        if (clearstop == 0) {
+          $(".div1:visible")
+            .each(function () {
+              console.log($(this).css("display"))
+              $(this).attr("style", "display: block")
+            })
+            .promise()
+            .done(function () {
+              if (!stop3) {
+                $(".divStopoff1").appendTo('.divlistStop');
+                $(".divStopoff1").attr("style","display: table-footer-group !important");
+                return false;
+              } else if (!stop4) {
+                $(".divStopoff2").appendTo('.divlistStop');
+                $(".divStopoff2").attr("style","display: table-footer-group !important");
+                return false;
+              } else if (!stop5) {
+                $(".divStopoff3").appendTo('.divlistStop');
+                $(".divStopoff3").attr("style","display: table-footer-group !important");
+                return false;
+              } else if (!stop6) {
+                $(".divStopoff4").appendTo('.divlistStop');
+                $(".divStopoff4").attr("style","display: table-footer-group !important");
+                return false;
+              } else if (stop3 && stop4 && stop5 && stop6 && stop7 && stop8) {
+                swal(
+                  <div style={{ width: "450px", padding: "10px" }}>
+                    <div className="container">
+                      <div
+                        className="row align-items-center"
+                        style={{ borderLeft: "3px solid #FFE900" }}
+                      >
+                        <div className="col-lg-2">
+                          <img
+                            src="Image/complain.png"
+                            style={{ width: "32px" }}
+                          ></img>
+                        </div>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
+                          <p className="pError">Warning</p>
+                          <p className="pErrorSub">10 Maximum stop off only.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            });
+        }
+      });
+  }
+
   function opensweetalert() {
     swal(
       <div
@@ -331,11 +405,13 @@ export default function map() {
   const [address, setAddress] = useState(null);
   const [addressDrop, setAddressDrop] = React.useState("");
   const [addressStop, setAddressStop] = React.useState("");
+  const [stop, setStop] = React.useState("");
   const [stop3, setStop3] = React.useState("");
   const [stop4, setStop4] = React.useState("");
   const [stop5, setStop5] = React.useState("");
   const [stop6, setStop6] = React.useState("");
   const [stop7, setStop7] = React.useState("");
+  const [stop8, setStop8] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null,
@@ -486,7 +562,15 @@ export default function map() {
       if (click === 6) {
         setStop6(value);
       }
-  
+      if (click === 7) {
+        setStop7(value);
+      }
+      if (click === 8) {
+        setStop8(value);
+      }
+
+
+
       setcoordinateStop(latLng);
       console.log(value.label);
       try {
@@ -509,26 +593,26 @@ export default function map() {
       }
     } else {
       console.log(coordinate);
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #FFE900" }}
-              >
-                <div className="col-lg-2">
-                  <img src="Image/complain.png" style={{ width: "32px" }}></img>
-                </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Warning</p>
-                  <p className="pErrorSub">
-                    The entered address is not yet in our service area.
-                  </p>
-                </div>
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  The entered address is not yet in our service area.
+                </p>
               </div>
             </div>
           </div>
-        );
+        </div>
+      );
     }
   };
 
@@ -603,7 +687,7 @@ export default function map() {
 
   {
     /* Passing number in additional details based on click value */
-  }  
+  }
   function updateInputValueNumber(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -676,31 +760,63 @@ export default function map() {
         console.log(coordinate);
       router.push("/map");
     } else if (click > 2) {
-      var x = "setStop"+click
+      var x = "setStop" + click;
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
-      setStop+click({
-        value: global.config.place.deliver.pickoff,
-        label: global.config.place.deliver.pickoff,
-      });
-     try {
-      var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].lat = coordinates.lat),
-        (places_data[objIndex].lng = coordinates.lng),
-        console.log(coordinate);
-      router.push("/map");
-      getRate();
-     }catch(e) {
-      const destination = {
-        address: global.config.place.deliver.pickoff ,
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-        id: click,
-      };
-      coordinate.push(destination);
-      router.push("/map");
-      getRate();
-     }
+      if (click === 3) {
+        setStop3({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      if (click === 4) {
+        setStop4({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      if (click === 5) {
+        setStop5({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      if (click === 6) {
+        setStop6({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      if (click === 7) {
+        setStop7({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      if (click === 8) {
+        setStop8({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      }
+      try {
+        var objIndex = places_data.findIndex((obj) => obj.id == click);
+        (places_data[objIndex].lat = coordinates.lat),
+          (places_data[objIndex].lng = coordinates.lng),
+          console.log(coordinate);
+        router.push("/map");
+        getRate();
+      } catch (e) {
+        const destination = {
+          address: global.config.place.deliver.pickoff,
+          lat: coordinates.lat,
+          lng: coordinates.lng,
+          id: click,
+        };
+        coordinate.push(destination);
+        router.push("/map");
+        getRate();
+      }
     }
     swal.close();
   }
@@ -724,18 +840,32 @@ export default function map() {
   }
 
   function deleteAdd(e) {
-    $(e.currentTarget).closest(".divStopOff").fadeOut(150);
+    $(e.currentTarget)
+      .closest(".div1")
+      .find(".css-kvzrv0-control")
+      .css("border", "1px solid #2c2c2c");
+    $(e.currentTarget).closest(".divStopOff").hide();
     $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").val("");
-    $(e.currentTarget)
-      .closest(".divStopOff")
-      .find(".css-1wa3eu0-placeholder")
-      .html("Select..");
-    $(e.currentTarget)
-      .closest(".divStopOff")
-      .find(".css-5sz5u5-singleValue")
-      .contents()
-      .filter((_, el) => el.nodeType === 3)
-      .remove();
+    if (e.currentTarget.id == 3) {
+      setStop3(null);
+    }
+    if (e.currentTarget.id == 4) {
+      setStop4(null);
+    }
+    if (e.currentTarget.id == 5) {
+      setStop5(null);
+    }
+    if (e.currentTarget.id == 6) {
+      setStop6(null);
+    }
+     if (e.currentTarget.id == 7) {
+      setStop6(null);
+    }
+    if (e.currentTarget.id == 8) {
+      setStop8(null);
+    }
+
+
 
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
@@ -744,8 +874,11 @@ export default function map() {
       }
     }
 
-    console.log(places_data);
+    console.log(places_data); 
     router.push("/map");
+    $(".div1:visible").each(function () {
+      $(this).attr("style","display: block !important");
+    });
     getRate();
   }
 
@@ -1521,9 +1654,7 @@ export default function map() {
                         type="text"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
-                     
                         placeholder="Contact Number"
-                       
                       />
                     </div>
                     <div className="col-lg-12">
@@ -1656,7 +1787,11 @@ export default function map() {
                       },
                     }}
                   />
-                  <img src="Image/maps.png" className="img-fluid imgMap1"  onClick={opensweetalert}></img>
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
@@ -1740,7 +1875,11 @@ export default function map() {
                       },
                     }}
                   />
-                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
@@ -1824,7 +1963,11 @@ export default function map() {
                       },
                     }}
                   />
-                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
@@ -1908,7 +2051,11 @@ export default function map() {
                       },
                     }}
                   />
-                  <img src="Image/maps.png" className="img-fluid imgMap1"></img>
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
                   <img
                     src="Image/remove.png"
                     className="img-fluid  imgDelete"
@@ -1957,9 +2104,183 @@ export default function map() {
                   <p className="pAdd">&#x2b; Add details</p>
                 </div>
               </div>
+
+              <div
+                onClick={() => ((click = 7), setId(7))}
+                className="divStopoff4 divStopOff div1"
+                id="divStopoff"
+              >
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
+
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "7",
+                      value: stop7,
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="7"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 7)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="pAdd">&#x2b; Add details</p>
+                </div>
+              </div>
+
+              <div
+                onClick={() => ((click = 8), setId(8))}
+                className="divStopoff4 divStopOff div1"
+                id="divStopoff"
+              >
+                <p className="pPick" style={{ marginTop: "30px" }}>
+                  {" "}
+                  <img
+                    src="Image/mapgps.svg"
+                    className="img-fluid"
+                    style={{ marginRight: "15px" }}
+                  ></img>
+                  Stop Off Location
+                </p>
+
+                <div
+                  className="form-inline"
+                  style={{ width: "100%", marginLeft: "5%" }}
+                >
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      instanceId: "8",
+                      value: stop8,
+                      onChange: handleChangeStop,
+                      styles: customStyles2,
+                    }}
+                    autocompletionRequest={{
+                      componentRestrictions: {
+                        country: ["ph"],
+                      },
+                    }}
+                  />
+                  <img
+                    src="Image/maps.png"
+                    className="img-fluid imgMap1"
+                    onClick={opensweetalert}
+                  ></img>
+                  <img
+                    src="Image/remove.png"
+                    className="img-fluid  imgDelete"
+                    id="8"
+                    onClick={deleteAdd}
+                  ></img>
+                </div>
+                <div className="divHide">
+                  <div className="divAdd">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtName txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValue(evt)}
+                          placeholder="Name"
+                        ></input>
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtValidation  txtAdditional"
+                          onChange={(evt) => updateInputValueNumber(evt)}
+                          placeholder="Contact Number"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <input
+                          type="text"
+                          className="txtNumber txtAdditional"
+                          onChange={(evt) => updateInputValueAdd(evt)}
+                          placeholder="Note"
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <Select
+                          options={bookingtype}
+                          styles={customStyles}
+                          onChange={handleChangeCategory}
+                          placeholder="Select Category"
+                          onClick={() => (click = 8)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="pAdd">&#x2b; Add details</p>
+                </div>
+              </div>
             </div>
 
-            <button className="btnAddStopoff">Add Stop-off</button>
+            <button className="btnAddStopoff" onClick={btnAddstop}>
+              Add Stop-off
+            </button>
             <p className="pNote" style={{ display: "none" }}>
               Note: Delivery only within Metro Manila
             </p>

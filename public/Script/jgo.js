@@ -104,7 +104,7 @@ $(document).ready(function () {
   });
   var y = 0;
 
-  $(".btnAddStopoff").click(function () {
+  $(".btnAddStopoff1").click(function () {
     var clear = 0;
     $(".div1:visible")
       .each(function () {
