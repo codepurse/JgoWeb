@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import Header from "../component/header";
 import AuthService from "../services/auth.service";
+import getApi from "../services/api.service";
 import { useRouter } from "next/router";
 import axios from "axios";
 import "../component/map/config";
@@ -14,7 +15,7 @@ import Select from "react-select";
 import swal from "@sweetalert/with-react";
 import NextNprogress from "nextjs-progressbar";
 import Componentdidmount from "../component/componentdidmount";
-import Chat from "../component/chat1";
+import Chat from "../component/chat";
 import Link from "next/link";
 import PubNub from "pubnub";
 import ReactPaginate from "react-paginate";
@@ -297,8 +298,7 @@ export default function profile() {
               xsrfHeaderName: "X-XSRF-TOKEN",
             },
           };
-          const apiUrl =
-            "https://staging-api.jgo.com.ph/api/auth/cancelBookings";
+          const apiUrl = appglobal.api.base_api+appglobal.api.cancel_booking;
 
           axios
             .post(
@@ -351,7 +351,7 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/cancelBookings";
+    const apiUrl = appglobal.api.base_api+appglobal.api.cancel_booking;
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
       $("#exampleModal").modal("hide");
@@ -414,8 +414,7 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
+    const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -605,6 +604,7 @@ export default function profile() {
   };
 
   useEffect(() => {
+    console.log(getApi);
     if (localStorage.getItem("saveprof") == 1) {
       successMessage();
       localStorage.removeItem("saveprof");
@@ -621,7 +621,7 @@ export default function profile() {
     };
 
     const apiUrllatest =
-      "https://staging-api.jgo.com.ph/api/auth/customer-latest-booking";
+    appglobal.api.base_api+appglobal.api.latest_booking;
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
@@ -634,7 +634,7 @@ export default function profile() {
               var CancelToken = axios.CancelToken;
 
               const apiTimer =
-                "https://staging-api.jgo.com.ph/api/auth/timer-booking";
+                appglobal.api.base_api+appglobal.api.timer_booking;
               axios
                 .post(
                   apiTimer,
@@ -689,8 +689,7 @@ export default function profile() {
         }
       });
 
-    const apiUrl2 =
-      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       console.log(result.data);
@@ -698,7 +697,7 @@ export default function profile() {
     });
 
     const apiUrl_view_tickets =
-      "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
+      appglobal.api.base_api+appglobal.api.view_tickets +
       AuthService.getId() +
       "/open_tickets";
 
@@ -738,8 +737,7 @@ export default function profile() {
       },
     };
 
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history";
+    const apiUrl = appglobal.api.base_api+appglobal.api.transaction_history;
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -779,7 +777,7 @@ export default function profile() {
         console.log(err);
       });
 
-    const apiUrl1 = "https://staging-api.jgo.com.ph/api/auth/customer-profile";
+    const apiUrl1 = appglobal.api.base_api+appglobal.api.customer_profile;
     axios
       .post(apiUrl1, { id: AuthService.getId() }, options)
       .then((result) => {
@@ -823,8 +821,7 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/ctransaction-history?page=" + x;
+    const apiUrl = appglobal.api.base_api+appglobal.api.transaction_history_page + x;
 
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
@@ -980,7 +977,7 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/verifyToken";
+    const apiUrl = appglobal.api.base_api+appglobal.api.verify_token;
 
     let formdata = new FormData();
     formdata.set("clientToken", clienttoken);
@@ -1026,8 +1023,7 @@ export default function profile() {
             xsrfHeaderName: "X-XSRF-TOKEN",
           },
         };
-        const apiUrl2 =
-          "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+        const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
 
         axios.post(apiUrl2, {}, options1).then((result) => {
           console.log(result.data);
@@ -1158,7 +1154,7 @@ export default function profile() {
       formdata.set("password_confirmation", confirmoldpass);
       formdata.set("new_password", newpass);
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/change-password";
+      const apiUrl = appglobal.api.base_api+appglobal.api.change_password;
 
       axios
         .post(apiUrl, formdata, options)
@@ -1359,7 +1355,7 @@ export default function profile() {
 
       formdata.append("_method", "PATCH");
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
+      const apiUrl = appglobal.api.base_api+appglobal.api.save_profile+AuthService.getId();
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
@@ -1457,7 +1453,7 @@ export default function profile() {
         zip: zip,
       };
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/customers/3";
+      const apiUrl = appglobal.api.base_api+appglobal.api.save_profile+AuthService.getId();
       axios
         .put(apiUrl, data, options)
         .then((result) => {
@@ -1483,7 +1479,7 @@ export default function profile() {
       },
     };
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/enrollToken";
+    const apiUrl = appglobal.api.base_api+appglobal.api.enroll_token;
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
@@ -1536,7 +1532,7 @@ export default function profile() {
         Authorization: "Bearer " + AuthService.getToken(),
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/topUpJGOWallet";
+    const apiUrl = appglobal.api.base_api+appglobal.api.topup_jgowallet;
     let formdata = new FormData();
     formdata.set("fname", fname);
     formdata.set("mname", mname);
@@ -1663,7 +1659,7 @@ export default function profile() {
         },
       };
       const random_num = Math.floor(Math.random() * 90000) + 10000;
-      const apiUrl = "https://staging-api.jgo.com.ph/api/client_tickets";
+      const apiUrl = appglobal.api.base_api+appglobal.api.client_tickets;
       let formdata = new FormData();
       formdata.set("user_type", "Customer");
       formdata.set("user_id", AuthService.getId());
@@ -1712,9 +1708,9 @@ export default function profile() {
           };
 
           const apiUrl_view_tickets =
-            "https://staging-api.jgo.com.ph/api/client_tickets/user/" +
-            AuthService.getId() +
-            "/open_tickets";
+          appglobal.api.base_api+appglobal.api.view_tickets +
+          AuthService.getId() +
+          "/open_tickets";
 
           axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
             console.log(result.data);
@@ -2213,7 +2209,7 @@ export default function profile() {
                 </span>
               </span>
             </div>
-            <div style={{ marginTop: "10px" }}>
+            <div style={{ marginTop: "10px",display: "none" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
               <span className="spanCheckSettings">Enable tooltips</span>

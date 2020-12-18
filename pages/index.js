@@ -9,6 +9,7 @@ import "../component/map/config";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
+import  "../services/api.service";
 import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
 import Mobilenav from "../component/mobilenav";
@@ -500,7 +501,7 @@ function driver() {
       formdata.append("nbi_clearance", nbi, nbi.name);
       formdata.append("orcr", orcr, orcr.name);
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register-driver";
+      const apiUrl = appglobal.api.base_api+appglobal.api.register_driver;
       axios
         .post(apiUrl, formdata, options, config)
         .then((result) => {
@@ -699,7 +700,7 @@ function driver() {
                 title="Click the map to set the exact location"
                 onClick={deletetoken}
               >
-                COMING SOON
+                DOWNLOAD NOW
               </p>
               <div className="row">
                 <div className="col-lg-12" style={{ padding: "2px" }}>

@@ -11,6 +11,7 @@ module.exports = global.config = {
       dropofflang: "",
       refresh: "",
       table_id: "",
+      base_api: "https://staging-api.jgo.com.ph",
     },
   },
 };

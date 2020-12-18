@@ -3,6 +3,7 @@ import axios from "axios";
 import swal from "@sweetalert/with-react";
 import { GoogleLogin } from "react-google-login";
 import Select from "react-select";
+import  "../services/api.service";
 import router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
 const province = require("philippines/provinces");
@@ -122,7 +123,7 @@ export class login extends Component {
         "content-type": "application/json",
       },
     };
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/google/details";
+    const apiUrl = appglobal.api.base_api+appglobal.api.google_login;
     axios
       .post(
         apiUrl,
@@ -180,7 +181,7 @@ export class login extends Component {
       },
     };
 
-    const apiUrl = "https://staging-api.jgo.com.ph/api/auth/facebook/details";
+    const apiUrl = appglobal.api.base_api+appglobal.api.facebook_login;
 
     axios
       .post(
@@ -282,8 +283,7 @@ export class login extends Component {
           "content-type": "application/json",
         },
       };
-      const apiUrl =
-        "https://staging-api.jgo.com.ph/api/auth/check-if-number-exist";
+      const apiUrl = appglobal.api.base_api+appglobal.api.check_number;
       axios
         .post(apiUrl, { mobile_no: this.state.mobile }, options)
         .then((result) => {
@@ -294,7 +294,7 @@ export class login extends Component {
             },
           };
           const apiUrl =
-            "https://staging-api.jgo.com.ph/api/sms/send/otp/" + str;
+          appglobal.api.base_api+appglobal.api.send_otp + str;
 
           axios
             .post(apiUrl, {}, options)
@@ -453,7 +453,7 @@ export class login extends Component {
         },
       };
 
-      const apiUrl = "https://staging-api.jgo.com.ph/api/auth/login";
+      const apiUrl = appglobal.api.base_api+appglobal.api.login;
       axios
         .post(
           apiUrl,
@@ -599,8 +599,7 @@ export class login extends Component {
         "content-type": "application/json",
       },
     };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/sms/verify/otp/" +
+    const apiUrl = appglobal.api.base_api+appglobal.api.verify_otp +
       this.state.requestid +
       "/" +
       this.state.otp1 +
@@ -659,7 +658,7 @@ export class login extends Component {
           formdata.set("password_confirmation", this.state.passwordconfirm);
         }
 
-        const apiUrl = "https://staging-api.jgo.com.ph/api/auth/register";
+        const apiUrl = appglobal.api.base_api+appglobal.api.register;
         axios
           .post(apiUrl, formdata, options1)
           .then((result) => {
@@ -734,7 +733,7 @@ export class login extends Component {
           "content-type": "application/json",
         },
       };
-      const apiUrl = "https://staging-api.jgo.com.ph/api/send-password-link";
+      const apiUrl = appglobal.api.base_api+appglobal.api.forgot_password;
       let formdata = new FormData();
       formdata.set("email", this.state.forgotemail);
       axios

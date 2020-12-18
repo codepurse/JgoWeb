@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import swal from "@sweetalert/with-react";
 import Navbar from "../component/navbar1";
 import Componentdidmount from "../component/componentdidmount";
-
+import  "../services/api.service";
 import axios from "axios";
 
 export default function tracking() {
@@ -59,7 +59,7 @@ export default function tracking() {
         },
       };
       const apiUrl =
-        "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+      global.config.base_api+global.config.show_driver;
       axios
         .post(apiUrl, { tracking_id: id }, options)
         .then((result) => {
@@ -95,6 +95,7 @@ export default function tracking() {
           console.log(result.data.data.booking_details.status);
         })
         .catch((err) => {
+
           $(".btn").removeClass("btn--loading");
           swal(
             <div style={{ width: "450px", padding: "10px" }}>

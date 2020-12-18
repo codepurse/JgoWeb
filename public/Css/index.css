@@ -54,8 +54,24 @@
         margin: 0 auto !important;
     }
     .imgLogofooter {
+        width: 130px !important;
         margin: 0 auto !important;
         display: flex !important;
+    }
+    .divButtonFooter {
+        margin-top: 15px !important;
+    }
+    .ulFooter {
+        margin: auto !important;
+    }
+    .pFooter {
+        margin: auto !important;
+        text-align: justify !important;
+        margin-top: 20px !important;
+    }
+    .imgSocialfooter {
+        margin: auto !important;
+        display: none !important;
     }
     .ulFooter>.liFooter {
         margin: 0 auto !important;
@@ -1818,21 +1834,27 @@ hr {
 
 .conFooter {
     background-color: #121212;
-    padding: 15px 40px;
+    padding: 45px 40px;
 }
 
 .ulFooter {
     list-style-type: none;
     overflow: hidden;
-    float: right;
+    margin-left: 0px;
+    width: max-content;
 }
 
 .liFooter {
     float: left;
 }
 
+.spanFollow {
+    font-family: 'ProximaNova', sans-serif;
+    color: white;
+}
+
 .liFooter a {
-    font-family: 'ProximaNovaBold', sans-serif;
+    font-family: 'Proxima', sans-serif;
     color: white;
     display: block;
     color: white;
@@ -1849,6 +1871,16 @@ hr {
     font-family: 'ProximaNova', sans-serif;
     color: white;
     font-size: 1rem;
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.hrfooter {
+    background-color: #424242;
+    width: 95%;
+    margin: auto;
+    margin-top: 15px;
 }
 
 .btnSubmitModal {

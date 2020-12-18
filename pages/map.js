@@ -15,6 +15,7 @@ import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import Select from "react-select";
 import axios from "axios";
+import  "../services/api.service";
 
 export default function map() {
   var order = 0;
@@ -369,7 +370,7 @@ export default function map() {
       },
     };
     console.log(options1);
-    const api = "https://staging-api.jgo.com.ph/api/auth/additional_services";
+    const api = appglobal.api.base_api+appglobal.api.additional_services;
 
     axios
       .get(api, options1)
@@ -381,8 +382,7 @@ export default function map() {
         console.log(err.response.data);
       });
 
-    const apiUrl2 =
-      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
@@ -390,7 +390,7 @@ export default function map() {
     });
 
     const apiUrl_wallet =
-      "https://staging-api.jgo.com.ph/api/auth/customer-profile";
+    appglobal.api.base_api+appglobal.api.customer_profile;
     axios.post(apiUrl_wallet, {}, options1).then((result) => {
       setWallet(result.data.data.get_jgo_wallet.balance);
     });
@@ -946,8 +946,7 @@ export default function map() {
         (loopservices = loopservices + 1);
     });
 
-    const apiUrl_rate =
-      "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+    const apiUrl_rate = appglobal.api.base_api+appglobal.api.calculate_rate;
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -980,8 +979,7 @@ export default function map() {
       },
     };
 
-    const apiUrl2 =
-      "https://staging-api.jgo.com.ph/api/auth/customer_card_details";
+    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       console.log(result.data);
@@ -1346,8 +1344,8 @@ export default function map() {
         }
 
         const apiUrl_rate =
-          "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
-        const apiUrl = "https://staging-api.jgo.com.ph/api/auth/booking";
+        appglobal.api.base_api+appglobal.api.calculate_rate;
+        const apiUrl = appglobal.api.base_api+appglobal.api.booking;
 
         axios
           .post(apiUrl_rate, ratedata, options)
@@ -2438,7 +2436,7 @@ export default function map() {
                       </span>
                     </a>
                   </div>
-                  <p className="pPrice">&#8369;{price}</p>
+                  <p className="pPrice">&#8369;{Math.floor(price)}.00</p>
                   <p className="pPriceSub">
                     This is your final payment, please review and confirm your
                     destination/s. Then click place order to proceed to payment

@@ -173,8 +173,7 @@ export default function App() {
       ratedata.set("drop_off_locations[0][booking_order]", "1");
       ratedata.set("additional_services[0]", "0");
 
-      const apiUrl_rate =
-        "https://staging-api.jgo.com.ph/api/auth/calculate-rate";
+      const apiUrl_rate = appglobal.api.base_api+appglobal.api.calculate_rate;
 
       axios
         .post(apiUrl_rate, ratedata, options)
