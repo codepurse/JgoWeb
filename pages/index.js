@@ -9,7 +9,7 @@ import "../component/map/config";
 import Link from "next/link";
 import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
-import  "../services/api.service";
+import "../services/api.service";
 import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
 import Mobilenav from "../component/mobilenav";
@@ -501,7 +501,7 @@ function driver() {
       formdata.append("nbi_clearance", nbi, nbi.name);
       formdata.append("orcr", orcr, orcr.name);
 
-      const apiUrl = appglobal.api.base_api+appglobal.api.register_driver;
+      const apiUrl = appglobal.api.base_api + appglobal.api.register_driver;
       axios
         .post(apiUrl, formdata, options, config)
         .then((result) => {
@@ -678,9 +678,9 @@ function driver() {
           <div className="menu-btn__burger"></div>
         </div>
       </div>
-    
+
       <Mobilenav></Mobilenav>
-   
+
       <div
         className="container-fluid mainConDriver"
         style={{ position: "relative" }}
@@ -862,6 +862,9 @@ function driver() {
       <div className="container-fluid conStep conHide">
         <div className="container">
           <div className="row">
+            <div className="col-lg-12 text-center">
+              <p className="pHow">How can JGO help you?</p>
+            </div>
             <div className="col-lg-4">
               <Link href="/rider">
                 <a style={{ textDecoration: "none" }}>
@@ -922,16 +925,23 @@ function driver() {
       <div className="container-fluid conAbout conHide">
         <div className="container">
           <div className="row align-items-center">
+            <div className="col-lg-12">
+              <p className="pSpot text-center">Spotlight Corner</p>
+              <p className="pSpotSub text-center">
+                JGO not only delivers but we want to show our support for the
+                local artists out there. Helping each other out is what we want
+                in our community. Enjoy some artwork from local artists that
+                we’ve partnered with.
+              </p>
+            </div>
             <div className="col-lg-6">
               <img src="Image/Amity.png" className="img-fluid imgArtwork"></img>
               <p className="pArtwork"></p>
             </div>
             <div className="col-lg-6">
               <div className="divAbout">
-                <p className="pAboutus">
-                  AMITY
-                </p>
-                <p className = "pBy">BY: Manuel Homer T. Almelor Jr</p>
+                <p className="pAboutus">AMITY</p>
+                <p className="pBy">BY: Manuel Homer T. Almelor Jr</p>
                 <p className="pAboutusSub1">
                   I'm sure we've all travelled to a foreign destination in our
                   lives. The culture, food, people, architecture, and wonder
@@ -944,10 +954,10 @@ function driver() {
             </div>
           </div>
         </div>
-      </div>  
-     <div className = "conHide">
-     <Footer></Footer>
-     </div>
+      </div>
+      <div className="conHide">
+        <Footer></Footer>
+      </div>
       <div
         className="modal fade"
         id="driverModal"
@@ -963,7 +973,17 @@ function driver() {
         >
           <div className="modal-content">
             <div className="modal-body modalDriver">
-              <img src = "Image/close.png" className = "img-fluid" style = {{width: "18px",marginBottom: "10px",float: "right",cursor: "pointer"}} onClick = {closeModal}></img>
+              <img
+                src="Image/close.png"
+                className="img-fluid"
+                style={{
+                  width: "18px",
+                  marginBottom: "10px",
+                  float: "right",
+                  cursor: "pointer",
+                }}
+                onClick={closeModal}
+              ></img>
               <p className="pModalTitle">JGO - Driver registration form</p>
               <p className="pModalTitleSub">
                 Fill-up all the requird fields. After you submit we will send a
@@ -1271,16 +1291,12 @@ function driver() {
                   </div>
                   <div className="col-lg-6 mx-auto text-center d-flex">
                     <Link href="/faq#contact">
-                    
-                        <button className="btn1">Contact Us</button>
-                    
+                      <button className="btn1">Contact Us</button>
                     </Link>
                   </div>
                   <div className="col-lg-6 mx-auto text-center d-flex">
                     <Link href="/main">
-                      
-                        <button className="btn1">Login</button>
-                      
+                      <button className="btn1">Login</button>
                     </Link>
                   </div>
                 </div>

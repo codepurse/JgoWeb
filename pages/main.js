@@ -54,7 +54,7 @@ function index() {
         <div className="container h-100" id="mainCon">
           <div className="row h-100 align-items-center">
             <div className="col-lg-6">
-              <img src="Image/imgindex.png" className="img-fluid"></img>
+              <img src="Image/mainnew.jpg" className="img-fluid" style = {{width: "75%", borderRadius: "25px"}}></img>
             </div>
             <div className="col-lg-6 text-center colMain">
               <p className="pText">

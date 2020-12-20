@@ -155,19 +155,19 @@ export default function rider() {
           </div>
           <div className = "row" style = {{marginTop: "35px"}}>
             <div className = "col-lg-3 col-sm-6 col-6 text-center">
-              <img src = "Image/tra1.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <img src = "Image/tra4.png" className = "img-fluid mx-auto d-flex imgTra"></img>
               <p className = "p13">KUMITA</p>
             </div>
             <div className = "col-lg-3 col-sm-6 col-6  text-center">
-              <img src = "Image/tra2.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <img src = "Image/tra3.png" className = "img-fluid mx-auto d-flex imgTra"></img>
               <p className = "p13">KAIBIGAN</p>
             </div>
             <div className = "col-lg-3 col-sm-6 col-6  text-center">
-              <img src = "Image/tra3.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <img src = "Image/tra2.png" className = "img-fluid mx-auto d-flex imgTra"></img>
               <p className = "p13">OPPORTUNIDAD</p>
             </div>
             <div className = "col-lg-3 col-sm-6 col-6  text-center">
-              <img src = "Image/tra4.png" className = "img-fluid mx-auto d-flex imgTra"></img>
+              <img src = "Image/tra1.png" className = "img-fluid mx-auto d-flex imgTra"></img>
               <p className = "p13">TUMULONG</p>
             </div>
           </div>

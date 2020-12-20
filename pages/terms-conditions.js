@@ -142,21 +142,21 @@ export default function privacy_policy() {
                 </li>
               </ul>
               <p className="pPrivacySub">
-                The Software is delivered to Users on an "as is" basis and
+                2.2 The Software is delivered to Users on an "as is" basis and
                 although JGO Delivery has used its best endeavors to make the
                 Software work properly on mobile devices, JGO Delivery does not
                 warrant the performance of the Software nor the compatibility of
                 the Software with Users' mobile devices.
               </p>
               <p className="pPrivacySub">
-                User may use the Software to submit a proposal to engage Private
+                2.3 User may use the Software to submit a proposal to engage Private
                 Carrier Services for compensation to be determined in accordance
                 with the prevailing "Rates" on the Software (an "Order") and
                 under terms and conditions provided in Annex "A".
               </p>
 
               <p className="pPrivacySub">
-                JGO Delivery provides Services to facilitate the perfection and
+                2.4 JGO Delivery provides Services to facilitate the perfection and
                 performance of the Contract between the User and the
                 Participating Driver, as follows:
               </p>
@@ -184,13 +184,13 @@ export default function privacy_policy() {
                 </li>
               </ul>
               <p className="pPrivacySub">
-                The Orders submitted through the Software are completely and
+                2.5 The Orders submitted through the Software are completely and
                 independently fulfilled by the Participating Driver pursuant to
                 the Contract with the User. JGO Delivery is not a party to the
                 Contract.
               </p>
               <p className="pPrivacySub">
-                JGO Delivery reserves the right, but shall not be obliged, to
+                2.6  Delivery reserves the right, but shall not be obliged, to
                 pursue investigations and/or inquiries on the conduct and/or
                 alleged violations by Participating Drivers based on User's
                 reports or complaints, and to impose appropriate penalties or
@@ -201,22 +201,22 @@ export default function privacy_policy() {
                 Determination of Fees and Charges
               </p>
               <p className="pPrivacySub">
-                The User will be charged the Standard Transport Fee in
+                3.1The User will be charged the Standard Transport Fee in
                 accordance with the prevailing "Rates" at the time of the
                 Participating Driver's acceptance of the Order.
               </p>
               <p className="pPrivacySub">
-                Prevailing rates are indicated in the "Rates" section on the JGO
+                3.2 rates are indicated in the "Rates" section on the JGO
                 Delivery’s website or in the Software.
               </p>
               <p className="pPrivacySub">
-                The fees and charges for the User's Shipment are determined in
+                3.3 The fees and charges for the User's Shipment are determined in
                 accordance with specified maximum weight, size, and quantity of
                 the delivery item/s, the vehicles used, and add-on services
                 availed, if any, as the case may be.
               </p>
               <p className="pPrivacySub">
-                Additional charges, including but not limited to toll, parking
+                3.4 Additional charges, including but not limited to toll, parking
                 fees and such other fees and expenses which are necessary,
                 related or incidental to effect delivery to the recipient or
                 return of the Shipment to the User shall be for the User's
@@ -224,19 +224,19 @@ export default function privacy_policy() {
                 Fee to be charged against the User.
               </p>
               <p className="pPrivacySub">
-                An adjustment of the rates as well as additional charges shall
+                3.5 An adjustment of the rates as well as additional charges shall
                 likewise apply if the weight, size, or quantity of the Shipment
                 declared by the User are different from the actual weight, size,
                 or quantity thereof.
               </p>
               <p className="pPrivacySub">
-                In the event that the Shipment is not accepted or refused by the
+                3.6 In the event that the Shipment is not accepted or refused by the
                 recipient or the recipient's representative/s, all expenses for
                 the return of the Shipment to the User shall be shouldered by
                 the User.
               </p>
               <p className="pPrivacySub">
-                No cancellation fees are chargeable as long as an Order is
+               3.7 No cancellation fees are chargeable as long as an Order is
                 cancelled and communicated within sixty (60) minutes before the
                 start of the Order pickup time. In the event that the
                 cancellation was made after the Order pickup time has started,
@@ -244,7 +244,7 @@ export default function privacy_policy() {
                 provided under Section 3.1.
               </p>
               <p className="pPrivacySub">
-                The User shall pay the Participating Drivers in accordance with
+                3.8 The User shall pay the Participating Drivers in accordance with
                 the agreed mode of payment selected through the Software upon
                 submission of the Order.
               </p>

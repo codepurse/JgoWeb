@@ -50,16 +50,17 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-1" aria-expanded="false">
                     <span className="accordion-title">
-                      How do I place a delivery booking with JGO? Paano mag book
-                      ng delivery sa JGO?
+                      How do I place a delivery booking with JGO? <br /> Paano
+                      mag book ng delivery sa JGO?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       You may book through the following methods: JGO App and
-                      JGO Website (insert link) Maaring mag book ng delivery sa
-                      mga sumusunod: JGO App at JGO Website (insert link)
+                      JGO Website (insert link) <br /> Maaring mag book ng
+                      delivery sa mga sumusunod: JGO App at JGO Website (insert
+                      link)
                     </p>
                   </div>
                 </div>
@@ -67,17 +68,17 @@ export default function faq() {
                   <button id="accordion-button-2" aria-expanded="false">
                     <span className="accordion-title">
                       Can I get receipt for every booking made with JGO
-                      App/Website? Makakakuha ba ako ng resibo para sa aking
-                      delivery?
+                      App/Website? <br /> Makakakuha ba ako ng resibo para sa
+                      aking delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       Yes, an e-receipt will be sent to your registered email
-                      upon every successful delivery. Oo, ang e-receipt ay
-                      ipapadala sa iyong registered email para sa mga
-                      nakumpletong delivery.
+                      upon every successful delivery.
+                      <br /> Oo, ang e-receipt ay ipapadala sa iyong registered
+                      email para sa mga nakumpletong delivery.
                     </p>
                   </div>
                 </div>
@@ -85,8 +86,8 @@ export default function faq() {
                   <button id="accordion-button-3" aria-expanded="false">
                     <span className="accordion-title">
                       Can I input multiple addresses on a single delivery
-                      request? Maari bang magbook ng maraming address para sa
-                      isang delivery request?
+                      request? <br /> Maari bang magbook ng maraming address
+                      para sa isang delivery request?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -94,25 +95,26 @@ export default function faq() {
                     <p>
                       Yes, you can book up to a maximum of fifteen addresses on
                       a single delivery request. You may arrange the order of
-                      each delivery by priority. Oo, maari kang mag book ng
-                      hanggang fifteen na mga addresses sa isang single delivery
-                      request. Maari mo ring ayusin ang pagkakasunod sunod ng
-                      iyong delivery.
+                      each delivery by priority. <br /> Oo, maari kang mag book
+                      ng hanggang fifteen na mga addresses sa isang single
+                      delivery request. Maari mo ring ayusin ang pagkakasunod
+                      sunod ng iyong delivery.
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-4" aria-expanded="false">
                     <span className="accordion-title">
-                      How much is the base rate of the delivery fee? Magkano ang
-                      base rate para sa delivery fee?
+                      How much is the base rate of the delivery fee?
+                      <br /> Magkano ang base rate para sa delivery fee?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       JGO Delivery offers Php 60 base rate for the delivery
-                      service Ang JGO Delivery ay nag ooffer ng Php 60 na base
+                      service
+                      <br /> Ang JGO Delivery ay nag ooffer ng Php 60 na base
                       rate para sa delivery service
                     </p>
                   </div>
@@ -121,7 +123,8 @@ export default function faq() {
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
                       What if there is a damage to the goods? How should I
-                      report it? Paano kung nagkaroon ng sira ang ipinadala kong
+                      report it?
+                      <br /> Paano kung nagkaroon ng sira ang ipinadala kong
                       item? Paano ko ito irereport?
                     </span>
                     <span className="icon" aria-hidden="true" />
@@ -130,18 +133,19 @@ export default function faq() {
                     <p>
                       We always make sure your shipment will be delivered in
                       good condition. If damage will occur, you may report the
-                      incident to our customer care within 24 hours. Palagi
-                      naming sinisuguro na maayos ang pagdeliver sa inyong mga
-                      items. Kung magkaroon man ng sira, maaring ninyo itong
-                      ireport sa aming customer care sa loob lamang ng 24 oras.
+                      incident to our customer care within 24 hours.
+                      <br /> Palagi naming sinisuguro na maayos ang pagdeliver
+                      sa inyong mga items. Kung magkaroon man ng sira, maaring
+                      ninyo itong ireport sa aming customer care sa loob lamang
+                      ng 24 oras.
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      What are the available payment methods? Ano-ano ang mga
-                      paraan ng pagbabayad para sa delivery?
+                      What are the available payment methods? <br /> Ano-ano ang
+                      mga paraan ng pagbabayad para sa delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -156,14 +160,14 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Where does JGO deliver? Saan nagdedeliver ang JGO?
+                      Where does JGO deliver? <br /> Saan nagdedeliver ang JGO?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       The services of JGO Delivery is available within Metro
-                      Manila and the following areas. Ang serbisyo ng JGO
+                      Manila and the following areas. <br /> Ang serbisyo ng JGO
                       Delivery ay maasahan sa Metro Manila kabilang ang mga
                       sumusunod na lugar:
                       <ul class>
@@ -190,18 +194,23 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Can I cancel my booking? Maari bang mag cancel ng
-                      delivery?
+                      Can I cancel a customer's booking? <br /> Maari bang mag
+                      cancel ng delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
-                      Customers may cancel a delivery but is subject to a 20%
-                      penalty based on the delivery cost provided on the app
-                      upon booking Maaring mag cancel ng delivery ngunit may
-                      katumbas na 20% penalty base sa halaga ng delivery fee na
-                      provided sa app matapos mag book ng delivery
+                      As a JGO Rider you cannot cancel the delivery outright.
+                      For cancellation of the delivery the JGO Rider must have a
+                      valid reason such as emergencies, inclement weather, heavy
+                      traffic, accidental booking, etc. The Rider must then
+                      request from the customer to cancel the booking and give
+                      an explanation as to why. This can be done through call or
+                      messaging the customer. In other issues such as the
+                      package being suspicious the JGO Rider should inform the
+                      JGO Support first before the delivery will be
+                      rejected/cancelled.
                     </p>
                   </div>
                 </div>
@@ -209,6 +218,7 @@ export default function faq() {
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
                       What type of items can I book for delivery with JGO?
+                      <br />
                       Ano-anong mga klaseng item ang maaring ipadala sa JGO?
                     </span>
                     <span className="icon" aria-hidden="true" />
@@ -218,7 +228,7 @@ export default function faq() {
                       <li>
                         Maximum item dimensions (LxWxH): 1.6 x 1.25 x 1.6 ft
                       </li>
-                      <li>Maximum item weight: 10kg</li>
+                      <li>Maximum item weight: 20kg</li>
                       <li>
                         Items which can be delivered: <br></br>- Documents
                         except credit/debit card/ Mga dokumento maliban sa
@@ -241,18 +251,19 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Why does the JGO Rider took a photo of my item? Bakit
-                      kinunan ng picture ng JGO Rider ang item na for delivery?
+                      Why does the JGO Rider take a photo of my item?
+                      <br /> Bakit kinunan ng picture ng JGO Rider ang item na
+                      for delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       The purpose of the photo is to record the condition of the
-                      item from the time of pick up until its drop-off Ang
-                      purpose ng pagkuha ng picture ay para ma document ang
-                      kundisyon ng iyong item sa oras ng pag pick up hanggang sa
-                      drop-off nito
+                      item from the time of pick up until its drop-off
+                      <br /> Ang purpose ng pagkuha ng picture ay para ma
+                      document ang kundisyon ng iyong item sa oras ng pag pick
+                      up hanggang sa drop-off nito
                     </p>
                   </div>
                 </div>
@@ -265,6 +276,7 @@ export default function faq() {
                   <button id="accordion-button-1" aria-expanded="false">
                     <span className="accordion-title">
                       What are the minimum requirements to become a JGO rider?
+                      <br />
                       Anu-ano ang mga minimum na kuwalipikasyon para maging
                       isang JGO Rider?
                     </span>
@@ -284,8 +296,9 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-2" aria-expanded="false">
                     <span className="accordion-title">
-                      What are the steps to register as a rider? , Anu-ano ang
-                      mga hakbang para mag register bilang JGO Rider?
+                      What are the steps to register as a rider?
+                      <br /> Anu-ano ang mga hakbang para mag register bilang
+                      JGO Rider?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -297,7 +310,7 @@ export default function faq() {
                       </li>
                       <li>
                         Fill in the information to register and upload the
-                        required documents/ Punan ang mga impormasyon para
+                        required documents <br /> Punan ang mga impormasyon para
                         makapag register at mag upload ng mga required documents
                       </li>
                       <li>Access to a motorcycle</li>
@@ -314,7 +327,7 @@ export default function faq() {
                   <button id="accordion-button-3" aria-expanded="false">
                     <span className="accordion-title">
                       How long does it take to get an approval for my
-                      application? , Gaano katagal ang approval ng aking
+                      application? <br /> Gaano katagal ang approval ng aking
                       aplikasyon?
                     </span>
                     <span className="icon" aria-hidden="true" />
@@ -323,43 +336,44 @@ export default function faq() {
                     <p>
                       Confirmation will be sent within 7 days upon submission of
                       application through the JGO rider app. A confirmation will
-                      be sent through your registered email Ang kumpirmasyon ng
-                      application ay within 7 days simula ng magsubmit ang
-                      application mula sa JGO Rider App. Ang confirmation ay
-                      ipapadala sa iyong registered email
+                      be sent through your registered email <br /> Ang
+                      kumpirmasyon ng application ay within 7 days simula ng
+                      magsubmit ang application mula sa JGO Rider App. Ang
+                      confirmation ay ipapadala sa iyong registered email
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-4" aria-expanded="false">
                     <span className="accordion-title">
-                      How can I start earning with JGO Delivery? Paano ako
-                      kikita sa JGO Delivery?
+                      How can I start earning with JGO Delivery? <br /> Paano
+                      ako kikita sa JGO Delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       JGO Riders may start earning by accepting delivery order
-                      through the JGO rider App Ang mga JGO Rider ay maaring
-                      magsimulag kumita sa pamamagitan ng pag access sa JGO
-                      Rider App at magsimulang tumanggap ng delivery request
+                      through the JGO rider App <br /> Ang mga JGO Rider ay
+                      maaring magsimulag kumita sa pamamagitan ng pag access sa
+                      JGO Rider App at magsimulang tumanggap ng delivery request
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Is there a training to become a JGO Rider? Mayroon bang
-                      pagsasanay para maging isang JGO Rider?
+                      Will I need to undergo training to become a JGO Rider?
+                      <br></br> Mayroon bang pagsasanay para maging isang JGO
+                      Rider?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       Yes, the virtual training is included once you register as
-                      a JGO Rider. Oo, may virtual training na kasama kung ikaw
-                      ay magregister bilang JGO Rider.
+                      a JGO Rider. <br /> Oo, may virtual training na kasama
+                      kung ikaw ay magregister bilang JGO Rider.
                     </p>
                   </div>
                 </div>
@@ -374,24 +388,24 @@ export default function faq() {
                     <p>
                       Yes, a 20% commission shall be taken by JGO Delivery for
                       every delivery requests accepted and completed through the
-                      JGO platform Oo, ang 20% na kumisyon ay mapupunta sa JGO
-                      Delivery para sa bawat delivery request na tinanggap at
-                      nakumpleto gamit ang JGO platform
+                      JGO platform <br /> Oo, ang 20% na kumisyon ay mapupunta
+                      sa JGO Delivery para sa bawat delivery request na
+                      tinanggap at nakumpleto gamit ang JGO platform
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Which areas are covered by JGO Delivery? Anu-anong mga
-                      lugar ang sakop ng JGO Delivery?
+                      Which areas are covered by JGO Delivery? <br /> Anu-anong
+                      mga lugar ang sakop ng JGO Delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       The services of JGO Delivery is available within Metro
-                      Manila and the following areas. Ang serbisyo ng JGO
+                      Manila and the following areas. <br /> Ang serbisyo ng JGO
                       Delivery ay maasahan sa Metro Manila kabilang ang mga
                       sumusunod na lugar:
                       <ul class>
@@ -418,7 +432,7 @@ export default function faq() {
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Can I cancel my booking? Maari bang mag cancel ng
+                      Can I cancel my booking? <br /> Maari bang mag cancel ng
                       delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
@@ -427,9 +441,9 @@ export default function faq() {
                     <p>
                       Customers may cancel a delivery but is subject to a 20%
                       penalty based on the delivery cost provided on the app
-                      upon booking Maaring mag cancel ng delivery ngunit may
-                      katumbas na 20% penalty base sa halaga ng delivery fee na
-                      provided sa app matapos mag book ng delivery
+                      upon booking <br /> Maaring mag cancel ng delivery ngunit
+                      may katumbas na 20% penalty base sa halaga ng delivery fee
+                      na provided sa app matapos mag book ng delivery
                     </p>
                   </div>
                 </div>
@@ -437,8 +451,8 @@ export default function faq() {
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
                       Is it possible to receive multiple delivery bookings in
-                      one trip? Posible bang makatanggap ng maraming delivery sa
-                      isang trip?
+                      one trip? <br /> Posible bang makatanggap ng maraming
+                      delivery sa isang trip?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -446,19 +460,19 @@ export default function faq() {
                     <p>
                       Yes, you may receive up to fifteen deliveries in a single
                       delivery request. You may check on your rider app the
-                      arrangement of delivery set by the customer. Oo, maaaring
-                      makatanggap ng fifteen deliveries sa isang delivery
-                      request. Maari mong makita ang pagkakasunod sunod ng
-                      delivery sa iyong rider app base sa pagsasaayos ng iyong
-                      customer
+                      arrangement of delivery set by the customer. <br /> Oo,
+                      maaaring makatanggap ng fifteen deliveries sa isang
+                      delivery request. Maari mong makita ang pagkakasunod sunod
+                      ng delivery sa iyong rider app base sa pagsasaayos ng
+                      iyong customer
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      Are riders allowed to check the items for delivery? May
-                      pahintulot ba ang riders na mag check ng mga bagay na
+                      Are riders allowed to check the items for delivery? <br />{" "}
+                      May pahintulot ba ang riders na mag check ng mga bagay na
                       naibook para sa delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
@@ -469,18 +483,18 @@ export default function faq() {
                       on the basis of suspicion that the item is prohibited and
                       to reject the acceptance and delivery of the item. You may
                       report the cancellation of such with the “JGO Rider Care”.
-                      Ang rider ay may karapatan na mag inspect ng item para sa
-                      delivery base sa suspetsa na ang item ay ipinagbabawal at
-                      ireject ang pagtanggap at pag deliver ng item. Maaring
-                      ireport ito sa “JGO Rider Care”.
+                      <br /> Ang rider ay may karapatan na mag inspect ng item
+                      para sa delivery base sa suspetsa na ang item ay
+                      ipinagbabawal at ireject ang pagtanggap at pag deliver ng
+                      item. Maaring ireport ito sa “JGO Rider Care”.
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      What are the incentives offered for riders? Anu-ano ang
-                      mga benepisyo na maaring matanggap ng riders?
+                      What are the incentives offered for riders? <br /> Anu-ano
+                      ang mga benepisyo na maaring matanggap ng riders?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -488,17 +502,19 @@ export default function faq() {
                     <p>
                       We will send out rider programs soon through your
                       registered email to inform you of the incentives that JGO
-                      Delivery is providing for our riders Ang mga impormasyon
-                      tungkol sa mga incentives na binibigay ng JGO Delivery sa
-                      aming mga riders ay ipapadala sa inyong registered email
+                      Delivery is providing for our riders <br /> Ang mga
+                      impormasyon tungkol sa mga incentives na binibigay ng JGO
+                      Delivery sa aming mga riders ay ipapadala sa inyong
+                      registered email
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      What type of items can we accept for delivery? Anu-anong
-                      mga bagay ang maaring tanggapon para sa delivery?
+                      What type of items can we accept for delivery? <br />{" "}
+                      Anu-anong mga bagay ang maaring tanggapon para sa
+                      delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -507,7 +523,7 @@ export default function faq() {
                       <li>
                         Maximum item dimensions (LxWxH): 1.6 x 1.25 x 1.6 ft
                       </li>
-                      <li>Maximum item weight: 10kg</li>
+                      <li>Maximum item weight: 20kg</li>
                       <li>
                         Items which can be delivered:
                         <br />
@@ -538,16 +554,16 @@ export default function faq() {
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
                       How and when do I get paid for the completed delivery
-                      requests? Paano at kailan ko matatanggap ang bayad para sa
-                      mga nakumpletong delivery?
+                      requests? <br /> Paano at kailan ko matatanggap ang bayad
+                      para sa mga nakumpletong delivery?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
                   <div className="accordion-content">
                     <p>
                       You may request payout of earnings daily from 8:00 AM to
-                      5:00 PM Maaaring mag request ng payout daily mula 8:00 AM
-                      hanggang 5:00 PM
+                      5:00 PM <br /> Maaaring mag request ng payout daily mula
+                      8:00 AM hanggang 2:00 PM
                     </p>
                   </div>
                 </div>
@@ -561,21 +577,21 @@ export default function faq() {
                   <div className="accordion-content">
                     <p>
                       Customers are asked to give ratings or feedback for the
-                      service of every JGO Riders. They may give out 1-5 stars
-                      depending on how satisfied they are with your service. Ang
-                      ating mga customers ay hinihingan ng ratings o feedback
-                      para sa serbisyo ng bawat JGO Riders. Maaari silang
-                      magbigay ng 1-5 stars depende sa kung gaano sila nasiyahan
-                      sa iyong serbisyo.
+                      service of every JGO Rider. They may give out 1-5 stars
+                      depending on how satisfied they are with your service.{" "}
+                      <br /> Ang ating mga customers ay hinihingan ng ratings o
+                      feedback para sa serbisyo ng bawat JGO Riders. Maaari
+                      silang magbigay ng 1-5 stars depende sa kung gaano sila
+                      nasiyahan sa iyong serbisyo.
                     </p>
                   </div>
                 </div>
                 <div className="accordion-item">
                   <button id="accordion-button-5" aria-expanded="false">
                     <span className="accordion-title">
-                      How does cancellation affects my performance rating as a
-                      rider? Paano makakaapekto ang mga kanselasyon sa aking
-                      performance bilang rider?
+                      How does cancellation affect my performance rating as a
+                      rider? <br /> Paano makakaapekto ang mga kanselasyon sa
+                      aking performance bilang rider?
                     </span>
                     <span className="icon" aria-hidden="true" />
                   </button>
@@ -583,8 +599,8 @@ export default function faq() {
                     <p>
                       Customers may give low ratings once you cancelled a
                       delivery request which affects your performance as a JGO
-                      Rider. Maaaring magbigay ng mababang rating ang iyong
-                      customer para sa pagkansela ng delivery request na
+                      Rider. <br /> Maaaring magbigay ng mababang rating ang
+                      iyong customer para sa pagkansela ng delivery request na
                       nakakaapekto sa iyong performance bilang isang JGO Rider.
                     </p>
                   </div>
@@ -600,7 +616,7 @@ export default function faq() {
             <div id="googleMap" style={{ padding: "0px" }}>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.1109938444!2d120.99654431744386!3d14.4783154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf5d9c64192f%3A0x2748c3e08870c88d!2sJGO%20Delivery!5e0!3m2!1sen!2sph!4v1608079178583!5m2!1sen!2sph"
-                width= "100%"
+                width="100%"
                 height={450}
                 frameBorder={0}
                 style={{ border: 0 }}
@@ -628,7 +644,7 @@ export default function faq() {
             style={{ borderBottom: "1px solid gray", paddingTop: "20px" }}
           >
             <div className="col-lg-6">
-              <p className="pContact1">For Corporate Clients</p>
+              <p className="pContact1">Email Us</p>
             </div>
             <div className="col-lg-6">
               <p className="pContact2">Contact your assigned Account Manager</p>
@@ -636,7 +652,7 @@ export default function faq() {
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
             <div className="col-lg-6">
-              <p className="pContact1">For Individual Customer</p>
+              <p className="pContact1">Message Us</p>
             </div>
             <div className="col-lg-6">
               <p className="pContact2">Contact us via In-App Chat </p>
@@ -644,15 +660,15 @@ export default function faq() {
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
             <div className="col-lg-6">
-              <p className="pContact1">For Partner Drivers</p>
+              <p className="pContact1">Office Address</p>
             </div>
             <div className="col-lg-6">
-              <p className="pContact2">Contact us via Driver-App Chat </p>
+              <p className="pContact2">8415 Dr. A Santos Avenue 1700 Paranaque, Philippines</p>
             </div>
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
             <div className="col-lg-6">
-              <p className="pContact1">Contact Us</p>
+              <p className="pContact1">Call Us</p>
             </div>
             <div className="col-lg-6">
               <p className="pContact2">(02) 85634498</p>

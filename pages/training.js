@@ -28,7 +28,9 @@ export default function training() {
         <div className="container h-100">
           <div className="row h-100 align-items-center">
             <div className="col-lg-12 text-center">
-              <p className="pTraining">ON THE GO RIDER TRAINING</p>
+              <div className = "form-inline text-center mx-auto" style = {{width: "max-content"}}>
+                <p className="pTraining">On - The</p> <img src = "Image/logo.png" className = "img-fluid"></img><p className="pTraining">Rider Training</p>
+              </div>
             </div>
             <div className="row rowTraining" style={{ marginTop: "-250px" }}>
               <div className="col-lg-5">

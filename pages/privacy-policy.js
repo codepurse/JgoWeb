@@ -89,7 +89,7 @@ export default function privacy_policy() {
                 Services from Participating Drivers or provide Private Carrier
                 Services to Users.
               </p>
-              <p className="pPrivacySub">
+              <p className="pPrivacySub pTitleprivacy">
                 Such personal data from or pertaining to the User are as
                 follows:
               </p>
@@ -144,7 +144,7 @@ export default function privacy_policy() {
                 B. Purpose of collection and other processing of personal
                 information by JGO
               </p>
-              <p className="pPrivacySub">
+              <p className="pPrivacySub pTitleprivacy">
                 JGO collects and otherwise processes the above personal data for
                 the following purposes:
               </p>
@@ -201,9 +201,6 @@ export default function privacy_policy() {
                   To provide Users updates on the fulfillment of Users’ Orders
                 </li>
                 <li>
-                  To provide Users updates on the fulfillment of Users’ Orders
-                </li>
-                <li>
                   To carry out research on Users’ and Participating Drivers’
                   demographics, behavior as consumer and individual preferences
                 </li>
@@ -251,10 +248,6 @@ export default function privacy_policy() {
               <p className="pPrivacySub">
                 JGO’s processing may be performed manually or through automated
                 means.
-              </p>
-              <p className="pPrivacySub pTitleprivacy">
-                B. Purpose of collection and other processing of personal
-                information by JGO
               </p>
               <ul className="ulPrivacy">
                 <li>
@@ -352,10 +345,7 @@ export default function privacy_policy() {
                 Drivers’ personal data
               </p>
               <p className="pPrivacySub">
-                Users’ and Participating Drivers’ personal data collected or
-                otherwise processed by JGO shall be stored in secure online
-                storage platforms, protected cloud infrastructure and on-site
-                drives of JGO. Users’ and Participating Drivers’ personal data
+                Users’ and Participating Drivers’ personal data
                 collected or otherwise processed by JGO shall be stored in
                 secure online storage platforms, protected cloud infrastructure
                 and on-site drives of JGO which are only accessible to JGO
@@ -387,7 +377,7 @@ export default function privacy_policy() {
               </p>
               <p className="pPrivacySub">
                 JGO shall, however, require proof of a User’s or Participating
-                Driver’s identity before granting access to said information.
+                Driver’s identity before granting them access to said information.
                 JGO reserves the right to take reasonable measures to further
                 confirm a Participating Driver’s identity before granting
                 access.
