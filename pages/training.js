@@ -102,7 +102,7 @@ export default function training() {
             <div className="col-lg-6">
               <div className="divEasy">
                 <img
-                  src="Image/jgoeasy.png"
+                  src="Image/jgoridertest.png"
                   className="img-fluid"
                   style={{ width: "250px" }}
                 ></img>
