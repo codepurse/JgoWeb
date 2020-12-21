@@ -117,6 +117,12 @@
     .conStep {
         width: 100% !important;
     }
+    .pHow {
+        font-size: 1.5rem !important;
+    }
+    .pSpot {
+        font-size: 1.8rem !important;
+    }
     .imgLogo {
         width: 100px !important;
         top: 50px !important;
@@ -207,17 +213,14 @@
         font-size: 1.5rem !important;
     }
     /* training */
-    .conTraining {
-        margin-top: 100px !important;
-    }
     .pTraining {
         font-size: 1.5rem !important;
     }
     .imgTraining {
         display: none !important;
     }
-    .rowTraining {
-        margin-top: auto !important;
+    .imgLogoTraining {
+        width: 80px !important;
     }
     .pHeaderTraining {
         font-size: 1.2rem !important

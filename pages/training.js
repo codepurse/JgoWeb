@@ -27,12 +27,13 @@ export default function training() {
       <div className="container-fluid h-100 conTraining conHide">
         <div className="container h-100">
           <div className="row h-100 align-items-center">
+          
+            <div className="row rowTraining">
             <div className="col-lg-12 text-center">
-              <div className = "form-inline text-center mx-auto" style = {{width: "max-content"}}>
-                <p className="pTraining">On - The</p> <img src = "Image/logo.png" className = "img-fluid"></img><p className="pTraining">Rider Training</p>
+              <div className = "form-inline text-center mx-auto" style = {{width: "max-content", marginBottom: "25px"}}>
+                <p className="pTraining">On - The</p> <img src = "Image/logo.png" className = "img-fluid imgLogoTraining"></img><p className="pTraining">Rider Training</p>
               </div>
             </div>
-            <div className="row rowTraining" style={{ marginTop: "-250px" }}>
               <div className="col-lg-5">
                 <img
                   src="Image/_DSC0062.png"

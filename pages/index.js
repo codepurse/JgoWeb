@@ -710,13 +710,15 @@ function driver() {
                     style={{ width: "205px", marginLeft: "15px" }}
                   ></img>
                 </div>
-                <div className="col-lg-12" style={{ padding: "2px" }}>
+               <Link href = "https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
+               <div className="col-lg-12" style={{ padding: "2px" }}>
                   <img
                     src="Image/playstore.png"
                     className="img-fluid imgButton"
                     style={{ width: "235px" }}
                   ></img>
                 </div>
+               </Link>
               </div>
             </div>
             <div
