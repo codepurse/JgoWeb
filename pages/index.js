@@ -842,7 +842,7 @@ function driver() {
                     <div className="carousel-item" id="2">
                       <p className="pCarouselTitle">Step 2</p>
                       <p className="pCarouselContent">
-                        Choose the pick up location and complete the necessary
+                        Chooe the pick up location and complete the necessary
                         details.
                       </p>
                     </div>
