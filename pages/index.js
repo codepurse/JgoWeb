@@ -220,6 +220,7 @@ function driver() {
       switch (id) {
         case "1":
           slideRef.current.goTo(0);
+            return false;
           break;
         case "2":
           slideRef.current.goTo(1);
