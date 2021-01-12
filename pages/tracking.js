@@ -59,7 +59,7 @@ export default function tracking() {
         },
       };
       const apiUrl =
-      global.config.base_api+global.config.show_driver;
+ "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
       axios
         .post(apiUrl, { tracking_id: id }, options)
         .then((result) => {

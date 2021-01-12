@@ -176,36 +176,41 @@ export default function map() {
     /* Passing localstorage value in pickoff, dropoff and map */
   }
   if (process.browser) {
-    if (global.config.place.deliver.refresh === "") {
-      global.config.place.deliver.pickofflat = localStorage.getItem(
-        "pickofflat"
-      );
-      global.config.place.deliver.pickofflng = localStorage.getItem(
-        "pickofflng"
-      );
-      global.config.place.deliver.dropofflng = localStorage.getItem(
-        "dropofflng"
-      );
-      global.config.place.deliver.dropofflat = localStorage.getItem(
-        "dropofflat"
-      );
-      const origin = {
-        address: localStorage.getItem("address"),
-        lat: parseFloat(global.config.place.deliver.pickofflat),
-        lng: parseFloat(global.config.place.deliver.pickofflng),
-        id: "1",
-      };
-      coordinate.push(origin);
-      const destination = {
-        address: localStorage.getItem("addressDrop"),
-        lat: parseFloat(global.config.place.deliver.dropofflat),
-        lng: parseFloat(global.config.place.deliver.dropofflng),
-        id: "2",
-      };
-      coordinate.push(destination);
-      console.log(coordinate);
-      global.config.place.deliver.refresh = "1";
+    if(localStorage.getItem("pickofflat") && localStorage.getItem("dropofflat")) {
+      if (global.config.place.deliver.refresh === "") {
+        global.config.place.deliver.pickofflat = localStorage.getItem(
+          "pickofflat"
+        );
+        global.config.place.deliver.pickofflng = localStorage.getItem(
+          "pickofflng"
+        );
+        global.config.place.deliver.dropofflng = localStorage.getItem(
+          "dropofflng"
+        );
+        global.config.place.deliver.dropofflat = localStorage.getItem(
+          "dropofflat"
+        );
+        const origin = {
+          address: localStorage.getItem("address"),
+          lat: parseFloat(global.config.place.deliver.pickofflat),
+          lng: parseFloat(global.config.place.deliver.pickofflng),
+          id: "1",
+        };
+        coordinate.push(origin);
+        const destination = {
+          address: localStorage.getItem("addressDrop"),
+          lat: parseFloat(global.config.place.deliver.dropofflat),
+          lng: parseFloat(global.config.place.deliver.dropofflng),
+          id: "2",
+        };
+        coordinate.push(destination);
+        console.log(coordinate);
+        global.config.place.deliver.refresh = "1";
+      }
+    }else {
+      window.location.href = "/main";
     }
+    
   } else {
   }
 
@@ -438,8 +443,9 @@ export default function map() {
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
+    console.log(value);
     var str = value.label;
-    var n = str.includes("Metro Manila");
+    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
     if (n === true) {
       setAddress(value);
       setCoordinates(latLng);
@@ -494,7 +500,7 @@ export default function map() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
-    var n = str.includes("Metro Manila");
+    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
 
     if (n === true) {
       try {
@@ -548,7 +554,7 @@ export default function map() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
-    var n = str.includes("Metro Manila");
+    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
     if (n === true) {
       if (click === 3) {
         setStop3(value);
@@ -618,13 +624,17 @@ export default function map() {
 
   function getWeight(e) {
     $(".pWeight").text(e.target.value);
-    if (e.target.value < 11) {
-      setWeight("0-10KG");
+    if (e.target.value < 6) {
+      setWeight("0-5KG");
       $(".imgWeight1").fadeIn(150);
       $(".imgWeight2").fadeOut(150);
+    } else if (e.target.value < 11) {
+      setWeight("6-10KG");
     } else if (e.target.value < 16) {
       setWeight("11-15KG");
-    } else if (e.target.value < 21) {
+      $(".imgWeight1").fadeOut(150);
+      $(".imgWeight2").fadeIn(150);
+    }else if (e.target.value < 21) {
       setWeight("16-20KG");
       $(".imgWeight1").fadeOut(150);
       $(".imgWeight2").fadeIn(150);
@@ -1532,7 +1542,8 @@ export default function map() {
     $(".imgCheck").hide();
     $(".divCod").css("border", "1px solid #373A41");
     $(e.currentTarget).find(".imgCheck").fadeIn(150);
-
+    console.log(wallet);
+    console.log(price);
     $(e.currentTarget).css("border", "1px solid #FDBF00");
     if (wallet < price) {
       $(".pWalletno").show();

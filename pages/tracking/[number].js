@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import Googlemap from "../../component/map/maptracking";
 import Header from "../../component/header";
+import  "../../services/api.service";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Componentdidmount from "../../component/componentdidmount";
@@ -88,103 +89,10 @@ function Post() {
         },
       };
       const apiUrl =
-        "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
+      appglobal.api.base_api+appglobal.api.showdriver_location;
       axios
         .post(apiUrl, { tracking_id: { number } }, options)
         .then((result) => {
-          if (result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
-            router.push("../404");
-          }else {
-            console.log(result.data.data);
-            setDropoffloc(
-              result.data.data.booking_details.booking_drop_off_location
-            );
-            setBooking(result.data.data);
-            setTrackingnum(result.data.data.booking_details.tracking_id);
-            setDriverloc(result.data.data.driver_location[0]);
-            try {
-              setMobile(result.data.data.booking_details.driver.mobile_no);
-            } catch (e) {}
-            setPickup(result.data.data.booking_details.pick_up_address);
-            setPickupname(result.data.data.booking_details.contact_name);
-            setPickupmobile(result.data.data.booking_details.contact_number);
-            setPickupnote(result.data.data.booking_details.note);
-            setDriverlat(result.data.data.driver_location[0].driver_latitude);
-            setDriverlng(result.data.data.driver_location[0].driver_longitude);
-            try {
-              setDriver(
-                result.data.data.booking_details.driver.fname +
-                  " " +
-                  result.data.data.booking_details.driver.lname
-              );
-              setProfilepic(
-                "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
-                  result.data.data.booking_details.driver.profile_pic
-              );
-              setEstimated(result.data.data.booking_details.duration);
-            } catch (e) {}
-  
-            const pickoffloc = {
-              id: 5,
-              name: "",
-              lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
-              lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
-              icon: "../Image/navigation.png",
-            };
-            tracks.push(pickoffloc);
-            router.push("/tracking/" + number);
-          }
-          
-        })
-        .catch((err) => {
-          if (err.response.status == 500) {
-            router.push("../404");
-          }else {
-
-          }
-        });
-    }, 10000);
-
-    return () => clearInterval(interval);
-  });
-
-  function sendSms() {
-    if (/Android/i.test(navigator.userAgent)) {
-   
-      window.location.href = `sms:${mobile};?&body=sample`
-    }
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.location.href = `sms:${mobile};?&body=sample`
-    }
-  }
-
-  useEffect(() => {
-    let scripts = [{ src: "../Script/jgo.js" }];
-    scripts.map((item) => {
-      const script = document.createElement("script");
-      script.src = item.src;
-      script.async = true;
-      document.body.appendChild(script);
-    });
-    tracks.length = 0;
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
-    const apiUrl =
-      "https://staging-api.jgo.com.ph/api/auth/show-driver-location";
-    axios
-      .post(apiUrl, { tracking_id: { number } }, options)
-      .then((result) => {
-        if  (result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
-          router.push("../404");
-        } else {
-          $(".conSearchtrack").hide();
-          $(".conTracking").fadeIn(150);
           console.log(result.data.data);
           setDropoffloc(
             result.data.data.booking_details.booking_drop_off_location
@@ -213,8 +121,7 @@ function Post() {
             );
             setEstimated(result.data.data.booking_details.duration);
           } catch (e) {}
-  
-          $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
+
           const pickoffloc = {
             id: 5,
             name: "",
@@ -222,17 +129,109 @@ function Post() {
             lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
             icon: "../Image/navigation.png",
           };
-  
           tracks.push(pickoffloc);
           router.push("/tracking/" + number);
+        })
+        .catch((err) => {
+          if (err.response.status == 500) {
+            router.push("../404");
+          }else {
+
+          }
+        });
+    }, 10000);
+
+    return () => clearInterval(interval);
+  });
+
+  function sendSms() {
+    if (/Android/i.test(navigator.userAgent)) {
+   
+      window.location.href = `sms:${mobile};?&body=sample`
+    }
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      window.location.href = `sms:${mobile};?&body=sample`
+    }
+  }
+
+  useEffect(() => {
+    console.log(appglobal.api.base_api+appglobal.api.showdriver_location);
+    let scripts = [{ src: "../Script/jgo.js" }];
+    scripts.map((item) => {
+      const script = document.createElement("script");
+      script.src = item.src;
+      script.async = true;
+      document.body.appendChild(script);
+    });
+    tracks.length = 0;
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrl =
+    appglobal.api.base_api+appglobal.api.showdriver_location;
+    
+    axios
+      .post(apiUrl, { tracking_id: { number } }, options)
+      .then((result) => {
+        if(result.data.data.booking_details.status == "Canceled" || result.data.data.booking_details.status == "Complete") {
+          router.push("/404")
+        }else {
+        $(".conSearchtrack").hide();
+        $(".conTracking").fadeIn(150);
+        console.log(result.data.data);
+        setDropoffloc(
+          result.data.data.booking_details.booking_drop_off_location
+        );
+        setBooking(result.data.data);
+        setTrackingnum(result.data.data.booking_details.tracking_id);
+        setDriverloc(result.data.data.driver_location[0]);
+        try {
+          setMobile(result.data.data.booking_details.driver.mobile_no);
+        } catch (e) {}
+        setPickup(result.data.data.booking_details.pick_up_address);
+        setPickupname(result.data.data.booking_details.contact_name);
+        setPickupmobile(result.data.data.booking_details.contact_number);
+        setPickupnote(result.data.data.booking_details.note);
+        setDriverlat(result.data.data.driver_location[0].driver_latitude);
+        setDriverlng(result.data.data.driver_location[0].driver_longitude);
+        try {
+          setDriver(
+            result.data.data.booking_details.driver.fname +
+              " " +
+              result.data.data.booking_details.driver.lname
+          );
+          setProfilepic(
+            "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+              result.data.data.booking_details.driver.profile_pic
+          );
+          setEstimated(result.data.data.booking_details.duration);
+        } catch (e) {}
+
+        $(".divBookDetails, .divDriver, .divPickoff").fadeIn(200);
+        const pickoffloc = {
+          id: 5,
+          name: "",
+          lat: parseFloat(result.data.data.booking_details.pick_up_latitude),
+          lng: parseFloat(result.data.data.booking_details.pick_up_longitude),
+          icon: "../Image/navigation.png",
+        };
+
+        tracks.push(pickoffloc);
+        router.push("/tracking/" + number);
         }
-       
+
+        
       })
       .catch((err) => {
         if (err.response.status == 500) {
-         
+          router.push("/404")
         }else {
-
+          router.push("/404")
         }
       });
   }, [number]);
@@ -453,7 +452,7 @@ function Post() {
                               <div className="col-lg-6 col-4 col-sm-4">
                                 <p className="pPickTrack">Number</p>
                                 <p className="pFullname pPickLock">
-                                  {event.contact_no}
+                                  {event.contact_number}
                                 </p>
                               </div>
                               <div

@@ -35,7 +35,7 @@ export class footer extends Component {
             </div>
           </div>
           <div className="col-lg-6 col-sm-12">
-            <ul className="ulFooter ml-auto">
+            <ul className="ulFooter ml-auto divUlFooter">
               <li className="liFooter">
                 <Link href="/faq#contact">
                   <a href="#news">CONTACT US</a>
@@ -52,17 +52,24 @@ export class footer extends Component {
                 </li>
               </Link>
             </ul>
-            <div className="text-right" style={{ marginTop: "-20px" }}>
+            <div className="text-right divFooterIcon" style={{marginTop:"-10px", marginRight: "300px" }}>
+               <Link href="https://www.facebook.com/JGOph">
+                <img
+                  src="Image/facebook-app-symbol.png"
+                  className="img-fluid imgSocialfooter"
+                  style={{ width: "25px", marginRight: "10px", cursor: "pointer" }}
+                />
+              </Link>
               <Link href="https://www.instagram.com/jgo_ph/?fbclid=IwAR1BzxdovtGg6c0jQU3A3m66nnbUInMwQUseBWzTSBr5YKzIYS5sVfQbsbg">
                 <img
                   src="Image/instagram.png"
                   className="img-fluid imgSocialfooter"
-                  style={{ width: "25px", margin: "5px", cursor: "pointer" }}
+                  style={{ width: "25px", marginRight: "10px", cursor: "pointer" }}
                 />
               </Link>
-              <Link href="https://www.facebook.com/JGOph">
+              <Link href="https://www.instagram.com/jgo_ph/?fbclid=IwAR1BzxdovtGg6c0jQU3A3m66nnbUInMwQUseBWzTSBr5YKzIYS5sVfQbsbg">
                 <img
-                  src="Image/facebook-app-symbol.png"
+                  src="Image/twitter.png"
                   className="img-fluid imgSocialfooter"
                   style={{ width: "25px", margin: "5px", cursor: "pointer" }}
                 />

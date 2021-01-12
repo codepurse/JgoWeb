@@ -157,7 +157,6 @@
         width: auto !important;
         text-align: justify !important;
     }
-
     .imgButtontra {
         width: 180px !important;
     }
@@ -717,6 +716,7 @@ hr {
     margin: 0 auto;
     margin-top: 5px;
     display: block;
+    cursor: pointer;
 }
 
 .pDont {
@@ -1633,11 +1633,11 @@ hr {
 }
 
 .conDriver2 {
-    padding-bottom: 0%;
+    padding-bottom: 5%;
     padding-top: 5%;
     background-color: white;
     position: relative;
-    max-height: 650px;
+    max-height: 8000px;
 }
 
 .imgBar {
@@ -1663,40 +1663,70 @@ hr {
     font-size: 3rem;
 }
 
+.each-slide>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 400px;
+}
+
+.divCarouselslide {
+    background-color: yellow;
+    width: 40%;
+}
+
+.slide-container {
+    margin-top: 80px !important;
+}
+
+.imgnewPhone {
+    z-index: 2;
+    width: 55%;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: -20px;
+}
+
+
 .center {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     height: 100vh;
-  }
-  
-  .circlepulse {
+}
+
+.circlepulse {
     width: 137px;
     height: 137px;
     border-radius: 50%;
     box-shadow: 0px 0px 1px 1px #0000001a;
-    position:absolute;
-    left:39.2%;
+    position: absolute;
+    left: 39.2%;
     top: 15.1%;
-  }
+}
 
-  .orange{
+.orange {
     background: #f17c57fa;
 }
-  
-  .pulse {
+
+.pulse {
     animation: pulse-animation 1.5s infinite;
     display: none;
-  }
-  
-  @keyframes pulse-animation {
+}
+
+@keyframes pulse-animation {
     0% {
-      box-shadow: 0 0 0 0px rgba(241,234,12, 0.8);
+        box-shadow: 0 0 0 0px rgba(241, 234, 12, 0.8);
     }
     100% {
-      box-shadow: 0 0 0 10px rgba(241,234,12, 0);
+        box-shadow: 0 0 0 10px rgba(241, 234, 12, 0);
     }
-  }
+}
 
 .pCarouselTitleMain {
     font-family: 'ProximaNovaBlack', sans-serif;
@@ -1821,11 +1851,10 @@ hr {
     max-width: 650px;
     margin: 0 auto;
     margin-top: 10px;
-  
 }
 
 .pSpot {
-    font-family: 'ProximaNovaBlack', sans-serif; 
+    font-family: 'ProximaNovaBlack', sans-serif;
     color: #FFE900;
     font-size: 2.5rem;
     margin-bottom: 5px;
@@ -3604,7 +3633,7 @@ label:active:after {
     color: #323232;
     font-size: 1.2rem;
     text-align: center;
-    margin-bottom: 0px; 
+    margin-bottom: 0px;
     margin-top: 30px;
 }
 
@@ -3622,8 +3651,10 @@ label:active:after {
 .p13 {
     font-family: 'GilroyMedium';
     color: #323232;
-    margin-top:10px;
+    margin-top: 10px;
 }
+
+.imgJievo {}
 
 .conSino1 {
     padding: 40px 5px;
@@ -3725,7 +3756,7 @@ label:active:after {
 .accordion button:hover, .accordion button:focus {
     cursor: pointer;
     color: #FBAA29;
-     outline: none !important;
+    outline: none !important;
 }
 
 .accordion button:hover::after, .accordion button:focus::after {
@@ -3923,8 +3954,14 @@ video {
     font-size: 1.1rem;
 }
 
+.pTitleTerms {
+    font-family: 'GilroyBold';
+    color: whitesmoke;
+    font-size: 1.5rem;
+}
+
 .pTitleprivacy {
-    color: #FFDD9A;
+    color: #f1cd79;
     margin-top: 30px;
 }
 
@@ -4620,7 +4657,7 @@ video {
 }
 
 .p12 {
-    font-family: "ProximaNova";
+    font-family: 'GilroyMedium';
     color: #EDF4F3;
     font-size: 1rem;
     margin-top: -10px;

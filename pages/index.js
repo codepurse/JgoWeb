@@ -14,11 +14,14 @@ import { useRouter } from "next/router";
 import NextNprogress from "nextjs-progressbar";
 import Mobilenav from "../component/mobilenav";
 import Navbar from "../component/navbar1";
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
 
 function driver() {
   const router = useRouter();
   var clear = 0;
   var submitClick = 0;
+  const slideRef = useRef();
   const [fname, setfname] = React.useState("");
   const [lname, setlname] = React.useState("");
   const [mname, setmname] = React.useState("");
@@ -149,6 +152,20 @@ function driver() {
   const [region_change, setRegionChange] = React.useState("");
   const [province_change, setProvinceChange] = React.useState("");
   const [cities_change, setCitiesChange] = React.useState("");
+  const slideImages = [
+    "Image/slide1.jpg",
+    "Image/slide2.jpg",
+    "Image/slide3.jpg",
+    "Image/slide4.jpg",
+    "Image/slide5.jpg"
+  ];
+  const properties = {
+    transitionDuration: 200,
+    autoplay: false,
+    arrows: false,
+  };
+
+
 
   function HandleChangeRegion(e) {
     try {
@@ -198,9 +215,35 @@ function driver() {
   }
 
   useEffect(() => {
+    $("#carouselExampleIndicators").on("slid.bs.carousel", function onSlide(ev) {
+      var id = ev.relatedTarget.id;
+      switch (id) {
+        case "1":
+          slideRef.current.goTo(0);
+          break;
+        case "2":
+          slideRef.current.goTo(1);
+          return false;
+          break;
+        case "3":
+           slideRef.current.goTo(2);
+          break;
+        case "4":
+          slideRef.current.goTo(3);
+          break;
+        case "5":
+          slideRef.current.goTo(4);
+          break;
+        default:
+        //the id is none of the above
+      }
+    });
+
     if (localStorage.getItem("showmodal") == 1) {
       $("#driverModal").modal("toggle");
       localStorage.setItem("showmodal", "0");
+    } else {
+      
     }
     setErrvehicle("1");
     console.clear();
@@ -706,19 +749,19 @@ function driver() {
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <img
                     src="Image/appstore.png"
-                    className="img-fluidi imgButton"
+                    className="img-fluid imgButton"
                     style={{ width: "205px", marginLeft: "15px" }}
                   ></img>
                 </div>
-               <Link href = "https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
-               <div className="col-lg-12" style={{ padding: "2px" }}>
-                  <img
-                    src="Image/playstore.png"
-                    className="img-fluid imgButton"
-                    style={{ width: "235px" }}
-                  ></img>
-                </div>
-               </Link>
+                <Link href="https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
+                  <div className="col-lg-12" style={{ padding: "2px" }}>
+                    <img
+                      src="Image/playstore.png"
+                      className="img-fluid imgButton"
+                      style={{ width: "235px" }}
+                    ></img>
+                  </div>
+                </Link>
               </div>
             </div>
             <div
@@ -832,30 +875,43 @@ function driver() {
               </div>
             </div>
             <div className="col-lg-5 colHand">
-              <img
-                src="Image/carousel1.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand"
-              ></img>
-              <img
-                src="Image/carousel2.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand2"
-                style={{ display: "none" }}
-              ></img>
-              <img
-                src="Image/carousel3.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand3"
-                style={{ display: "none" }}
-              ></img>
-              <img
-                src="Image/carousel4.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand4"
-                style={{ display: "none" }}
-              ></img>
-              <img
-                src="Image/carousel5.png"
-                className="img-fluid mx-auto imgPhone1 imgPhonehand5"
-                style={{ display: "none" }}
-              ></img>
+              <div style={{ position: "relative" }}>
+                <img
+                  src="Image/newphone.png"
+                  className="img-fluid imgnewPhone mx-auto d-flex"
+                ></img>
+                <div className="divCarouselslide mx-auto">
+                  <div className="slide-container">
+                    <Slide ref={slideRef} {...properties}>
+                      <div className="each-slide">
+                        <div
+                          style={{ backgroundImage: `url(${slideImages[0]})` }}
+                        ></div>
+                      </div>
+                      <div className="each-slide">
+                        <div
+                          style={{ backgroundImage: `url(${slideImages[1]})` }}
+                        ></div>
+                      </div>
+                      <div className="each-slide">
+                        <div
+                          style={{ backgroundImage: `url(${slideImages[2]})` }}
+                        ></div>
+                      </div>
+                       <div className="each-slide">
+                        <div
+                          style={{ backgroundImage: `url(${slideImages[3]})` }}
+                        ></div>
+                      </div>
+                      <div className="each-slide">
+                        <div
+                          style={{ backgroundImage: `url(${slideImages[4]})` }}
+                        ></div>
+                      </div>
+                    </Slide>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

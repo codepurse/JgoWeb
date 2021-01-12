@@ -52,7 +52,9 @@ export default function App() {
   }, []);
 
   function getAdd() {
-    if (global.config.place.deliver.pickoff.includes("Metro Manila") === true) {
+    var str = global.config.place.deliver.pickoff;
+     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
+    if (n === true) {
       if (click === 0) {
         coordinates.lat = global.config.place.deliver.pickofflat;
         coordinates.lng = global.config.place.deliver.dropofflang;
@@ -201,7 +203,7 @@ export default function App() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
-    var n = str.includes("Metro Manila");
+    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
     if (n === true) {
       setAddress(value);
       setCoordinates(latLng);
@@ -233,7 +235,7 @@ export default function App() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
-    var n = str.includes("Metro Manila");
+    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
 
     if (n === true) {
       setAddressDrop(value);

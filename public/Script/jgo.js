@@ -51,6 +51,7 @@ $(document).ready(function () {
     if (width < 500) {
       $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 160px)");
     }
+
   });
 
   $(".closeChat").click(function () {
@@ -300,33 +301,7 @@ $(document).ready(function () {
     $(".divCovid").fadeOut(200);
   });
 
-  $("#carouselExampleIndicators").on("slid.bs.carousel", function onSlide(ev) {
-    var id = ev.relatedTarget.id;
-    switch (id) {
-      case "1":
-        $(".imgPhone1").hide();
-        $(".imgPhonehand").fadeIn(200);
-        break;
-      case "2":
-        $(".imgPhone1").hide();
-        $(".imgPhonehand2").fadeIn(200);
-        break;
-      case "3":
-        $(".imgPhone1").hide();
-        $(".imgPhonehand3").fadeIn(200);
-        break;
-      case "4":
-        $(".imgPhone1").hide();
-        $(".imgPhonehand4").fadeIn(200);
-        break;
-      case "5":
-        $(".imgPhone1").hide();
-        $(".imgPhonehand5").fadeIn(200);
-        break;
-      default:
-      //the id is none of the above
-    }
-  });
+ 
 
   $(".txtNumber").keypress(function (e) {
     if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
@@ -420,18 +395,7 @@ $(document).ready(function () {
   });
 
   $(".pBack").click(function () {
-    if (
-      confirm(
-        "Are you sure you want to register again? Your mobile number will not be available in the next 5 minutes."
-      )
-    ) {
-      $("#modalRegister").modal("toggle");
-      $("#modalOtp").modal("toggle");
-      sessionStorage.removeItem("otp");
-      console.log("Thing was saved to the database.");
-    } else {
-      console.log("Thing was not saved to the database.");
-    }
+    
   });
 
   function light() {

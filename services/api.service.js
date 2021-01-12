@@ -6,9 +6,11 @@ module.exports = appglobal = {
     register: "/api/auth/register",
     google_login: "/api/auth/google/details",
     facebook_login: "/api/auth/facebook/details",
-    check_number: "/api/auth/check-if-number-exist",
+    check_number: "/api/check-if-number-exist",
     send_otp: "/api/sms/send/otp/",
     verify_otp: "/api/sms/verify/otp/",
+    cancel_otp: "/api/sms/otp/cancel/",
+    check_number_otp: "/api/sms/otp/mobile_number/check/has-open-request/",
     forgot_password: "/api/send-password-link",
     show_driver: "/api/auth/show-driver-location",
     transaction_history: "/api/auth/ctransaction-history",
@@ -28,5 +30,6 @@ module.exports = appglobal = {
     additional_services: "/api/auth/additional_services",
     calculate_rate: "/api/auth/calculate-rate",
     booking: "/api/auth/booking",
+    showdriver_location: "/api/auth/show-driver-location"
   },
 };

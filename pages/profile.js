@@ -310,6 +310,7 @@ export default function profile() {
               options
             )
             .then((result) => {
+              console.log(result);
               $("#exampleModal").modal("hide");
               $(".modal-backdrop").hide();
               swal(
@@ -354,6 +355,7 @@ export default function profile() {
     const apiUrl = appglobal.api.base_api+appglobal.api.cancel_booking;
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
+      console.log(result);
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
 
@@ -863,8 +865,7 @@ export default function profile() {
   }
 
   function logout() {
-    AuthService.logout();
-    router.push("/");
+    router.push("/logout");
   }
 
   function profile() {
@@ -2036,7 +2037,7 @@ export default function profile() {
           >
             <div className="divProfilepic">
               <img
-                src={profilepic}
+               src={profilepic ? profilepic : "Image/profile.jpg"}
                 className="img-fluid imgProfileDash mx-auto d-flex"
                 onClick={onBtnClick}
               ></img>

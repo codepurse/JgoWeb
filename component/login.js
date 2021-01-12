@@ -3,7 +3,7 @@ import axios from "axios";
 import swal from "@sweetalert/with-react";
 import { GoogleLogin } from "react-google-login";
 import Select from "react-select";
-import  "../services/api.service";
+import "../services/api.service";
 import router, { useRouter } from "next/router";
 const regions = require("philippines/regions");
 const province = require("philippines/provinces");
@@ -60,6 +60,7 @@ if (process.browser) {
 }
 
 function btntry() {
+  sign;
   document.getElementById("aUsername").innerHTML = "ASdas";
 }
 
@@ -110,6 +111,8 @@ export class login extends Component {
       otp2: "",
       otp3: "",
       otp4: "",
+      otpnumber: "",
+      seconds: 300,
     };
 
     this.login = this.login.bind(this);
@@ -123,7 +126,7 @@ export class login extends Component {
         "content-type": "application/json",
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.google_login;
+    const apiUrl = appglobal.api.base_api + appglobal.api.google_login;
     axios
       .post(
         apiUrl,
@@ -181,7 +184,7 @@ export class login extends Component {
       },
     };
 
-    const apiUrl = appglobal.api.base_api+appglobal.api.facebook_login;
+    const apiUrl = appglobal.api.base_api + appglobal.api.facebook_login;
 
     axios
       .post(
@@ -195,7 +198,7 @@ export class login extends Component {
         options
       )
       .then((result) => {
-        if (result.data.message) {
+        if (result.data.status === "failed") {
           this.setState({ email: response.email });
           this.setState({ fname: response.first_name });
           this.setState({ lname: response.last_name });
@@ -205,7 +208,7 @@ export class login extends Component {
           window.location.reload();
           console.log(result.data);
         }
-        console.log(result.data);
+        console.log(result.data.status);
       })
       .catch((err) => {
         console.log(err);
@@ -214,6 +217,7 @@ export class login extends Component {
   };
 
   goOtp(e) {
+    var submit = 0;
     var clear = 0;
     e.preventDefault();
     $(e.currentTarget).addClass("btn--loading");
@@ -271,72 +275,178 @@ export class login extends Component {
     var firstchar = str.charAt(0);
     if (firstchar == "0" || firstchar == 0) {
       var str = str.replace(/^./, "63");
+      this.setState({ otpnumber: str });
       console.log(str);
     } else {
       console.log(str);
     }
 
-    if (clear == 0) {
+    if (clear == 0 && submit == 0) {
+      submit == 1;
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
           "content-type": "application/json",
         },
       };
-      const apiUrl = appglobal.api.base_api+appglobal.api.check_number;
+      const apiUrl = appglobal.api.base_api + appglobal.api.check_number;
       axios
         .post(apiUrl, { mobile_no: this.state.mobile }, options)
         .then((result) => {
+          console.log(result);
           const options = {
             headers: {
               Accept: "application/json, text/plain, */*",
               "content-type": "application/json",
             },
           };
-          const apiUrl =
-          appglobal.api.base_api+appglobal.api.send_otp + str;
+          const apiUrl = appglobal.api.base_api + appglobal.api.send_otp + str;
 
           axios
             .post(apiUrl, {}, options)
             .then((result) => {
+              submit == 0;
               clear == 0;
               $(".btn").removeClass("btn--loading");
-              console.log(result.data.request_id);
+              console.log(result.data);
+              localStorage.setItem("requestid", result.data.request_id);
               this.setState({ requestid: result.data.request_id });
               sessionStorage.setItem("otp", "1");
+              localStorage.setItem("createotpdate", result.data.timestamp);
               $("#modalRegister").modal("toggle");
+              this.timer();
               $("#modalOtp").modal("toggle");
             })
             .catch((err) => {
-              swal(
-                <div style={{ width: "450px", padding: "10px" }}>
-                  <div className="container">
-                    <div
-                      className="row align-items-center"
-                      style={{ borderLeft: "3px solid #c62828" }}
-                    >
-                      <div className="col-lg-2">
-                        <img
-                          src="Image/warning.png"
-                          style={{ width: "32px" }}
-                        ></img>
+              console.log(err.response.data.error);
+
+              if (
+                err.response.data.error ==
+                "Concurrent verifications to the same number are not allowed"
+              ) {
+                var now = moment(new Date()); //todays date
+                var end = moment(localStorage.getItem("createotpdate")); // another date
+                var duration = moment.duration(now.diff(end));
+                var min = Math.floor(duration.asSeconds());
+                console.log(min);
+                if (min > 40) {
+                  const options = {
+                    headers: {
+                      Accept: "application/json, text/plain, */*",
+                      "content-type": "application/json",
+                    },
+                  };
+                  const apiUrl =
+                    appglobal.api.base_api +
+                    appglobal.api.cancel_otp +
+                    localStorage.getItem("requestid");
+                  axios
+                    .post(apiUrl, options)
+                    .then((result) => {
+                      console.log(result.data);
+                      const options = {
+                        headers: {
+                          Accept: "application/json, text/plain, */*",
+                          "content-type": "application/json",
+                        },
+                      };
+                      const apiUrl =
+                        appglobal.api.base_api + appglobal.api.send_otp + "639668767701";
+                      axios.post(apiUrl, options).then((result) => {
+                        console.log(result.data);
+                        this.setState({ seconds: 300 });
+                        clearInterval(interval);
+                        this.timer();
+                      });
+                    })
+            
+                    .catch((err) => {
+                      console.log(err);
+                      $(".btn").removeClass("btn--loading");
+            
+                      swal(
+                        <div style={{ width: "450px", padding: "10px" }}>
+                          <div className="container">
+                            <div
+                              className="row align-items-center"
+                              style={{ borderLeft: "3px solid #c62828" }}
+                            >
+                              <div className="col-lg-2">
+                                <img
+                                  src="Image/warning.png"
+                                  style={{ width: "32px" }}
+                                ></img>
+                              </div>
+                              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                                <p className="pError">Error</p>
+                                <p className="pErrorSub">
+                                  Someting went wrong. PLease try again later.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    });
+                } else {
+                  swal(
+                    <div style={{ width: "450px", padding: "10px" }}>
+                      <div className="container">
+                        <div
+                          className="row align-items-center"
+                          style={{ borderLeft: "3px solid #c62828" }}
+                        >
+                          <div className="col-lg-2">
+                            <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                          </div>
+                          <div className="col-lg-10" style={{ textAlign: "left" }}>
+                            <p className="pError">Error</p>
+                            <p className="pErrorSub">
+                            Someting went wrong. PLease try again later.
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="col-lg-10" style={{ textAlign: "left" }}>
-                        <p className="pError">Error</p>
-                        <p className="pErrorSub">
-                          OTP not sent. Please try again or contact our customer
-                          support.
-                        </p>
+                    </div>
+                  );
+                }
+              } else {
+                swal(
+                  <div style={{ width: "450px", padding: "10px" }}>
+                    <div className="container">
+                      <div
+                        className="row align-items-center"
+                        style={{ borderLeft: "3px solid #c62828" }}
+                      >
+                        <div className="col-lg-2">
+                          <img
+                            src="Image/warning.png"
+                            style={{ width: "32px" }}
+                          ></img>
+                        </div>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
+                          <p className="pError">Error</p>
+                          <p className="pErrorSub">
+                            OTP not sent. Please try again or contact our
+                            customer support.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
+                );
+              }
+
               $(".btn").removeClass("btn--loading");
             });
         })
         .catch((err) => {
+          console.log(err);
           $(".btn").removeClass("btn--loading");
+
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -364,9 +474,22 @@ export class login extends Component {
     }
   }
 
+  timer() {
+    this.setState({ seconds: 300 });
+    var interval = setInterval(() => {
+      this.setState({ seconds: this.state.seconds - 1 });
+      if (this.state.seconds == 0) {
+        this.setState({ seconds: "EXPIRED" });
+        console.log("stop");
+      }
+    }, 1000);
+  }
+
   checkotp() {
     if (sessionStorage.getItem("otp") == 1) {
+      localStorage.setItem("mobileno", this.state.mobile);
       $("#modalOtp").modal("toggle");
+      this.timer();
     } else {
       $("#modalRegister").modal("toggle");
     }
@@ -393,6 +516,101 @@ export class login extends Component {
         </div>
       </div>
     );
+  }
+
+  backregister(e) {
+    $("#modalRegister").modal("toggle");
+    $("#modalOtp").modal("toggle");
+    sessionStorage.removeItem("otp");
+  }
+
+  resendOtp(e) {
+    var now = moment(new Date()); //todays date
+    var end = moment(localStorage.getItem("createotpdate")); // another date
+    var duration = moment.duration(now.diff(end));
+    var min = Math.floor(duration.asSeconds());
+    console.log(min);
+    if (min > 40) {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+      const apiUrl =
+        appglobal.api.base_api +
+        appglobal.api.cancel_otp +
+        localStorage.getItem("requestid");
+      axios
+        .post(apiUrl, options)
+        .then((result) => {
+          console.log(result.data);
+          const options = {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "content-type": "application/json",
+            },
+          };
+          const apiUrl =
+            appglobal.api.base_api + appglobal.api.send_otp + "639668767701";
+          axios.post(apiUrl, options).then((result) => {
+            console.log(result.data);
+            this.setState({ seconds: 300 });
+            clearInterval(interval);
+            this.timer();
+          });
+        })
+
+        .catch((err) => {
+          console.log(err);
+          $(".btn").removeClass("btn--loading");
+
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #c62828" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      Someting went wrong. PLease try again later.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        });
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #c62828" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/warning.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">
+                  Cannot resend the otp within the first 30 seconds.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   showpass(e) {
@@ -423,6 +641,7 @@ export class login extends Component {
       label: d.name,
     }));
     this.setState({ regions_api: data_regions });
+    localStorage.removeItem("createdotpdate");
   }
 
   Email(event) {
@@ -453,7 +672,7 @@ export class login extends Component {
         },
       };
 
-      const apiUrl = appglobal.api.base_api+appglobal.api.login;
+      const apiUrl = appglobal.api.base_api + appglobal.api.login;
       axios
         .post(
           apiUrl,
@@ -599,7 +818,9 @@ export class login extends Component {
         "content-type": "application/json",
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.verify_otp +
+    const apiUrl =
+      appglobal.api.base_api +
+      appglobal.api.verify_otp +
       this.state.requestid +
       "/" +
       this.state.otp1 +
@@ -635,6 +856,7 @@ export class login extends Component {
           );
           formdata.set("email", this.state.email);
           formdata.set("mobile_no", this.state.mobile);
+          localStorage.setItem("mobileno", this.state.mobile);
           formdata.set("address", this.state.address);
           formdata.set("city", this.state.city);
           formdata.set("state", this.state.province);
@@ -658,7 +880,7 @@ export class login extends Component {
           formdata.set("password_confirmation", this.state.passwordconfirm);
         }
 
-        const apiUrl = appglobal.api.base_api+appglobal.api.register;
+        const apiUrl = appglobal.api.base_api + appglobal.api.register;
         axios
           .post(apiUrl, formdata, options1)
           .then((result) => {
@@ -733,7 +955,7 @@ export class login extends Component {
           "content-type": "application/json",
         },
       };
-      const apiUrl = appglobal.api.base_api+appglobal.api.forgot_password;
+      const apiUrl = appglobal.api.base_api + appglobal.api.forgot_password;
       let formdata = new FormData();
       formdata.set("email", this.state.forgotemail);
       axios
@@ -1174,7 +1396,12 @@ export class login extends Component {
                 <div className="container">
                   <div className="row">
                     <div className="col-lg-12 text-left">
-                      <p className="pBack">&#8592; Back</p>
+                      <p
+                        className="pBack"
+                        onClick={this.backregister.bind(this)}
+                      >
+                        &#8592; Back
+                      </p>
                     </div>
                     <div className="col-lg-12">
                       <p className="pModalVerify text-center">
@@ -1229,10 +1456,24 @@ export class login extends Component {
                       </form>
                     </div>
                     <div className="col-lg-12">
+                      <div
+                        id="timer"
+                        className="pCancelbook"
+                        style={{ marginTop: "0px" }}
+                      >
+                        {this.state.seconds}
+                      </div>
+                      <p
+                        className="pCancelbook"
+                        style={{ marginTop: "10px" }}
+                        onClick={this.resendOtp.bind(this)}
+                      >
+                        Resend Otp
+                      </p>
                       <a
                         className="btn btnotp"
                         onClick={this.register.bind(this)}
-                        style={{ marginTop: "5px" }}
+                        style={{ marginTop: "18px" }}
                       >
                         Confirm
                         <span style={{ marginLeft: "40px" }}>
