@@ -27,6 +27,8 @@ module.exports = appglobal = {
     topup_jgowallet: "/api/auth/topUpJGOWallet",
     client_tickets: "/api/client_tickets",
     cancel_booking: "/api/auth/cancelBookings",
+    hold_booking: "/api/auth/holdBookings",
+    retry_booking: "/api/auth/retryBookings",
     additional_services: "/api/auth/additional_services",
     calculate_rate: "/api/auth/calculate-rate",
     booking: "/api/auth/booking",

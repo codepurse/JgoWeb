@@ -71,7 +71,7 @@ export default function profile() {
 
   const [listtickets, setListticket] = React.useState([]);
   const inputFileRef = useRef(null);
-
+  const [timer, setTimer] = React.useState("");
 
   function handleFile(e) {
     const reader = new FileReader();
@@ -109,7 +109,6 @@ export default function profile() {
       router.push("/tracking");
     }
   }
-
 
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
@@ -298,7 +297,7 @@ export default function profile() {
               xsrfHeaderName: "X-XSRF-TOKEN",
             },
           };
-          const apiUrl = appglobal.api.base_api+appglobal.api.cancel_booking;
+          const apiUrl = appglobal.api.base_api + appglobal.api.cancel_booking;
 
           axios
             .post(
@@ -343,6 +342,7 @@ export default function profile() {
   }
 
   function cancelbook() {
+    console.log(latestbook);
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -352,13 +352,14 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.cancel_booking;
+    const apiUrl = appglobal.api.base_api + appglobal.api.cancel_booking;
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
       console.log(result);
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
-
+      $("#modalRebook").modal("hide");
+      localStorage.removeItem("latestbookingdate");
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -382,8 +383,6 @@ export default function profile() {
       refresh();
     });
   }
-
- 
 
   function successMessage() {
     swal(
@@ -452,19 +451,15 @@ export default function profile() {
     cancel();
   }
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    console.log("asdas");
-  },[refreshPage]);
 
 
   useEffect(() => {
     window.reactFunction = () => {
       console.log("Test");
     };
-    window.fn = function(){
+    window.fn = function () {
       console.log("Test");
-    }
+    };
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -482,7 +477,7 @@ export default function profile() {
           refresh();
         } else if (mes.message.status == "Arrived") {
           refresh();
-        }else if (mes.message.status == "Cancelled") {
+        } else if (mes.message.status == "Cancelled") {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -491,11 +486,16 @@ export default function profile() {
                   style={{ borderLeft: "3px solid #FFE900" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/complain.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/complain.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Warning</p>
-                    <p className="pErrorSub">Your booking was cancelled by the driver.</p>
+                    <p className="pErrorSub">
+                      Your booking was cancelled by the driver.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -605,6 +605,32 @@ export default function profile() {
     }),
   };
 
+  function holdTimer() {
+    var now = moment(new Date()); //todays date
+    var end = moment(localStorage.getItem("latestbookingdate")); // another date
+    var duration = moment.duration(now.diff(end));
+    var min = Math.floor(duration.asSeconds());
+
+    var interval = setInterval(() => {
+      console.log(min);
+      min = min + 1;
+      if (min > 30) {
+        console.log(latestbook);
+        holdbook();
+        $("#modalRebook").modal("toggle");
+        $("#exampleModal").modal("toggle");
+
+        clearInterval(interval);
+      }
+    }, 1000);
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem("latestbookingdate")) {
+      holdbook();
+    }
+  });
+
   useEffect(() => {
     console.log(getApi);
     if (localStorage.getItem("saveprof") == 1) {
@@ -622,76 +648,31 @@ export default function profile() {
       },
     };
 
-    const apiUrllatest =
-    appglobal.api.base_api+appglobal.api.latest_booking;
+    const apiUrllatest = appglobal.api.base_api + appglobal.api.latest_booking;
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
+          console.log(result);
+
+          localStorage.setItem(
+            "latestbookingdate",
+            result.data.data.created_at
+          );
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
-            try {
-              var CancelToken = axios.CancelToken;
-
-              const apiTimer =
-                appglobal.api.base_api+appglobal.api.timer_booking;
-              axios
-                .post(
-                  apiTimer,
-                  {
-                    cancelToken: new CancelToken(function executor(c) {
-                      // An executor function receives a cancel function as a parameter
-                      cancel = c;
-                    }),
-                    booking_id: result.data.data.id,
-                  },
-
-                  options1
-                )
-                .then((result) => {
-                  console.log(result);
-                  if (result.data.status == "Success") {
-                    $(".modal-backdrop").hide();
-                    $("#exampleModal").modal("hide");
-                    refresh();
-                    swal(
-                      <div style={{ width: "450px", padding: "10px" }}>
-                        <div className="container">
-                          <div
-                            className="row align-items-center"
-                            style={{ borderLeft: "3px solid #FFE900" }}
-                          >
-                            <div className="col-lg-2">
-                              <img
-                                src="Image/complain.png"
-                                style={{ width: "32px" }}
-                              ></img>
-                            </div>
-                            <div
-                              className="col-lg-10"
-                              style={{ textAlign: "left" }}
-                            >
-                              <p className="pError">Warning</p>
-                              <p className="pErrorSub">
-                                No driver found your booking was canceled.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
-                });
-            } catch (e) {
-              console.log(e);
-            }
+            setLatestbook(result.data.data.id);
+            localStorage.setItem("latestbook", result.data.data.id);
+          } else {
+            localStorage.removeItem("latestbook");
           }
+          holdTimer();
         }
       });
 
-    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
+    const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       console.log(result.data);
@@ -699,7 +680,8 @@ export default function profile() {
     });
 
     const apiUrl_view_tickets =
-      appglobal.api.base_api+appglobal.api.view_tickets +
+      appglobal.api.base_api +
+      appglobal.api.view_tickets +
       AuthService.getId() +
       "/open_tickets";
 
@@ -739,7 +721,7 @@ export default function profile() {
       },
     };
 
-    const apiUrl = appglobal.api.base_api+appglobal.api.transaction_history;
+    const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
@@ -779,7 +761,7 @@ export default function profile() {
         console.log(err);
       });
 
-    const apiUrl1 = appglobal.api.base_api+appglobal.api.customer_profile;
+    const apiUrl1 = appglobal.api.base_api + appglobal.api.customer_profile;
     axios
       .post(apiUrl1, { id: AuthService.getId() }, options)
       .then((result) => {
@@ -796,8 +778,8 @@ export default function profile() {
         setZip(result.data.data.zip);
         setCity(result.data.data.city);
         setWallet(result.data.data.get_jgo_wallet.balance);
-       
-        if(result.data.data.profile_pic) {
+
+        if (result.data.data.profile_pic) {
           setProfle(
             "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
               result.data.data.profile_pic
@@ -823,7 +805,8 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.transaction_history_page + x;
+    const apiUrl =
+      appglobal.api.base_api + appglobal.api.transaction_history_page + x;
 
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
@@ -929,6 +912,58 @@ export default function profile() {
     setVerify(e.target.value);
   }
 
+  
+
+  function holdbook() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const api = appglobal.api.base_api + appglobal.api.hold_booking;
+    axios
+      .post(api, { booking_id: localStorage.getItem("latestbook") }, options)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(latestbook);
+        console.log(err);
+      });
+  }
+
+  function rebook() {
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const api = appglobal.api.base_api + appglobal.api.retry_booking;
+    axios
+      .post(api, { booking_id: latestbook }, options)
+      .then((result) => {
+        $("#exampleModal").modal("toggle");
+        $("#modalRebook").modal("toggle");
+        
+        localStorage.setItem("latestbookingdate",moment(new Date()));
+        holdTimer();
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+
   function getcardToken(e) {
     console.log($(e.currentTarget).find(".p9Sub").text());
     listcard
@@ -978,18 +1013,26 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.verify_token;
+    const apiUrl = appglobal.api.base_api + appglobal.api.verify_token;
 
     let formdata = new FormData();
     formdata.set("clientToken", clienttoken);
     formdata.set("amount", Number(verify));
     axios
-      .post(apiUrl, { client_token: clienttoken, amount: amountverifyfloat }, options)
+      .post(
+        apiUrl,
+        { client_token: clienttoken, amount: amountverifyfloat },
+        options
+      )
       .then((result) => {
         console.log(result);
-        if(result.data.data.cardDetails.cardStatus == 5 || result.data.data.cardDetails.cardStatus == 3) {
+        if (
+          result.data.data.cardDetails.cardStatus == 5 ||
+          result.data.data.cardDetails.cardStatus == 3
+        ) {
           swal(
-            $(".btnVerify").removeClass("btn--loading"), $("#modalVerify").modal("hide"),
+            $(".btnVerify").removeClass("btn--loading"),
+            $("#modalVerify").modal("hide"),
             $(".modal-backdrop").hide(),
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -998,7 +1041,10 @@ export default function profile() {
                   style={{ borderLeft: "3px solid #e53935" }}
                 >
                   <div className="col-lg-2">
-                    <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
@@ -1011,48 +1057,49 @@ export default function profile() {
               </div>
             </div>
           );
-        }else {
+        } else {
           $("#modalVerify").modal("hide");
-        $(".modal-backdrop").hide();
-        $(".btnVerify").removeClass("btn--loading");
-        const options1 = {  
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "content-type": "application/json",
-            Authorization: "Bearer " + AuthService.getToken(),
-            xsrfCookieName: "XSRF-TOKEN",
-            xsrfHeaderName: "X-XSRF-TOKEN",
-          },
-        };
-        const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
+          $(".modal-backdrop").hide();
+          $(".btnVerify").removeClass("btn--loading");
+          const options1 = {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "content-type": "application/json",
+              Authorization: "Bearer " + AuthService.getToken(),
+              xsrfCookieName: "XSRF-TOKEN",
+              xsrfHeaderName: "X-XSRF-TOKEN",
+            },
+          };
+          const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
-        axios.post(apiUrl2, {}, options1).then((result) => {
-          console.log(result.data);
-          setListcard(result.data.user_card_details);
-        });
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #00C853" }}
-              >
-                <div className="col-lg-2">
-                  <img src="Image/success.png" style={{ width: "32px" }}></img>
-                </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Verified</p>
-                  <p className="pErrorSub">Card successfully verified.</p>
+          axios.post(apiUrl2, {}, options1).then((result) => {
+            console.log(result.data);
+            setListcard(result.data.user_card_details);
+          });
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #00C853" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/success.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Verified</p>
+                    <p className="pErrorSub">Card successfully verified.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
+          );
         }
-        
       })
       .catch((err) => {
-       
         $(".btnVerify").removeClass("btn--loading");
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
@@ -1155,7 +1202,7 @@ export default function profile() {
       formdata.set("password_confirmation", confirmoldpass);
       formdata.set("new_password", newpass);
 
-      const apiUrl = appglobal.api.base_api+appglobal.api.change_password;
+      const apiUrl = appglobal.api.base_api + appglobal.api.change_password;
 
       axios
         .post(apiUrl, formdata, options)
@@ -1356,7 +1403,10 @@ export default function profile() {
 
       formdata.append("_method", "PATCH");
 
-      const apiUrl = appglobal.api.base_api+appglobal.api.save_profile+AuthService.getId();
+      const apiUrl =
+        appglobal.api.base_api +
+        appglobal.api.save_profile +
+        AuthService.getId();
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
@@ -1454,7 +1504,10 @@ export default function profile() {
         zip: zip,
       };
 
-      const apiUrl = appglobal.api.base_api+appglobal.api.save_profile+AuthService.getId();
+      const apiUrl =
+        appglobal.api.base_api +
+        appglobal.api.save_profile +
+        AuthService.getId();
       axios
         .put(apiUrl, data, options)
         .then((result) => {
@@ -1480,7 +1533,7 @@ export default function profile() {
       },
     };
 
-    const apiUrl = appglobal.api.base_api+appglobal.api.enroll_token;
+    const apiUrl = appglobal.api.base_api + appglobal.api.enroll_token;
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
@@ -1533,7 +1586,7 @@ export default function profile() {
         Authorization: "Bearer " + AuthService.getToken(),
       },
     };
-    const apiUrl = appglobal.api.base_api+appglobal.api.topup_jgowallet;
+    const apiUrl = appglobal.api.base_api + appglobal.api.topup_jgowallet;
     let formdata = new FormData();
     formdata.set("fname", fname);
     formdata.set("mname", mname);
@@ -1660,7 +1713,7 @@ export default function profile() {
         },
       };
       const random_num = Math.floor(Math.random() * 90000) + 10000;
-      const apiUrl = appglobal.api.base_api+appglobal.api.client_tickets;
+      const apiUrl = appglobal.api.base_api + appglobal.api.client_tickets;
       let formdata = new FormData();
       formdata.set("user_type", "Customer");
       formdata.set("user_id", AuthService.getId());
@@ -1709,9 +1762,10 @@ export default function profile() {
           };
 
           const apiUrl_view_tickets =
-          appglobal.api.base_api+appglobal.api.view_tickets +
-          AuthService.getId() +
-          "/open_tickets";
+            appglobal.api.base_api +
+            appglobal.api.view_tickets +
+            AuthService.getId() +
+            "/open_tickets";
 
           axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
             console.log(result.data);
@@ -1844,7 +1898,11 @@ export default function profile() {
                 {fname} {lname}
               </span>
               <div className="circle">
-                <img className="navProf" src={profilepic ? profilepic : "Image/profile.jpg"} alt="" />
+                <img
+                  className="navProf"
+                  src={profilepic ? profilepic : "Image/profile.jpg"}
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -1853,7 +1911,9 @@ export default function profile() {
       <div className="container-fluid conMenu">
         <div className="row">
           <div className="pDashboard">
-            <p className="pDashboard">Dashboard</p>
+            <p className="pDashboard" onClick={rebook}>
+              Dashboard
+            </p>
           </div>
           <div className="col-lg-12">
             <ul className="ulDashboard">
@@ -1865,9 +1925,7 @@ export default function profile() {
               <li onClick={payment} className="liPayment">
                 PAYMENT
               </li>
-              <li onClick={support}>
-                SUPPORT
-              </li>
+              <li onClick={support}>SUPPORT</li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -2037,7 +2095,7 @@ export default function profile() {
           >
             <div className="divProfilepic">
               <img
-               src={profilepic ? profilepic : "Image/profile.jpg"}
+                src={profilepic ? profilepic : "Image/profile.jpg"}
                 className="img-fluid imgProfileDash mx-auto d-flex"
                 onClick={onBtnClick}
               ></img>
@@ -2210,7 +2268,7 @@ export default function profile() {
                 </span>
               </span>
             </div>
-            <div style={{ marginTop: "10px",display: "none" }}>
+            <div style={{ marginTop: "10px", display: "none" }}>
               <input type="checkbox" id="switch1" />
               <label for="switch1">Toggle</label>
               <span className="spanCheckSettings">Enable tooltips</span>
@@ -2865,7 +2923,7 @@ export default function profile() {
                       Please specify the exact details of your issue.
                     </p>
                     <p className="pTxtDriver pReport">User type</p>
-                 
+
                     <p
                       className="pTxtDriver pReport"
                       style={{ marginTop: "10px" }}
@@ -2907,6 +2965,57 @@ export default function profile() {
                         <b></b>
                       </span>
                     </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalRebook"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-body text-center modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div
+                      className="mx-auto"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "150px",
+                      }}
+                    >
+                      <img
+                        src="Image/nodriver.png"
+                        className="img-fluid mx-auto d-flex imgLoading"
+                      ></img>
+                    </div>
+                    <p className="pSearching">No driver found</p>
+                    <p className="pSearchsub">
+                      We cannot found your driver, you can rebook or cancel your
+                      booking.
+                    </p>
+                    <a className="btn btnCheck" onClick={rebook}>
+                      Rebooks
+                      <span style={{ marginLeft: "80px" }}>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    </a>
+                    <p className="pCancelbook" onClick={cancelbook}>
+                      Cancel Booking
+                    </p>
                   </div>
                 </div>
               </div>

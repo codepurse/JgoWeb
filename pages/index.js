@@ -657,29 +657,6 @@ function driver() {
     setOcr("");
   }
 
-  function errorMessage() {
-    swal(
-      <div style={{ width: "450px", padding: "10px" }}>
-        <div className="container">
-          <div
-            className="row align-items-center"
-            style={{ borderLeft: "3px solid #d32f2f" }}
-          >
-            <div className="col-lg-2">
-              <img src="Image/close.png" style={{ width: "25px" }}></img>
-            </div>
-            <div className="col-lg-10" style={{ textAlign: "left" }}>
-              <p className="pError">Error</p>
-              {errormess.map((value) => (
-                <p className="pErrorSub">{value}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   function deletetoken() {
     localStorage.removeItem("token");
   }

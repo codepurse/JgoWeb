@@ -24,8 +24,6 @@ function index() {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
-            {" "}
-            input range slider call function when stop sliding
             <div
               className="row align-items-center"
               style={{ borderLeft: "3px solid #FFE900" }}

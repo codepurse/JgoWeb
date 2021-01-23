@@ -113,6 +113,8 @@ export class login extends Component {
       otp4: "",
       otpnumber: "",
       seconds: 300,
+      expired: false,
+      otprequest: false,
     };
 
     this.login = this.login.bind(this);
@@ -305,6 +307,7 @@ export class login extends Component {
           axios
             .post(apiUrl, {}, options)
             .then((result) => {
+              this.setState({ expired: false });
               submit == 0;
               clear == 0;
               $(".btn").removeClass("btn--loading");
@@ -315,6 +318,7 @@ export class login extends Component {
               localStorage.setItem("createotpdate", result.data.timestamp);
               $("#modalRegister").modal("toggle");
               this.timer();
+              this.setState({ otprequest: true });
               $("#modalOtp").modal("toggle");
             })
             .catch((err) => {
@@ -339,7 +343,9 @@ export class login extends Component {
                   const apiUrl =
                     appglobal.api.base_api +
                     appglobal.api.cancel_otp +
-                    localStorage.getItem("requestid");
+                    localStorage.getItem("requestid") +
+                    "/" +
+                    this.state.otpnumber;
                   axios
                     .post(apiUrl, options)
                     .then((result) => {
@@ -351,19 +357,22 @@ export class login extends Component {
                         },
                       };
                       const apiUrl =
-                        appglobal.api.base_api + appglobal.api.send_otp + "639668767701";
+                        appglobal.api.base_api +
+                        appglobal.api.send_otp +
+                        this.state.otpnumber;
                       axios.post(apiUrl, options).then((result) => {
                         console.log(result.data);
                         this.setState({ seconds: 300 });
+                       
                         clearInterval(interval);
                         this.timer();
                       });
                     })
-            
+
                     .catch((err) => {
                       console.log(err);
                       $(".btn").removeClass("btn--loading");
-            
+
                       swal(
                         <div style={{ width: "450px", padding: "10px" }}>
                           <div className="container">
@@ -377,7 +386,10 @@ export class login extends Component {
                                   style={{ width: "32px" }}
                                 ></img>
                               </div>
-                              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                              <div
+                                className="col-lg-10"
+                                style={{ textAlign: "left" }}
+                              >
                                 <p className="pError">Error</p>
                                 <p className="pErrorSub">
                                   Someting went wrong. PLease try again later.
@@ -397,12 +409,18 @@ export class login extends Component {
                           style={{ borderLeft: "3px solid #c62828" }}
                         >
                           <div className="col-lg-2">
-                            <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                            <img
+                              src="Image/warning.png"
+                              style={{ width: "32px" }}
+                            ></img>
                           </div>
-                          <div className="col-lg-10" style={{ textAlign: "left" }}>
+                          <div
+                            className="col-lg-10"
+                            style={{ textAlign: "left" }}
+                          >
                             <p className="pError">Error</p>
                             <p className="pErrorSub">
-                            Someting went wrong. PLease try again later.
+                              Someting went wrong. PLease try again later.
                             </p>
                           </div>
                         </div>
@@ -477,8 +495,12 @@ export class login extends Component {
   timer() {
     this.setState({ seconds: 300 });
     var interval = setInterval(() => {
+      if (this.state.expired == true) {
+        clearInterval(interval);
+      }
       this.setState({ seconds: this.state.seconds - 1 });
       if (this.state.seconds == 0) {
+        clearInterval(interval);
         this.setState({ seconds: "EXPIRED" });
         console.log("stop");
       }
@@ -486,13 +508,22 @@ export class login extends Component {
   }
 
   checkotp() {
-    if (sessionStorage.getItem("otp") == 1) {
-      localStorage.setItem("mobileno", this.state.mobile);
-      $("#modalOtp").modal("toggle");
-      this.timer();
-    } else {
+    if (this.state.otprequest == false) {
       $("#modalRegister").modal("toggle");
+  
+    } else {
+      $("#modalOtp").modal("toggle");
     }
+    var str = this.state.mobile;
+    var firstchar = str.charAt(0);
+    if (firstchar == "0" || firstchar == 0) {
+      var str = str.replace(/^./, "63");
+      this.setState({ otpnumber: str });
+      console.log(str);
+    } else {
+      console.log(str);
+    }
+    localStorage.setItem("mobileno", this.state.mobile);
   }
 
   messageError() {
@@ -540,7 +571,9 @@ export class login extends Component {
       const apiUrl =
         appglobal.api.base_api +
         appglobal.api.cancel_otp +
-        localStorage.getItem("requestid");
+        localStorage.getItem("requestid") +
+        "/" +
+        this.state.otpnumber;
       axios
         .post(apiUrl, options)
         .then((result) => {
@@ -552,12 +585,12 @@ export class login extends Component {
             },
           };
           const apiUrl =
-            appglobal.api.base_api + appglobal.api.send_otp + "639668767701";
+            appglobal.api.base_api + appglobal.api.send_otp + this.state.otpnumber;
           axios.post(apiUrl, options).then((result) => {
             console.log(result.data);
+            this.setState({ expired: false });
+            this.setState({ otprequest: true });
             this.setState({ seconds: 300 });
-            clearInterval(interval);
-            this.timer();
           });
         })
 
@@ -826,7 +859,9 @@ export class login extends Component {
       this.state.otp1 +
       this.state.otp2 +
       this.state.otp3 +
-      this.state.otp4;
+      this.state.otp4 +
+      "/" +
+      "this.state.otpnumber";
 
     axios
       .post(apiUrl, {}, options)
@@ -895,6 +930,8 @@ export class login extends Component {
             sessionStorage.removeItem("otp");
             $(".btn").removeClass("btn--loading");
             $("#modalOtp").modal("hide");
+            this.setState({ expired: true });
+            this.setState({ otprequest: false });'this'
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
                 <div className="container">
