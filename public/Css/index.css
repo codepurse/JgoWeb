@@ -354,6 +354,44 @@ body, html {
     text-decoration: underline;
 }
 
+.btnYes {
+    font-family: 'GilroyExtraBold';
+    color: white;
+    background-color: #57DF96;
+    border: 0px;
+    border-radius: 22px;
+    padding: 8px;
+    width: 90%;
+    text-align: center;
+    margin-top: 20px;
+    float: right;
+    -webkit-box-shadow: 1px 2px 24px 1px rgba(87, 223, 150, 0.27);
+    -moz-box-shadow: 1px 2px 24px 1px rgba(87, 223, 150, 0.27);
+    box-shadow: 1px 2px 24px 1px rgba(87, 223, 150, 0.27);
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none !important;
+}
+
+.btnNo {
+    font-family: 'GilroyExtraBold';
+    color: white;
+    background-color: #FF6565;
+    border: 0px;
+    border-radius: 22px;
+    padding: 8px;
+    width: 90%;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 24px 1px rgba(255, 101, 101, 0.27);
+    -moz-box-shadow: 1px 2px 24px 1px rgba(255, 101, 101, 0.27);
+    box-shadow: 1px 2px 24px 1px rgba(255, 101, 101, 0.27);
+    transition: all 0.2s;
+    outline: none !important;
+}
+
+
 .con {
     max-height: 900px;
 }
@@ -1691,7 +1729,6 @@ hr {
     text-align: center;
     margin-top: -20px;
 }
-
 
 .center {
     display: flex;

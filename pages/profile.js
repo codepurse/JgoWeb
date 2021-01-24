@@ -102,11 +102,11 @@ export default function profile() {
   });
 
   function mapbooking(e) {
-    if ($(e.target).hasClass("btn--loading")) {
+    if ($(".btnCheck").hasClass("btn--loading")) {
       return false;
     } else {
       $("#exampleModal").modal("hide");
-      router.push("/tracking");
+      router.push("/tracking/"+latestbook);
     }
   }
 
@@ -502,6 +502,9 @@ export default function profile() {
             </div>
           );
           refresh();
+        }else if (mes.message.status == "On hold") {
+          $("#exampleModal").modal("hide");
+          $("modalRebook").modal("show");
         }
       },
     };
@@ -614,15 +617,15 @@ export default function profile() {
     var interval = setInterval(() => {
       console.log(min);
       min = min + 1;
-      if (min > 30) {
+      if (min > 20) {
         console.log(latestbook);
         holdbook();
      
         if(router.pathname === "/profile") {
           console.log(router.pathname);
-          $("#modalRebook").modal("toggle");
+          $("#modalRebook").modal("show");
     
-          $("#exampleModal").modal("toggle");
+          $("#exampleModal").modal("hide");
         }else {
           $(".modal-backdrop").hide();
         }
@@ -672,6 +675,11 @@ export default function profile() {
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
+            console.log(result.data.data.status);
+            if (result.data.data.status == "On hold") {
+              $("#modalRebook").modal("show");
+              $("#exampleModal").modal("hide");
+            }
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
             localStorage.removeItem("latestbook");
@@ -744,7 +752,7 @@ export default function profile() {
             .map((data) =>
               data.status == "Looking for Driver"
                 ? $("#exampleModal").modal("show")
-                : data.status == "On hold" ? $("#modalRebook").modal("show") : console.log("")
+                : data.status == "On hold" ? $("#modalRebook").modal("show")("#exampleModal").modal("hide") : console.log("")
             );
         }
 
@@ -800,6 +808,7 @@ export default function profile() {
   }, []);
 
   function changePage(e) {
+   
     $(".Box").show();
     $("tbody tr").hide();
     console.log(e.selected + 1);
@@ -938,6 +947,7 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         refresh();
+        $("#exampleModal").modal("hide");
       })
       .catch((err) => {
         console.log(latestbook);
@@ -961,7 +971,7 @@ export default function profile() {
       .then((result) => {
         $("#exampleModal").modal("toggle");
         $("#modalRebook").modal("toggle");
-        
+        refresh();
         localStorage.setItem("latestbookingdate",moment(new Date()));
         holdTimer();
         console.log(result);
@@ -1620,6 +1630,7 @@ export default function profile() {
 
         if (result.data.encoded_xml) {
           $("#paymentrequest").val(result.data.encoded_xml);
+          console.log(result.data.encoded_xml);
           document.getElementById("paygate_frm").submit();
         } else {
           swal(
@@ -2275,7 +2286,7 @@ export default function profile() {
               <span className="spanCheckSettings">
                 Enable light mode
                 <span style={{ fontSize: "0.9rem" }}>
-                  ( Restart the page to take effect )
+                  
                 </span>
               </span>
             </div>
@@ -3017,7 +3028,7 @@ export default function profile() {
                       booking.
                     </p>
                     <a className="btn btnCheck" onClick={rebook}>
-                      Rebooks
+                      Rebook
                       <span style={{ marginLeft: "80px" }}>
                         <b></b>
                         <b></b>

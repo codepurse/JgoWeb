@@ -364,7 +364,7 @@ export class login extends Component {
                       axios.post(apiUrl, options).then((result) => {
                         console.log(result.data);
                         this.setState({ seconds: 300 });
-                       
+
                         clearInterval(interval);
                         this.timer();
                       });
@@ -511,7 +511,6 @@ export class login extends Component {
   checkotp() {
     if (this.state.otprequest == false) {
       $("#modalRegister").modal("toggle");
-  
     } else {
       $("#modalOtp").modal("toggle");
     }
@@ -550,10 +549,39 @@ export class login extends Component {
     );
   }
 
-  backregister(e) {
+  yes() {
     $("#modalRegister").modal("toggle");
     $("#modalOtp").modal("toggle");
     sessionStorage.removeItem("otp");
+    swal.close();
+  }
+
+  no() {
+    swal.close();
+  }
+
+  backregister(e) {
+    swal(
+      <div style={{ width: "450px", padding: "20px" }}>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-12" style={{ textAlign: "left" }}>
+              <p className="pError">Error</p>
+              <p className="pErrorSub text-center">
+                Your number will be unavailable for the OTP request in the next
+                5 mins. Are you sure you want to go back?
+              </p>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnYes" onClick = {this.yes.bind(this)}>Yes</button>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnNo" onClick = {this.no.bind(this)}>No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   resendOtp(e) {
@@ -586,7 +614,9 @@ export class login extends Component {
             },
           };
           const apiUrl =
-            appglobal.api.base_api + appglobal.api.send_otp + this.state.otpnumber;
+            appglobal.api.base_api +
+            appglobal.api.send_otp +
+            this.state.otpnumber;
           axios.post(apiUrl, options).then((result) => {
             console.log(result.data);
             this.setState({ expired: false });
@@ -932,7 +962,8 @@ export class login extends Component {
             $(".btn").removeClass("btn--loading");
             $("#modalOtp").modal("hide");
             this.setState({ expired: true });
-            this.setState({ otprequest: false });'this'
+            this.setState({ otprequest: false });
+            ("this");
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
                 <div className="container">
