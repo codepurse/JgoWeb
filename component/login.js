@@ -141,12 +141,13 @@ export class login extends Component {
         options
       )
       .then((result) => {
-        if (result.data.message) {
+        if (result.data.status === "failed") {
           this.setState({ email: response.profileObj.email });
           this.setState({ fname: response.profileObj.givenName });
           this.setState({ lname: response.profileObj.familyName });
           $("#modalRegister").modal("toggle");
         } else {
+          console.log(result.data);
           localStorage.setItem("google", JSON.stringify(result.data));
           window.location.reload();
         }

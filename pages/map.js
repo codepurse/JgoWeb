@@ -35,6 +35,7 @@ export default function map() {
   const [addservices, setAddservices] = React.useState([]);
   const [addlistservice, setAddlistservice] = React.useState([]);
   const [locationDropdown, setlocationDropdown] = React.useState([]);
+  const [latestbook, setLatestbook] = React.useState("");
 
   const locationCod = [];
   var loopservices = 0;
@@ -311,6 +312,7 @@ export default function map() {
   }
 
   useEffect(() => {
+    $(".modal-backdrop").hide();
     window.reactFunction = () => {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
@@ -399,6 +401,18 @@ export default function map() {
     axios.post(apiUrl_wallet, {}, options1).then((result) => {
       setWallet(result.data.data.get_jgo_wallet.balance);
     });
+
+    const apilatest = appglobal.api.base_api + appglobal.api.latest_booking;
+    axios
+      .post(apilatest, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        if (!result.data.data) {
+          console.log("no latest booking");
+        } else {
+          console.log(result);
+          setLatestbook(result.data.data.id);
+        }
+      });
   }, []);
 
   {
@@ -1470,6 +1484,7 @@ export default function map() {
   }
 
   function gotoPayment() {
+   if(!latestbook) {
     var countlocation = 0;
     const promises = coordinate.map((event) =>
       locationCod.push({
@@ -1479,6 +1494,32 @@ export default function map() {
     );
 
     Promise.all(promises).then(setlocationDropdown(locationCod), endPromise());
+   }else {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #FFE900" }}
+          >
+            <div className="col-lg-2">
+              <img
+                src="Image/complain.png"
+                style={{ width: "32px" }}
+              ></img>
+            </div>
+            <div
+              className="col-lg-10"
+              style={{ textAlign: "left" }}
+            >
+              <p className="pError">Warning</p>
+              <p className="pErrorSub">Cannot place order if you have ongoing booking.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+   }
   }
 
   function endPromise() {

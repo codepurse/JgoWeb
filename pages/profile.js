@@ -617,9 +617,15 @@ export default function profile() {
       if (min > 30) {
         console.log(latestbook);
         holdbook();
-        $("#modalRebook").modal("toggle");
-        $("#exampleModal").modal("toggle");
-
+     
+        if(router.pathname === "/profile") {
+          console.log(router.pathname);
+          $("#modalRebook").modal("toggle");
+    
+          $("#exampleModal").modal("toggle");
+        }else {
+          $(".modal-backdrop").hide();
+        }
         clearInterval(interval);
       }
     }, 1000);
@@ -627,9 +633,11 @@ export default function profile() {
 
   useEffect(() => {
     if(localStorage.getItem("latestbookingdate")) {
-      holdbook();
+      console.log(localStorage.getItem("latestbookingdate"))
+    }else {
+      console.log("no latest booking date");
     }
-  });
+  },[]);
 
   useEffect(() => {
     console.log(getApi);
@@ -736,14 +744,14 @@ export default function profile() {
             .map((data) =>
               data.status == "Looking for Driver"
                 ? $("#exampleModal").modal("show")
-                : null
+                : data.status == "On hold" ? $("#modalRebook").modal("show") : console.log("")
             );
         }
 
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         setPages(result.data.meta.last_page);
-        $(".Box").hide();
+        $(".Box").hide(); 
         if (result.data.data.length === 0) {
           $(".reactPaginate").hide();
           $(".pNo").show();
@@ -929,6 +937,7 @@ export default function profile() {
       .post(api, { booking_id: localStorage.getItem("latestbook") }, options)
       .then((result) => {
         console.log(result);
+        refresh();
       })
       .catch((err) => {
         console.log(latestbook);
@@ -1256,6 +1265,8 @@ export default function profile() {
         return "looking1";
       case "Canceled":
         return "cancel";
+      case "On hold":
+        return "onhold"
     }
   };
 
