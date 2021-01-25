@@ -39,6 +39,7 @@ export class navbar1 extends Component {
   
   goSupport() {
     if (AuthService.getToken()) {
+      localStorage.setItem("goSupport","true");
       Router.push("/profile");
     }else (
       swal(

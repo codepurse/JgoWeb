@@ -873,6 +873,7 @@ hr {
     height: 20px;
     border-radius: 50%;
     background: whitesmoke;
+    border: 2px solid #212121;
     cursor: pointer;
 }
 
@@ -880,6 +881,7 @@ hr {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    border: 2px solid #212121;
     background: whitesmoke;
     cursor: pointer;
 }
@@ -2691,9 +2693,9 @@ td {
     font-size: 0.9rem;
     color: white;
     background-color: transparent !important;
-    border: 1px solid #FFE900;
-    border-radius: 43px;
-    padding: 8px 15px;
+    border: 1px solid #FFE900 !important;
+    border-radius: 20px;
+    padding: 8px 15px !important;
     width: auto;
     text-align: center;
     cursor: pointer;
@@ -2701,6 +2703,7 @@ td {
     margin-right: 0px;
     outline: none !important;
 }
+
 
 .modalChangepass {
     padding: 40px !important;
@@ -2759,8 +2762,9 @@ td {
     color: white;
     background-color: transparent;
     border-radius: 5px;
-    border: 1px solid #F7D03E;
-    padding: 15px;
+    border: 1px solid #F7D03E !important;
+    padding: 10px !important;
+    height: 45px !important;
     width: 100%;
     text-align: center;
     margin-top: 20px;
@@ -2771,6 +2775,7 @@ td {
 
 .btnChangepass:hover {
     background-color: #FBC02D;
+    color: #212121;
 }
 
 input[type=checkbox] {
@@ -3104,6 +3109,15 @@ label:active:after {
     width: 20px;
     margin-top: -13px !important;
     cursor: pointer;
+}
+
+.pNocard {
+    font-family: 'GilroyMedium';
+    font-size: 1.1rem;
+    color: #f1cd79;
+    margin-top: 10px;
+    width: 100%;
+
 }
 
 /* Customer profile  */

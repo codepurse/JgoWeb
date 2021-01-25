@@ -417,6 +417,8 @@ $(document).ready(function () {
     $("label").addClass("changed");
     $(".spanCheck").css("color", "#313131");
     $(".spanCheck").css("font-weight", "600");
+    $(".spanCheckSettings").css("color", "#313131");
+    $(".spanCheckSettings").css("font-weight", "600");
     $(".btnChangepassword").css("font-weight", "600");
     $(".btnChangepassword").css("color", "#313131");
     $(".btnChangepassword").css("border", "1px solid #313131");
@@ -428,8 +430,11 @@ $(document).ready(function () {
     $(".txtSearch").css("background-color", "#F3F3F4");
     $(".txtSearch").css("color", "#424242");
     $(".txtSearch").css("border", "1px solid gray");
+    $(".btnReport").css("color", "#313131");
+    $(".pWeight, .pKg").css("color", "#313131");
     $(".pTotalBookings").css("color", "#757575");
     $(".pActiveBookings").css("color", "#FBC02D");
+    $(".btnReport").css("color", "#313131");
     $(".btnLogout").css("border", "1px solid #424242");
     $("ul.no-bullets>a>li>span").css("color", "#424242");
     $("th").css("color", "#212121");
@@ -467,18 +472,19 @@ $(document).ready(function () {
     $(".my-row li").css("color", "#212121");
     $(".pPick, .pAdd, .pAdditional, .pPayment").css("color", "#283148");
     $(".imgGps").css("filter", "brightness(-500%)");
-    $(".btnAddStopoff,.pAdditonalBox, .pPrice, .pPriceSub, .btnBook").css(
+    $(".btnAddStopoff,.pAdditonalBox, .pPrice, .pPriceSub, .btnBook1").css(
       "color",
       "#283148"
     );
     $(
-      ".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook"
+      ".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook1"
     ).css("font-weight", "600");
     $(".pPrice").css("font-weight", "bold");
     $(".txtAdditional").css({
       "border-color": "lightgray",
       "background-color": "#F3F3F4",
     });
+    $(".txtAdditional").css("color","#212121");
     $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-control").attr(
       "style",
       "color: #424242 !important"
@@ -497,6 +503,7 @@ $(document).ready(function () {
       "style",
       "color: #212121 !important; font-weight: 600 !important"
     );
+
   }
 
   $(".digit-group")

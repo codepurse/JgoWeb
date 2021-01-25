@@ -44,7 +44,7 @@ export default function profile() {
   const [message, setMessage] = React.useState("");
   const [showmore, setShowmore] = React.useState("5");
   const [latestbook, setLatestbook] = React.useState("");
-  const [latestbooktrack,setLatestbooktrack] = React.useState("");
+  const [latestbooktrack, setLatestbooktrack] = React.useState("");
   const [lateststatus, setLateststatus] = React.useState("");
 
   const [fname, setFname] = React.useState("");
@@ -112,7 +112,6 @@ export default function profile() {
     } else {
       $("#exampleModal").modal("hide");
       router.push("/tracking/" + latestbooktrack);
-     
     }
   }
 
@@ -496,7 +495,7 @@ export default function profile() {
         } else if (mes.message.status == "Arrived") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
-          if(canceluser == false) {
+          if (canceluser == false) {
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
                 <div className="container">
@@ -520,7 +519,8 @@ export default function profile() {
                 </div>
               </div>
             );
-          }else {}
+          } else {
+          }
           refresh();
         } else if (mes.message.status == "On hold") {
           $("#exampleModal").modal("hide");
@@ -629,18 +629,17 @@ export default function profile() {
   };
 
   function loadHoldtimer() {
-    console.log(lateststatus)
+    console.log(lateststatus);
     var now = moment(new Date()); //todays date
     var end = moment(localStorage.getItem("latestbookingdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
-    if(lateststatus == "Looking for Driver") {
-
+    if (lateststatus == "Looking for Driver") {
       window.interval = setInterval(() => {
         min = min + 1;
         console.log(min);
         console.log(holdclear);
-  
+
         if (holdclear === true) {
           clearInterval(window.interval);
         } else {
@@ -650,7 +649,7 @@ export default function profile() {
             if (router.pathname === "/profile") {
               console.log(router.pathname);
               $("#modalRebook").modal("show");
-  
+
               $("#exampleModal").modal("hide");
             } else {
               $(".modal-backdrop").hide();
@@ -659,10 +658,8 @@ export default function profile() {
           }
         }
       }, 1000);
-    }else{
-
+    } else {
     }
-  
   }
 
   function holdTimer() {
@@ -697,6 +694,16 @@ export default function profile() {
   }
 
   useEffect(() => {
+    if(localStorage.getItem("goSupport") == "true") {
+      $(".ulDashboard>li").removeClass("activeUl");
+      $(".conSupport").fadeIn(250);
+    $(".conProf").hide();
+    $(".conBook").hide();
+    $(".conSettings").hide();
+    $(".conPayment").hide();
+    $(".liSupport").addClass("activeUl");
+    localStorage.removeItem("goSupport");
+    }
     if (localStorage.getItem("latestbookingdate")) {
       console.log(localStorage.getItem("latestbookingdate"));
     } else {
@@ -725,7 +732,7 @@ export default function profile() {
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result)
+        console.log(result);
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
@@ -1250,20 +1257,25 @@ export default function profile() {
   }
 
   function btnChangepass() {
+    $(".btnChangepass").addClass("btn--loading");
     if (email == "") {
       $(".txtEmailchange").css("border", "1px solid #c62828");
+       $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (oldpass == "") {
       $(".txtOldpass").css("border", "1px solid  #c62828");
+       $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (confirmoldpass == "") {
       $(".txtConfirmoldpass").css("border", "1px solid  #c62828");
+       $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (newpass == "") {
       $(".txtNewpass").css("border", "1px solid #c62828");
+      $(".btnChangepass").removeClass("btn--loading");
     } else {
       const options = {
         headers: {
@@ -1290,10 +1302,12 @@ export default function profile() {
         .then((result) => {
           console.log(result);
           $("#modalChangepass").modal("toggle");
+          $(".modal-backdrop").hide();
           AuthService.logout();
           router.push("/");
         })
         .catch((err) => {
+          $(".btnChangepass").removeClass("btn--loading");
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -2009,7 +2023,7 @@ export default function profile() {
               <li onClick={payment} className="liPayment">
                 PAYMENT
               </li>
-              <li onClick={support}>SUPPORT</li>
+              <li onClick={support} className = "liSupport">SUPPORT</li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -2605,15 +2619,20 @@ export default function profile() {
                   ></input>
                 </div>
                 <div className="col-lg-12 text-center">
-                  <button className="btnChangepass" onClick={btnChangepass}>
+                  <a className="btn btnChangepass" onClick={btnChangepass}>
                     CONFIRM
-                  </button>
+                    <span style={{ marginLeft: "180px" }}>
+                      <b></b>
+                      <b></b>
+                      <b></b>
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>s
 
       <div
         className="modal fade"

@@ -394,6 +394,11 @@ export default function map() {
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
       console.log(result.data.user_card_details);
+      if (result.data.user_card_details) {
+      $("pNocard").show();
+      }else {
+        $("pNocard").hide();
+      }
     });
 
     const apiUrl_wallet =
@@ -1009,6 +1014,11 @@ export default function map() {
       console.log(result.data);
       $(".divLoading").hide();
       setListcard(result.data.user_card_details);
+      if (result.data.user_card_details) {
+        $("pNocard").show();
+        }else {
+          $("pNocard").hide();
+        }
     });
   }
 
@@ -2501,7 +2511,7 @@ export default function map() {
                     destination/s. Then click place order to proceed to payment
                     page.
                   </p>
-                  <button className="btnBook" onClick={gotoPayment}>
+                  <button className="btnBook btnBook1" onClick={gotoPayment}>
                     Place order
                   </button>
                 </div>
@@ -2609,6 +2619,7 @@ export default function map() {
                   ></img>
                 </div>
               </div>
+              <p className = "text-center pNocard">No credit/debit card to display</p>
               <div className="divLoading">
                 <a className="btn btnanimate btn--loading">
                   Verify

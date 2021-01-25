@@ -17,6 +17,7 @@ export default function navbar() {
 
   function goSupport() {
     if (AuthService.getToken()) {
+       localStorage.setItem("goSupport","true");
       router.push("/profile");
     } else  {
       swal(
