@@ -1414,7 +1414,11 @@ export default function map() {
                   );
                 } else {
                   localStorage.setItem("activeid", result.data.data);
+                  for (var pair of formdata.entries()) {
+                    console.log(pair[0] + ", " + pair[1]);
+                  }
                   router.push("/profile");
+                  
                 }
               })
               .catch((err) => {
@@ -1586,8 +1590,11 @@ export default function map() {
     console.log(wallet);
     console.log(price);
     $(e.currentTarget).css("border", "1px solid #FDBF00");
-    if (wallet < price) {
+    var walletvalue = Math.floor(wallet);
+    var pricevalue = Math.floor(price);
+    if (walletvalue < pricevalue) {
       $(".pWalletno").show();
+      console.log(wallet + ":" + price);
       setPayment("");
     } else {
       setPayment("jgowallet");
@@ -1710,7 +1717,7 @@ export default function map() {
                     <div className="col-lg-12">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtAdditional"
                         onChange={(evt) => updateInputValueAdd(evt)}
                         placeholder="Note"
                       />
@@ -1781,7 +1788,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        className="txtNumber txtAdditional"
+                        className="txtAdditional"
                         onChange={(evt) => updateInputValueAdd(evt)}
                         placeholder="Note"
                       />
@@ -1871,7 +1878,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          className="txtNumber txtAdditional"
+                          className="txtAdditional"
                           onChange={(evt) => updateInputValueAdd(evt)}
                           placeholder="Note"
                         />
@@ -1959,7 +1966,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          className="txtNumber txtAdditional"
+                          className="txtAdditional"
                           onChange={(evt) => updateInputValueAdd(evt)}
                           placeholder="Note"
                         />
@@ -2047,7 +2054,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          className="txtNumber txtAdditional"
+                          className="txtAdditional"
                           onChange={(evt) => updateInputValueAdd(evt)}
                           placeholder="Note"
                         />
@@ -2135,7 +2142,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          className="txtNumber txtAdditional"
+                          className="txtAdditional"
                           onChange={(evt) => updateInputValueAdd(evt)}
                           placeholder="Note"
                         />

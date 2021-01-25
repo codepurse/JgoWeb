@@ -44,6 +44,8 @@ export default function profile() {
   const [message, setMessage] = React.useState("");
   const [showmore, setShowmore] = React.useState("5");
   const [latestbook, setLatestbook] = React.useState("");
+  const [latestbooktrack,setLatestbooktrack] = React.useState("");
+  const [lateststatus, setLateststatus] = React.useState("");
 
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
@@ -71,7 +73,10 @@ export default function profile() {
 
   const [listtickets, setListticket] = React.useState([]);
   const inputFileRef = useRef(null);
-  const [timer, setTimer] = React.useState("");
+  const [cleartimer, setCleartimer] = React.useState(false);
+  const [canceluser, setCanceluser] = React.useState(false);
+
+  var holdclear = false;
 
   function handleFile(e) {
     const reader = new FileReader();
@@ -106,7 +111,8 @@ export default function profile() {
       return false;
     } else {
       $("#exampleModal").modal("hide");
-      router.push("/tracking/"+latestbook);
+      router.push("/tracking/" + latestbooktrack);
+     
     }
   }
 
@@ -159,6 +165,10 @@ export default function profile() {
       });
   }
 
+  function trylang() {
+    holdclear = true;
+  }
+
   function cancelBooking(e) {
     var trackid = $(e.currentTarget)
       .parent("td")
@@ -201,6 +211,7 @@ export default function profile() {
               var end = moment(number.updated_at); // another date
               var duration = moment.duration(now.diff(end));
               var min = Math.floor(duration.asMinutes());
+              cancelbook();
               if (min < 3) {
                 $("#exampleModal").modal("hide");
                 $(".modal-backdrop").hide();
@@ -312,6 +323,7 @@ export default function profile() {
               console.log(result);
               $("#exampleModal").modal("hide");
               $(".modal-backdrop").hide();
+              clearInterval(window.interval);
               swal(
                 <div style={{ width: "450px", padding: "10px" }}>
                   <div className="container">
@@ -356,9 +368,11 @@ export default function profile() {
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
       console.log(result);
+      clearInterval(window.interval);
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
       $("#modalRebook").modal("hide");
+      setCanceluser(true);
       localStorage.removeItem("latestbookingdate");
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
@@ -447,11 +461,9 @@ export default function profile() {
       "Congrats we found a driver, click the button below to check the booking details."
     );
     $(".btn").removeClass("btn--loading");
-    $(".pCancelbook").hide();
-    cancel();
+    setCleartimer(true);
+    holdclear = true;
   }
-
-
 
   useEffect(() => {
     window.reactFunction = () => {
@@ -470,39 +482,47 @@ export default function profile() {
         console.log(message.message.status);
         let mes = message;
 
-        if (mes.message.status == "Ongoing") {
+        if (mes.message.status == "Driver found") {
           driverfound();
+          clearInterval(window.interval);
+          setCleartimer(true);
+          refresh();
+        } else if (mes.message.status == "Ongoing") {
+          holdclear = true;
+          setCleartimer(true);
           refresh();
         } else if (mes.message.status == "Arrived to Pick up") {
           refresh();
         } else if (mes.message.status == "Arrived") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
-          swal(
-            <div style={{ width: "450px", padding: "10px" }}>
-              <div className="container">
-                <div
-                  className="row align-items-center"
-                  style={{ borderLeft: "3px solid #FFE900" }}
-                >
-                  <div className="col-lg-2">
-                    <img
-                      src="Image/complain.png"
-                      style={{ width: "32px" }}
-                    ></img>
-                  </div>
-                  <div className="col-lg-10" style={{ textAlign: "left" }}>
-                    <p className="pError">Warning</p>
-                    <p className="pErrorSub">
-                      Your booking was cancelled by the driver.
-                    </p>
+          if(canceluser == false) {
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #FFE900" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/complain.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Warning</p>
+                      <p className="pErrorSub">
+                        Your booking was cancelled by the driver.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          }else {}
           refresh();
-        }else if (mes.message.status == "On hold") {
+        } else if (mes.message.status == "On hold") {
           $("#exampleModal").modal("hide");
           $("modalRebook").modal("show");
         }
@@ -608,39 +628,81 @@ export default function profile() {
     }),
   };
 
+  function loadHoldtimer() {
+    console.log(lateststatus)
+    var now = moment(new Date()); //todays date
+    var end = moment(localStorage.getItem("latestbookingdate")); // another date
+    var duration = moment.duration(now.diff(end));
+    var min = Math.floor(duration.asSeconds());
+    if(lateststatus == "Looking for Driver") {
+
+      window.interval = setInterval(() => {
+        min = min + 1;
+        console.log(min);
+        console.log(holdclear);
+  
+        if (holdclear === true) {
+          clearInterval(window.interval);
+        } else {
+          if (min > 40) {
+            console.log(latestbook);
+            holdbook();
+            if (router.pathname === "/profile") {
+              console.log(router.pathname);
+              $("#modalRebook").modal("show");
+  
+              $("#exampleModal").modal("hide");
+            } else {
+              $(".modal-backdrop").hide();
+            }
+            clearInterval(window.interval);
+          }
+        }
+      }, 1000);
+    }else{
+
+    }
+  
+  }
+
   function holdTimer() {
     var now = moment(new Date()); //todays date
     var end = moment(localStorage.getItem("latestbookingdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
 
-    var interval = setInterval(() => {
-      console.log(min);
+    window.interval = setInterval(() => {
       min = min + 1;
-      if (min > 20) {
-        console.log(latestbook);
-        holdbook();
-     
-        if(router.pathname === "/profile") {
-          console.log(router.pathname);
-          $("#modalRebook").modal("show");
-    
-          $("#exampleModal").modal("hide");
-        }else {
-          $(".modal-backdrop").hide();
+      console.log(min);
+      console.log(holdclear);
+
+      if (holdclear === true) {
+        clearInterval(window.interval);
+      } else {
+        if (min > 40) {
+          console.log(latestbook);
+          holdbook();
+          if (router.pathname === "/profile") {
+            console.log(router.pathname);
+            $("#modalRebook").modal("show");
+
+            $("#exampleModal").modal("hide");
+          } else {
+            $(".modal-backdrop").hide();
+          }
+          clearInterval(window.interval);
         }
-        clearInterval(interval);
       }
     }, 1000);
   }
 
   useEffect(() => {
-    if(localStorage.getItem("latestbookingdate")) {
-      console.log(localStorage.getItem("latestbookingdate"))
-    }else {
+    if (localStorage.getItem("latestbookingdate")) {
+      console.log(localStorage.getItem("latestbookingdate"));
+    } else {
       console.log("no latest booking date");
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     console.log(getApi);
@@ -663,6 +725,7 @@ export default function profile() {
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
+        console.log(result)
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
@@ -672,6 +735,8 @@ export default function profile() {
             "latestbookingdate",
             result.data.data.created_at
           );
+          setLateststatus(result.data.data.status);
+          setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
@@ -684,7 +749,7 @@ export default function profile() {
           } else {
             localStorage.removeItem("latestbook");
           }
-          holdTimer();
+          loadHoldtimer();
         }
       });
 
@@ -752,14 +817,16 @@ export default function profile() {
             .map((data) =>
               data.status == "Looking for Driver"
                 ? $("#exampleModal").modal("show")
-                : data.status == "On hold" ? $("#modalRebook").modal("show")("#exampleModal").modal("hide") : console.log("")
+                : data.status == "On hold"
+                ? $("#modalRebook").modal("show")("#exampleModal").modal("hide")
+                : console.log("")
             );
         }
 
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         setPages(result.data.meta.last_page);
-        $(".Box").hide(); 
+        $(".Box").hide();
         if (result.data.data.length === 0) {
           $(".reactPaginate").hide();
           $(".pNo").show();
@@ -808,7 +875,6 @@ export default function profile() {
   }, []);
 
   function changePage(e) {
-   
     $(".Box").show();
     $("tbody tr").hide();
     console.log(e.selected + 1);
@@ -929,8 +995,6 @@ export default function profile() {
     setVerify(e.target.value);
   }
 
-  
-
   function holdbook() {
     const options = {
       headers: {
@@ -972,7 +1036,7 @@ export default function profile() {
         $("#exampleModal").modal("toggle");
         $("#modalRebook").modal("toggle");
         refresh();
-        localStorage.setItem("latestbookingdate",moment(new Date()));
+        localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
         console.log(result);
       })
@@ -980,8 +1044,6 @@ export default function profile() {
         console.log(err);
       });
   }
-
-
 
   function getcardToken(e) {
     console.log($(e.currentTarget).find(".p9Sub").text());
@@ -1276,7 +1338,7 @@ export default function profile() {
       case "Canceled":
         return "cancel";
       case "On hold":
-        return "onhold"
+        return "onhold";
     }
   };
 
@@ -1933,7 +1995,7 @@ export default function profile() {
       <div className="container-fluid conMenu">
         <div className="row">
           <div className="pDashboard">
-            <p className="pDashboard" onClick={rebook}>
+            <p className="pDashboard" onClick={trylang}>
               Dashboard
             </p>
           </div>
@@ -2285,9 +2347,7 @@ export default function profile() {
               <label for="switch">Toggle</label>
               <span className="spanCheckSettings">
                 Enable light mode
-                <span style={{ fontSize: "0.9rem" }}>
-                  
-                </span>
+                <span style={{ fontSize: "0.9rem" }}></span>
               </span>
             </div>
             <div style={{ marginTop: "10px", display: "none" }}>
