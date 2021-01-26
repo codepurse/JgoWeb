@@ -125,7 +125,7 @@ export default function profile() {
     tabledata
       .filter((event) => event.tracking_id == trackid)
       .map((number) => {
-        if (number.status == "Canceled" || number.status == "Complete") {
+        if (number.status == "Canceled" || number.status == "Complete" || number.status == "On hold") {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -142,7 +142,7 @@ export default function profile() {
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
                     <p className="pErrorSub">
-                      Completed and cancelled booking cannot be track.
+                      This booking cannot be track.
                     </p>
                   </div>
                 </div>
@@ -272,7 +272,7 @@ export default function profile() {
             });
         } else if (
           number.status == "Arrived at Pick Up" ||
-          number.status == "Complete"
+          number.status == "Complete" 
         ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -634,32 +634,29 @@ export default function profile() {
     var end = moment(localStorage.getItem("latestbookingdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
-    if (lateststatus == "Looking for Driver") {
-      window.interval = setInterval(() => {
-        min = min + 1;
-        console.log(min);
-        console.log(holdclear);
+    window.interval = setInterval(() => {
+      min = min + 1;
+      console.log(min);
+      console.log(holdclear);
 
-        if (holdclear === true) {
-          clearInterval(window.interval);
-        } else {
-          if (min > 40) {
-            console.log(latestbook);
-            holdbook();
-            if (router.pathname === "/profile") {
-              console.log(router.pathname);
-              $("#modalRebook").modal("show");
+      if (holdclear === true) {
+        clearInterval(window.interval);
+      } else {
+        if (min > 40) {
+          console.log(latestbook);
+          holdbook();
+          if (router.pathname === "/profile") {
+            console.log(router.pathname);
+            $("#modalRebook").modal("show");
 
-              $("#exampleModal").modal("hide");
-            } else {
-              $(".modal-backdrop").hide();
-            }
-            clearInterval(window.interval);
+            $("#exampleModal").modal("hide");
+          } else {
+            $(".modal-backdrop").hide();
           }
+          clearInterval(window.interval);
         }
-      }, 1000);
-    } else {
-    }
+      }
+    }, 1000);
   }
 
   function holdTimer() {
@@ -709,6 +706,7 @@ export default function profile() {
     } else {
       console.log("no latest booking date");
     }
+   
   }, []);
 
   useEffect(() => {
@@ -743,6 +741,9 @@ export default function profile() {
             result.data.data.created_at
           );
           setLateststatus(result.data.data.status);
+          if(result.data.data.status == "Lokking for driver") {
+            loadHoldtimer
+          }
           setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
