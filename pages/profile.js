@@ -367,11 +367,12 @@ export default function profile() {
 
     axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
       console.log(result);
+      setCanceluser(true);
       clearInterval(window.interval);
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
       $("#modalRebook").modal("hide");
-      setCanceluser(true);
+      
       localStorage.removeItem("latestbookingdate");
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
@@ -495,6 +496,7 @@ export default function profile() {
         } else if (mes.message.status == "Arrived") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
+          console.log(canceluser)
           if (canceluser == false) {
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
@@ -741,8 +743,9 @@ export default function profile() {
             result.data.data.created_at
           );
           setLateststatus(result.data.data.status);
-          if(result.data.data.status == "Lokking for driver") {
-            loadHoldtimer
+          if(result.data.data.status == "Looking for Driver") {
+            console.log("yamete");
+            loadHoldtimer();
           }
           setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
@@ -757,7 +760,7 @@ export default function profile() {
           } else {
             localStorage.removeItem("latestbook");
           }
-          loadHoldtimer();
+        
         }
       });
 
@@ -2214,7 +2217,7 @@ export default function profile() {
               onClick={onBtnClick}
             ></img>
             <p className="spanFull">
-              {fname} {mname} {lname}
+              {fname} {mname == "null" ? " " : mname} {lname}
               <br />
               <span className="spanAdd">{mobile}</span>
             </p>
@@ -2241,7 +2244,7 @@ export default function profile() {
                 type="text"
                 className="txtDriver txtprof"
                 id="txtMiddleprof"
-                value={mname}
+                value={mname == "null" ? " " : mname}
                 onChange={mname_change}
               ></input>
             </div>
@@ -2302,7 +2305,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtprof"
-                value={state1}
+                value={state1 == "null" ? " " : state1}
                 onChange={state_change}
               ></input>
             </div>
@@ -2313,7 +2316,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtDriver txtprof"
-                value={city}
+                value={city == "null" ? " " : city}
                 onChange={city_change}
               ></input>
             </div>
