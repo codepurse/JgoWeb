@@ -2535,17 +2535,17 @@ export default function map() {
       >
         <div className="modal-dialog modal-dialog-centered " role="document">
           <div
-            className="modal-content modalPayment"
+            className="modal-content mode modalPayment"
             style={{ padding: "15px" }}
           >
-            <div className="modal-header modalPayment">
+            <div className="modal-header mode modalPayment">
               <p className="pMode">Mode of payment</p>
               <p className="pModeSub">
                 Please make a payment below to start your booking process. If
                 your payment methos is not there you can add your own below.
               </p>
             </div>
-            <div className="modal-body modalPayment">
+            <div className="modal-body mode modalPayment">
               <div className="divCod" onClick={setMethod}>
                 <img src="Image/check.png" className="img-fluid imgCheck"></img>
                 <div className="row align-items-center">

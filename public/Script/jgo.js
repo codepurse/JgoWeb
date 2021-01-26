@@ -506,6 +506,14 @@ $(document).ready(function () {
       "style",
       "color: #212121 !important; font-weight: 600 !important"
     );
+    $(".pMode, .pCod, .pPriceModal, .pWalletModal").css("color", "#212121");
+    $(".pMode, .pCod").css("font-weight", "600");
+    $(".pModeSub, .pCodSub").css("color", "#424242");
+    $(".mode").removeClass("modalPayment");
+    $(".divCod").css("background-color", "white");
+        $(".btnPayment").attr("style","color: #212121 !important");
+      $(".imgRefresh").css("filter", "invert(1) brightness(500%)");
+    $(".modayPayment").css("background-color", "rgb(243,244,248)");
 
   }
 
