@@ -71,6 +71,7 @@ $(document).ready(function () {
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
     light();
+  
   } else {
     $("#switch").prop("checked", false);
   }
@@ -387,10 +388,12 @@ $(document).ready(function () {
       var theme = true;
       localStorage.setItem("theme", JSON.stringify(theme));
       localStorage.setItem("theme_status", "light");
+      window.location.reload();
     } else if ($(this).prop("checked") == false) {
       var theme = false;
       localStorage.setItem("theme", JSON.stringify(theme));
       localStorage.setItem("theme_status", "false");
+      window.location.reload();
     }
   });
 

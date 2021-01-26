@@ -2565,7 +2565,7 @@ export default function map() {
                   </div>
                   <div className="col-lg-12">
                     <p className="pCodSub" style={{ marginTop: "10px" }}>
-                      Who will pay?
+                      Select payment location
                     </p>
                     <Select
                       options={locationDropdown}

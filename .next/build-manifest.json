@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/cancelpayment": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/cancelpayment.js"
-    ],
     "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
