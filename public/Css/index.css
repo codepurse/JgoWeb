@@ -2391,7 +2391,7 @@ td {
     font-family: "Proxima" !important;
     align-items: center;
     background-color: transparent !important;
-    color: white !important;
+    color: white;
     cursor: pointer;
     display: inline-flex;
     height: 36px;
@@ -2430,7 +2430,9 @@ td {
     width: 10px;
     animation-delay: .1s;
     margin: 0 5px;
+
 }
+
 
 .btn.btn--loading span b:first-child {
     animation-delay: 0s;
@@ -2585,11 +2587,12 @@ td {
     padding: 40px !important;
     padding-bottom: 30px !important;
     background: #1A1A1A;
+    border-radius: 20px;
 }
 
 .btnCheck {
     font-family: 'GilroyMedium';
-    color: whitesmoke;
+    color: whitesmoke !important;
     font-size: 1rem;
     text-align: center;
     border: 1px solid #FFE900 !important;
@@ -2600,7 +2603,7 @@ td {
     padding: 8px !important;
     padding-bottom: 30px !important;
     width: 220px;
-}
+}   
 
 .Box {
     position: relative;
@@ -2608,6 +2611,10 @@ td {
     margin: 0 auto;
     width: max-content;
     margin-top: 20px;
+}
+
+.spanSearch {
+    color: #212121 !important;
 }
 
 .Box span {
@@ -2689,7 +2696,7 @@ td {
 }
 
 .btnChangepassword {
-    font-family: 'GilroyMedium';
+    font-family: 'GilroyMedium' !important;
     font-size: 0.9rem;
     color: white;
     background-color: transparent !important;
@@ -2699,9 +2706,15 @@ td {
     width: auto;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
+
     margin-right: 0px;
     outline: none !important;
+}
+
+.btnChangepassword:hover {
+    background-color: #FFE900 !important;
+    color: #212121;
+    font-weight: 600;
 }
 
 
@@ -2979,6 +2992,14 @@ label:active:after {
 
 /* new modal */
 
+.modal-content, .modalSearch, .modal-body {
+    border: 0px !important;
+}
+
+.modal-content {
+    background-color: transparent !important;
+}
+
 .pModalTitle {
     font-family: 'GilroyMedium';
     color: white;
@@ -3024,7 +3045,6 @@ label:active:after {
 
 .txtDriver:focus {
     border-color: #EDC728 !important;
-    background-color: #202225;
 }
 
 .pModalTitle1 {
@@ -4205,7 +4225,7 @@ video {
 .pModalVerify {
     font-family: 'GilroyMedium';
     color: #FFDD9A;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 5px;
 }
 

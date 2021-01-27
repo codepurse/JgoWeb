@@ -115,6 +115,13 @@ export default function profile() {
     }
   }
 
+  useEffect(() => {
+    if(localStorage.getItem("theme") == "true") {
+      $(".pagination > li").attr("style", "color: #212121 !important");
+      $(".pagination > li > a").attr("style", "color: #212121 !important");
+    }
+  }, [pages])
+
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
       .parent("td")
@@ -466,6 +473,7 @@ export default function profile() {
   }
 
   useEffect(() => {
+  
     window.reactFunction = () => {
       console.log("Test");
     };
@@ -817,6 +825,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
+      
         console.log(result);
         setTabledata(result.data.data);
 
@@ -832,6 +841,12 @@ export default function profile() {
                 ? $("#modalRebook").modal("show")("#exampleModal").modal("hide")
                 : console.log("")
             );
+        }
+
+
+        if(localStorage.getItem("theme") == "true") {
+          $(".pagination > li").attr("style", "color: #212121 !important");
+          $(".pagination > li > a").attr("style", "color: #212121 !important");
         }
 
         tablemap = result.data.data;
@@ -888,6 +903,11 @@ export default function profile() {
   function changePage(e) {
     $(".Box").show();
     $("tbody tr").hide();
+    if(localStorage.getItem("theme") == "true") {
+      $(".pagination > li").attr("style", "color: #212121 !important");
+      $(".pagination > li > a").attr("style", "color: #212121 !important");
+    }
+
     console.log(e.selected + 1);
     var x = e.selected + 1;
     const options = {
@@ -937,6 +957,7 @@ export default function profile() {
         setACtivecount(active.length);
       })
       .catch((err) => {
+        console.log(apiUrl);
         console.log(err);
       });
   }
@@ -989,15 +1010,15 @@ export default function profile() {
     $("tr")
       .not(":first")
       .hover(
-        function () {
-          $("td", this).css("color", "#EDC728 ");
-        },
+      
         function () {
           if (localStorage.getItem("theme_status") === "light") {
-            $("td", this).css("color", "#424242");
+            $("td", this).css("color", "#f09307");
           } else {
-            $("td", this).css("color", "");
+            $("td", this).css("color", "#EDC728");
           }
+        },  function () {
+          $("td", this).css("color", "");
         }
       );
   }
@@ -2647,7 +2668,7 @@ export default function profile() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style = {{borderRadius: "20px"}}>
             <div className="modal-body text-center modalSearch">
               <div className="container">
                 <div className="row">
@@ -2675,10 +2696,10 @@ export default function profile() {
                       onClick={mapbooking}
                     >
                       Check booking details
-                      <span style={{ marginLeft: "80px" }}>
-                        <b></b>
-                        <b></b>
-                        <b></b>
+                      <span className = "spanSearch" style={{ marginLeft: "80px" }}>
+                        <b className = "spanSearch" ></b>
+                        <b className = "spanSearch"></b>
+                        <b className = "spanSearch"></b>
                       </span>
                     </a>
                     <p className="pCancelbook" onClick={cancelbook}>
@@ -2747,7 +2768,7 @@ export default function profile() {
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
-            <div className="modal-body modalTop">
+            <div className="modal-body modalTop modalSearch">
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
@@ -2901,7 +2922,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">First Name</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={fname}
                       onChange={fname_change}
                     ></input>
@@ -2910,7 +2931,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Middle Name</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={mname}
                       onChange={mname_change}
                     ></input>
@@ -2919,7 +2940,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Last Name</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={lname}
                       onChange={lname_change}
                     ></input>
@@ -2928,7 +2949,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Email</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={emailprof}
                       onChange={email_change}
                     ></input>
@@ -2937,7 +2958,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Mobile</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={mobile}
                       onChange={mobile_change}
                     ></input>
@@ -2946,7 +2967,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Country</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={country}
                       readOnly="readonly"
                     ></input>
@@ -2955,7 +2976,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Address</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={address}
                       onChange={address_change}
                     ></input>
@@ -2964,7 +2985,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">City</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={city}
                       onChange={city_change}
                     ></input>
@@ -2973,7 +2994,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">State</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={state1}
                       onChange={state_change}
                     ></input>
@@ -2982,7 +3003,7 @@ export default function profile() {
                     <p className="pTxtDriver pFname">Zip</p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txttopup"
                       value={zip}
                       onChange={zip_change}
                     ></input>
@@ -3037,7 +3058,7 @@ export default function profile() {
                     </p>
                     <input
                       type="text"
-                      className="txtDriver txtFname"
+                      className="txtDriver txtFname txtIdsupport"
                       value={bookingid}
                       onChange={booking_change}
                     ></input>
@@ -3087,7 +3108,7 @@ export default function profile() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style = {{borderRadius: "20px"}}>
             <div className="modal-body text-center modalSearch">
               <div className="container">
                 <div className="row">

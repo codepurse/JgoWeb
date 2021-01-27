@@ -2666,7 +2666,7 @@ export default function map() {
                   </button>
                 </div>
                 <div className="col-lg-5">
-                  <a
+                  <a  
                     className="btn btnPayment "
                     style={{ paddingTop: "10px" }}
                     onClick={btnPlaceorder}

@@ -51,7 +51,6 @@ $(document).ready(function () {
     if (width < 500) {
       $(".colSideTrack, .colSidebar").css("top", "calc(100vh - 160px)");
     }
-
   });
 
   $(".closeChat").click(function () {
@@ -71,7 +70,6 @@ $(document).ready(function () {
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
     light();
-  
   } else {
     $("#switch").prop("checked", false);
   }
@@ -302,11 +300,9 @@ $(document).ready(function () {
     $(".divCovid").fadeOut(200);
   });
 
- 
-
   $(".txtNumber").keypress(function (e) {
     if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
-});
+  });
 
   $("#carouselExampleIndicatorsmain").on(
     "slid.bs.carousel",
@@ -318,19 +314,31 @@ $(document).ready(function () {
 
           break;
         case "2":
-          $(".pulse").attr("style","left: 39.2% !important; top: 15.1% !important");
+          $(".pulse").attr(
+            "style",
+            "left: 39.2% !important; top: 15.1% !important"
+          );
           $(".pulse").fadeIn(100);
           break;
         case "3":
-          $(".pulse").attr("style","left:61.5% !important; top: 37.3% !important");
+          $(".pulse").attr(
+            "style",
+            "left:61.5% !important; top: 37.3% !important"
+          );
           $(".pulse").fadeIn(100);
           break;
         case "4":
-          $(".pulse").attr("style","left:39.2% !important;top: 59.3% !important");
+          $(".pulse").attr(
+            "style",
+            "left:39.2% !important;top: 59.3% !important"
+          );
           $(".pulse").fadeIn(100);
           break;
         case "5":
-          $(".pulse").attr("style","left:17.2% !important;top: 37.3% !important");
+          $(".pulse").attr(
+            "style",
+            "left:17.2% !important;top: 37.3% !important"
+          );
           $(".pulse").fadeIn(100);
           break;
         default:
@@ -397,9 +405,7 @@ $(document).ready(function () {
     }
   });
 
-  $(".pBack").click(function () {
-    
-  });
+  $(".pBack").click(function () {});
 
   function light() {
     $("#__next , body, html").css("background-color", "#fff");
@@ -425,7 +431,7 @@ $(document).ready(function () {
     $(".btnChangepassword").css("font-weight", "600");
     $(".btnChangepassword").css("color", "#313131");
     $(".btnChangepassword").css("border", "1px solid #313131");
-    $(".rowTop").css("background-color", "#F5F5F5");
+    $(".rowTop").css("background-color", "#F3F3F4");
     $(".rowTop").css("border-color", "lightgray");
     $(".btnLogout").css("color", "#212121");
     $(".btnLogout, .pFullname").css("font-weight", "600");
@@ -487,7 +493,7 @@ $(document).ready(function () {
       "border-color": "lightgray",
       "background-color": "#F3F3F4",
     });
-    $(".txtAdditional").css("color","#212121");
+    $(".txtAdditional").css("color", "#212121");
     $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-control").attr(
       "style",
       "color: #424242 !important"
@@ -511,10 +517,43 @@ $(document).ready(function () {
     $(".pModeSub, .pCodSub").css("color", "#424242");
     $(".mode").removeClass("modalPayment");
     $(".divCod").css("background-color", "white");
-        $(".btnPayment").attr("style","color: #212121 !important");
-      $(".imgRefresh").css("filter", "invert(1) brightness(500%)");
-    $(".modayPayment").css("background-color", "rgb(243,244,248)");
+    $(".btnPayment").attr("style", "color: #212121 !important");
+    $(".imgRefresh").css("filter", "invert(1) brightness(500%)");
+    $(".modePayment").css("background-color", "rgb(243,244,248)");
+    $(".pagination").attr("style", "color: #212121 !important");
+    $(".pagination > li").attr("style", "color: #212121 !important");
+    $(".pagination > li > a").attr("style", "color: #212121 !important");
+    $(".divCardList, .divCardPayment").css(
+      "background",
+      "linear-gradient(to right, #232526, #414345)"
+    );
+    $(".divCardList, .divCardPayment").css(
+      "box-shadow",
+      "0px 0px 29px 0px rgba(140,140,140,0.33)"
+    );
 
+    $(".modalSearch").css("background-color", "#F6F5F0");
+    $(".pSearching, .pCancelbook, .pModalVerify, .pReport").css(
+      "color",
+      "#212121"
+    );
+    $(".pSearching, .pSearchsub, .btnCheck, .pModalVerify, .pReport").css(
+      "font-weight",
+      "600"
+    );
+    $(".btn.btn--loading span b").attr(
+      "style",
+      "background: #212121 !important"
+    );
+    $(".btnCheck").attr(
+      "style",
+      "color: #212121 !important;font-weight: 600 !important"
+    );
+    $(".pSearchsub, .pModalTitleSub").css("color", "#424242");
+    $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup").attr("style","color: #212121 !important");
+      $(".divPricewallet").css("background-color","#fafafa");
+      $(".pModalTitle, .pFname").css("color","#212121");
+      $(".pModalTitle, .pFname").css("font-weight","600");
   }
 
   $(".digit-group")

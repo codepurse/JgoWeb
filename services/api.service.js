@@ -19,7 +19,7 @@ module.exports = appglobal = {
     card_details: "/api/auth/customer_card_details",
     view_tickets: "/api/client_tickets/user/",
     customer_profile: "/api/auth/customer-profile",
-    trasaction_history_page: "/api/auth/ctransaction-history?page=",
+    transaction_history_page: "/api/auth/ctransaction-history?page=",
     verify_token: "/api/auth/verifyToken",
     change_password: "/api/auth/change-password",
     save_profile: "/api/auth/customers/",
