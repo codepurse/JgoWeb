@@ -1123,7 +1123,7 @@ export class login extends Component {
               </p>
             </div>
             <div className="col-lg-6 text-center">
-              <a className="btn btnSubmit" onClick={this.login}>
+              <a className="btn btnSubmit" onClick={this.login} style = {{color: "White !important"}}>
                 Login
                 <span>
                   <b></b>
@@ -1179,7 +1179,7 @@ export class login extends Component {
             onFailure={this.responseGoogle}
             cookiePolicy={"single_host_origin"}
           />
-          <p className="pDont" data-toggle="modal" data-target="#modalOtp">
+          <p className="pDont">
             Don't have an account?
           </p>
           <p className="pSignup" onClick={this.checkotp.bind(this)}>

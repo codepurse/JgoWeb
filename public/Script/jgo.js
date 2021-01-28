@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  console.log(window.location.pathname)
   if (window.scrollY > 0) {
     $(".fixed-top").css("background", "#1A1A1A");
     $(".fixed-top").css("z-index", "9");
@@ -69,7 +70,12 @@ $(document).ready(function () {
   $(".colMapTrack").css("left", width + 45);
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
-    light();
+    if (window.location.pathname == "/" || window.location.pathname == "/main") {
+
+    }else {
+      light();
+    }
+    
   } else {
     $("#switch").prop("checked", false);
   }
@@ -512,15 +518,15 @@ $(document).ready(function () {
       "style",
       "color: #212121 !important; font-weight: 600 !important"
     );
-    $(".pMode, .pCod, .pPriceModal, .pWalletModal").css("color", "#212121");
-    $(".pMode, .pCod").css("font-weight", "600");
+    $(".pMode, .pCod, .pPriceModal, .pWalletModal, .pNoaction, .pNocard").css("color", "#212121");
+    $(".pMode, .pCod, .pNoaction, .pModeSub, .pNocard").css("font-weight", "600");
     $(".pModeSub, .pCodSub").css("color", "#424242");
     $(".mode").removeClass("modalPayment");
     $(".divCod").css("background-color", "white");
     $(".btnPayment").attr("style", "color: #212121 !important");
     $(".imgRefresh").css("filter", "invert(1) brightness(500%)");
-    $(".modePayment").css("background-color", "rgb(243,244,248)");
-    $(".pagination").attr("style", "color: #212121 !important");
+    $(".mode").css("background-color", "rgb(243,244,248)");
+    $(".pagination").attr("style", "color: #21212 1 !important");
     $(".pagination > li").attr("style", "color: #212121 !important");
     $(".pagination > li > a").attr("style", "color: #212121 !important");
     $(".divCardList, .divCardPayment").css(

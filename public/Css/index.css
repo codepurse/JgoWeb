@@ -770,6 +770,8 @@ hr {
     color: var(--maincolor);
     font-size: 1.2rem;
     text-align: center;
+    width: max-content;
+    margin: 0 auto;
     margin-top: -15px;
     text-decoration: underline;
     cursor: pointer;
@@ -1201,6 +1203,7 @@ hr {
     border: 0px !important;
 }
 
+
 .modal-header {
     display: block !important;
 }
@@ -1208,6 +1211,8 @@ hr {
 .modalPayment {
     background-color: #1E2025 !important;
 }
+
+
 
 .pMode {
     font-family: 'GilroyMedium';
@@ -2246,6 +2251,18 @@ td {
     margin-left: 5px;
 }
 
+.btnTrackingprof {
+    font-family: 'GilroyMedium' !important;
+    background-color: #2D9CFC;
+    padding: 7px;
+    color: white;
+    font-size: 0.9rem;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
 .tdButton {
     min-width: 130px;
     max-width: 130px;
@@ -2259,6 +2276,23 @@ td {
     width: 32px;
     margin-top: -5px;
     margin-left: 5px;
+}
+
+.btnCancel {
+    font-family: 'GilroyMedium' !important;
+    background-color: #ED3450;
+    padding: 7px;
+    font-size: 0.9rem;
+    color: white;
+    border-radius: 5px;
+    border: 0px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+.pNoaction {
+    font-family: 'GilroyMedium' !important;
+    color: whitesmoke;
 }
 
 .tdlight {

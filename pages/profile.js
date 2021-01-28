@@ -116,23 +116,38 @@ export default function profile() {
   }
 
   useEffect(() => {
-    if(localStorage.getItem("theme") == "true") {
+    if (localStorage.getItem("theme") == "true") {
       $(".pagination > li").attr("style", "color: #212121 !important");
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
-  }, [pages])
+  }, [pages]);
+
+  useEffect(() => {
+    if (localStorage.getItem("theme") == "true") {
+      $(".pNoaction").attr(
+        "style",
+        "color: #212121 !important;font-weight: bold"
+      );
+    }
+  }, [tabledata]);
 
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
+      .parent("div")
       .parent("td")
       .parent("tr")
+
       .children()
       .closest("td:nth-child(2)")
       .html();
     tabledata
       .filter((event) => event.tracking_id == trackid)
       .map((number) => {
-        if (number.status == "Canceled" || number.status == "Complete" || number.status == "On hold") {
+        if (
+          number.status == "Canceled" ||
+          number.status == "Complete" ||
+          number.status == "On hold"
+        ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -148,18 +163,18 @@ export default function profile() {
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Error</p>
-                    <p className="pErrorSub">
-                      This booking cannot be track.
-                    </p>
+                    <p className="pErrorSub">This booking cannot be track.</p>
                   </div>
                 </div>
               </div>
             </div>
           );
         } else {
+          console.log("Asdsa");
           window.open(
             "/tracking/" +
               $(e.currentTarget)
+                .parent("div")
                 .parent("td")
                 .parent("tr")
                 .children()
@@ -177,6 +192,7 @@ export default function profile() {
 
   function cancelBooking(e) {
     var trackid = $(e.currentTarget)
+    .parent("div")
       .parent("td")
       .parent("tr")
       .children()
@@ -279,7 +295,7 @@ export default function profile() {
             });
         } else if (
           number.status == "Arrived at Pick Up" ||
-          number.status == "Complete" 
+          number.status == "Complete"
         ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -379,7 +395,7 @@ export default function profile() {
       $("#exampleModal").modal("hide");
       $(".modal-backdrop").hide();
       $("#modalRebook").modal("hide");
-      
+
       localStorage.removeItem("latestbookingdate");
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
@@ -473,7 +489,6 @@ export default function profile() {
   }
 
   useEffect(() => {
-  
     window.reactFunction = () => {
       console.log("Test");
     };
@@ -504,7 +519,7 @@ export default function profile() {
         } else if (mes.message.status == "Arrived") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
-          console.log(canceluser)
+          console.log(canceluser);
           if (canceluser == false) {
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
@@ -701,22 +716,21 @@ export default function profile() {
   }
 
   useEffect(() => {
-    if(localStorage.getItem("goSupport") == "true") {
+    if (localStorage.getItem("goSupport") == "true") {
       $(".ulDashboard>li").removeClass("activeUl");
       $(".conSupport").fadeIn(250);
-    $(".conProf").hide();
-    $(".conBook").hide();
-    $(".conSettings").hide();
-    $(".conPayment").hide();
-    $(".liSupport").addClass("activeUl");
-    localStorage.removeItem("goSupport");
+      $(".conProf").hide();
+      $(".conBook").hide();
+      $(".conSettings").hide();
+      $(".conPayment").hide();
+      $(".liSupport").addClass("activeUl");
+      localStorage.removeItem("goSupport");
     }
     if (localStorage.getItem("latestbookingdate")) {
       console.log(localStorage.getItem("latestbookingdate"));
     } else {
       console.log("no latest booking date");
     }
-   
   }, []);
 
   useEffect(() => {
@@ -751,7 +765,7 @@ export default function profile() {
             result.data.data.created_at
           );
           setLateststatus(result.data.data.status);
-          if(result.data.data.status == "Looking for Driver") {
+          if (result.data.data.status == "Looking for Driver") {
             console.log("yamete");
             loadHoldtimer();
           }
@@ -768,7 +782,6 @@ export default function profile() {
           } else {
             localStorage.removeItem("latestbook");
           }
-        
         }
       });
 
@@ -825,7 +838,6 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-      
         console.log(result);
         setTabledata(result.data.data);
 
@@ -843,8 +855,7 @@ export default function profile() {
             );
         }
 
-
-        if(localStorage.getItem("theme") == "true") {
+        if (localStorage.getItem("theme") == "true") {
           $(".pagination > li").attr("style", "color: #212121 !important");
           $(".pagination > li > a").attr("style", "color: #212121 !important");
         }
@@ -903,7 +914,7 @@ export default function profile() {
   function changePage(e) {
     $(".Box").show();
     $("tbody tr").hide();
-    if(localStorage.getItem("theme") == "true") {
+    if (localStorage.getItem("theme") == "true") {
       $(".pagination > li").attr("style", "color: #212121 !important");
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
@@ -1010,14 +1021,14 @@ export default function profile() {
     $("tr")
       .not(":first")
       .hover(
-      
         function () {
           if (localStorage.getItem("theme_status") === "light") {
             $("td", this).css("color", "#f09307");
           } else {
             $("td", this).css("color", "#EDC728");
           }
-        },  function () {
+        },
+        function () {
           $("td", this).css("color", "");
         }
       );
@@ -1285,17 +1296,17 @@ export default function profile() {
     $(".btnChangepass").addClass("btn--loading");
     if (email == "") {
       $(".txtEmailchange").css("border", "1px solid #c62828");
-       $(".btnChangepass").removeClass("btn--loading");
+      $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (oldpass == "") {
       $(".txtOldpass").css("border", "1px solid  #c62828");
-       $(".btnChangepass").removeClass("btn--loading");
+      $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (confirmoldpass == "") {
       $(".txtConfirmoldpass").css("border", "1px solid  #c62828");
-       $(".btnChangepass").removeClass("btn--loading");
+      $(".btnChangepass").removeClass("btn--loading");
     }
 
     if (newpass == "") {
@@ -1939,7 +1950,6 @@ export default function profile() {
   return (
     <>
       <Header></Header>
-
       <Componentdidmount></Componentdidmount>
       <div style={{ display: "none" }}>
         <form
@@ -2048,7 +2058,9 @@ export default function profile() {
               <li onClick={payment} className="liPayment">
                 PAYMENT
               </li>
-              <li onClick={support} className = "liSupport">SUPPORT</li>
+              <li onClick={support} className="liSupport">
+                SUPPORT
+              </li>
             </ul>
             <hr className="hrDashboard"></hr>
           </div>
@@ -2096,7 +2108,7 @@ export default function profile() {
               <table className="table" id="table" onMouseOver={hovertable}>
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
-                    <th></th>
+                    <th>Action</th>
                     <th>Tracking ID</th>
                     <th>Price</th>
                     <th>Pickup Address</th>
@@ -2113,16 +2125,21 @@ export default function profile() {
                   {tabledata.map((event, index) => (
                     <tr key={event.id}>
                       <td className="tdButton">
-                        <img
-                          src="Image/track.png"
-                          className="img-fluid imgTrack"
-                          onClick={gotoTrack}
-                        ></img>
-                        <img
-                          src="Image/cancel.png"
-                          className="img-fluid imgCancel"
-                          onClick={cancelBooking}
-                        ></img>
+                        {event.status == "Complete" || event.status =="Canceled" ? (
+                          <p className="pNoaction">No action required</p>
+                        ) : (
+                          <div
+                            className="form-inline"
+                            style={{ marginTop: "10px" }}
+                          >
+                           <button className = "btnTrackingprof" onClick={gotoTrack}>
+                             Track
+                           </button>
+                           <button className = "btnCancel" onClick={cancelBooking}>
+                            Cancel
+                           </button>
+                          </div>
+                        )}
                       </td>
                       <td
                         className={
@@ -2376,7 +2393,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div className="container-fluid conSettings">
         <div className="row">
           <div className="col-lg-12">
@@ -2407,7 +2423,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div className="container-fluid conPayment">
         <div className="row">
           <div className="col-lg-12">
@@ -2475,7 +2490,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div className="container-fluid conSupport">
         <div className="row">
           <div className="col-lg-12">
@@ -2578,7 +2592,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalChangepass"
@@ -2657,8 +2670,8 @@ export default function profile() {
             </div>
           </div>
         </div>
-      </div>s
-
+      </div>
+      s
       <div
         className="modal fade"
         id="exampleModal"
@@ -2668,7 +2681,7 @@ export default function profile() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style = {{borderRadius: "20px"}}>
+          <div className="modal-content" style={{ borderRadius: "20px" }}>
             <div className="modal-body text-center modalSearch">
               <div className="container">
                 <div className="row">
@@ -2696,10 +2709,13 @@ export default function profile() {
                       onClick={mapbooking}
                     >
                       Check booking details
-                      <span className = "spanSearch" style={{ marginLeft: "80px" }}>
-                        <b className = "spanSearch" ></b>
-                        <b className = "spanSearch"></b>
-                        <b className = "spanSearch"></b>
+                      <span
+                        className="spanSearch"
+                        style={{ marginLeft: "80px" }}
+                      >
+                        <b className="spanSearch"></b>
+                        <b className="spanSearch"></b>
+                        <b className="spanSearch"></b>
                       </span>
                     </a>
                     <p className="pCancelbook" onClick={cancelbook}>
@@ -2712,7 +2728,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalVerify"
@@ -2757,7 +2772,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalTopup"
@@ -2843,7 +2857,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalReminder"
@@ -2890,7 +2903,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalForm"
@@ -3029,7 +3041,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalReport"
@@ -3098,7 +3109,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
       <div
         className="modal fade"
         id="modalRebook"
@@ -3108,7 +3118,7 @@ export default function profile() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content" style = {{borderRadius: "20px"}}>
+          <div className="modal-content" style={{ borderRadius: "20px" }}>
             <div className="modal-body text-center modalSearch">
               <div className="container">
                 <div className="row">

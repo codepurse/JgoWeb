@@ -414,7 +414,8 @@ export default function map() {
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
-          console.log(result);
+          console.log("booking available")
+          console.log(result.data.data);
           setLatestbook(result.data.data.id);
         }
       });
@@ -2667,8 +2668,8 @@ export default function map() {
                 </div>
                 <div className="col-lg-5">
                   <a  
-                    className="btn btnPayment "
-                    style={{ paddingTop: "10px" }}
+                    className="btn btnPayment"
+                    style={{ paddingTop: "10px",color:" white" }}
                     onClick={btnPlaceorder}
                   >
                     Checkout
