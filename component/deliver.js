@@ -306,7 +306,7 @@ export default function App() {
             src="Image/maps.png"
             className="img-fluid imgMap"
             onClick={opensweetalert}
-            data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title="Click the map to set the exact location"
+            data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title=""
           ></img>
         </div>
         <div
@@ -336,7 +336,7 @@ export default function App() {
         </div>
       </div>
 
-      <a className="btn btnSubmit"  style={{ marginTop: "10px" }} onClick={clickSubmit}>
+      <a className="btn btnSubmit"  style={{ marginTop: "15px",color: "white" }} onClick={clickSubmit}>
         Deliver
         <span>
           <b></b>

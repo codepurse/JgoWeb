@@ -15,7 +15,7 @@ import swal from "@sweetalert/with-react";
 import AuthService from "../services/auth.service";
 import Select from "react-select";
 import axios from "axios";
-import  "../services/api.service";
+import "../services/api.service";
 
 export default function map() {
   var order = 0;
@@ -177,7 +177,10 @@ export default function map() {
     /* Passing localstorage value in pickoff, dropoff and map */
   }
   if (process.browser) {
-    if(localStorage.getItem("pickofflat") && localStorage.getItem("dropofflat")) {
+    if (
+      localStorage.getItem("pickofflat") &&
+      localStorage.getItem("dropofflat")
+    ) {
       if (global.config.place.deliver.refresh === "") {
         global.config.place.deliver.pickofflat = localStorage.getItem(
           "pickofflat"
@@ -208,10 +211,9 @@ export default function map() {
         console.log(coordinate);
         global.config.place.deliver.refresh = "1";
       }
-    }else {
+    } else {
       window.location.href = "/main";
     }
-    
   } else {
   }
 
@@ -240,26 +242,38 @@ export default function map() {
         if (clearstop == 0) {
           $(".div1:visible")
             .each(function () {
-              console.log($(this).css("display"))
-              $(this).attr("style", "display: block")
+              console.log($(this).css("display"));
+              $(this).attr("style", "display: block");
             })
             .promise()
             .done(function () {
               if (!stop3) {
-                $(".divStopoff1").appendTo('.divlistStop');
-                $(".divStopoff1").attr("style","display: table-footer-group !important");
+                $(".divStopoff1").appendTo(".divlistStop");
+                $(".divStopoff1").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
                 return false;
               } else if (!stop4) {
-                $(".divStopoff2").appendTo('.divlistStop');
-                $(".divStopoff2").attr("style","display: table-footer-group !important");
+                $(".divStopoff2").appendTo(".divlistStop");
+                $(".divStopoff2").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
                 return false;
               } else if (!stop5) {
-                $(".divStopoff3").appendTo('.divlistStop');
-                $(".divStopoff3").attr("style","display: table-footer-group !important");
+                $(".divStopoff3").appendTo(".divlistStop");
+                $(".divStopoff3").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
                 return false;
               } else if (!stop6) {
-                $(".divStopoff4").appendTo('.divlistStop');
-                $(".divStopoff4").attr("style","display: table-footer-group !important");
+                $(".divStopoff4").appendTo(".divlistStop");
+                $(".divStopoff4").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
                 return false;
               } else if (stop3 && stop4 && stop5 && stop6 && stop7 && stop8) {
                 swal(
@@ -377,7 +391,7 @@ export default function map() {
       },
     };
     console.log(options1);
-    const api = appglobal.api.base_api+appglobal.api.additional_services;
+    const api = appglobal.api.base_api + appglobal.api.additional_services;
 
     axios
       .get(api, options1)
@@ -389,20 +403,20 @@ export default function map() {
         console.log(err.response.data);
       });
 
-    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
+    const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
       console.log(result.data.user_card_details);
       if (result.data.user_card_details) {
-      $("pNocard").show();
-      }else {
+        $("pNocard").show();
+      } else {
         $("pNocard").hide();
       }
     });
 
     const apiUrl_wallet =
-    appglobal.api.base_api+appglobal.api.customer_profile;
+      appglobal.api.base_api + appglobal.api.customer_profile;
     axios.post(apiUrl_wallet, {}, options1).then((result) => {
       setWallet(result.data.data.get_jgo_wallet.balance);
     });
@@ -414,7 +428,7 @@ export default function map() {
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
-          console.log("booking available")
+          console.log("booking available");
           console.log(result.data.data);
           setLatestbook(result.data.data.id);
         }
@@ -463,9 +477,13 @@ export default function map() {
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    console.log(value);
+    console.log(value.label);
     var str = value.label;
-    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
+    var n =
+      str.includes("Metro Manila") ||
+      str.includes("Laguna, Philippines") ||
+      str.includes("Cainta, Rizal") ||
+      str.includes("Cavite, Philippines");
     if (n === true) {
       setAddress(value);
       setCoordinates(latLng);
@@ -519,16 +537,21 @@ export default function map() {
   const handleChangeDrop = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
+    console.log(value.label);
     var str = value.label;
-    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
-
+    var n =
+      str.includes("Metro Manila") ||
+      str.includes("Laguna, Philippines") ||
+      str.includes("Cainta, Rizal") ||
+      str.includes("Cavite, Philippines");
     if (n === true) {
+      setAddressDrop(value);
+      setCoordinatesDrop(latLng);
       try {
-        setAddressDrop(value);
-        setCoordinatesDrop(latLng);
         var objIndex = places_data.findIndex((obj) => obj.id == click);
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
+          (places_data[objIndex].address = value.label),
           console.log(coordinate);
         router.push("/map");
         getRate();
@@ -541,6 +564,7 @@ export default function map() {
         coordinate.push(destination);
         getRate();
         router.push("/map");
+        getRate();
       }
     } else {
       swal(
@@ -573,8 +597,13 @@ export default function map() {
   const handleChangeStop = async (value, e) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
+    console.log(value.label);
     var str = value.label;
-    var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
+    var n =
+      str.includes("Metro Manila") ||
+      str.includes("Laguna, Philippines") ||
+      str.includes("Cainta, Rizal") ||
+      str.includes("Cavite, Philippines");
     if (n === true) {
       if (click === 3) {
         setStop3(value);
@@ -595,14 +624,13 @@ export default function map() {
         setStop8(value);
       }
 
-
-
       setcoordinateStop(latLng);
       console.log(value.label);
       try {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
+          (places_data[objIndex].address = value.label),
           console.log(coordinate);
         router.push("/map");
         getRate();
@@ -654,7 +682,7 @@ export default function map() {
       setWeight("11-15KG");
       $(".imgWeight1").fadeOut(150);
       $(".imgWeight2").fadeIn(150);
-    }else if (e.target.value < 21) {
+    } else if (e.target.value < 21) {
       setWeight("16-20KG");
       $(".imgWeight1").fadeOut(150);
       $(".imgWeight2").fadeIn(150);
@@ -768,6 +796,7 @@ export default function map() {
     if (click === 1) {
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
+      coordinates.address = global.config.place.deliver.pickoff;
       setAddress({
         value: global.config.place.deliver.pickoff,
         label: global.config.place.deliver.pickoff,
@@ -775,11 +804,14 @@ export default function map() {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
+        (places_data[objIndex].address = coordinates.address),
         console.log(coordinate);
+      getRate();
       router.push("/map");
     } else if (click === 2) {
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
+      coordinates.address = global.config.place.deliver.pickoff;
       setAddressDrop({
         value: global.config.place.deliver.pickoff,
         label: global.config.place.deliver.pickoff,
@@ -787,12 +819,15 @@ export default function map() {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
+        (places_data[objIndex].address = coordinates.address),
         console.log(coordinate);
+      getRate();
       router.push("/map");
     } else if (click > 2) {
       var x = "setStop" + click;
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
+      coordinates.address = global.config.place.deliver.pickoff;
       if (click === 3) {
         setStop3({
           value: global.config.place.deliver.pickoff,
@@ -833,6 +868,7 @@ export default function map() {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
         (places_data[objIndex].lat = coordinates.lat),
           (places_data[objIndex].lng = coordinates.lng),
+          (places_data[objIndex].address = coordinates.address),
           console.log(coordinate);
         router.push("/map");
         getRate();
@@ -888,14 +924,12 @@ export default function map() {
     if (e.currentTarget.id == 6) {
       setStop6(null);
     }
-     if (e.currentTarget.id == 7) {
+    if (e.currentTarget.id == 7) {
       setStop6(null);
     }
     if (e.currentTarget.id == 8) {
       setStop8(null);
     }
-
-
 
     console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
@@ -904,10 +938,10 @@ export default function map() {
       }
     }
 
-    console.log(places_data); 
+    console.log(places_data);
     router.push("/map");
     $(".div1:visible").each(function () {
-      $(this).attr("style","display: block !important");
+      $(this).attr("style", "display: block !important");
     });
     getRate();
   }
@@ -976,7 +1010,7 @@ export default function map() {
         (loopservices = loopservices + 1);
     });
 
-    const apiUrl_rate = appglobal.api.base_api+appglobal.api.calculate_rate;
+    const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1009,7 +1043,7 @@ export default function map() {
       },
     };
 
-    const apiUrl2 = appglobal.api.base_api+appglobal.api.card_details;
+    const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       console.log(result.data);
@@ -1017,9 +1051,9 @@ export default function map() {
       setListcard(result.data.user_card_details);
       if (result.data.user_card_details) {
         $("pNocard").show();
-        }else {
-          $("pNocard").hide();
-        }
+      } else {
+        $("pNocard").hide();
+      }
     });
   }
 
@@ -1379,8 +1413,8 @@ export default function map() {
         }
 
         const apiUrl_rate =
-        appglobal.api.base_api+appglobal.api.calculate_rate;
-        const apiUrl = appglobal.api.base_api+appglobal.api.booking;
+          appglobal.api.base_api + appglobal.api.calculate_rate;
+        const apiUrl = appglobal.api.base_api + appglobal.api.booking;
 
         axios
           .post(apiUrl_rate, ratedata, options)
@@ -1429,7 +1463,6 @@ export default function map() {
                     console.log(pair[0] + ", " + pair[1]);
                   }
                   router.push("/profile");
-                  
                 }
               })
               .catch((err) => {
@@ -1499,42 +1532,44 @@ export default function map() {
   }
 
   function gotoPayment() {
-   if(!latestbook) {
-    var countlocation = 0;
-    const promises = coordinate.map((event) =>
-      locationCod.push({
-        value: Number(event.id) - 1,
-        label: event.address,
-      })
-    );
+    console.log(coordinate);
+    if (!latestbook) {
+      var countlocation = 0;
+      locationCod.splice(0, locationCod.length);
 
-    Promise.all(promises).then(setlocationDropdown(locationCod), endPromise());
-   }else {
-    swal(
-      <div style={{ width: "450px", padding: "10px" }}>
-        <div className="container">
-          <div
-            className="row align-items-center"
-            style={{ borderLeft: "3px solid #FFE900" }}
-          >
-            <div className="col-lg-2">
-              <img
-                src="Image/complain.png"
-                style={{ width: "32px" }}
-              ></img>
-            </div>
+      const promises = coordinate.map((event) =>
+        locationCod.push({
+          value: Number(event.id) - 1,
+          label: event.address,
+        })
+      );
+
+      Promise.all(promises).then(
+        setlocationDropdown(locationCod),
+        endPromise()
+      );
+    } else {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
             <div
-              className="col-lg-10"
-              style={{ textAlign: "left" }}
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
             >
-              <p className="pError">Warning</p>
-              <p className="pErrorSub">Cannot place order if you have ongoing booking.</p>
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Cannot place order if you have ongoing booking.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-   }
+      );
+    }
   }
 
   function endPromise() {
@@ -1703,7 +1738,7 @@ export default function map() {
                   onClick={opensweetalert}
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Click the map to set the exact location"
+                  title=""
                 ></img>
               </div>
               <div className="divHide">
@@ -2620,7 +2655,9 @@ export default function map() {
                   ></img>
                 </div>
               </div>
-              <p className = "text-center pNocard">No credit/debit card to display</p>
+              <p className="text-center pNocard">
+                No credit/debit card to display
+              </p>
               <div className="divLoading">
                 <a className="btn btnanimate btn--loading">
                   Verify
@@ -2667,9 +2704,9 @@ export default function map() {
                   </button>
                 </div>
                 <div className="col-lg-5">
-                  <a  
+                  <a
                     className="btn btnPayment"
-                    style={{ paddingTop: "10px",color:" white" }}
+                    style={{ paddingTop: "10px", color: " white" }}
                     onClick={btnPlaceorder}
                   >
                     Checkout

@@ -192,7 +192,7 @@ export default function profile() {
 
   function cancelBooking(e) {
     var trackid = $(e.currentTarget)
-    .parent("div")
+      .parent("div")
       .parent("td")
       .parent("tr")
       .children()
@@ -672,19 +672,21 @@ export default function profile() {
           holdbook();
           if (router.pathname === "/profile") {
             console.log(router.pathname);
-            $("#modalRebook").modal("show");
 
-            $("#exampleModal").modal("hide");
+            $(".modal-backdrop").show();
           } else {
             $(".modal-backdrop").hide();
           }
           clearInterval(window.interval);
+          $("#exampleModal").modal("hide");
+          $(".modal-backdrop").show();
         }
       }
     }, 1000);
+    $(".modal-backdrop").show();
   }
 
-  function holdTimer() {
+  function holdTimer(_callbaack) {
     var now = moment(new Date()); //todays date
     var end = moment(localStorage.getItem("latestbookingdate")); // another date
     var duration = moment.duration(now.diff(end));
@@ -698,21 +700,31 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 40) {
+        if (min > 10) {
           console.log(latestbook);
           holdbook();
+          $(".modal-backdrop").show();
           if (router.pathname === "/profile") {
             console.log(router.pathname);
-            $("#modalRebook").modal("show");
 
-            $("#exampleModal").modal("hide");
+            $(".modal-backdrop").show();
           } else {
             $(".modal-backdrop").hide();
           }
           clearInterval(window.interval);
+          $("#exampleModal").modal("hide");
+          $(".modal-backdrop").show();
         }
       }
     }, 1000);
+    $(".modal-backdrop").show();
+  }
+  function secondFunction() {
+    // call first function and pass in a callback function which
+    // first function runs when it has completed
+    holdtimer(function () {
+      console.log("huzzah, I'm done!");
+    });
   }
 
   useEffect(() => {
@@ -775,8 +787,8 @@ export default function profile() {
             setLatestbook(result.data.data.id);
             console.log(result.data.data.status);
             if (result.data.data.status == "On hold") {
-              $("#modalRebook").modal("show");
               $("#exampleModal").modal("hide");
+              $("#modalRebook").modal("show");
             }
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
@@ -1053,8 +1065,8 @@ export default function profile() {
       .post(api, { booking_id: localStorage.getItem("latestbook") }, options)
       .then((result) => {
         console.log(result);
+        $("#modalRebook").modal("show");
         refresh();
-        $("#exampleModal").modal("hide");
       })
       .catch((err) => {
         console.log(latestbook);
@@ -1076,8 +1088,8 @@ export default function profile() {
     axios
       .post(api, { booking_id: latestbook }, options)
       .then((result) => {
-        $("#exampleModal").modal("toggle");
-        $("#modalRebook").modal("toggle");
+        $("#exampleModal").modal("show");
+        $("#modalRebook").modal("hide");
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
@@ -2125,19 +2137,26 @@ export default function profile() {
                   {tabledata.map((event, index) => (
                     <tr key={event.id}>
                       <td className="tdButton">
-                        {event.status == "Complete" || event.status =="Canceled" ? (
+                        {event.status == "Complete" ||
+                        event.status == "Canceled" ? (
                           <p className="pNoaction">No action required</p>
                         ) : (
                           <div
                             className="form-inline"
                             style={{ marginTop: "10px" }}
                           >
-                           <button className = "btnTrackingprof" onClick={gotoTrack}>
-                             Track
-                           </button>
-                           <button className = "btnCancel" onClick={cancelBooking}>
-                            Cancel
-                           </button>
+                            <button
+                              className="btnTrackingprof"
+                              onClick={gotoTrack}
+                            >
+                              Track
+                            </button>
+                            <button
+                              className="btnCancel"
+                              onClick={cancelBooking}
+                            >
+                              Cancel
+                            </button>
                           </div>
                         )}
                       </td>

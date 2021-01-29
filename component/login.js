@@ -1123,7 +1123,7 @@ export class login extends Component {
               </p>
             </div>
             <div className="col-lg-6 text-center">
-              <a className="btn btnSubmit" onClick={this.login} style = {{color: "White !important"}}>
+              <a className="btn btnSubmit" onClick={this.login} style = {{color: "White"}}>
                 Login
                 <span>
                   <b></b>

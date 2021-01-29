@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  console.log(window.location.pathname)
+  console.log(window.location.pathname);
   if (window.scrollY > 0) {
     $(".fixed-top").css("background", "#1A1A1A");
     $(".fixed-top").css("z-index", "9");
@@ -70,12 +70,13 @@ $(document).ready(function () {
   $(".colMapTrack").css("left", width + 45);
   if (localStorage.getItem("theme_status") === "light") {
     $("#switch").prop("checked", true);
-    if (window.location.pathname == "/" || window.location.pathname == "/main") {
-
-    }else {
+    if (
+      window.location.pathname == "/" ||
+      window.location.pathname == "/main"
+    ) {
+    } else {
       light();
     }
-    
   } else {
     $("#switch").prop("checked", false);
   }
@@ -518,8 +519,14 @@ $(document).ready(function () {
       "style",
       "color: #212121 !important; font-weight: 600 !important"
     );
-    $(".pMode, .pCod, .pPriceModal, .pWalletModal, .pNoaction, .pNocard").css("color", "#212121");
-    $(".pMode, .pCod, .pNoaction, .pModeSub, .pNocard").css("font-weight", "600");
+    $(".pMode, .pCod, .pPriceModal, .pWalletModal, .pNoaction, .pNocard").css(
+      "color",
+      "#212121"
+    );
+    $(".pMode, .pCod, .pNoaction, .pModeSub, .pNocard").css(
+      "font-weight",
+      "600"
+    );
     $(".pModeSub, .pCodSub").css("color", "#424242");
     $(".mode").removeClass("modalPayment");
     $(".divCod").css("background-color", "white");
@@ -556,10 +563,13 @@ $(document).ready(function () {
       "color: #212121 !important;font-weight: 600 !important"
     );
     $(".pSearchsub, .pModalTitleSub").css("color", "#424242");
-    $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup").attr("style","color: #212121 !important");
-      $(".divPricewallet").css("background-color","#fafafa");
-      $(".pModalTitle, .pFname").css("color","#212121");
-      $(".pModalTitle, .pFname").css("font-weight","600");
+    $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup").attr(
+      "style",
+      "color: #212121 !important"
+    );
+    $(".divPricewallet").css("background-color", "#fafafa");
+    $(".pModalTitle, .pFname").css("color", "#212121");
+    $(".pModalTitle, .pFname").css("font-weight", "600");
   }
 
   $(".digit-group")
@@ -603,4 +613,6 @@ $(document).ready(function () {
       mapProp
     );
   }
+
+  
 });
