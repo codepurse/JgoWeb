@@ -96,7 +96,7 @@ export default function App() {
   }
 
   function clickSubmit(e) {
-  
+    coordinate.length = 0;
     if (address === "" || addressDrop === "") {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>

@@ -350,7 +350,6 @@ export default function map() {
       );
     };
     coordinate.length = 2;
-    console.log(AuthService.getId());
     if (AuthService.getToken()) {
       $(".conMap").fadeIn(200);
       $(".tooltip-primary").tooltip().mouseover();
@@ -390,7 +389,6 @@ export default function map() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    console.log(options1);
     const api = appglobal.api.base_api + appglobal.api.additional_services;
 
     axios
