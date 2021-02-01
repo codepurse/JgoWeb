@@ -1021,7 +1021,7 @@ export default function map() {
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
         console.log(result);
-        var price = result.data.price;
+        var price = result.data.price + parseFloat(result.data.zoning_prices);
         setPrice(Number(price).toFixed(2));
         $(".divLoading").hide();
         $(".pPrice").show();
@@ -1137,6 +1137,7 @@ export default function map() {
         };
 
         let ratedata = new FormData();
+        ratedata.set("weight", weight);
         ratedata.set("pick_up_latitude", coordinate[0].lat);
         ratedata.set("pick_up_longitude", coordinate[0].lng);
         ratedata.set(
@@ -1417,9 +1418,10 @@ export default function map() {
         axios
           .post(apiUrl_rate, ratedata, options)
           .then((result) => {
-            formdata.set("price", result.data.price);
+            console.log(result);
+            formdata.set("price",  parseFloat(result.data.price) + parseFloat(result.data.zoning_prices) );
 
-            var price = result.data.price;
+            var price = parseFloat(result.data.price) + parseFloat(result.data.zoning_prices);
             setPrice(Number(price).toFixed(2));
             axios
               .post(apiUrl, formdata, options)
@@ -1460,7 +1462,7 @@ export default function map() {
                   for (var pair of formdata.entries()) {
                     console.log(pair[0] + ", " + pair[1]);
                   }
-                  router.push("/profile");
+          router.push("/profile");                  
                 }
               })
               .catch((err) => {
@@ -2636,7 +2638,7 @@ export default function map() {
                 </div>
               </div>
               <p className="pWalletno">Insufficient Jgo wallet amount</p>
-              <div className="row">
+              <div className="row d-none">
                 <div className="col-lg-8">
                   <p
                     className="pMode"
@@ -2653,10 +2655,10 @@ export default function map() {
                   ></img>
                 </div>
               </div>
-              <p className="text-center pNocard">
+              <p className="text-center pNocard d-none">
                 No credit/debit card to display
               </p>
-              <div className="divLoading">
+              <div className="divLoading d-none">
                 <a className="btn btnanimate btn--loading">
                   Verify
                   <span className="spanAnimate">
@@ -2697,8 +2699,8 @@ export default function map() {
                 ))}
               <div className="row align-items-center">
                 <div className="col-lg-7">
-                  <button className="btnPayment" onClick={addCard}>
-                    Add Card
+                  <button className="btnPayment" >
+                    Coming soon
                   </button>
                 </div>
                 <div className="col-lg-5">

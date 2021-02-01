@@ -2500,7 +2500,7 @@ export default function profile() {
               ))}
 
             <div
-              className="divCardPayment"
+              className="divCardPayment d-none"
               data-toggle="modal"
               data-target="#modalReminder"
             >

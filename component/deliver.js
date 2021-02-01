@@ -173,18 +173,24 @@ export default function App() {
         coordinatesDrop.lng
       );
       ratedata.set("drop_off_locations[0][booking_order]", "1");
-      ratedata.set("additional_services[0]", "0");
+    
 
       const apiUrl_rate = appglobal.api.base_api+appglobal.api.calculate_rate;
 
       axios
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
-          localStorage.setItem("price", Math.floor(result.data.price) + 1);
+          console.log(result);
+          for (var pair of ratedata.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+          }
+          localStorage.setItem("price", Math.floor(result.data.price) + parseFloat(result.data.zoning_prices));
           $(".btn").removeClass("btn--loading");
-          router.push("/map");
+        router.push("/map")
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
@@ -203,6 +209,7 @@ export default function App() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
+    console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
     if (n === true) {
       setAddress(value);
@@ -235,6 +242,7 @@ export default function App() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
+    console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
 
     if (n === true) {

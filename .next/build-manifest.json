@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/main.js"
     ],
-    "/map": [
+    "/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/map.js"
+      "static/chunks/pages/profile.js"
     ]
   },
   "ampFirstPages": []
