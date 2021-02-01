@@ -79,6 +79,10 @@ const Chat = () => {
 
   const sendMessage = useCallback(
     async (message) => {
+      console.log(Object.keys(message).length)
+     if (Object.keys(message).length == 0) {
+   
+     }else {
       await pubnub.publish({
         channel: channel_id,
         message: {
@@ -90,6 +94,7 @@ const Chat = () => {
       });
 
       setInput("");
+     }
     },
     [pubnub, setInput]
   );
