@@ -180,7 +180,7 @@ export default function App() {
       axios
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
-          localStorage.setItem("price", result.data.price);
+          localStorage.setItem("price", Math.floor(result.data.price) + 1);
           $(".btn").removeClass("btn--loading");
           router.push("/map");
         })
