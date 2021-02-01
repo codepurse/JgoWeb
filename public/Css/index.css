@@ -4595,9 +4595,16 @@ video {
 }
 
 .imgSend {
-    width: 20px;
+    width: 40px;
     margin-left: 15px;
+    transition: all 0.2s;
+    padding: 10px;
+    border-radius: 10px;
     cursor: pointer;
+}
+
+.imgSend:hover {
+    background-color: #1E2126;
 }
 
 /* OTP */
