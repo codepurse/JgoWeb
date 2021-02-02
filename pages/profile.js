@@ -2649,7 +2649,7 @@ export default function profile() {
                 </div>
                 <div className="col-lg-12">
                   <input
-                    type="text"
+                    type="password"
                     className="txtOldpass txtchange"
                     value={oldpass}
                     placeholder="Enter old password"
@@ -2658,7 +2658,7 @@ export default function profile() {
                 </div>
                 <div className="col-lg-12">
                   <input
-                    type="text"
+                    type="password"
                     className="txtOldpass txtConfirmoldpass txtchange"
                     value={confirmoldpass}
                     placeholder="Enter old confirm password"
@@ -2667,7 +2667,7 @@ export default function profile() {
                 </div>
                 <div className="col-lg-12">
                   <input
-                    type="text"
+                    type="password"
                     value={newpass}
                     className="txtNewpass txtchange"
                     placeholder="Enter new password"
@@ -2675,7 +2675,7 @@ export default function profile() {
                   ></input>
                 </div>
                 <div className="col-lg-12 text-center">
-                  <a className="btn btnChangepass" onClick={btnChangepass}>
+                  <a className="btn btnChangepass" onClick={btnChangepass} style = {{color: "white"}}>
                     CONFIRM
                     <span style={{ marginLeft: "180px" }}>
                       <b></b>

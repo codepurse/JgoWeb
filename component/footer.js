@@ -67,13 +67,7 @@ export class footer extends Component {
                   style={{ width: "25px", marginRight: "10px", cursor: "pointer" }}
                 />
               </Link>
-              <Link href="https://www.instagram.com/jgo_ph/?fbclid=IwAR1BzxdovtGg6c0jQU3A3m66nnbUInMwQUseBWzTSBr5YKzIYS5sVfQbsbg">
-                <img
-                  src="Image/twitter.png"
-                  className="img-fluid imgSocialfooter"
-                  style={{ width: "25px", margin: "5px", cursor: "pointer" }}
-                />
-              </Link>
+           
             </div>
           </div>
           <div className="col-lg-12 text-center">

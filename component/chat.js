@@ -22,6 +22,7 @@ const Chat = () => {
   const [lenghtmess, setLenght] = useState("");
 
   useEffect(() => {
+    
     pubnub.history(
       {
         channel: channels,
@@ -47,6 +48,7 @@ const Chat = () => {
   }, [channels]);
 
   useEffect(() => {
+    pubnub.unsubscribeAll();
     pubnub.addListener({
       message: (messageEvent) => {
         pubnub.history(
