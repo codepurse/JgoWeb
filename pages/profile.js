@@ -659,8 +659,17 @@ export default function profile() {
     var end = moment(localStorage.getItem("updatebookingdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
+
+    var fromTime = new Date(localStorage.getItem("updatebookingdate"));
+    var toTime = new Date();
+    var differenceTravel = toTime.getTime() - fromTime.getTime();
+    var seconds = Math.floor((differenceTravel) / (1000));
+
+
     window.interval = setInterval(() => {
+      seconds = seconds + 1;
       min = min + 1;
+      console.log(seconds + " seconds lang")
       console.log(min + "seconds timer");
       console.log(min);
       console.log(holdclear);
@@ -668,7 +677,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 30) {
+        if (seconds > 30) {
           console.log(min + "seconds timer");
           console.log(latestbook);
           holdbook();
