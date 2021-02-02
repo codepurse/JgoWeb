@@ -328,6 +328,7 @@ export default function map() {
   }
 
   useEffect(() => {
+    console.log(AuthService.getId() + " My id")
     $(".modal-backdrop").hide();
     window.reactFunction = () => {
       swal(
@@ -428,6 +429,7 @@ export default function map() {
         if (!result.data.data) {
           console.log("no latest booking");
         } else {
+          console.log(AuthService.getId())
           console.log("booking available");
           console.log(result.data.data);
           setLatestbook(result.data.data.id);

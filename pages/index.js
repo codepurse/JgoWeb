@@ -395,6 +395,14 @@ function driver() {
       submitClick = 0;
     }
 
+    if (lisencenumber == "") {
+      $(".pLisence").css("color", "#d32f2f");
+      $(".txtLisence").css("borderColor", "#d32f2f");
+      clear = 1;
+      $(".btn").removeClass("btn--loading");
+      submitClick = 0;
+    }
+
     if (profile == "") {
       $(".divProfile").css("borderColor", "#d32f2f");
       clear = 1;
@@ -1290,7 +1298,7 @@ function driver() {
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
-                  <a className="btn btnSubmitDriver" onClick={submit}>
+                  <a className="btn btnSubmitDriver" onClick={submit} style = {{color: "white"}}>
                     SIGNUP
                     <span style={{ marginLeft: "40px" }}>
                       <b></b>
