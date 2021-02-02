@@ -146,7 +146,7 @@ export default function profile() {
         if (
           number.status == "Canceled" ||
           number.status == "Complete" ||
-          number.status == "On hold"
+          number.status == "On hold" || number.status == "Looking for Driver"
         ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -667,7 +667,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min >25) {
+        if (min >30) {
           console.log(latestbook);
           holdbook();
           if (router.pathname === "/profile") {
@@ -719,13 +719,7 @@ export default function profile() {
     }, 1000);
     $(".modal-backdrop").show();
   }
-  function secondFunction() {
-    // call first function and pass in a callback function which
-    // first function runs when it has completed
-    holdtimer(function () {
-      console.log("huzzah, I'm done!");
-    });
-  }
+
 
   useEffect(() => {
     if (localStorage.getItem("goSupport") == "true") {
@@ -777,10 +771,12 @@ export default function profile() {
             result.data.data.created_at
           );
           setLateststatus(result.data.data.status);
-          if (result.data.data.status == "Looking for Driver") {
-            console.log("yamete");
+        
+
+          {/*   if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
-          }
+          } */}
+
           setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
@@ -2401,7 +2397,7 @@ export default function profile() {
             </div>
           </div>
           <div className="col-lg-12 text-center">
-            <a className="btn btnSave" onClick={saveprof}>
+            <a className="btn btnSave" onClick={saveprof} style = {{color: "white"}}>
               Save
               <span style={{ marginLeft: "60px" }}>
                 <b></b>

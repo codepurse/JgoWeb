@@ -162,6 +162,7 @@ export default function App() {
       };
 
       let ratedata = new FormData();
+      ratedata.set("pickupplaceid", placeidpick);
       ratedata.set("pick_up_latitude", coordinates.lat);
       ratedata.set("pick_up_longitude", coordinates.lng);
       ratedata.set(
@@ -173,7 +174,9 @@ export default function App() {
         coordinatesDrop.lng
       );
       ratedata.set("drop_off_locations[0][booking_order]", "1");
-    
+      ratedata.set("placeid_drop",placeiddrop);
+      ratedata.set("weight","0-5kg");
+      ratedata.set("payment_method","cod");
 
       const apiUrl_rate = appglobal.api.base_api+appglobal.api.calculate_rate;
 
@@ -184,9 +187,9 @@ export default function App() {
           for (var pair of ratedata.entries()) {
             console.log(pair[0] + ", " + pair[1]);
           }
-          localStorage.setItem("price", Math.floor(result.data.price) + parseFloat(result.data.zoning_prices));
+          localStorage.setItem("price", Math.floor(result.data.price));
           $(".btn").removeClass("btn--loading");
-        router.push("/map")
+          router.push("/map");
         })
         .catch((err) => {
           console.log(err);
@@ -204,6 +207,8 @@ export default function App() {
     lat: null,
     lng: null,
   });
+  const [placeidpick, setPlaceidpick] = React.useState("");
+  const [placeiddrop, setPlaceiddrop] = React.useState("");
 
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
@@ -212,6 +217,7 @@ export default function App() {
     console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
     if (n === true) {
+      setPlaceidpick(results[0].place_id)
       setAddress(value);
       setCoordinates(latLng);
     } else {
@@ -242,10 +248,13 @@ export default function App() {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
     var str = value.label;
+    console.log(results[0].place_id)
+    setPlaceiddrop
     console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
-
+  
     if (n === true) {
+      setPlaceiddrop(results[0].place_id);
       setAddressDrop(value);
       setCoordinatesDrop(latLng);
     } else {

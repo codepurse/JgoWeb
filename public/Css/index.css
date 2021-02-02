@@ -1280,9 +1280,22 @@ hr {
 .pWalletModal {
     font-family: 'GilroyBold';
     color: whitesmoke;
+    font-size: 2rem;
+    margin-bottom: 0px;
+}
+
+.pWalletModal1 {
+    font-family: 'GilroyBold';
+    color: whitesmoke;
     font-size: 1.5rem;
     margin-bottom: 0px;
-    text-align: center;
+}
+
+.pPoints {
+    font-family: 'GilroyMedium';
+    color: whitesmoke;
+    font-size: 1.2rem;
+    margin-left: 5px;
 }
 
 .imgCheck {

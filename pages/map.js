@@ -36,6 +36,8 @@ export default function map() {
   const [addlistservice, setAddlistservice] = React.useState([]);
   const [locationDropdown, setlocationDropdown] = React.useState([]);
   const [latestbook, setLatestbook] = React.useState("");
+  const [pricejgowallet, setPricejgowallet] = React.useState("");
+  const [paymentchoice, setPaytmentchoice] = React.useState("");
 
   const locationCod = [];
   var loopservices = 0;
@@ -436,7 +438,7 @@ export default function map() {
   {
     /* All array and variables needed */
   }
-  const [payment, setPayment] = React.useState("");
+  const [payment, setPayment] = React.useState("cod");
   const [price, setPrice] = React.useState("");
   const [services, setServices] = React.useState([]);
   const [address, setAddress] = useState(null);
@@ -944,10 +946,11 @@ export default function map() {
     getRate();
   }
 
-  function getRate() {
+  function getRatewallet() {
     $(".pPrice").hide();
     $(".divLoading").show();
     let ratedata = new FormData();
+    ratedata.set("payment_method","jgowallet");
     ratedata.set("weight", weight);
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -1021,7 +1024,97 @@ export default function map() {
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
         console.log(result);
-        var price = result.data.price + parseFloat(result.data.zoning_prices);
+        var price = result.data.price;
+        setPricejgowallet(Number(price).toFixed(2));
+        $(".divLoading").hide();
+        $(".pPrice").show();
+      })
+      .catch((err) => {});
+  }
+
+
+  function getRate() {
+    $(".pPrice").hide();
+    $(".divLoading").show();
+    let ratedata = new FormData();
+    ratedata.set("payment_method","cod");
+    ratedata.set("weight", weight);
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
+    ratedata.set(
+      "drop_off_locations[0][drop_off_longitude]",
+      coordinate[1].lng
+    );
+    ratedata.set("drop_off_locations[0][booking_order]", "1");
+
+    if (coordinate[2]) {
+      ratedata.set(
+        "drop_off_locations[1][drop_off_latitude]",
+        coordinate[2].lat
+      );
+      ratedata.set(
+        "drop_off_locations[1][drop_off_longitude]",
+        coordinate[2].lng
+      );
+      ratedata.set("drop_off_locations[1][booking_order]", "2");
+    }
+    if (coordinate[3]) {
+      ratedata.set(
+        "drop_off_locations[2][drop_off_latitude]",
+        coordinate[3].lat
+      );
+      ratedata.set(
+        "drop_off_locations[2][drop_off_longitude]",
+        coordinate[3].lng
+      );
+      ratedata.set("drop_off_locations[2][booking_order]", "3");
+    }
+    if (coordinate[4]) {
+      ratedata.set(
+        "drop_off_locations[3][drop_off_latitude]",
+        coordinate[4].lat
+      );
+      ratedata.set(
+        "drop_off_locations[3][drop_off_longitude]",
+        coordinate[4].lng
+      );
+      ratedata.set("drop_off_locations[3][booking_order]", "4");
+    }
+    if (coordinate[5]) {
+      ratedata.set(
+        "drop_off_locations[4][drop_off_latitude]",
+        coordinate[5].lat
+      );
+      ratedata.set(
+        "drop_off_locations[4][drop_off_longitude]",
+        coordinate[5].lng
+      );
+      ratedata.set("drop_off_locations[4][booking_order]", "5");
+    }
+
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
+    });
+
+    const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+      },
+    };
+
+    axios
+      .post(apiUrl_rate, ratedata, options)
+      .then((result) => {
+        for (var pair of ratedata.entries()) {
+          console.log(pair[0] + ", " + pair[1]);
+        }
+        console.log(result);
+        var price = result.data.price;
         setPrice(Number(price).toFixed(2));
         $(".divLoading").hide();
         $(".pPrice").show();
@@ -1137,6 +1230,7 @@ export default function map() {
         };
 
         let ratedata = new FormData();
+        ratedata.set("payment_method",payment);
         ratedata.set("weight", weight);
         ratedata.set("pick_up_latitude", coordinate[0].lat);
         ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -1419,9 +1513,9 @@ export default function map() {
           .post(apiUrl_rate, ratedata, options)
           .then((result) => {
             console.log(result);
-            formdata.set("price",  parseFloat(result.data.price) + parseFloat(result.data.zoning_prices) );
+            formdata.set("price",  parseFloat(result.data.price));
 
-            var price = parseFloat(result.data.price) + parseFloat(result.data.zoning_prices);
+            var price = parseFloat(result.data.price);
             setPrice(Number(price).toFixed(2));
             axios
               .post(apiUrl, formdata, options)
@@ -1610,7 +1704,8 @@ export default function map() {
       .done(function () {
         if (x == 1) {
           getRate();
-
+          getRatewallet();
+          setMethod();
           $("#exampleModalCenter").modal("toggle");
         }
       });
@@ -1624,9 +1719,9 @@ export default function map() {
   function setMethod(e) {
     $(".imgCheck").hide();
     $(".divCod").css("border", "1px solid #373A41");
-    $(e.currentTarget).find(".imgCheck").fadeIn(150);
+    $(".divCod1").find(".imgCheck").fadeIn(150);
     setPayment("cod");
-    $(e.currentTarget).css("border", "1px solid #FDBF00");
+    $(".divCod1").css("border", "1px solid #FDBF00");
   }
 
   function setMethodWallet(e) {
@@ -2582,7 +2677,7 @@ export default function map() {
               </p>
             </div>
             <div className="modal-body mode modalPayment">
-              <div className="divCod" onClick={setMethod}>
+              <div className="divCod divCod1" onClick={setMethod}>
                 <img src="Image/check.png" className="img-fluid imgCheck"></img>
                 <div className="row align-items-center">
                   <div className="col-lg-2">
@@ -2626,14 +2721,15 @@ export default function map() {
                       style={{ width: "55px" }}
                     ></img>
                   </div>
-                  <div className="col-lg-7">
+                  <div className="col-lg-6">
                     <p className="pCod">JGO Wallet</p>
                     <p className="pCodSub">
-                      It will be debit in your Jgo wallet
+                      Deducted in your Jgo wallet
                     </p>
+                    <p className="pWalletModal1">{wallet}<span className = "pPoints">points</span></p>
                   </div>
-                  <div className="col-lg-3">
-                    <p className="pWalletModal">{wallet}</p>
+                  <div className="col-lg-4">
+                    <p className="pWalletModal">&#8369;{pricejgowallet}</p>
                   </div>
                 </div>
               </div>
