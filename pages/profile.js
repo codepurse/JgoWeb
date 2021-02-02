@@ -661,6 +661,7 @@ export default function profile() {
     var min = Math.floor(duration.asSeconds());
     window.interval = setInterval(() => {
       min = min + 1;
+      console.log(min + "seconds timer");
       console.log(min);
       console.log(holdclear);
 
@@ -668,7 +669,7 @@ export default function profile() {
         clearInterval(window.interval);
       } else {
         if (min > 30) {
-          console.log(min + "Minutes timer");
+          console.log(min + "seconds timer");
           console.log(latestbook);
           holdbook();
           if (router.pathname === "/profile") {
