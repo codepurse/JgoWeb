@@ -1434,7 +1434,7 @@ export class login extends Component {
                       <a
                         className="btn btnSendissue"
                         onClick={this.send.bind(this)}
-                        style={{ marginTop: "5px" }}
+                        style={{ marginTop: "5px", color: "white" }}
                       >
                         Confirm
                         <span style={{ marginLeft: "70px" }}>
