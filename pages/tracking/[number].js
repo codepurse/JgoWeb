@@ -425,7 +425,7 @@ function Post() {
                                 >
                                   {event.category_id == "5"
                                     ? "Fragile"
-                                    : "Undefined"}
+                                    : event.category_id == "1" ? "Document" : event.category_id == "2" ? "Food" : event.category_id == "3" ? "Clothing" : event.category_id  == "4" ? "Medical" : "Others"}
                                 </p>
                               </div>
                               <div className="col-lg-4 col-4 col-sm-4">
@@ -461,7 +461,7 @@ function Post() {
                               >
                                 <p className="pPickTrack">Note</p>
                                 <p className="pFullname pPickLock">
-                                  {event.note}
+                                  {event.notes}
                                 </p>
                               </div>
                             </div>

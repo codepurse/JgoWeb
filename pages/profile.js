@@ -667,8 +667,8 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min >30) {
-          console.log(min);
+        if (min > 30) {
+          console.log(min + "Minutes timer");
           console.log(latestbook);
           holdbook();
           if (router.pathname === "/profile") {
@@ -772,8 +772,9 @@ export default function profile() {
             result.data.data.created_at
           );
           localStorage.setItem("updatebookingdate",result.data.data.updated_at);
+          console.log(result.data.data.updated_at + " Updated booking date");
           setLateststatus(result.data.data.status);
-        
+            console.log(result.data.data.status);
 
            if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
