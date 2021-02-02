@@ -38,7 +38,7 @@ export default function map() {
   const [latestbook, setLatestbook] = React.useState("");
   const [pricejgowallet, setPricejgowallet] = React.useState("");
   const [paymentchoice, setPaytmentchoice] = React.useState("");
-
+  const [codselectlocation, setCodselectlocation] = React.useState([]);
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -786,7 +786,8 @@ export default function map() {
 
   function handleChangeLocation(event) {
     setcodLoc(event.value);
-    console.log(event.value);
+    setCodselectlocation({value: event.value, label: event.label});
+    console.log(event.label);
   }
 
   {
@@ -950,7 +951,7 @@ export default function map() {
     $(".pPrice").hide();
     $(".divLoading").show();
     let ratedata = new FormData();
-    ratedata.set("payment_method","jgowallet");
+    ratedata.set("payment_method", "jgowallet");
     ratedata.set("weight", weight);
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -1032,12 +1033,11 @@ export default function map() {
       .catch((err) => {});
   }
 
-
   function getRate() {
     $(".pPrice").hide();
     $(".divLoading").show();
     let ratedata = new FormData();
-    ratedata.set("payment_method","cod");
+    ratedata.set("payment_method", "cod");
     ratedata.set("weight", weight);
     ratedata.set("pick_up_latitude", coordinate[0].lat);
     ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -1230,7 +1230,7 @@ export default function map() {
         };
 
         let ratedata = new FormData();
-        ratedata.set("payment_method",payment);
+        ratedata.set("payment_method", payment);
         ratedata.set("weight", weight);
         ratedata.set("pick_up_latitude", coordinate[0].lat);
         ratedata.set("pick_up_longitude", coordinate[0].lng);
@@ -1513,7 +1513,7 @@ export default function map() {
           .post(apiUrl_rate, ratedata, options)
           .then((result) => {
             console.log(result);
-            formdata.set("price",  parseFloat(result.data.price));
+            formdata.set("price", parseFloat(result.data.price));
 
             var price = parseFloat(result.data.price);
             setPrice(Number(price).toFixed(2));
@@ -1556,7 +1556,7 @@ export default function map() {
                   for (var pair of formdata.entries()) {
                     console.log(pair[0] + ", " + pair[1]);
                   }
-          router.push("/profile");                  
+                  router.push("/profile");
                 }
               })
               .catch((err) => {
@@ -1639,6 +1639,8 @@ export default function map() {
       );
 
       Promise.all(promises).then(
+        setCodselectlocation(""),
+        setcodLoc(""),
         setlocationDropdown(locationCod),
         endPromise()
       );
@@ -2700,6 +2702,7 @@ export default function map() {
                     </p>
                     <Select
                       options={locationDropdown}
+                      value={codselectlocation}
                       styles={isToggled ? customStyles4 : customStyles}
                       onChange={handleChangeLocation}
                       placeholder="Select location"
@@ -2723,10 +2726,11 @@ export default function map() {
                   </div>
                   <div className="col-lg-6">
                     <p className="pCod">JGO Wallet</p>
-                    <p className="pCodSub">
-                      Deducted in your Jgo wallet
+                    <p className="pCodSub">Deducted in your Jgo wallet</p>
+                    <p className="pWalletModal1">
+                      {wallet}
+                      <span className="pPoints">points</span>
                     </p>
-                    <p className="pWalletModal1">{wallet}<span className = "pPoints">points</span></p>
                   </div>
                   <div className="col-lg-4">
                     <p className="pWalletModal">&#8369;{pricejgowallet}</p>
@@ -2795,9 +2799,7 @@ export default function map() {
                 ))}
               <div className="row align-items-center">
                 <div className="col-lg-7">
-                  <button className="btnPayment" >
-                    Coming soon
-                  </button>
+                  <button className="btnPayment">Coming soon</button>
                 </div>
                 <div className="col-lg-5">
                   <a
