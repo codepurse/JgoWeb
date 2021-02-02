@@ -656,7 +656,7 @@ export default function profile() {
   function loadHoldtimer() {
     console.log(lateststatus);
     var now = moment(new Date()); //todays date
-    var end = moment(localStorage.getItem("latestbookingdate")); // another date
+    var end = moment(localStorage.getItem("updatebookingdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
     window.interval = setInterval(() => {
@@ -668,6 +668,7 @@ export default function profile() {
         clearInterval(window.interval);
       } else {
         if (min >30) {
+          console.log(min);
           console.log(latestbook);
           holdbook();
           if (router.pathname === "/profile") {
@@ -770,12 +771,13 @@ export default function profile() {
             "latestbookingdate",
             result.data.data.created_at
           );
+          localStorage.setItem("updatebookingdate",result.data.data.updated_at);
           setLateststatus(result.data.data.status);
         
 
-          {/*   if (result.data.data.status == "Looking for Driver") {
+           if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
-          } */}
+          } 
 
           setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
@@ -1062,6 +1064,7 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         $("#modalRebook").modal("show");
+        clearInterval(window.interval);
         refresh();
       })
       .catch((err) => {
