@@ -975,7 +975,7 @@ hr {
     border-radius: 5px;
     margin-top: 8px;
     outline: none !important;
-    caret-color: white;
+    caret-color: gray;
 }
 
 .txtAdditional:focus {
@@ -3087,7 +3087,7 @@ label:active:after {
     border-radius: 5px;
     margin-top: 8px;
     outline: none !important;
-    caret-color: white;
+    caret-color: gray;
     margin-bottom: 15px;
 }
 

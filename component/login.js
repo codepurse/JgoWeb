@@ -1387,7 +1387,7 @@ export class login extends Component {
                   <div className="col-lg-12">
                     <a
                       className="btn btnSubmitDriver"
-                      onClick={this.goOtp.bind(this)}
+                      onClick={this.goOtp.bind(this)} style = {{color: "white"}}
                     >
                       SIGNUP
                       <span style={{ marginLeft: "40px" }}>

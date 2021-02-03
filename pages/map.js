@@ -277,7 +277,7 @@ export default function map() {
                   "display: table-footer-group !important"
                 );
                 return false;
-              } else if (stop3 && stop4 && stop5 && stop6 && stop7 && stop8) {
+              } else if (stop3 && stop4 && stop5 && stop6) {
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -296,7 +296,7 @@ export default function map() {
                           style={{ textAlign: "left" }}
                         >
                           <p className="pError">Warning</p>
-                          <p className="pErrorSub">10 Maximum stop off only.</p>
+                          <p className="pErrorSub">Maximum limit stop off</p>
                         </div>
                       </div>
                     </div>
@@ -328,6 +328,9 @@ export default function map() {
   }
 
   useEffect(() => {
+    
+    $("#__next ").css("background-color", "#1E2025");
+
     console.log(AuthService.getId() + " My id")
     $(".modal-backdrop").hide();
     window.reactFunction = () => {
@@ -1290,6 +1293,17 @@ export default function map() {
           );
           ratedata.set("drop_off_locations[4][booking_order]", "5");
         }
+        if (coordinate[6]) {
+          ratedata.set(
+            "drop_off_locations[5][drop_off_latitude]",
+            coordinate[6].lat
+          );
+          ratedata.set(
+            "drop_off_locations[5][drop_off_longitude]",
+            coordinate[6].lng
+          );
+          ratedata.set("drop_off_locations[4][booking_order]", "6");
+        }
 
         if (addlistservice === undefined || addlistservice.length == 0) {
           ratedata.set("additional_services", []);
@@ -1495,6 +1509,49 @@ export default function map() {
           }
         }
 
+        if (coordinate[5]) {
+          formdata.set(
+            "drop_off_locations[4][drop_off_address]",
+            coordinate[5].address
+          );
+          formdata.set(
+            "drop_off_locations[4][drop_off_latitude]",
+            coordinate[5].lat
+          );
+          formdata.set(
+            "drop_off_locations[4][drop_off_longitude]",
+            coordinate[5].lng
+          );
+          formdata.set("drop_off_locations[4][booking_order]", "5");
+          formdata.set(
+            "drop_off_locations[4][contact_name]",
+            coordinate[5].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[4][contact_number]",
+            coordinate[5].detailsnumber
+          );
+          if (coordinate[5].category) {
+            formdata.set(
+              "drop_off_locations[4][category_id]",
+              coordinate[5].category
+            );
+          } else {
+            formdata.set("drop_off_locations[4][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[4][distance]", "5.382620231139828");
+
+          if (coordinate[5].detailsAdd) {
+            formdata.set(
+              "drop_off_locations[4][notes]",
+              coordinate[5].detailsAdd
+            );
+          } else {
+            formdata.set("drop_off_locations[4][notes]", "No notes to display");
+          }
+        }
+
+
         if (addlistservice === undefined || addlistservice.length == 0) {
           formdata.set("additional_services[]", "");
         } else {
@@ -1518,7 +1575,7 @@ export default function map() {
             formdata.set("price", parseFloat(result.data.price));
 
             var price = parseFloat(result.data.price);
-            setPrice(Number(price).toFixed(2));
+          
             axios
               .post(apiUrl, formdata, options)
               .then((result) => {
@@ -2309,7 +2366,7 @@ export default function map() {
 
               <div
                 onClick={() => ((click = 7), setId(7))}
-                className="divStopoff4 divStopOff div1"
+                className="divStopoff5 divStopOff div1"
                 id="divStopoff"
               >
                 <p className="pPick" style={{ marginTop: "30px" }}>
@@ -2395,7 +2452,7 @@ export default function map() {
 
               <div
                 onClick={() => ((click = 8), setId(8))}
-                className="divStopoff4 divStopOff div1"
+                className="divStopoff6 divStopOff div1"
                 id="divStopoff"
               >
                 <p className="pPick" style={{ marginTop: "30px" }}>

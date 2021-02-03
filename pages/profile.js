@@ -76,6 +76,8 @@ export default function profile() {
   const [cleartimer, setCleartimer] = React.useState(false);
   const [canceluser, setCanceluser] = React.useState(false);
 
+  const [ipdate, setIpdate] = React.useState(false);
+
   var holdclear = false;
 
   function handleFile(e) {
@@ -116,7 +118,16 @@ export default function profile() {
   }
 
   useEffect(() => {
+
+    $("#__next ").css("background-color", "#212427");
+
+  }, []);
+
+  function gettimeloadtimer() {}
+
+  useEffect(() => {
     if (localStorage.getItem("theme") == "true") {
+    
       $(".pagination > li").attr("style", "color: #212121 !important");
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
@@ -146,7 +157,8 @@ export default function profile() {
         if (
           number.status == "Canceled" ||
           number.status == "Complete" ||
-          number.status == "On hold" || number.status == "Looking for Driver"
+          number.status == "On hold" ||
+          number.status == "Looking for Driver"
         ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -233,36 +245,9 @@ export default function profile() {
               var end = moment(number.updated_at); // another date
               var duration = moment.duration(now.diff(end));
               var min = Math.floor(duration.asMinutes());
-              cancelbook();
-              if (min < 3) {
-                $("#exampleModal").modal("hide");
-                $(".modal-backdrop").hide();
-                swal(
-                  <div style={{ width: "450px", padding: "10px" }}>
-                    <div className="container">
-                      <div
-                        className="row align-items-center"
-                        style={{ borderLeft: "3px solid #00C853" }}
-                      >
-                        <div className="col-lg-2">
-                          <img
-                            src="Image/success.png"
-                            style={{ width: "32px" }}
-                          ></img>
-                        </div>
-                        <div
-                          className="col-lg-10"
-                          style={{ textAlign: "left" }}
-                        >
-                          <p className="pError">Verified</p>
-                          <p className="pErrorSub">
-                            Your booking is successfully cancelled.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
+
+              if (min < 1) {
+                cancelbook();
                 refresh();
               } else {
                 swal(
@@ -484,6 +469,7 @@ export default function profile() {
       "Congrats we found a driver, click the button below to check the booking details."
     );
     $(".btn").removeClass("btn--loading");
+    $(".pCancelbook").hide();
     setCleartimer(true);
     holdclear = true;
   }
@@ -654,47 +640,47 @@ export default function profile() {
   };
 
   function loadHoldtimer() {
-    console.log(lateststatus);
-    var now = moment(new Date()); //todays date
-    var end = moment(localStorage.getItem("updatebookingdate")); // another date
-    var duration = moment.duration(now.diff(end));
-    var min = Math.floor(duration.asSeconds());
+    axios({
+      url: "http://worldtimeapi.org/api/ip",
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response.data.datetime);
+        setIpdate(response.data.datetime);
 
-    var fromTime = new Date(localStorage.getItem("updatebookingdate"));
-    var toTime = new Date();
-    var differenceTravel = toTime.getTime() - fromTime.getTime();
-    var seconds = Math.floor((differenceTravel) / (1000));
+        var now = moment(response.data.datetime); //todays date
+        var end = moment(localStorage.getItem("updatebookingdate")); // another date
+        var duration = moment.duration(now.diff(end));
+        var min = Math.floor(duration.asSeconds());
 
-
-    window.interval = setInterval(() => {
-      seconds = seconds + 1;
-      min = min + 1;
-      console.log(seconds + " seconds lang")
-      console.log(min + "seconds timer");
-      console.log(min);
-      console.log(holdclear);
-
-      if (holdclear === true) {
-        clearInterval(window.interval);
-      } else {
-        if (seconds > 30) {
+        window.interval = setInterval(() => {
+          min = min + 1;
           console.log(min + "seconds timer");
-          console.log(latestbook);
-          holdbook();
-          if (router.pathname === "/profile") {
-            console.log(router.pathname);
 
-            $(".modal-backdrop").show();
+          if (holdclear === true) {
+            clearInterval(window.interval);
           } else {
-            $(".modal-backdrop").hide();
+            if (min > 30) {
+              console.log(latestbook);
+              holdbook();
+              if (router.pathname === "/profile") {
+                console.log(router.pathname);
+
+                $(".modal-backdrop").show();
+              } else {
+                $(".modal-backdrop").hide();
+              }
+              clearInterval(window.interval);
+              $("#exampleModal").modal("hide");
+              $(".modal-backdrop").show();
+            }
           }
-          clearInterval(window.interval);
-          $("#exampleModal").modal("hide");
-          $(".modal-backdrop").show();
-        }
-      }
-    }, 1000);
-    $(".modal-backdrop").show();
+        }, 1000);
+        $(".modal-backdrop").show();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function holdTimer(_callbaack) {
@@ -730,7 +716,6 @@ export default function profile() {
     }, 1000);
     $(".modal-backdrop").show();
   }
-
 
   useEffect(() => {
     if (localStorage.getItem("goSupport") == "true") {
@@ -781,14 +766,17 @@ export default function profile() {
             "latestbookingdate",
             result.data.data.created_at
           );
-          localStorage.setItem("updatebookingdate",result.data.data.updated_at);
+          localStorage.setItem(
+            "updatebookingdate",
+            result.data.data.updated_at
+          );
           console.log(result.data.data.updated_at + " Updated booking date");
           setLateststatus(result.data.data.status);
-            console.log(result.data.data.status);
+          console.log(result.data.data.status);
 
-           if (result.data.data.status == "Looking for Driver") {
+          if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
-          } 
+          }
 
           setLatestbooktrack(result.data.data.tracking_id);
           setLatestbook(result.data.data.id);
@@ -2297,7 +2285,7 @@ export default function profile() {
               <p className="pTxtDriver pFname">First Name</p>
               <input
                 type="text"
-                className="txtDriver txtFname txtprof"
+                className="txtDriver txtprof"
                 id="txtFnameprof"
                 value={fname}
                 onChange={fname_change}
@@ -2309,7 +2297,7 @@ export default function profile() {
               <p className="pTxtDriver">Middle Name</p>
               <input
                 type="text"
-                className="txtDriver txtprof"
+                className="txtDriver  txtprof"
                 id="txtMiddleprof"
                 value={mname == "null" ? " " : mname}
                 onChange={mname_change}
@@ -2411,7 +2399,11 @@ export default function profile() {
             </div>
           </div>
           <div className="col-lg-12 text-center">
-            <a className="btn btnSave" onClick={saveprof} style = {{color: "white"}}>
+            <a
+              className="btn btnSave"
+              onClick={saveprof}
+              style={{ color: "white" }}
+            >
               Save
               <span style={{ marginLeft: "60px" }}>
                 <b></b>
@@ -2686,7 +2678,11 @@ export default function profile() {
                   ></input>
                 </div>
                 <div className="col-lg-12 text-center">
-                  <a className="btn btnChangepass" onClick={btnChangepass} style = {{color: "white"}}>
+                  <a
+                    className="btn btnChangepass"
+                    onClick={btnChangepass}
+                    style={{ color: "white" }}
+                  >
                     CONFIRM
                     <span style={{ marginLeft: "180px" }}>
                       <b></b>
