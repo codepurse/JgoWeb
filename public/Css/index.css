@@ -1411,6 +1411,7 @@ hr {
     margin-left: -15px !important;
     margin-top: 5px;
     cursor: pointer;
+    z-index: 99 !important;
 }
 
 .imgDelete {

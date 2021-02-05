@@ -25,7 +25,8 @@ export default function logout() {
       AuthService.logout();
       router.push("/");
     }).catch((err) => {
-      
+      AuthService.logout();
+      router.push("/");
     });
 
   }, []);

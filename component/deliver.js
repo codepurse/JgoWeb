@@ -14,7 +14,7 @@ export default function App() {
   const router = useRouter();
   var click;
   const [tokenuser, setTokenuser] = React.useState("");
-  const [price, setPrice] = React.useState("");
+  const [customadd, setCustomadd] = React.useState("");
 
   const customStyles1 = {
     control: (base, state) => ({
@@ -53,8 +53,13 @@ export default function App() {
 
   function getAdd() {
     var str = global.config.place.deliver.pickoff;
+ 
      var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
-    if (n === true) {
+     if (str === "") {
+      swal.close();
+    }
+    else if (n === true) {
+      
       if (click === 0) {
         coordinates.lat = global.config.place.deliver.pickofflat;
         coordinates.lng = global.config.place.deliver.dropofflang;
@@ -71,7 +76,10 @@ export default function App() {
         coordinatesDrop.lng = global.config.place.deliver.dropofflang;
       }
       swal.close();
-    } else {
+      global.config.place.deliver.pickoff = "";
+    }
+    
+     else {
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -282,6 +290,7 @@ export default function App() {
   };
 
   function opensweetalert() {
+    
     swal(
       <div
         style={{

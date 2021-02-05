@@ -240,7 +240,7 @@ export default function map() {
         }
       })
       .promise()
-      .done(function () {
+      .done(function () { 
         if (clearstop == 0) {
           $(".div1:visible")
             .each(function () {
@@ -813,6 +813,7 @@ export default function map() {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
   }
   function setAdd() {
+    
     if (click === 1) {
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
