@@ -391,7 +391,6 @@ body, html {
     outline: none !important;
 }
 
-
 .con {
     max-height: 900px;
 }
@@ -1203,7 +1202,6 @@ hr {
     border: 0px !important;
 }
 
-
 .modal-header {
     display: block !important;
 }
@@ -1211,8 +1209,6 @@ hr {
 .modalPayment {
     background-color: #1E2025 !important;
 }
-
-
 
 .pMode {
     font-family: 'GilroyMedium';
@@ -2280,7 +2276,6 @@ td {
 .tdButton {
     min-width: 130px !important;
     max-width: 130px !important;
-
 }
 
 .imgCancel {
@@ -2478,9 +2473,7 @@ td {
     width: 10px;
     animation-delay: .1s;
     margin: 0 5px;
-
 }
-
 
 .btn.btn--loading span b:first-child {
     animation-delay: 0s;
@@ -2651,7 +2644,7 @@ td {
     padding: 8px !important;
     padding-bottom: 30px !important;
     width: 220px;
-}   
+}
 
 .Box {
     position: relative;
@@ -2754,7 +2747,6 @@ td {
     width: auto;
     text-align: center;
     cursor: pointer;
-
     margin-right: 0px;
     outline: none !important;
 }
@@ -2764,7 +2756,6 @@ td {
     color: #212121;
     font-weight: 600;
 }
-
 
 .modalChangepass {
     padding: 40px !important;
@@ -3168,8 +3159,8 @@ label:active:after {
     font-family: 'GilroyMedium';
     font-size: 0.9rem;
     color: #d32f2f;
-    margin-top: 5px;
-    margin-bottom: -20px;
+    margin-top: 8px;
+    margin-bottom: -10px;
     display: none;
 }
 
@@ -3185,7 +3176,6 @@ label:active:after {
     color: #f1cd79;
     margin-top: 10px;
     width: 100%;
-
 }
 
 /* Customer profile  */
@@ -3358,6 +3348,16 @@ label:active:after {
     background-size: 18px;
     background-position: 10px;
     width: 100%;
+}
+
+.pGoback {
+    font-family: 'GilroyMedium';
+    color: #212121;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+    cursor: pointer;
+    display: none;
 }
 
 .divEstimated {
@@ -4519,6 +4519,7 @@ video {
     color: white;
     font-size: 1rem;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .divChatbox {

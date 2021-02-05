@@ -32,6 +32,7 @@ module.exports = appglobal = {
     additional_services: "/api/auth/additional_services",
     calculate_rate: "/api/auth/calculate-rate",
     booking: "/api/auth/booking",
-    showdriver_location: "/api/auth/show-driver-location"
+    showdriver_location: "/api/auth/show-driver-location",
+    logout: "/api/auth/logout"
   },
 };

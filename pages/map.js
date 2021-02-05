@@ -277,7 +277,21 @@ export default function map() {
                   "display: table-footer-group !important"
                 );
                 return false;
-              } else if (stop3 && stop4 && stop5 && stop6) {
+              } else if (!stop7) {
+                $(".divStopoff5").appendTo(".divlistStop");
+                $(".divStopoff5").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
+                return false;
+              }else if (!stop8) {
+                $(".divStopoff6").appendTo(".divlistStop");
+                $(".divStopoff6").attr(
+                  "style",
+                  "display: table-footer-group !important"
+                );
+                return false;
+              }else if (stop3 && stop4 && stop5 && stop6 && stop7 && stop8) {
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -1011,6 +1025,28 @@ export default function map() {
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
     }
+    if (coordinate[6]) {
+      ratedata.set(
+        "drop_off_locations[5][drop_off_latitude]",
+        coordinate[6].lat
+      );
+      ratedata.set(
+        "drop_off_locations[5][drop_off_longitude]",
+        coordinate[6].lng
+      );
+      ratedata.set("drop_off_locations[5][booking_order]", "6");
+    }
+    if (coordinate[7]) {
+      ratedata.set(
+        "drop_off_locations[6][drop_off_latitude]",
+        coordinate[7].lat
+      );
+      ratedata.set(
+        "drop_off_locations[6][drop_off_longitude]",
+        coordinate[7].lng
+      );
+      ratedata.set("drop_off_locations[6][booking_order]", "7");
+    }
 
     addlistservice.map((addservice) => {
       ratedata.set("additional_services[" + loopservices + "]", addservice),
@@ -1096,7 +1132,29 @@ export default function map() {
         coordinate[5].lng
       );
       ratedata.set("drop_off_locations[4][booking_order]", "5");
+    } if (coordinate[6]) {
+      ratedata.set(
+        "drop_off_locations[5][drop_off_latitude]",
+        coordinate[6].lat
+      );
+      ratedata.set(
+        "drop_off_locations[5][drop_off_longitude]",
+        coordinate[6].lng
+      );
+      ratedata.set("drop_off_locations[5][booking_order]", "6");
+    }if (coordinate[7]) {
+      ratedata.set(
+        "drop_off_locations[6][drop_off_latitude]",
+        coordinate[7].lat
+      );
+      ratedata.set(
+        "drop_off_locations[6][drop_off_longitude]",
+        coordinate[7].lng
+      );
+      ratedata.set("drop_off_locations[6][booking_order]", "7");
     }
+
+
 
     addlistservice.map((addservice) => {
       ratedata.set("additional_services[" + loopservices + "]", addservice),
@@ -1302,7 +1360,18 @@ export default function map() {
             "drop_off_locations[5][drop_off_longitude]",
             coordinate[6].lng
           );
-          ratedata.set("drop_off_locations[4][booking_order]", "6");
+          ratedata.set("drop_off_locations[5][booking_order]", "6");
+        }
+         if (coordinate[7]) {
+          ratedata.set(
+            "drop_off_locations[6][drop_off_latitude]",
+            coordinate[7].lat
+          );
+          ratedata.set(
+            "drop_off_locations[6][drop_off_longitude]",
+            coordinate[7].lng
+          );
+          ratedata.set("drop_off_locations[6][booking_order]", "7");
         }
 
         if (addlistservice === undefined || addlistservice.length == 0) {
@@ -1548,6 +1617,90 @@ export default function map() {
             );
           } else {
             formdata.set("drop_off_locations[4][notes]", "No notes to display");
+          }
+        }
+
+        if (coordinate[6]) {
+          formdata.set(
+            "drop_off_locations[5][drop_off_address]",
+            coordinate[6].address
+          );
+          formdata.set(
+            "drop_off_locations[5][drop_off_latitude]",
+            coordinate[6].lat
+          );
+          formdata.set(
+            "drop_off_locations[5][drop_off_longitude]",
+            coordinate[6].lng
+          );
+          formdata.set("drop_off_locations[5][booking_order]", "6");
+          formdata.set(
+            "drop_off_locations[5][contact_name]",
+            coordinate[6].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[5][contact_number]",
+            coordinate[6].detailsnumber
+          );
+          if (coordinate[6].category) {
+            formdata.set(
+              "drop_off_locations[5][category_id]",
+              coordinate[6].category
+            );
+          } else {
+            formdata.set("drop_off_locations[5][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[5][distance]", "5.382620231139828");
+
+          if (coordinate[6].detailsAdd) {
+            formdata.set(
+              "drop_off_locations[5][notes]",
+              coordinate[6].detailsAdd
+            );
+          } else {
+            formdata.set("drop_off_locations[5][notes]", "No notes to display");
+          }
+        }
+
+        if (coordinate[7]) {
+          formdata.set(
+            "drop_off_locations[6][drop_off_address]",
+            coordinate[7].address
+          );
+          formdata.set(
+            "drop_off_locations[6][drop_off_latitude]",
+            coordinate[7].lat
+          );
+          formdata.set(
+            "drop_off_locations[6][drop_off_longitude]",
+            coordinate[7].lng
+          );
+          formdata.set("drop_off_locations[6][booking_order]", "7");
+          formdata.set(
+            "drop_off_locations[6][contact_name]",
+            coordinate[7].detailsname
+          );
+          formdata.set(
+            "drop_off_locations[6][contact_number]",
+            coordinate[7].detailsnumber
+          );
+          if (coordinate[7].category) {
+            formdata.set(
+              "drop_off_locations[6][category_id]",
+              coordinate[7].category
+            );
+          } else {
+            formdata.set("drop_off_locations[6][category_id]", "1");
+          }
+          formdata.set("drop_off_locations[6][distance]", "5.382620231139828");
+
+          if (coordinate[7].detailsAdd) {
+            formdata.set(
+              "drop_off_locations[6][notes]",
+              coordinate[7].detailsAdd
+            );
+          } else {
+            formdata.set("drop_off_locations[5][notes]", "No notes to display");
           }
         }
 

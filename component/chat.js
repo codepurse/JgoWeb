@@ -22,84 +22,117 @@ const Chat = () => {
   const [lenghtmess, setLenght] = useState("");
 
   useEffect(() => {
-    
-    pubnub.history(
+    pubnub.fetchMessages(
       {
-        channel: channels,
-        count: 100, // how many items to fetch
+        channels: channels,
       },
       function (status, response) {
         try {
           {
-            Object.keys(response.messages).map((keyName, i) => {
+            Object.keys(response.channels).map((keyName, i) => {
               try {
-                console.log(response.messages[keyName].entry.client_message);
+                var x = JSON.parse(JSON.stringify(response.channels[keyName]));
+                console.log(x[0].channel);
+                
+
+                setMessages(response.channels[channels]);
+
+                var myscroll = $(".rowChat");
+                myscroll.scrollTop(myscroll.get(0).scrollHeight);
               } catch (e) {}
             });
           }
         } catch (e) {}
-        try {
-          console.log(response.messages);
-          setLenght(response.messages.length);
-          setMessages(response.messages);
-        } catch (e) {}
+        var myscroll = $(".rowChat");
+        myscroll.scrollTop(myscroll.get(0).scrollHeight);
       }
     );
+    var myscroll = $(".rowChat");
+    myscroll.scrollTop(myscroll.get(0).scrollHeight);
   }, [channels]);
 
   useEffect(() => {
-    pubnub.unsubscribeAll();
     pubnub.addListener({
       message: (messageEvent) => {
-        pubnub.history(
+        pubnub.fetchMessages(
           {
-            channel: channels,
-            count: 100, // how many items to fetch
+            channels: channels,
           },
           function (status, response) {
-           try {
-            if (response.messages) {
-              try {
-                console.log(response.messages);
-                setMessages(response.messages);
-              } catch (e) {}
-            }else {
-              $(".pInvi").show();
-            }
-           }catch(e) {
+            try {
+              if (response) {
+                try {
+                  Object.keys(response.channels).map(
+                    (keyName, i) => {
+                      try {
+                    
 
-           }
+                        var x = JSON.parse(
+                          JSON.stringify(response.channels[keyName])
+                        );
+
+                        if (x[0].channel == channel_id) {
+                          setMessages(response.channels[channels]);
+                        }
+                       
+                        
+
+                        var myscroll = $(".rowChat");
+                        myscroll.scrollTop(myscroll.get(0).scrollHeight);
+                      } catch (e) {
+                        console.log(e);
+                      }
+                    }
+                  );
+                } catch (e) {}
+              } else {
+                $(".pInvi").show();
+              }
+            } catch (e) {}
           }
         );
       },
     });
+    var myscroll = $(".rowChat");
+    myscroll.scrollTop(myscroll.get(0).scrollHeight);
     pubnub.subscribe({ channels });
 
     var myscroll = $(".rowChat");
     myscroll.scrollTop(myscroll.get(0).scrollHeight);
-  }, [channels, messages]);
+  }, [channels, pubnub]);
 
   const sendMessage = useCallback(
     async (message) => {
-      console.log(Object.keys(message).length)
-     if (Object.keys(message).length == 0) {
-   
-     }else {
-      await pubnub.publish({
-        channel: channel_id,
-        message: {
-          content: message,
-          type: 1,
-          id: Math.random().toString(16).substr(2),
-          client_message: true,
-        },
-      });
+      pubnub.subscribe({ channels });
+      if (Object.keys(message).length == 0) {
+      } else {
+        await pubnub.publish({
+          channel: channel_id,
+          message: {
+            content: message,
+            type: 1,
+            id: Math.random().toString(16).substr(2),
+            client_message: true,
+          },
+        });
 
-      setInput("");
-     }
+        setInput("");
+      }
+      var myscroll = $(".rowChat");
+      myscroll.scrollTop(myscroll.get(0).scrollHeight);
     },
+
     [pubnub, setInput]
   );
+
+  function closechat() {
+    pubnub.unsubscribeAll();
+  }
+  function unsub() {
+    pubnub.unsubscribe({
+      channels: ["Channel-customersupport-28011"],
+    });
+  }
 
   function onKeyPress(e) {
     if (e.which === 13) {
@@ -116,13 +149,16 @@ const Chat = () => {
       <div className="container conChatbox">
         <div className="row rowChatheader">
           <div className="col-lg-6">
-            <p className="pSupportchat">Jgo Support</p>
+            <p className="pSupportchat" onClick={unsub}>
+              Jgo Support
+            </p>
           </div>
           <div className="col-lg-6">
             <img
               src="Image/close.png"
               className="img-fluid float-right closeChat"
               style={{ width: "15px", marginRight: "10px", cursor: "pointer" }}
+              onClick={closechat}
             ></img>
           </div>
         </div>
@@ -146,34 +182,40 @@ const Chat = () => {
             ></img>
           </div>
         </div>
-   
-          <div className="row rowChat">
-            <div className="col-lg-12 align-self-end">
-              <div className="row" style={{ margin: "10px 0px" }}>
-                <div className="col-lg-12" style={{ width: "100%" }}>
-                <p className="pInvi">Please do not provide your personal data. Our agent will contact you soon.</p>
-                  {messages.map((event, i) => {
-                    try {
-                      {
-                        if (event.entry.client_message) {
+
+        <div className="row rowChat">
+          <div className="col-lg-12 align-self-end">
+            <div className="row" style={{ margin: "10px 0px" }}>
+              <div className="col-lg-12" style={{ width: "100%" }}>
+                <p className="pInvi">
+                  Please do not provide your personal data. Our agent will
+                  contact you soon.
+                </p>
+                {messages.map((event, i) => {
+                  try {
+                    {
+                      if (event.channel == channel_id) {
+                        if (event.message.client_message) {
                           return (
-                            <p className="pChatuser">{event.entry.content}</p>
+                            <p className="pChatuser">{event.message.content}</p>
                           );
                         } else {
                           return (
-                            <p className="pChatright">{event.entry.content}</p>
+                            <p className="pChatright">
+                              {event.message.content}
+                            </p>
                           );
                         }
                       }
-                    } catch (e) {
-                      console.log(e);
                     }
-                  })}
-                </div>
+                  } catch (e) {
+                    console.log(e);
+                  }
+                })}
               </div>
             </div>
           </div>
-
+        </div>
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 {
-  
   "name": "Jgo",
   "version": "1.0.0",
   "description": "",
@@ -20,8 +19,8 @@
     "next": "^9.5.5",
     "nextjs-progressbar": "0.0.7",
     "philippines": "^1.0.0",
-    "pubnub": "^4.29.9",
-    "pubnub-react": "^2.0.0-rc.0",
+    "pubnub": "^4.29.11",
+    "pubnub-react": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",

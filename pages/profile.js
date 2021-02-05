@@ -113,7 +113,8 @@ export default function profile() {
       return false;
     } else {
       $("#exampleModal").modal("hide");
-      router.push("/tracking/" + latestbooktrack);
+      window.open("/tracking/" + latestbooktrack);
+      
     }
   }
 
@@ -182,7 +183,6 @@ export default function profile() {
             </div>
           );
         } else {
-          console.log("Asdsa");
           window.open(
             "/tracking/" +
               $(e.currentTarget)
@@ -1950,11 +1950,15 @@ export default function profile() {
   function getChannel(e) {
     var x = $(e.currentTarget).find("td:nth-child(6)").text();
     channel_id = [`${x}`];
+  
   }
 
   function openchat() {
+   
     $(".divChatbox").show();
+  
     router.push("/profile");
+     
   }
 
   return (
@@ -2866,7 +2870,7 @@ export default function profile() {
                     <a
                       className="btn btnAddcard  mx-auto d-flex"
                       onClick={goTopup}
-                      style={{ marginTop: "10px" }}
+                      style={{ marginTop: "10px", color: "white" }}
                     >
                       Proceed
                       <span style={{ marginLeft: "10px" }}>
@@ -3118,7 +3122,7 @@ export default function profile() {
                     <a
                       className="btn btnSendissue"
                       onClick={addissue}
-                      style={{ marginTop: "5px" }}
+                      style={{ marginTop: "5px", color: "white" }}
                     >
                       Report issue
                       <span style={{ marginLeft: "40px" }}>
