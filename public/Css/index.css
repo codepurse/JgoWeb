@@ -4515,11 +4515,22 @@ video {
     position: relative;
 }
 
+.divOnline {
+    width:11px;
+    height: 11px;
+    border-radius: 20px;
+    background-color: #ef5350;
+    display: inline;
+    padding-right: 5px;
+    margin-top: -10px;
+}
+
 .pSupportchat {
     font-family: "GilroyMedium" !important;
     color: white;
     font-size: 1rem;
     margin-left: 10px;
+    margin-top: 5px;
     cursor: pointer;
 }
 

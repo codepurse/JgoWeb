@@ -33,7 +33,6 @@ const Chat = () => {
               try {
                 var x = JSON.parse(JSON.stringify(response.channels[keyName]));
                 console.log(x[0].channel);
-                
 
                 setMessages(response.channels[channels]);
 
@@ -53,6 +52,14 @@ const Chat = () => {
 
   useEffect(() => {
     pubnub.addListener({
+      presence: function (presenceEvent) {
+        console.log("presence event came in: ", presenceEvent);
+        if (presenceEvent.occupancy > 2) {
+          $(".divOnline").css("background-color","#2E7D32");
+        }else {
+          $(".divOnline").css("background-color","#ef5350");
+        }
+      },
       message: (messageEvent) => {
         pubnub.fetchMessages(
           {
@@ -62,28 +69,22 @@ const Chat = () => {
             try {
               if (response) {
                 try {
-                  Object.keys(response.channels).map(
-                    (keyName, i) => {
-                      try {
-                    
+                  Object.keys(response.channels).map((keyName, i) => {
+                    try {
+                      var x = JSON.parse(
+                        JSON.stringify(response.channels[keyName])
+                      );
 
-                        var x = JSON.parse(
-                          JSON.stringify(response.channels[keyName])
-                        );
-
-                        if (x[0].channel == channel_id) {
-                          setMessages(response.channels[channels]);
-                        }
-                       
-                        
-
-                        var myscroll = $(".rowChat");
-                        myscroll.scrollTop(myscroll.get(0).scrollHeight);
-                      } catch (e) {
-                        console.log(e);
+                      if (x[0].channel == channel_id) {
+                        setMessages(response.channels[channels]);
                       }
+
+                      var myscroll = $(".rowChat");
+                      myscroll.scrollTop(myscroll.get(0).scrollHeight);
+                    } catch (e) {
+                      console.log(e);
                     }
-                  );
+                  });
                 } catch (e) {}
               } else {
                 $(".pInvi").show();
@@ -95,7 +96,7 @@ const Chat = () => {
     });
     var myscroll = $(".rowChat");
     myscroll.scrollTop(myscroll.get(0).scrollHeight);
-    pubnub.subscribe({ channels });
+    pubnub.subscribe({ channels, withPresence: true });
 
     var myscroll = $(".rowChat");
     myscroll.scrollTop(myscroll.get(0).scrollHeight);
@@ -149,9 +150,12 @@ const Chat = () => {
       <div className="container conChatbox">
         <div className="row rowChatheader">
           <div className="col-lg-6">
-            <p className="pSupportchat" onClick={unsub}>
-              Jgo Support
-            </p>
+            <div className="form-inline">
+              <div className="divOnline"></div>
+              <p className="pSupportchat" onClick={unsub}>
+                Jgo Support
+              </p>
+            </div>
           </div>
           <div className="col-lg-6">
             <img
