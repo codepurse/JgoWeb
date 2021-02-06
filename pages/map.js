@@ -323,6 +323,7 @@ export default function map() {
   }
 
   function opensweetalert() {
+    global.config.place.deliver.pickofflat = "";
     swal(
       <div
         style={{
@@ -813,8 +814,11 @@ export default function map() {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
   }
   function setAdd() {
-    
-    if (click === 1) {
+    if (global.config.place.deliver.pickofflat == "") {
+      swal.close();
+        return false;
+    }
+    else if (click === 1) {
       coordinates.lat = global.config.place.deliver.pickofflat;
       coordinates.lng = global.config.place.deliver.dropofflang;
       coordinates.address = global.config.place.deliver.pickoff;

@@ -202,6 +202,30 @@ export default function profile() {
     holdclear = true;
   }
 
+function opencancelBooking() {
+  swal(
+    <div style={{ width: "450px", padding: "20px" }}>
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-lg-12" style={{ textAlign: "left" }}>
+            <p className="pError">Error</p>
+            <p className="pErrorSub text-center">
+              Are you sure you want to cancel your booking?
+            </p>
+          </div>
+          <div className="col-lg-6 col-sm-6 col-6">
+            <button className="btnYes" onClick = {cancelBooking}>Yes</button>
+          </div>
+          <div className="col-lg-6 col-sm-6 col-6">
+            <button className="btnNo" onClick = {(e) => swal.close()}>No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
   function cancelBooking(e) {
     var trackid = $(e.currentTarget)
       .parent("div")
@@ -359,6 +383,30 @@ export default function profile() {
         }
       });
   }
+  
+function openCancelbook() {
+  swal(
+    <div style={{ width: "450px", padding: "20px" }}>
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-lg-12" style={{ textAlign: "left" }}>
+            <p className="pError">Error</p>
+            <p className="pErrorSub text-center">
+              Are you sure you want to cancel your booking?
+            </p>
+          </div>
+          <div className="col-lg-6 col-sm-6 col-6">
+            <button className="btnYes" onClick = {cancelbook}>Yes</button>
+          </div>
+          <div className="col-lg-6 col-sm-6 col-6">
+            <button className="btnNo" onClick = {(e) => swal.close()}>No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
   function cancelbook() {
     console.log(latestbook);
@@ -403,6 +451,30 @@ export default function profile() {
         </div>
       );
       refresh();
+    }).catch((err) => {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #c62828" }}
+            >
+              <div className="col-lg-2">
+                <img
+                  src="Image/warning.png"
+                  style={{ width: "32px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">
+                  Someting went wrong. PLease try again later or you may contact our customer support.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     });
   }
 
@@ -2155,7 +2227,7 @@ export default function profile() {
                             </button>
                             <button
                               className="btnCancel"
-                              onClick={cancelBooking}
+                              onClick={opencancelBooking}
                             >
                               Cancel
                             </button>
@@ -2747,7 +2819,7 @@ export default function profile() {
                         <b className="spanSearch"></b>
                       </span>
                     </a>
-                    <p className="pCancelbook" onClick={cancelbook}>
+                    <p className="pCancelbook" onClick={openCancelbook}>
                       Cancel Booking
                     </p>
                   </div>
@@ -3178,7 +3250,7 @@ export default function profile() {
                         <b></b>
                       </span>
                     </a>
-                    <p className="pCancelbook" onClick={cancelbook}>
+                    <p className="pCancelbook" onClick={openCancelbook}>
                       Cancel Booking
                     </p>
                   </div>
