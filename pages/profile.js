@@ -858,6 +858,7 @@ function openCancelbook() {
             if (result.data.data.status == "On hold") {
               $("#exampleModal").modal("hide");
               $("#modalRebook").modal("show");
+              swal.close();
             }
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
@@ -1135,6 +1136,7 @@ function openCancelbook() {
       .then((result) => {
         console.log(result);
         $("#modalRebook").modal("show");
+        swal.close();
         clearInterval(window.interval);
         refresh();
       })
@@ -1160,6 +1162,7 @@ function openCancelbook() {
       .then((result) => {
         $("#exampleModal").modal("show");
         $("#modalRebook").modal("hide");
+        swal.close();
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();

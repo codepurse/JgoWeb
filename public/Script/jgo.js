@@ -563,13 +563,13 @@ $(document).ready(function () {
       "color: #212121 !important;font-weight: 600 !important"
     );
     $(".pSearchsub, .pModalTitleSub").css("color", "#424242");
-    $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup, .btnAddcard").attr(
+    $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup, .btnAddcard,.btnSendissue").attr(
       "style",
       "color: #212121 !important"
     );
     $(".divPricewallet").css("background-color", "#fafafa");
     $(".pModalTitle, .pFname").css("color", "#212121");
-    $(".pModalTitle, .pFname, .btnAddcard").css("font-weight", "600");
+    $(".pModalTitle, .pFname, .btnAddcard, .btnSendissue").css("font-weight", "600");
   }
 
   $(".digit-group")
