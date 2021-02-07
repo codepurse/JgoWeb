@@ -20,7 +20,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState([[]]);
   const [lenghtmess, setLenght] = useState("");
-  const [minimze, setMinimize] = useState(false);
+  const [minimize, setMinimize] = useState(false);
 
   useEffect(() => {
     pubnub.fetchMessages(
@@ -54,7 +54,7 @@ const Chat = () => {
   useEffect(() => {
     pubnub.addListener({
       presence: function (presenceEvent) {
-        console.log("presence event came in: ", presenceEvent);
+        
         if (presenceEvent.occupancy > 2) {
           $(".divOnline").css("background-color", "#2E7D32");
         } else {
@@ -77,7 +77,14 @@ const Chat = () => {
                       );
 
                       if (x[0].channel == channel_id) {
+                        console.log(minimize)
                         setMessages(response.channels[channels]);
+                        if (($(".conChatbox").height() + 400) < 500) {
+                          
+                          playSound();
+                        }else {
+                         
+                        }
                       }
 
                       var myscroll = $(".rowChat");
@@ -129,11 +136,17 @@ const Chat = () => {
 
   function closechat() {
     pubnub.unsubscribeAll();
+    setMinimize(false);
+     $(".conChatbox").css("height", "500px");
+      $(".rowChat").show();
+      $(".rowType").show();
+      $(".rowChatheader").css("border-radius", "0px");
+      $(".rowChatheader").css("border-top-right-radius", "15px");
+      $(".rowChatheader").css("border-top-left-radius", "15px");
+      $(".minimizeChat").attr("src", "Image/minimize.png");
   }
   function unsub() {
-    pubnub.unsubscribe({
-      channels: ["Channel-customersupport-28011"],
-    });
+    console.log(minimize);
   }
 
   function onKeyPress(e) {
@@ -144,16 +157,25 @@ const Chat = () => {
     }
   }
 
+  function playSound() {
+    var audio = new Audio("Sound/notif.mp3");
+    audio.loop = false;
+    audio.play();
+  }
+
   function minichat() {
-    if (minimze == false) {
+    if (minimize == false) {
       setMinimize(true);
       $(".conChatbox").css("height", "55px");
       $(".rowChat").hide();
       $(".rowType").hide();
       $(".rowChatheader").css("border-radius", "15px");
       $(".minimizeChat").attr("src", "Image/maximize.png");
+     
     } else {
       setMinimize(false);
+      var myscroll = $(".rowChat");
+      myscroll.scrollTop(myscroll.get(0).scrollHeight);
       $(".conChatbox").css("height", "500px");
       $(".rowChat").show();
       $(".rowType").show();
