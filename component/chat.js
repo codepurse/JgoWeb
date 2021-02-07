@@ -22,6 +22,12 @@ const Chat = () => {
   const [lenghtmess, setLenght] = useState("");
   const [minimize, setMinimize] = useState(false);
 
+useEffect(() => {
+  var myscroll = $(".rowChat");
+  myscroll.scrollTop(myscroll.get(0).scrollHeight);
+})
+
+
   useEffect(() => {
     pubnub.fetchMessages(
       {
