@@ -20,6 +20,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState([[]]);
   const [lenghtmess, setLenght] = useState("");
+  const [minimze, setMinimize] = useState(false);
 
   useEffect(() => {
     pubnub.fetchMessages(
@@ -55,9 +56,9 @@ const Chat = () => {
       presence: function (presenceEvent) {
         console.log("presence event came in: ", presenceEvent);
         if (presenceEvent.occupancy > 2) {
-          $(".divOnline").css("background-color","#2E7D32");
-        }else {
-          $(".divOnline").css("background-color","#ef5350");
+          $(".divOnline").css("background-color", "#2E7D32");
+        } else {
+          $(".divOnline").css("background-color", "#ef5350");
         }
       },
       message: (messageEvent) => {
@@ -143,6 +144,26 @@ const Chat = () => {
     }
   }
 
+  function minichat() {
+    if (minimze == false) {
+      setMinimize(true);
+      $(".conChatbox").css("height", "55px");
+      $(".rowChat").hide();
+      $(".rowType").hide();
+      $(".rowChatheader").css("border-radius", "15px");
+      $(".minimizeChat").attr("src", "Image/maximize.png");
+    } else {
+      setMinimize(false);
+      $(".conChatbox").css("height", "500px");
+      $(".rowChat").show();
+      $(".rowType").show();
+      $(".rowChatheader").css("border-radius", "0px");
+      $(".rowChatheader").css("border-top-right-radius", "15px");
+      $(".rowChatheader").css("border-top-left-radius", "15px");
+      $(".minimizeChat").attr("src", "Image/minimize.png");
+    }
+  }
+
   return (
     <>
       <Header></Header>
@@ -158,12 +179,18 @@ const Chat = () => {
             </div>
           </div>
           <div className="col-lg-6">
-            <img
-              src="Image/close.png"
-              className="img-fluid float-right closeChat"
-              style={{ width: "15px", marginRight: "10px", cursor: "pointer" }}
-              onClick={closechat}
-            ></img>
+            <div className="form-inline divTopchat">
+              <img
+                src="Image/minimize.png"
+                className="img-fluid minimizeChat"
+                onClick={minichat}
+              ></img>
+              <img
+                src="Image/close.png"
+                className="img-fluid  closeChat"
+                onClick={closechat}
+              ></img>
+            </div>
           </div>
         </div>
         <div className="row rowType">

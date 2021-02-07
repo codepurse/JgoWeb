@@ -4513,6 +4513,7 @@ video {
     padding: 20px 15px !important;
     border-radius: 25px;
     position: relative;
+    transition: all 0.2s;
 }
 
 .divOnline {
@@ -4532,6 +4533,36 @@ video {
     margin-left: 10px;
     margin-top: 5px;
     cursor: pointer;
+}
+
+.divTopchat {
+    float: right;
+    margin-top: 5px;
+}
+
+.minimizeChat {
+    margin-top: -10px;
+    transition: all 0.2s;
+    width: 35px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right:  2px;
+    cursor: pointer;
+}
+
+.closeChat {
+    margin-top: -10px;
+    transition: all 0.2s;
+    width: 35px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right:  5px;
+    cursor: pointer;
+}
+
+.closeChat:hover, .minimizeChat:hover {
+    background-color: #15181A !important;
+
 }
 
 .divChatbox {
@@ -4562,6 +4593,7 @@ video {
     max-height: 365px !important;
     overflow-y: auto;
     margin-top: 40px;
+    scroll-behavior: smooth;
 }
 
 .imgChat {
