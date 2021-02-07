@@ -4516,6 +4516,18 @@ video {
     transition: all 0.2s;
 }
 
+.spanCount {
+    font-family: "GilroyMedium" !important;
+    color: white;
+    background-color: #ef5350;
+    border-radius: 50%;
+    display: none;
+    padding: 5px 14px;
+    position: absolute;
+    left: -20px;
+    top: -38px;
+}
+
 .divOnline {
     width:11px;
     height: 11px;

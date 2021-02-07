@@ -21,12 +21,18 @@ const Chat = () => {
   const [input, setInput] = useState([[]]);
   const [lenghtmess, setLenght] = useState("");
   const [minimize, setMinimize] = useState(false);
+  const [readmess, setReadmess] = useState("");
+  const [chatcount, setChatcount] = useState("2");
 
 useEffect(() => {
   var myscroll = $(".rowChat");
   myscroll.scrollTop(myscroll.get(0).scrollHeight);
 })
 
+
+useEffect(() => {
+  setChatcount(lenghtmess - readmess);
+}, [lenghtmess])
 
   useEffect(() => {
     pubnub.fetchMessages(
@@ -40,9 +46,9 @@ useEffect(() => {
               try {
                 var x = JSON.parse(JSON.stringify(response.channels[keyName]));
                 console.log(x[0].channel);
-
+                setLenght(response.channels[channels].length)
                 setMessages(response.channels[channels]);
-
+                
                 var myscroll = $(".rowChat");
                 myscroll.scrollTop(myscroll.get(0).scrollHeight);
               } catch (e) {}
@@ -84,9 +90,10 @@ useEffect(() => {
 
                       if (x[0].channel == channel_id) {
                         console.log(minimize)
+                        setLenght(response.channels[channels].length)
                         setMessages(response.channels[channels]);
                         if (($(".conChatbox").height() + 400) < 500) {
-                          
+                          $(".spanCount").show();
                           playSound();
                         }else {
                          
@@ -152,7 +159,7 @@ useEffect(() => {
       $(".minimizeChat").attr("src", "Image/minimize.png");
   }
   function unsub() {
-    console.log(minimize);
+    console.log(readmess);
   }
 
   function onKeyPress(e) {
@@ -177,9 +184,12 @@ useEffect(() => {
       $(".rowType").hide();
       $(".rowChatheader").css("border-radius", "15px");
       $(".minimizeChat").attr("src", "Image/maximize.png");
+      setReadmess(lenghtmess);
      
     } else {
+      $(".spanCount").hide();
       setMinimize(false);
+      setReadmess(0)
       var myscroll = $(".rowChat");
       myscroll.scrollTop(myscroll.get(0).scrollHeight);
       $(".conChatbox").css("height", "500px");
@@ -198,11 +208,12 @@ useEffect(() => {
       <Componentdidmount></Componentdidmount>
       <div className="container conChatbox">
         <div className="row rowChatheader">
-          <div className="col-lg-6">
+          <div className="col-lg-6" style = {{position: "relative"}}>
+          <span className = "spanCount">{chatcount}</span>
             <div className="form-inline">
               <div className="divOnline"></div>
               <p className="pSupportchat" onClick={unsub}>
-                Jgo Support
+                Jgo Support 
               </p>
             </div>
           </div>
