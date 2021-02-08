@@ -56,6 +56,11 @@ $(document).ready(function () {
 
   $(".closeChat").click(function () {
     $(".divChatbox").hide();
+    $(".spanCount").hide();
+  });
+
+  $(".btnOpenchat").click(function () {
+    $(".spanCount").hide();
   });
 
   $(".btnplease").click(function () {

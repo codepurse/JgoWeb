@@ -29,9 +29,19 @@ useEffect(() => {
   myscroll.scrollTop(myscroll.get(0).scrollHeight);
 })
 
+useEffect(() => {
+ 
+}, [])
+
 
 useEffect(() => {
-  setChatcount(lenghtmess - readmess);
+  var x = lenghtmess - readmess;
+  if( x < 0) {
+    setChatcount("1")
+  }else {
+    setChatcount(lenghtmess - readmess);
+  }
+  
 }, [lenghtmess])
 
   useEffect(() => {
@@ -150,6 +160,8 @@ useEffect(() => {
   function closechat() {
     pubnub.unsubscribeAll();
     setMinimize(false);
+    setLenght(0);
+    $(".spanCount").hide();
      $(".conChatbox").css("height", "500px");
       $(".rowChat").show();
       $(".rowType").show();
@@ -159,7 +171,7 @@ useEffect(() => {
       $(".minimizeChat").attr("src", "Image/minimize.png");
   }
   function unsub() {
-    console.log(readmess);
+    $(".spanCount").hide();
   }
 
   function onKeyPress(e) {

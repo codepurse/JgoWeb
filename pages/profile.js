@@ -2031,7 +2031,7 @@ function openCancelbook() {
   function openchat() {
    
     $(".divChatbox").show();
-  
+    $(".spanCount").hide();
     router.push("/profile");
      
   }
@@ -2671,7 +2671,7 @@ function openCancelbook() {
                           {event.status}
                         </td>
                         <td>
-                          <button className="btnOpen" onClick={openchat}>
+                          <button className="btnOpen btnOpenchat" onClick={openchat}>
                             Open chat
                           </button>
                         </td>
