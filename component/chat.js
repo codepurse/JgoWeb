@@ -170,9 +170,7 @@ useEffect(() => {
       $(".rowChatheader").css("border-top-left-radius", "15px");
       $(".minimizeChat").attr("src", "Image/minimize.png");
   }
-  function unsub() {
-    $(".spanCount").hide();
-  }
+
 
   function onKeyPress(e) {
     if (e.which === 13) {
@@ -224,7 +222,7 @@ useEffect(() => {
           <span className = "spanCount">{chatcount}</span>
             <div className="form-inline">
               <div className="divOnline"></div>
-              <p className="pSupportchat" onClick={unsub}>
+              <p className="pSupportchat">
                 Jgo Support 
               </p>
             </div>
