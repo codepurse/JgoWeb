@@ -3441,7 +3441,7 @@ export default function map() {
             </div>
 
             <button className="btnAddStopoff" onClick={btnAddstop}>
-              Add Stop-off
+              Add drop-off
             </button>
             <p className="pNote" style={{ display: "none" }}>
               Note: Delivery only within Metro Manila

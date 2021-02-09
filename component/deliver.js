@@ -369,7 +369,7 @@ export default function App() {
           ></img>
         </div>
       </div>
-
+        
       <a className="btn btnSubmit"  style={{ marginTop: "15px",color: "white" }} onClick={clickSubmit}>
         Deliver
         <span>
