@@ -2670,7 +2670,7 @@ export default function map() {
                     className="img-fluid imgGps"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -2759,7 +2759,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -2847,7 +2847,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -2935,7 +2935,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -3021,7 +3021,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -3107,7 +3107,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -3193,7 +3193,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -3279,7 +3279,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
@@ -3365,7 +3365,7 @@ export default function map() {
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
-                  Stop Off Location
+                  Drop Off Location
                 </p>
 
                 <div
