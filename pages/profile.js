@@ -573,6 +573,8 @@ function openCancelbook() {
           refresh();
         } else if (mes.message.status == "Arrived") {
           refresh();
+        }else if (mes.message.status == "Complete All") {
+          refresh();
         } else if (mes.message.status == "Cancelled") {
           console.log(canceluser);
           if (canceluser == false) {
@@ -710,7 +712,7 @@ function openCancelbook() {
 
   function loadHoldtimer() {
     axios({
-      url: "http://worldtimeapi.org/api/ip",
+      url: "https://worldtimeapi.org/api/ip",
       method: "get",
     })
       .then((response) => {
