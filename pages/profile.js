@@ -76,6 +76,8 @@ export default function profile() {
   const [cleartimer, setCleartimer] = React.useState(false);
   const [canceluser, setCanceluser] = React.useState(false);
 
+  
+
   const [ipdate, setIpdate] = React.useState(false);
 
   var holdclear = false;
@@ -214,7 +216,7 @@ function opencancelBooking() {
             </p>
           </div>
           <div className="col-lg-6 col-sm-6 col-6">
-            <button className="btnYes" onClick = {cancelBooking}>Yes</button>
+            <button className="btnYes" onClick = {cancelbook}>Yess</button>
           </div>
           <div className="col-lg-6 col-sm-6 col-6">
             <button className="btnNo" onClick = {(e) => swal.close()}>No</button>
@@ -547,12 +549,7 @@ function openCancelbook() {
   }
 
   useEffect(() => {
-    window.reactFunction = () => {
-      console.log("Test");
-    };
-    window.fn = function () {
-      console.log("Test");
-    };
+    
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -561,7 +558,7 @@ function openCancelbook() {
         console.log(message);
         setMessage(message.message.status);
         console.log(message.message.status);
-        let mes = message;
+        let mes = message;x
 
         if (mes.message.status == "Driver found") {
           driverfound();
@@ -614,7 +611,7 @@ function openCancelbook() {
     pubnub.addListener(listener);
 
     pubnub.subscribe({
-      channels: ["booking_channel_" + localStorage.getItem("activeid")],
+      channels: ["booking_channel_testing_" + localStorage.getItem("activeid")],
       withPresence: true,
       includeState: true,
     });
@@ -732,7 +729,7 @@ function openCancelbook() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 30) {
+            if (min > 60) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -755,7 +752,7 @@ function openCancelbook() {
       });
   }
 
-  function holdTimer(_callbaack) {
+  function holdTimer() {
     var now = moment(new Date()); //todays date
     var end = moment(localStorage.getItem("latestbookingdate")); // another date
     var duration = moment.duration(now.diff(end));
@@ -769,7 +766,7 @@ function openCancelbook() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 25) {
+        if (min >60) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -858,7 +855,7 @@ function openCancelbook() {
             if (result.data.data.status == "On hold") {
               $("#exampleModal").modal("hide");
               $("#modalRebook").modal("show");
-              swal.close();
+             
             }
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
@@ -1136,7 +1133,7 @@ function openCancelbook() {
       .then((result) => {
         console.log(result);
         $("#modalRebook").modal("show");
-        swal.close();
+
         clearInterval(window.interval);
         refresh();
       })
@@ -1162,7 +1159,6 @@ function openCancelbook() {
       .then((result) => {
         $("#exampleModal").modal("show");
         $("#modalRebook").modal("hide");
-        swal.close();
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
@@ -1947,6 +1943,8 @@ function openCancelbook() {
         .then((result) => {
           $("#modalReport").modal("hide");
           $(".modal-backdrop").hide();
+          setDescription("");
+          setTitleissue("");
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">

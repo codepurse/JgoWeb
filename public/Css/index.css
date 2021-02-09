@@ -1169,6 +1169,29 @@ hr {
     margin-top: -10px;
 }
 
+
+.imgInfo {
+    width: 15px;
+    margin-left: 8px;
+    margin-top: -15px;
+    cursor: pointer;
+}
+
+.pBreakdown {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    color: #212121;
+    font-size: 1.1rem;
+    text-align: left !important;
+}
+
+.pBreakdownsub {
+    font-family: GilroyLight;
+    color: #424242;
+    font-size: 0.9rem;
+}
+
+
 .pWeight, .pKg {
     font-family: 'GilroyBold';
     color: white;
@@ -1490,6 +1513,19 @@ hr {
     z-index: 999999;
     padding: 10px;
     border-radius: 5px;
+}
+
+.imgFull {
+    position: absolute;
+    bottom: 100px;
+    right: 12px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px;
+    width: 34px;
+    border: 1px solid gray;
+    z-index: 999999;
+    cursor: pointer;
 }
 
 .btnDone {

@@ -43,6 +43,11 @@ export class header extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         ></link>
+        <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+        <link
+          href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
+          rel="stylesheet"
+        />
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -63,7 +68,6 @@ export class header extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
-        
       </Head>
     );
   }

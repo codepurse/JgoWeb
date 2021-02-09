@@ -48,6 +48,10 @@ class MapExample extends Component {
       );
   }
 
+  componentDidMount() {
+  this.interval = setInterval(() => this.myRef.current.leafletElement.invalidateSize(), 1000);
+}
+
   handleClick(e) {
     console.log(e.latlng.lat);
     console.log(e.latlng.lng);
@@ -78,6 +82,7 @@ class MapExample extends Component {
         center={this.props.center}
         zoom={this.props.zoom}
         onClick={this.handleClick}
+        fullscreenControl = {true}
       >
           <TileLayer
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

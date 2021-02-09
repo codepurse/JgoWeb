@@ -192,6 +192,14 @@ export default function App() {
         .post(apiUrl_rate, ratedata, options)
         .then((result) => {
           console.log(result);
+          localStorage.setItem("baserate", result.data.breakdown.base_rate);
+          localStorage.setItem("perkm", result.data.breakdown.per_km);
+          localStorage.setItem("platform",result.data.breakdown.platform_fee);
+          localStorage.setItem("adddropoff",result.data.breakdown.totalAdditionalDropOffRate);
+          localStorage.setItem("totalkm",result.data.breakdown.totalKilometerRate);
+          localStorage.setItem("smsfee",result.data.breakdown.vonage_fee);
+          localStorage.setItem("weightfee",result.data.breakdown.weight_fee);
+          localStorage.setItem("zoningfee",result.data.breakdown.zoning_fee);
           for (var pair of ratedata.entries()) {
             console.log(pair[0] + ", " + pair[1]);
           }
