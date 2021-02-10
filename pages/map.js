@@ -236,16 +236,31 @@ export default function map() {
     var clearstop = 0;
     $(".div1:visible")
       .each(function () {
-        if (
-          $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
-          $(this).css("display") == "table-footer-group"
-        ) {
-          $(this)
-            .find(".css-kvzrv0-control")
-            .css("border", "1px solid #ED3450");
-          window.reactFunction();
-          clearstop = 1;
-          return false;
+        if (localStorage.getItem("theme_status") === "light") {
+          
+          if (
+            $(this).find(".css-121v2h3-singleValue").text().length == 0 &&
+            $(this).css("display") == "table-footer-group"
+          ) {
+            $(this)
+              .find(".css-riax9o-control")
+              .css("border", "1px solid #ED3450");
+            window.reactFunction();
+            clearstop = 1;
+            return false;
+          }
+        }else {
+          if (
+            $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(this).css("display") == "table-footer-group"
+          ) {
+            $(this)
+              .find(".css-kvzrv0-control")
+              .css("border", "1px solid #ED3450");
+            window.reactFunction();
+            clearstop = 1;
+            return false;
+          }
         }
       })
       .promise()

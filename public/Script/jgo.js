@@ -116,68 +116,6 @@ $(document).ready(function () {
   });
   var y = 0;
 
-  $(".btnAddStopoff1").click(function () {
-    var clear = 0;
-    $(".div1:visible")
-      .each(function () {
-        if (
-          $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
-          $(this).css("display") == "table-footer-group"
-        ) {
-          $(this)
-            .find(".css-kvzrv0-control")
-            .css("border", "1px solid #ED3450");
-          window.reactFunction();
-          clear = 1;
-          return false;
-        }
-      })
-      .promise()
-      .done(function () {
-        if (clear == 0) {
-          $(".css-kvzrv0-control").css("border", "1px solid #2c2c2c");
-          if (
-            $(".divStopoff1").find(".css-5sz5u5-singleValue").text().length ==
-              0 &&
-            $(".divStopoff1").css("display") == "none"
-          ) {
-            $(".divStopoff1").css("display", "table-footer-group");
-          } else if (
-            $(".divStopoff2").find(".css-5sz5u5-singleValue").text().length ==
-              0 &&
-            $(".divStopoff2").css("display") == "none"
-          ) {
-            $(".div1:visible").each(function () {
-              $(this).css("display", "block");
-            });
-            $(".divStopoff2").css("display", "table-footer-group");
-            return false;
-          } else if (
-            $(".divStopoff3").find(".css-5sz5u5-singleValue").text().length ==
-              0 &&
-            $(".divStopoff3").css("display") == "none"
-          ) {
-            $(".div1:visible").each(function () {
-              $(this).css("display", "block");
-            });
-            $(".divStopoff3").css("display", "table-footer-group");
-            return false;
-          } else if (
-            $(".divStopoff4").find(".css-5sz5u5-singleValue").text().length ==
-              0 &&
-            $(".divStopoff4").css("display") == "none"
-          ) {
-            $(".div1:visible").each(function () {
-              $(this).css("display", "block");
-            });
-            $(".divStopoff4").css("display", "table-footer-group");
-            return false;
-          } else {
-            alert("maximum");
-          }
-        }
-      });
-  });
 
   try {
     const $boxadd = document.querySelector(".boxAdditional");
@@ -421,6 +359,11 @@ $(document).ready(function () {
 
   function light() {
     $("#__next , body, html").css("background-color", "#fff");
+    if(window.location.pathname == "/terms-conditions" || window.location.pathname == "/privacy-policy") {
+      $("#__next, body, html").attr("style","background-color: #212427 !important")
+    }else {
+      $("#__next , body, html").css("background-color", "#fff");
+    }
     $(".pDashboard").css("color", "#212121");
     $(".pDashboard").css("font-weight", "600");
     $(".divSidebar").attr("style", "background-color: #f5f5f5 !important");
@@ -567,14 +510,16 @@ $(document).ready(function () {
       "style",
       "color: #212121 !important;font-weight: 600 !important"
     );
-    $(".pSearchsub, .pModalTitleSub").css("color", "#424242");
+    $(".pSearchsub, .pModalTitleSub, .pCancelsub").css("color", "#424242");
     $(".txtIdsupport, .txtTitle, .txtDescription, .txttopup, .btnAddcard,.btnSendissue").attr(
       "style",
       "color: #212121 !important"
     );
     $(".divPricewallet").css("background-color", "#fafafa");
-    $(".pModalTitle, .pFname").css("color", "#212121");
+    $(".pModalTitle, .pFname, .pCancelheader").css("color", "#212121");
     $(".pModalTitle, .pFname, .btnAddcard, .btnSendissue").css("font-weight", "600");
+    $(".divCancel").css("background-color","#F5F5F5");
+  
   }
 
   $(".digit-group")

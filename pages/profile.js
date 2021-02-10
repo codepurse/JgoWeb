@@ -140,8 +140,11 @@ export default function profile() {
         "style",
         "color: #212121 !important;font-weight: bold"
       );
+    
     }
   }, [tabledata]);
+
+
 
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
@@ -199,7 +202,8 @@ export default function profile() {
   }
 
   function trylang() {
-    console.log(cancelreason)
+    opencancelBooking();
+ 
   }
 
   function reason1() {
@@ -209,8 +213,8 @@ export default function profile() {
   }
 
   function reason2() {
-    setCancelreason("It's to expensive")
-    potareason = "It's to expensive";
+    setCancelreason("It's too expensive")
+    potareason = "It's too expensive";
   }
 
   function reason3() {
@@ -241,7 +245,7 @@ export default function profile() {
     }
   }
 
-
+ 
 
   function opencancelBooking() {
     $("#exampleModal").modal("hide")
@@ -264,7 +268,7 @@ export default function profile() {
               
               <Select
                 options={date}
-                styles={isToggled ? customStyles1 : cancel_black}
+                styles={cancel_white}
                 placeholder="Select.."
                 onChange = {handlechangeCancel}
               />
@@ -294,6 +298,7 @@ export default function profile() {
         </div>
       </div>
     );
+    
   }
 
   function cancelBooking(e) {
@@ -715,7 +720,7 @@ export default function profile() {
 
   const date = [
     { value: "1", label: "Wrong input address" },
-    { value: "2", label: "It's to expensive" },
+    { value: "2", label: "It's too expensive" },
     { value: "3", label: "Can't find a driver"},
     { value: "4", label: "Others"}
   ];
@@ -807,6 +812,35 @@ export default function profile() {
       width: "150px",
     }),
   };
+
+  const cancel_white = {
+    control: (base, state) => ({
+      ...base,
+      background: "#F3F3F4",
+      color: "#424242",
+      border: "1px solid gray",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      marginBottom: "8px",
+      padding: "2px",
+      marginTop: "5px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#424242",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "100%",
+    }),
+  };
+
 
   const cancel_black = {
     control: (base, state) => ({

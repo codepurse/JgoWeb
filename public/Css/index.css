@@ -382,7 +382,7 @@ body, html {
 }
 
 .divCancel {
-    background-color: #212427;
+    background-color: #FFFDE7;
     width: 450px;
     padding: 25px;
 
@@ -865,13 +865,14 @@ hr {
     font-family: 'GilroyBold';
     margin-bottom: 0px;
     font-size: 1.5rem;
-    color: white;
+    color: #212121;
 }
+
 
 .pCancelsub {
     font-family: 'GilroyLight';
-    color: lightgray;
-    margin-top: 4px;
+    color: #313131;
+    margin-top: 0px;
 }
 
 
