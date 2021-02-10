@@ -22,6 +22,7 @@ import ReactPaginate from "react-paginate";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 
 export default function profile() {
+  var potareason = ""
   const router = useRouter();
   const refreshPage = refreshcard;
   var cancel;
@@ -76,10 +77,10 @@ export default function profile() {
   const [cleartimer, setCleartimer] = React.useState(false);
   const [canceluser, setCanceluser] = React.useState(false);
 
-  
-
   const [ipdate, setIpdate] = React.useState(false);
-
+  const [reasoncancel, setReasoncancel] = React.useState("");
+  const [cancelreason, setCancelreason] = React.useState("");
+  const [othercancel, setOthercancel] = React.useState("");
   var holdclear = false;
 
   function handleFile(e) {
@@ -116,21 +117,18 @@ export default function profile() {
     } else {
       $("#exampleModal").modal("hide");
       window.open("/tracking/" + latestbooktrack);
-      
     }
   }
 
   useEffect(() => {
 
     $("#__next ").css("background-color", "#212427");
-
   }, []);
 
   function gettimeloadtimer() {}
 
   useEffect(() => {
     if (localStorage.getItem("theme") == "true") {
-    
       $(".pagination > li").attr("style", "color: #212121 !important");
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
@@ -201,32 +199,102 @@ export default function profile() {
   }
 
   function trylang() {
-    holdclear = true;
+    console.log(cancelreason)
   }
 
-function opencancelBooking() {
-  swal(
-    <div style={{ width: "450px", padding: "20px" }}>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-12" style={{ textAlign: "left" }}>
-            <p className="pError">Error</p>
-            <p className="pErrorSub text-center">
-              Are you sure you want to cancel your booking?
-            </p>
-          </div>
-          <div className="col-lg-6 col-sm-6 col-6">
-            <button className="btnYes" onClick = {cancelbook}>Yess</button>
-          </div>
-          <div className="col-lg-6 col-sm-6 col-6">
-            <button className="btnNo" onClick = {(e) => swal.close()}>No</button>
+  function reason1() {
+    console.log("tagnian ")
+    setCancelreason("Wrong input address")
+    potareason = "Wrong input address";
+  }
+
+  function reason2() {
+    setCancelreason("It's to expensive")
+    potareason = "It's to expensive";
+  }
+
+  function reason3() {
+    setCancelreason("Can't find a driver")
+    potareason = "Can't find a driver";
+  }
+
+  function reason4() {
+    potareason = "Other";
+  }
+
+  function changeCancel(e) {
+    potareason = e.target.value;
+  }
+
+  function btnNocancel() {
+    swal.close();
+    $("#exampleModal").modal("hide")
+    $("#modalRebook").modal("hide")
+    $(".modal-backdrop").hide();
+
+    if (lateststatus == "On hold")  {
+      console.log(lateststatus)
+      $("#modalRebook").modal("show")
+      $(".modal-backdrop").show();
+
+      console.log("pota bat d ka gumana")
+    }
+  }
+
+
+
+  function opencancelBooking() {
+    $("#exampleModal").modal("hide")
+    $("#modalRebook").modal("hide")
+    $(".modal-backdrop").hide();
+    swal(
+      <div className="divCancel">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-12 text-left">
+              <p className="pCancelheader">Cancel Booking</p>
+              <p className="pCancelsub">
+                Before you cancel, please let us know the reason
+              </p>
+            </div>
+            <div className="col-lg-12 text-left">
+              <p className="pCancelsub" style={{ marginBottom: "8px" }}>
+                Select reason
+              </p>
+              
+              <Select
+                options={date}
+                styles={isToggled ? customStyles1 : cancel_black}
+                placeholder="Select.."
+                onChange = {handlechangeCancel}
+              />
+              
+              <textarea
+                className="txtDriver txtAreacancel"
+              
+                onChange = {changeCancel}
+                rows={3}
+                cols={30}
+
+                style={{ marginTop: "10px", display: "none" }}
+              ></textarea>
+              <p className = "pSpecify">Please specify your reason.</p>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnYes" onClick={cancelbook}>
+                Yes
+              </button>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnNo" onClick={btnNocancel}>
+                No
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
+    );
+  }
 
   function cancelBooking(e) {
     var trackid = $(e.currentTarget)
@@ -385,32 +453,37 @@ function opencancelBooking() {
         }
       });
   }
-  
-function openCancelbook() {
-  swal(
-    <div style={{ width: "450px", padding: "20px" }}>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-12" style={{ textAlign: "left" }}>
-            <p className="pError">Error</p>
-            <p className="pErrorSub text-center">
-              Are you sure you want to cancel your booking?
-            </p>
-          </div>
-          <div className="col-lg-6 col-sm-6 col-6">
-            <button className="btnYes" onClick = {cancelbook}>Yes</button>
-          </div>
-          <div className="col-lg-6 col-sm-6 col-6">
-            <button className="btnNo" onClick = {(e) => swal.close()}>No</button>
+
+  function openCancelbook() {
+    swal(
+      <div style={{ width: "450px", padding: "20px" }}>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-12" style={{ textAlign: "left" }}>
+              <p className="pError">Error</p>
+              <p className="pErrorSub text-center">
+                Are you sure you want to cancel your booking?
+              </p>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnYes" onClick={cancelbook}>
+                Yes
+              </button>
+            </div>
+            <div className="col-lg-6 col-sm-6 col-6">
+              <button className="btnNo" onClick={(e) => swal.close()}>
+                No
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
+    );
+  }
 
   function cancelbook() {
+  console.log(potareason);
+   if (potareason) {
     console.log(latestbook);
     const options = {
       headers: {
@@ -423,61 +496,75 @@ function openCancelbook() {
     };
     const apiUrl = appglobal.api.base_api + appglobal.api.cancel_booking;
 
-    axios.post(apiUrl, { booking_id: latestbook }, options).then((result) => {
-      console.log(result);
-      setCanceluser(true);
-      clearInterval(window.interval);
-      $("#exampleModal").modal("hide");
-      $(".modal-backdrop").hide();
-      $("#modalRebook").modal("hide");
+    axios
+      .post(
+        apiUrl,
+        {
+          booking_id: latestbook,
+          who_cancel: "Customer",
+          reason_for_cancel: potareason,
+        },
+        options
+      )
+      .then((result) => {
+        console.log(result);
+        setCanceluser(true);
+        clearInterval(window.interval);
+        $("#exampleModal").modal("hide");
+        $(".modal-backdrop").hide();
+        $("#modalRebook").modal("hide");
 
-      localStorage.removeItem("latestbookingdate");
-      swal(
-        <div style={{ width: "450px", padding: "10px" }}>
-          <div className="container">
-            <div
-              className="row align-items-center"
-              style={{ borderLeft: "3px solid #00C853" }}
-            >
-              <div className="col-lg-2">
-                <img src="Image/success.png" style={{ width: "32px" }}></img>
-              </div>
-              <div className="col-lg-10" style={{ textAlign: "left" }}>
-                <p className="pError">Verified</p>
-                <p className="pErrorSub">
-                  Your booking is successfully cancelled.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-      refresh();
-    }).catch((err) => {
-      swal(
-        <div style={{ width: "450px", padding: "10px" }}>
-          <div className="container">
-            <div
-              className="row align-items-center"
-              style={{ borderLeft: "3px solid #c62828" }}
-            >
-              <div className="col-lg-2">
-                <img
-                  src="Image/warning.png"
-                  style={{ width: "32px" }}
-                ></img>
-              </div>
-              <div className="col-lg-10" style={{ textAlign: "left" }}>
-                <p className="pError">Error</p>
-                <p className="pErrorSub">
-                  Someting went wrong. PLease try again later or you may contact our customer support.
-                </p>
+        localStorage.removeItem("latestbookingdate");
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #00C853" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/success.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Verified</p>
+                  <p className="pErrorSub">
+                    Your booking is successfully cancelled.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+        refresh();
+      })
+      .catch((err) => {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #c62828" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">
+                    Someting went wrong. PLease try again later or you may
+                    contact our customer support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      });
+   
+   }else {
+     console.log(cancelreason)
+    $(".pSpecify").show();
+   }
   }
 
   function successMessage() {
@@ -516,6 +603,8 @@ function openCancelbook() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
+        console.log(setLateststatus(result.data.data.status))
+        setLateststatus(result.data.data.status);
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         if (result.data.data.length === 0) {
@@ -549,7 +638,7 @@ function openCancelbook() {
   }
 
   useEffect(() => {
-    
+
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -558,7 +647,8 @@ function openCancelbook() {
         console.log(message);
         setMessage(message.message.status);
         console.log(message.message.status);
-        let mes = message;x
+        let mes = message;
+        x;
 
         if (mes.message.status == "Driver found") {
           driverfound();
@@ -573,7 +663,7 @@ function openCancelbook() {
           refresh();
         } else if (mes.message.status == "Arrived") {
           refresh();
-        }else if (mes.message.status == "Complete All") {
+        } else if (mes.message.status == "Complete All") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
           console.log(canceluser);
@@ -623,7 +713,15 @@ function openCancelbook() {
     };
   });
 
-  const date = [{ value: "October", label: "October" }];
+  const date = [
+    { value: "1", label: "Wrong input address" },
+    { value: "2", label: "It's to expensive" },
+    { value: "3", label: "Can't find a driver"},
+    { value: "4", label: "Others"}
+  ];
+
+ 
+
   const user_type = [
     { value: "driver", label: "Driver" },
     { value: "customer", label: "Customer" },
@@ -710,6 +808,34 @@ function openCancelbook() {
     }),
   };
 
+  const cancel_black = {
+    control: (base, state) => ({
+      ...base,
+      background: "rgb(28, 30, 33)",
+      color: "white",
+      border: "none",
+      boxShadow: "none",
+      borderRadius: "5px",
+      width: "100%",
+      marginBottom: "8px",
+      padding: "2px",
+      marginTop: "0px",
+      boxShadow: state.isFocused ? "#EDC728" : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#EDC728" : "",
+      },
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+    container: (base) => ({
+      ...base,
+      width: "100%px",
+    }),
+  };
+
   function loadHoldtimer() {
     axios({
       url: "https://worldtimeapi.org/api/ip",
@@ -768,7 +894,7 @@ function openCancelbook() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min >60) {
+        if (min > 60) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -857,7 +983,6 @@ function openCancelbook() {
             if (result.data.data.status == "On hold") {
               $("#exampleModal").modal("hide");
               $("#modalRebook").modal("show");
-             
             }
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
@@ -1339,7 +1464,9 @@ function openCancelbook() {
 
   function handlestatuschange(value) {
     var value = value.value.toLowerCase();
+    console.log(value.label)
     setStatus(value.label);
+
     $("#table > tbody > tr").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 
@@ -1354,6 +1481,28 @@ function openCancelbook() {
       $(this).html(list.get());
     });
   }
+
+  function handlechangeCancel(event) {
+    $(".pSpecify").hide();
+    if(event.value == 1) {
+      $(".txtAreacancel").fadeOut(200)
+      reason1();
+    }else if (event.value == 2) {
+      $(".txtAreacancel").fadeOut(200)
+      reason2();
+    }else if (event.value == 3) {
+      $(".txtAreacancel").fadeOut(200)
+      reason3();
+    }else if (event.value == 4) {
+      reason4();
+      $(".txtAreacancel").fadeIn(200)
+    }
+     
+ }
+
+ 
+
+
 
   function handleChangeemail(e) {
     setEmail(e.target.value);
@@ -2025,15 +2174,12 @@ function openCancelbook() {
   function getChannel(e) {
     var x = $(e.currentTarget).find("td:nth-child(6)").text();
     channel_id = [`${x}`];
-  
   }
 
   function openchat() {
-   
     $(".divChatbox").show();
     $(".spanCount").hide();
     router.push("/profile");
-     
   }
 
   return (
@@ -2499,7 +2645,9 @@ function openCancelbook() {
             <p className="pSettingsTitle">General Settings</p>
             <div>
               <input type="checkbox" id="switch" />
-              <label for="switch">Toggle</label>
+              <label className="label" for="switch">
+                Toggle
+              </label>
               <span className="spanCheckSettings">
                 Enable light mode
                 <span style={{ fontSize: "0.9rem" }}></span>
@@ -2671,7 +2819,10 @@ function openCancelbook() {
                           {event.status}
                         </td>
                         <td>
-                          <button className="btnOpen btnOpenchat" onClick={openchat}>
+                          <button
+                            className="btnOpen btnOpenchat"
+                            onClick={openchat}
+                          >
                             Open chat
                           </button>
                         </td>
@@ -2822,7 +2973,7 @@ function openCancelbook() {
                         <b className="spanSearch"></b>
                       </span>
                     </a>
-                    <p className="pCancelbook" onClick={openCancelbook}>
+                    <p className="pCancelbook" onClick={opencancelBooking}>
                       Cancel Booking
                     </p>
                   </div>
@@ -3253,7 +3404,7 @@ function openCancelbook() {
                         <b></b>
                       </span>
                     </a>
-                    <p className="pCancelbook" onClick={openCancelbook}>
+                    <p className="pCancelbook" onClick={opencancelBooking}>
                       Cancel Booking
                     </p>
                   </div>

@@ -354,16 +354,24 @@ body, html {
     text-decoration: underline;
 }
 
+.label {
+    font-family: 'GilroyMedium';
+    color: #212121;
+}
+
+
+
 .btnYes {
-    font-family: 'GilroyExtraBold';
+    font-family: 'GilroyMedium';
     color: white;
+    font-weight: 600;
     background-color: #57DF96;
     border: 0px;
-    border-radius: 22px;
+    border-radius: 10px;
     padding: 8px;
     width: 90%;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     float: right;
     -webkit-box-shadow: 1px 2px 24px 1px rgba(87, 223, 150, 0.27);
     -moz-box-shadow: 1px 2px 24px 1px rgba(87, 223, 150, 0.27);
@@ -373,16 +381,36 @@ body, html {
     outline: none !important;
 }
 
+.divCancel {
+    background-color: #212427;
+    width: 450px;
+    padding: 25px;
+
+}
+
+.pSpecify {
+    font-family: 'GilroyMedium';
+    color: #ED3450;
+    margin-bottom: 2px;
+    display: none;
+}
+
+.txtAreacancel {
+    display: none;
+    transition: all 0.2s;
+}
+
 .btnNo {
-    font-family: 'GilroyExtraBold';
+    font-family: 'GilroyMedium';
     color: white;
+    font-weight: 600;
     background-color: #FF6565;
     border: 0px;
-    border-radius: 22px;
+    border-radius: 10px;
     padding: 8px;
     width: 90%;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     cursor: pointer;
     -webkit-box-shadow: 1px 2px 24px 1px rgba(255, 101, 101, 0.27);
     -moz-box-shadow: 1px 2px 24px 1px rgba(255, 101, 101, 0.27);
@@ -778,6 +806,8 @@ hr {
 
 /* Deliver */
 
+
+
 .colDeliver {
     display: none;
 }
@@ -831,10 +861,20 @@ hr {
     margin-bottom: 0px;
 }
 
-.pErrorSub {
-    font-family: 'GilroyMedium';
+.pCancelheader{
+    font-family: 'GilroyBold';
     margin-bottom: 0px;
+    font-size: 1.5rem;
+    color: white;
 }
+
+.pCancelsub {
+    font-family: 'GilroyLight';
+    color: lightgray;
+    margin-top: 4px;
+}
+
+
 
 .divPassword {
     position: relative;
