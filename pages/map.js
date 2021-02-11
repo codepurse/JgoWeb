@@ -60,6 +60,8 @@ export default function map() {
     { value: "6", label: "Others" },
   ];
 
+  var fullscreen = "false";
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -377,10 +379,21 @@ export default function map() {
       });
   }
 
-  function goFullscreen() {
-    alert(" in progress");
-  }
-
+  function goFull() {
+    if(fullscreen == "false") {
+      fullscreen = "true";
+      $(".map").css("height",$(window).height());
+      $(".mapLeaflet").css("height",$(window).height());
+      $(".mapLeaflet").css("width",$(window).width());
+      
+    }else {
+      fullscreen = "false";
+      $(".map").css("height","500px");
+      $(".mapLeaflet").css("height","500px");
+      $(".mapLeaflet").css("width","800px");
+    }
+    }
+  
   function opensweetalert() {
     global.config.place.deliver.pickofflat = "";
     swal(
@@ -395,7 +408,7 @@ export default function map() {
         }}
       >
         <Leaflet></Leaflet>
-        <img src = "Image/fullscreen.png" className = "img-fluid imgFull"  onClick={goFullscreen}></img>
+        <img src = "Image/fullscreen.png" className = "img-fluid imgFull"  onClick={goFull}></img>
         <p className="pDrag">
           Click the map to set location
         </p>
@@ -900,6 +913,7 @@ export default function map() {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
   }
   function setAdd() {
+    fullscreen = "false";
     if (global.config.place.deliver.pickofflat == "") {
       swal.close();
       return false;
@@ -2401,24 +2415,14 @@ export default function map() {
             <div className="col-lg-4 text-right">
               <p className="pBreakdownsub">{totalkm}</p>
             </div>
-            <div className="col-lg-8 text-left">
-              <p className="pBreakdownsub">Platform fee</p>
-            </div>
-            <div className="col-lg-4 text-right">
-              <p className="pBreakdownsub">{platformfee}</p>
-            </div>
+          
             <div className="col-lg-8 text-left">
               <p className="pBreakdownsub">Additional Dropoff</p>
             </div>
             <div className="col-lg-4 text-right">
               <p className="pBreakdownsub">{totaldropoff}</p>
             </div>
-            <div className="col-lg-8 text-left">
-              <p className="pBreakdownsub">Sms fee</p>
-            </div>
-            <div className="col-lg-4 text-right">
-              <p className="pBreakdownsub">{smsfee}</p>
-            </div>
+          
             <div className="col-lg-8 text-left">
               <p className="pBreakdownsub">Weight</p>
             </div>
@@ -2771,7 +2775,7 @@ export default function map() {
                   {" "}
                   <img
                     src="Image/mapgps.svg"
-                    className="img-fluid"
+                    className="img-fluid imgGps"
                     style={{ marginRight: "15px" }}
                   ></img>
                   Drop Off Location
@@ -2859,7 +2863,7 @@ export default function map() {
                   {" "}
                   <img
                     src="Image/mapgps.svg"
-                    className="img-fluid"
+                    className="img-fluid imgGps"
                     style={{ marginRight: "15px" }}
                   ></img>
                   Drop Off Location
@@ -2947,7 +2951,7 @@ export default function map() {
                   {" "}
                   <img
                     src="Image/mapgps.svg"
-                    className="img-fluid"
+                    className="img-fluid imgGps"
                     style={{ marginRight: "15px" }}
                   ></img>
                   Drop Off Location
@@ -3033,7 +3037,7 @@ export default function map() {
                   {" "}
                   <img
                     src="Image/mapgps.svg"
-                    className="img-fluid"
+                    className="img-fluid imgGps"
                     style={{ marginRight: "15px" }}
                   ></img>
                   Drop Off Location
@@ -3118,7 +3122,7 @@ export default function map() {
                 <p className="pPick" style={{ marginTop: "30px" }}>
                   {" "}
                   <img
-                    src="Image/mapgps.svg"
+                    src="Image/mapgps.svg imgGps"
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
@@ -3204,7 +3208,7 @@ export default function map() {
                 <p className="pPick" style={{ marginTop: "30px" }}>
                   {" "}
                   <img
-                    src="Image/mapgps.svg"
+                    src="Image/mapgps.svg imgGps"
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
@@ -3290,7 +3294,7 @@ export default function map() {
                 <p className="pPick" style={{ marginTop: "30px" }}>
                   {" "}
                   <img
-                    src="Image/mapgps.svg"
+                    src="Image/mapgps.svg imgGps"
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>
@@ -3376,7 +3380,7 @@ export default function map() {
                 <p className="pPick" style={{ marginTop: "30px" }}>
                   {" "}
                   <img
-                    src="Image/mapgps.svg"
+                    src="Image/mapgps.svg imgGps"
                     className="img-fluid"
                     style={{ marginRight: "15px" }}
                   ></img>

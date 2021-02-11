@@ -736,7 +736,7 @@ function driver() {
                   <img
                     src="Image/appstore.png"
                     className="img-fluid imgButton"
-                    style={{ width: "205px", marginLeft: "15px" }}
+                    style={{ width: "205px", marginLeft: "15px", cursor: "pointer" }}
                   ></img>
                 </div>
                 <Link href="https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
@@ -744,7 +744,7 @@ function driver() {
                     <img
                       src="Image/playstore.png"
                       className="img-fluid imgButton"
-                      style={{ width: "235px" }}
+                      style={{ width: "235px", cursor: "pointer" }}
                     ></img>
                   </div>
                 </Link>

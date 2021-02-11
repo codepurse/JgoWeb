@@ -112,9 +112,9 @@ export default function faq() {
                   </button>
                   <div className="accordion-content">
                     <p>
-                      JGO Delivery offers Php 60 base rate for the delivery
+                      JGO Delivery offers Php 50 base rate for the delivery
                       service
-                      <br /> Ang JGO Delivery ay nag ooffer ng Php 60 na base
+                      <br /> Ang JGO Delivery ay nag ooffer ng Php 50 na base
                       rate para sa delivery service
                     </p>
                   </div>

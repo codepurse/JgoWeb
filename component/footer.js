@@ -21,14 +21,14 @@ export class footer extends Component {
               <img
                 src="Image/appstore.png"
                 className="img-fluidi imgButton"
-                style={{ width: "150px", marginLeft: "15px" }}
+                style={{ width: "150px", marginLeft: "15px", cursor: "pointer" }}
               ></img>
               
               <Link href = "https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
               <img
                 src="Image/playstore.png"
                 className="img-fluid imgButton"
-                style={{ width: "195px" }}
+                style={{ width: "195px", cursor: "pointer" }}
               ></img>
               </Link>
 

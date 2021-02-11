@@ -240,9 +240,7 @@ export default function profile() {
       console.log(lateststatus)
       $("#modalRebook").modal("show")
       $(".modal-backdrop").show();
-
-      console.log("pota bat d ka gumana")
-    }
+    } 
   }
 
  
@@ -459,6 +457,21 @@ export default function profile() {
       });
   }
 
+  function searchTable(e) {
+    var value = $(e.currentTarget).val().toLowerCase();
+    $("#table> tbody > tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      if ($("#table> tbody > :visible").length == 0) {
+        $(".pNo").show();
+        if(tabledata) {
+          $(".reactPaginate").hide();
+        }
+      } else {
+        $(".pNo").hide();
+      }
+    });
+  }
+
   function openCancelbook() {
     swal(
       <div style={{ width: "450px", padding: "20px" }}>
@@ -608,8 +621,8 @@ export default function profile() {
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
-        console.log(setLateststatus(result.data.data.status))
-        setLateststatus(result.data.data.status);
+        console.log(result.data.data[0].status)
+        setLateststatus(result.data.data[0].status)
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         if (result.data.data.length === 0) {
@@ -891,7 +904,7 @@ export default function profile() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 60) {
+            if (min > 120) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -928,7 +941,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 60) {
+        if (min > 120) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -2367,6 +2380,7 @@ export default function profile() {
                 type="text"
                 className="txtSearch"
                 placeholder="Search id, tracking number or location"
+                onKeyUp = {searchTable}
               ></input>
             </div>
           </div>

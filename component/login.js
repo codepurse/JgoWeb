@@ -1542,7 +1542,7 @@ export class login extends Component {
                       <a
                         className="btn btnotp"
                         onClick={this.register.bind(this)}
-                        style={{ marginTop: "18px" }}
+                        style={{ marginTop: "18px", color: "white" }}
                       >
                         Confirm
                         <span style={{ marginLeft: "40px" }}>

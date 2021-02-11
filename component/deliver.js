@@ -9,10 +9,11 @@ import swal from "@sweetalert/with-react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import AuthService from "../services/auth.service";
-
+import Leaflet from "../component/map/leaflet";
 export default function App() {
   const router = useRouter();
   var click;
+  var fullscreen = "false";
   const [tokenuser, setTokenuser] = React.useState("");
   const [customadd, setCustomadd] = React.useState("");
 
@@ -53,7 +54,7 @@ export default function App() {
 
   function getAdd() {
     var str = global.config.place.deliver.pickoff;
- 
+    fullscreen = "false";
      var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
      if (str === "") {
       swal.close();
@@ -297,6 +298,49 @@ export default function App() {
     }
   };
 
+  function goFull() {
+  if(fullscreen == "false") {
+    fullscreen = "true";
+    $(".map").css("height",$(window).height());
+    $(".mapLeaflet").css("height",$(window).height());
+    $(".mapLeaflet").css("width",$(window).width());
+    
+  }else {
+    fullscreen = "false";
+    $(".map").css("height","500px");
+    $(".mapLeaflet").css("height","500px");
+    $(".mapLeaflet").css("width","800px");
+  }
+  }
+
+
+  function opensweetalert1() {
+    global.config.place.deliver.pickofflat = "";
+    swal(
+      <div
+        className="mapLeaflet"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: "5px",
+          width: "800px",
+          transition: "0.2s;",
+        }}
+      >
+        <Leaflet></Leaflet>
+        <img src = "Image/fullscreen.png" className = "img-fluid imgFull" onClick = {goFull}></img>
+        <p className="pDrag">
+          Click the map to set location
+        </p>
+        <button className="btnSet" onClick={getAdd}>
+          SET
+        </button>
+      </div>
+    );
+  }
+  
+
+
   function opensweetalert() {
     
     swal(
@@ -339,7 +383,7 @@ export default function App() {
           <img
             src="Image/maps.png"
             className="img-fluid imgMap"
-            onClick={opensweetalert}
+            onClick={opensweetalert1}
             data-toggle="tooltip"  data-toggle="tooltip" data-placement="top" title=""
           ></img>
         </div>
@@ -365,7 +409,7 @@ export default function App() {
           <img
             src="Image/maps.png"
             className="img-fluid imgMap"
-            onClick={opensweetalert}
+            onClick={opensweetalert1}
           ></img>
         </div>
       </div>

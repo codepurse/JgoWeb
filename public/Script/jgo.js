@@ -313,17 +313,6 @@ $(document).ready(function () {
 
   items.forEach((item) => item.addEventListener("click", toggleAccordion));
 
-  $(".txtSearch").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    $("#table> tbody > tr").filter(function () {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-      if ($("#table> tbody > :visible").length == 0) {
-        $(".pNo").show();
-      } else {
-        $(".pNo").hide();
-      }
-    });
-  });
 
   $(".liBooking").click(function () {
     $(this).find(".divHide1").fadeIn(200);
@@ -479,7 +468,7 @@ $(document).ready(function () {
     $(".mode").removeClass("modalPayment");
     $(".divCod").css("background-color", "white");
     $(".btnPayment").attr("style", "color: #212121 !important");
-    $(".imgRefresh").css("filter", "invert(1) brightness(500%)");
+    $(".imgRefresh, .imgInfo").css("filter", "invert(1) brightness(500%)");
     $(".mode").css("background-color", "rgb(243,244,248)");
     $(".pagination").attr("style", "color: #21212 1 !important");
     $(".pagination > li").attr("style", "color: #212121 !important");

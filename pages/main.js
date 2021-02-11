@@ -228,7 +228,7 @@ function index() {
             </div>
             <div className="col-lg-6 text-center">
               <p className="pOntime">
-                &#8369;60 Flat Rate <br></br>&#8369;6 Per Km
+                &#8369;50 Flat Rate <br></br>&#8369;5 Per Km
               </p>
 
               <div className="divBoxCheck carousel">
