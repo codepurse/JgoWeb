@@ -872,7 +872,7 @@ export default function profile() {
 
   function loadHoldtimer() {
     axios({
-      url: "https://worldtimeapi.org/api/ip",
+      url: "https://worldtimeapi.org/api/timezone/Asia/Manila",
       method: "get",
     })
       .then((response) => {

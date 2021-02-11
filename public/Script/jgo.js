@@ -494,11 +494,11 @@ $(document).ready(function () {
     );
 
     $(".modalSearch").css("background-color", "#F6F5F0");
-    $(".pSearching, .pCancelbook, .pModalVerify, .pReport").css(
+    $(".pSearching, .pCancelbook, .pModalVerify, .pReport, .pPoints, .pWalletModal1").css(
       "color",
       "#212121"
     );
-    $(".pSearching, .pSearchsub, .btnCheck, .pModalVerify, .pReport").css(
+    $(".pSearching, .pSearchsub, .btnCheck, .pModalVerify, .pReport, .pPoints, .pWalletModal1").css(
       "font-weight",
       "600"
     );
