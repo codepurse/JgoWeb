@@ -278,7 +278,7 @@ export default function profile() {
                 rows={3}
                 cols={30}
 
-                style={{ marginTop: "10px", display: "none" }}
+                style={{ marginTop: "10px", display: "none", color: "black" }}
               ></textarea>
               <p className = "pSpecify">Please specify your reason.</p>
             </div>
