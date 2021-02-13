@@ -4541,8 +4541,8 @@ export default function map() {
                 </div>
                 <div className="col-lg-5">
                   <a
-                    className="btn btnPayment"
-                    style={{ paddingTop: "10px", color: " white" }}
+                    className="btn btnPayment btnpad"
+                    style={{ color: " white" }}
                     onClick={btnPlaceorder}
                   >
                     Checkout

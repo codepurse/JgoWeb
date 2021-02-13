@@ -2386,9 +2386,10 @@ export default function profile() {
           </div>
         </div>
         <div className="row" style={{ marginTop: "20px" }}>
-          <div className="col-lg-12">
-            <div className="table-responsive">
-              <table className="table" id="table" onMouseOver={hovertable}>
+          <div className="col-lg-12" >
+           <div className = "divTable">
+           <div className="table-responsive" >
+              <table className="table tabledata" id="table" onMouseOver={hovertable}>
                 <thead>
                   <tr style={{ backgroundColor: "transparent" }}>
                     <th>Action</th>
@@ -2399,11 +2400,7 @@ export default function profile() {
                   </tr>
                 </thead>
                 <tbody
-                  style={{
-                    overflowY: "scroll",
-                    overflowX: "hidden",
-                    height: "100px",
-                  }}
+                
                 >
                   {tabledata.map((event, index) => (
                     <tr key={event.id}>
@@ -2450,11 +2447,11 @@ export default function profile() {
                         {event.total}
                       </td>
 
-                      <td
+                      <td 
                         className={
                           localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
+                            ? "tdlight tdPickup"
+                            : "tddark tdPickup" 
                         }
                       >
                         <span className={statusColor(event.status)}>
@@ -2466,8 +2463,8 @@ export default function profile() {
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
-                              ? "tdlight"
-                              : "tddark"
+                              ? "tdlight tdPickup"
+                              : "tddark tdPickup"
                           }
                           key={event.id}
                         >
@@ -2482,6 +2479,7 @@ export default function profile() {
                 </tbody>
               </table>
             </div>
+           </div>
             <div className="Box">
               <span></span>
               <span></span>
