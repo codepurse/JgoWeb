@@ -157,15 +157,13 @@ function driver() {
     "Image/slide2.jpg",
     "Image/slide3.jpg",
     "Image/slide4.jpg",
-    "Image/slide5.jpg"
+    "Image/slide5.jpg",
   ];
   const properties = {
     transitionDuration: 200,
     autoplay: false,
     arrows: false,
   };
-
-
 
   function HandleChangeRegion(e) {
     try {
@@ -215,36 +213,38 @@ function driver() {
   }
 
   useEffect(() => {
-    $("#carouselExampleIndicators").on("slid.bs.carousel", function onSlide(ev) {
-      var id = ev.relatedTarget.id;
-      switch (id) {
-        case "1":
-          slideRef.current.goTo(0);
+    $("#carouselExampleIndicators").on(
+      "slid.bs.carousel",
+      function onSlide(ev) {
+        var id = ev.relatedTarget.id;
+        switch (id) {
+          case "1":
+            slideRef.current.goTo(0);
             return false;
-          break;
-        case "2":
-          slideRef.current.goTo(1);
-          return false;
-          break;
-        case "3":
-           slideRef.current.goTo(2);
-          break;
-        case "4":
-          slideRef.current.goTo(3);
-          break;
-        case "5":
-          slideRef.current.goTo(4);
-          break;
-        default:
-        //the id is none of the above
+            break;
+          case "2":
+            slideRef.current.goTo(1);
+            return false;
+            break;
+          case "3":
+            slideRef.current.goTo(2);
+            break;
+          case "4":
+            slideRef.current.goTo(3);
+            break;
+          case "5":
+            slideRef.current.goTo(4);
+            break;
+          default:
+          //the id is none of the above
+        }
       }
-    });
+    );
 
     if (localStorage.getItem("showmodal") == 1) {
       $("#driverModal").modal("toggle");
       localStorage.setItem("showmodal", "0");
     } else {
-      
     }
     setErrvehicle("1");
     console.clear();
@@ -677,6 +677,18 @@ function driver() {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="
+ connect-src 'self';
+ default-src 'none';
+ img-src 'self';
+ manifest-src 'self';
+ script-src-elem 'self';
+ style-src-elem 'self';
+ "
+        />
+
         <meta charSet="utf-8" />
         <meta name="description" content="JGO Delivery Maasahan! Abangan!" />
         <title>JGO Delivery Maasahan! Abangan!</title>
@@ -736,7 +748,11 @@ function driver() {
                   <img
                     src="Image/appstore.png"
                     className="img-fluid imgButton"
-                    style={{ width: "205px", marginLeft: "15px", cursor: "pointer" }}
+                    style={{
+                      width: "205px",
+                      marginLeft: "15px",
+                      cursor: "pointer",
+                    }}
                   ></img>
                 </div>
                 <Link href="https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
@@ -884,7 +900,7 @@ function driver() {
                           style={{ backgroundImage: `url(${slideImages[2]})` }}
                         ></div>
                       </div>
-                       <div className="each-slide">
+                      <div className="each-slide">
                         <div
                           style={{ backgroundImage: `url(${slideImages[3]})` }}
                         ></div>
@@ -1298,7 +1314,11 @@ function driver() {
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
-                  <a className="btn btnSubmitDriver" onClick={submit} style = {{color: "white"}}>
+                  <a
+                    className="btn btnSubmitDriver"
+                    onClick={submit}
+                    style={{ color: "white" }}
+                  >
                     SIGNUP
                     <span style={{ marginLeft: "40px" }}>
                       <b></b>
