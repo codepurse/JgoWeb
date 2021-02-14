@@ -140,7 +140,7 @@ export default function profile() {
         "style",
         "color: #212121 !important;font-weight: bold"
       );
-    
+  
     }
   }, [tabledata]);
 
