@@ -7,17 +7,7 @@ export class header extends Component {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Jgo Website</title>
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="
- connect-src 'self';
- default-src 'none';
- img-src 'self';
- manifest-src 'self';
- script-src-elem 'self';
- style-src-elem 'self';
- "
-        />
+        <meta http-equiv="Content-Security-Policy" content="default-src https:"/>
 
         <link rel="stylesheet" href="Css/index.css"></link>
         <link

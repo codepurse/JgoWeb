@@ -677,17 +677,7 @@ function driver() {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="
- connect-src 'self';
- default-src 'none';
- img-src 'self';
- manifest-src 'self';
- script-src-elem 'self';
- style-src-elem 'self';
- "
-        />
+        <meta http-equiv="Content-Security-Policy" content="default-src https:"/>
 
         <meta charSet="utf-8" />
         <meta name="description" content="JGO Delivery Maasahan! Abangan!" />
