@@ -10,6 +10,8 @@ export class header extends Component {
         <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'"/>
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+        <meta name="robots" content="noindex" />
+         <meta http-equiv="X-XSS-Protection" content="0"></meta>
         <link rel="stylesheet" href="Css/index.css"></link>
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
