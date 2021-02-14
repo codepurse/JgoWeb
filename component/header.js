@@ -7,7 +7,7 @@ export class header extends Component {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Jgo Website</title>
-        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'"/>
+        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline'"/>
 
         <link rel="stylesheet" href="Css/index.css"></link>
         <link
