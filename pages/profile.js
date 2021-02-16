@@ -2350,7 +2350,10 @@ export default function profile() {
                 className="img-fluid imgviewwarning mx-auto d-flex"
                 style={{ width: "70px" }}
               ></img>
-              <p className="pSomething">Something went wrong.</p>
+              <p className="pSomething">
+                Sorry, your booking was cancelled. You can try to book again and
+                our JGO Riders will assist you.
+              </p>
             </div>
           </div>
           <div className="container conView">
@@ -3270,7 +3273,7 @@ export default function profile() {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
-                    <p className="pModalVerify">Jgo Wallet - Top up</p>
+                    <p className="pModalVerify">JGO Wallet - Top up</p>
                     <p className="pModalTitleSub">
                       Choose between multipe options and select confirm.
                     </p>
@@ -3622,8 +3625,8 @@ export default function profile() {
                     </div>
                     <p className="pSearching">No driver found</p>
                     <p className="pSearchsub">
-                      We cannot found your driver, you can rebook or cancel your
-                      booking.
+                      Sorry it looks like some of our riders are busy, you can
+                      click rebook or cancel your booking.
                     </p>
                     <a className="btn btnCheck" onClick={rebook}>
                       Rebook

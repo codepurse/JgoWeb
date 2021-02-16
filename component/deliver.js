@@ -363,7 +363,7 @@ export default function App() {
 
   return (
     <div className="col-lg-6 colDeliver">
-      <p className="pTitle">Book your delivery now!</p>
+      <p className="pTitle text-center">Book your delivery now!</p>
       <div className="box">
         <div className="form-inline" onClick={() => (click = 0)}>
           <GooglePlacesAutocomplete

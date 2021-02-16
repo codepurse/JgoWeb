@@ -4413,7 +4413,7 @@ export default function map() {
               <p className="pMode">Mode of payment</p>
               <p className="pModeSub">
                 Please make a payment below to start your booking process. If
-                your payment methos is not there you can add your own below.
+                your payment method is not there you can add your own below.
               </p>
             </div>
             <div className="modal-body mode modalPayment">
@@ -4464,7 +4464,7 @@ export default function map() {
                   </div>
                   <div className="col-lg-6">
                     <p className="pCod">JGO Wallet</p>
-                    <p className="pCodSub">Deducted in your Jgo wallet</p>
+                    <p className="pCodSub">Deducted in your JGO wallet</p>
                     <p className="pWalletModal1">
                       {wallet}
                       <span className="pPoints">points</span>

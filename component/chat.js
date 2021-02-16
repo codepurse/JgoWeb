@@ -223,7 +223,7 @@ useEffect(() => {
             <div className="form-inline">
               <div className="divOnline"></div>
               <p className="pSupportchat">
-                Jgo Support 
+                JGO Support 
               </p>
             </div>
           </div>

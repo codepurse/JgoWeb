@@ -2,7 +2,7 @@ module.exports = appglobal = {
   api: {
     base_api: "https://staging-api.jgo.com.ph",
     register_driver: "/api/auth/register-driver",
-    login: "/api/auth/login",
+    login: "/api/auth/customer-login",
     register: "/api/auth/register",
     google_login: "/api/auth/google/details",
     facebook_login: "/api/auth/facebook/details",
