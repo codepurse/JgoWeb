@@ -10,6 +10,12 @@ module.exports = {
       {
         source: "/(.*)",
         headers: createSecureHeaders({
+          contentSecurityPolicy: {
+            directives: {
+              imgSrc: "*",
+              scriptSrc: "*",
+            },
+          },
           forceHTTPSRedirect: [
             true,
             { maxAge: 63072000, includeSubDomains: true },
