@@ -10,7 +10,6 @@ module.exports = {
       {
         source: "/(.*)",
         headers: createSecureHeaders({
-          
           forceHTTPSRedirect: [
             true,
             { maxAge: 63072000, includeSubDomains: true },
