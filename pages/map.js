@@ -344,29 +344,28 @@ export default function map() {
                   "display: table-footer-group !important"
                 );
                 return false;
-              }else if (!stop13) {
+              } else if (!stop13) {
                 $(".divStopoff11").appendTo(".divlistStop");
                 $(".divStopoff11").attr(
                   "style",
                   "display: table-footer-group !important"
                 );
                 return false;
-              }else if (!stop14) {
+              } else if (!stop14) {
                 $(".divStopoff12").appendTo(".divlistStop");
                 $(".divStopoff12").attr(
                   "style",
                   "display: table-footer-group !important"
                 );
                 return false;
-              }
-              else if (!stop15) {
+              } else if (!stop15) {
                 $(".divStopoff13").appendTo(".divlistStop");
                 $(".divStopoff13").attr(
                   "style",
                   "display: table-footer-group !important"
                 );
                 return false;
-              }else if (
+              } else if (
                 stop3 &&
                 stop4 &&
                 stop5 &&
@@ -2416,7 +2415,10 @@ export default function map() {
               coordinate[11].detailsAdd
             );
           } else {
-            formdata.set("drop_off_locations[10][notes]", "No notes to display");
+            formdata.set(
+              "drop_off_locations[10][notes]",
+              "No notes to display"
+            );
           }
         }
 
@@ -2462,7 +2464,10 @@ export default function map() {
               coordinate[12].detailsAdd
             );
           } else {
-            formdata.set("drop_off_locations[11][notes]", "No notes to display");
+            formdata.set(
+              "drop_off_locations[11][notes]",
+              "No notes to display"
+            );
           }
         }
 
@@ -2508,7 +2513,10 @@ export default function map() {
               coordinate[13].detailsAdd
             );
           } else {
-            formdata.set("drop_off_locations[12][notes]", "No notes to display");
+            formdata.set(
+              "drop_off_locations[12][notes]",
+              "No notes to display"
+            );
           }
         }
 
@@ -2554,7 +2562,10 @@ export default function map() {
               coordinate[14].detailsAdd
             );
           } else {
-            formdata.set("drop_off_locations[13][notes]", "No notes to display");
+            formdata.set(
+              "drop_off_locations[13][notes]",
+              "No notes to display"
+            );
           }
         }
 
@@ -2881,6 +2892,13 @@ export default function map() {
     $(".divCod").css("border", "1px solid #373A41");
     $(".imgCheck").hide();
     $(e.currentTarget).find(".imgCheck").fadeIn(150);
+  }
+
+  function selectTime(e) {
+    $(".divTime").css("border-color", "#2c2c2c");
+    $(".imgChecktime").hide();
+    $(e.currentTarget).css("border-color", "#FADD5D");
+    $(e.currentTarget).find(".imgChecktime").show();
   }
 
   return (
@@ -4207,9 +4225,7 @@ export default function map() {
             <button className="btnAddStopoff" onClick={btnAddstop}>
               Add drop-off
             </button>
-            <p className="pNote" style={{ display: "none" }}>
-              Note: Delivery only within Metro Manila
-            </p>
+
             <div className="divCategory">
               <p
                 className="pPick"
@@ -4309,7 +4325,48 @@ export default function map() {
                     </div>
                   ))}
               </div>
-              <div className="row">
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-12">
+                  <div className="form-inline">
+                    <img
+                      src="Image/clock.png"
+                      className="img-fluid"
+                      style={{ width: "25px" }}
+                    ></img>
+                    <p className="pTime">Time</p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div
+                    className="divTime divTime1"
+                    style={{ borderColor: "#FADD5D" }}
+                    onClick={selectTime}
+                  >
+                    <img
+                      src="Image/check.png"
+                      className="img-fluid imgChecktime"
+                    ></img>
+                    <p className="pDivtime">Same day</p>
+                    <p className="pDivtimesub">
+                      We will book your delivery after your payment.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="divTime divTime2" onClick={selectTime}>
+                    <img
+                      src="Image/check.png"
+                      className="img-fluid imgChecktime"
+                      style={{ display: "none" }}
+                    ></img>
+                    <p className="pDivtime">Schedule</p>
+                    <p className="pDivtimesub">
+                      We will book your delivery with your given time and date.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
                   <p className="pPayment">Weight</p>
                 </div>
