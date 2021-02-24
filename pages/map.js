@@ -49,6 +49,7 @@ export default function map() {
   const [smsfee, setSmsfee] = React.useState("");
   const [weightfee, setWeightfee] = React.useState("");
   const [zoningfee, setZoningfee] = React.useState("");
+  const [statusschedule, setStatusschedule] = React.useState("");
   const [scheduletime, setScheduledTime] = React.useState("");
   const locationCod = [];
   var loopservices = 0;
@@ -2913,10 +2914,13 @@ export default function map() {
     $(e.currentTarget).css("border-color", "#FADD5D");
     $(e.currentTarget).find(".imgChecktime").show();
    
-   if(e.currentTarget.hasClass("divTime2")) {
-    
+   if(e.currentTarget.classList.contains("divTime2")) {
+    $(".react-datepicker__input-container ").attr("style", "display: block !important")
+    setStatusschedule("true")
    }else {
     $(".divTime").css("height","auto");
+    $(".react-datepicker__input-container ").attr("style", "display: none !important")
+    setStatusschedule("false")
    }
   }
 

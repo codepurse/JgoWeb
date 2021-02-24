@@ -1250,6 +1250,9 @@ hr {
     right: 10px;
     width: 18px;
 }
+.react-datepicker__input-container  {
+    
+}
 
 
 .react-datepicker__input-container input {
@@ -1264,7 +1267,6 @@ hr {
     background-color: transparent;
     border: 1px solid #2c2c2c;
     margin-top: 10px;
-    display: none;
 }
 
 
