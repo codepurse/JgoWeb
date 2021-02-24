@@ -1251,6 +1251,23 @@ hr {
     width: 18px;
 }
 
+
+.react-datepicker__input-container input {
+    font-family: "GilroyMedium";
+    color: #fafafa;
+    border: 0px;
+    font-size: 0.9rem;
+    outline: none !important;
+    border-radius: 5px;
+    padding: 5px 8px;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #2c2c2c;
+    margin-top: 10px;
+    display: none;
+}
+
+
 .divTime {
     border: 1px solid #2c2c2c;
     padding: 15px 20px;
@@ -1258,6 +1275,7 @@ hr {
     position: relative;
     margin-top: 15px;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .pPayment {

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import "../component/map/config";
 import NextNprogress from "nextjs-progressbar";
 import Link from "next/link";
+import DatePicker from "react-datepicker";
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -48,6 +49,7 @@ export default function map() {
   const [smsfee, setSmsfee] = React.useState("");
   const [weightfee, setWeightfee] = React.useState("");
   const [zoningfee, setZoningfee] = React.useState("");
+  const [scheduletime, setScheduledTime] = React.useState("");
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -61,6 +63,17 @@ export default function map() {
   ];
 
   var fullscreen = "false";
+
+  const filterPassedTime = time => {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+
+    return currentDate.getTime() < selectedDate.getTime();
+  }
+
+  function changeScheduled(date) {
+    setScheduledTime(date);
+  }
 
   const customStyles = {
     control: (base, state) => ({
@@ -2899,6 +2912,12 @@ export default function map() {
     $(".imgChecktime").hide();
     $(e.currentTarget).css("border-color", "#FADD5D");
     $(e.currentTarget).find(".imgChecktime").show();
+   
+   if(e.currentTarget.hasClass("divTime2")) {
+    
+   }else {
+    $(".divTime").css("height","auto");
+   }
   }
 
   return (
@@ -4363,7 +4382,22 @@ export default function map() {
                     <p className="pDivtimesub">
                       We will book your delivery with your given time and date.
                     </p>
+                    <DatePicker
+                    selected={scheduletime}
+                    onChange={changeScheduled}
+                    showTimeSelect
+                    withPortal
+                    placeholderText="Click to select a date"
+                    filterTime={filterPassedTime}
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                  />
                   </div>
+                </div>
+                <div className = "col-lg-6">
+
+                </div>
+                <div className="col-lg-6">
+                  
                 </div>
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
