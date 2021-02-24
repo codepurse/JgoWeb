@@ -25,10 +25,6 @@
       "file": "static/chunks/1.js"
     },
     {
-      "id": "./node_modules/react-geocode/lib/index.js",
-      "file": "static/chunks/1.js"
-    },
-    {
       "id": "./node_modules/react-leaflet/es/AttributionControl.js",
       "file": "static/chunks/1.js"
     },

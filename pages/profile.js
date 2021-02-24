@@ -3513,7 +3513,7 @@ export default function profile() {
                     className="col-lg-12 mx-auto d-flex"
                     style={{ marginTop: "10px" }}
                   >
-                    <a className="btn btnConfirmTopup" onClick={saveprof1}>
+                    <a className="btn btnConfirmTopup" onClick={saveprof1} style = {{color: "white"}}>
                       Confirm
                       <span style={{ marginLeft: "60px" }}>
                         <b></b>
