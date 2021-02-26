@@ -674,6 +674,8 @@ export default function profile() {
           setCleartimer(true);
           refresh();
         } else if (mes.message.status == "Ongoing") {
+   
+          clearInterval(window.interval);
           holdclear = true;
           setCleartimer(true);
           refresh();
