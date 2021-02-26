@@ -660,6 +660,17 @@ export default function profile() {
     holdclear = true;
   }
 
+  
+  axios.interceptors.response.use(response => {
+    return response;
+ }, error => {
+   if (error.response.status === 401) {
+    AuthService.logout();
+      router.push("/");
+   }
+   return error;
+ });
+
   useEffect(() => {
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
