@@ -971,6 +971,11 @@ export default function map() {
     console.log(event.label);
   }
 
+  function tryduration() {
+    console.log(Number(durationmap));
+    console.log(Math.floor(Number(durationmap) / 60));
+  }
+
   {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
   }
@@ -1914,7 +1919,7 @@ export default function map() {
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
-        formdata.set("duration", Number(durationmap / 60) + " mins");
+        formdata.set("duration", Math.floor(Number(durationmap / 60)) + " mins");
         formdata.set("payment_method", payment);
         if (payment == "debit_credit") {
           formdata.set("client_token", cardtoken);
@@ -2717,45 +2722,22 @@ export default function map() {
 
   function gotoPayment() {
     console.log(coordinate);
-    if (!latestbook) {
-      var countlocation = 0;
-      locationCod.splice(0, locationCod.length);
+    var countlocation = 0;
+    locationCod.splice(0, locationCod.length);
 
-      const promises = coordinate.map((event) =>
-        locationCod.push({
-          value: Number(event.id) - 1,
-          label: event.address,
-        })
-      );
+    const promises = coordinate.map((event) =>
+      locationCod.push({
+        value: Number(event.id) - 1,
+        label: event.address,
+      })
+    );
 
-      Promise.all(promises).then(
-        setCodselectlocation(""),
-        setcodLoc(""),
-        setlocationDropdown(locationCod),
-        endPromise()
-      );
-    } else {
-      swal(
-        <div style={{ width: "450px", padding: "10px" }}>
-          <div className="container">
-            <div
-              className="row align-items-center"
-              style={{ borderLeft: "3px solid #FFE900" }}
-            >
-              <div className="col-lg-2">
-                <img src="Image/complain.png" style={{ width: "32px" }}></img>
-              </div>
-              <div className="col-lg-10" style={{ textAlign: "left" }}>
-                <p className="pError">Warning</p>
-                <p className="pErrorSub">
-                  Cannot place order if you have ongoing booking.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+    Promise.all(promises).then(
+      setCodselectlocation(""),
+      setcodLoc(""),
+      setlocationDropdown(locationCod),
+      endPromise()
+    );
   }
 
   function endPromise() {
@@ -2968,7 +2950,7 @@ export default function map() {
               {" "}
               <img
                 src="Image/mapgps.svg"
-                className="img-fluid imgGps"
+                className="img-fluid imgGps" onClick = {tryduration}
                 style={{ marginRight: "10px" }}
               ></img>{" "}
               Pickup

@@ -31,17 +31,20 @@ function MapDirectionsRenderer(props) {
         waypoints: waypoints,
       },
       (result, status) => {
+        durationmap = 0;
         {
           Object.keys(result.routes[0].legs).map(
             (keyname, i) =>
               (durationmap =
                 Number(durationmap) +
-                Number(result.routes[0].legs[keyname].duration.value))
+                Number(result.routes[0].legs[keyname].duration.value)),
+              
           );
         }
 
         if (status === google.maps.DirectionsStatus.OK) {
           setDirections(result);
+          console.log(result);
         } else {
         }
       }
