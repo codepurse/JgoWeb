@@ -335,7 +335,7 @@ body, html {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
     height: 8px;
 }
 
@@ -348,7 +348,7 @@ body, html {
     border-radius: 25px;
 }
 
-table::-webkit-scrollbar  {
+table::-webkit-scrollbar {
     width: 8px;
 }
 
@@ -377,8 +377,6 @@ table::-webkit-scrollbar  {
     color: #212121;
 }
 
-
-
 .btnYes {
     font-family: 'GilroyMedium';
     color: white;
@@ -403,7 +401,6 @@ table::-webkit-scrollbar  {
     background-color: #FFFDE7;
     width: 450px;
     padding: 25px;
-
 }
 
 .pSpecify {
@@ -448,6 +445,10 @@ table::-webkit-scrollbar  {
 
 .fixed-top {
     transition: all 0.2s;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .nav-link {
@@ -597,6 +598,7 @@ table::-webkit-scrollbar  {
     color: #1A1A1A;
     width: 450px;
     margin: 0 auto;
+    text-align: justify;
 }
 
 .btnBookServices {
@@ -608,7 +610,7 @@ table::-webkit-scrollbar  {
     border: 0px;
     border-radius: 10px;
     padding: 8px 15px;
-    margin-top: 5px;
+    margin-top: 15px;
     -webkit-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     -moz-box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
     box-shadow: 1px 2px 24px 1px rgba(0, 0, 0, 0.27);
@@ -831,8 +833,6 @@ hr {
 
 /* Deliver */
 
-
-
 .colDeliver {
     display: none;
 }
@@ -886,21 +886,18 @@ hr {
     margin-bottom: 0px;
 }
 
-.pCancelheader{
+.pCancelheader {
     font-family: 'GilroyBold';
     margin-bottom: 0px;
     font-size: 1.5rem;
     color: #212121;
 }
 
-
 .pCancelsub {
     font-family: 'GilroyLight';
     color: #313131;
     margin-top: 0px;
 }
-
-
 
 .divPassword {
     position: relative;
@@ -1250,9 +1247,6 @@ hr {
     right: 10px;
     width: 18px;
 }
-.react-datepicker__input-container  {
-    
-}
 
 
 .react-datepicker__input-container input {
@@ -1294,7 +1288,6 @@ hr {
     margin-top: -10px;
 }
 
-
 .imgInfo {
     width: 15px;
     margin-left: 8px;
@@ -1315,7 +1308,6 @@ hr {
     color: #424242;
     font-size: 0.9rem;
 }
-
 
 .pWeight, .pKg {
     font-family: 'GilroyBold';
@@ -1417,14 +1409,14 @@ hr {
 .pPriceModal {
     font-family: 'GilroyBold';
     color: whitesmoke;
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin-bottom: 0px;
 }
 
 .pWalletModal {
     font-family: 'GilroyBold';
     color: whitesmoke;
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin-bottom: 0px;
 }
 
@@ -1494,7 +1486,6 @@ hr {
     border-radius: 50px;
     border: 1px solid #FECE2F !important;
     width: 100%;
-    
     max-height: 45px;
     min-height: 45px;
     margin-top: 20px;
@@ -1565,7 +1556,6 @@ hr {
     margin-left: -15px !important;
     margin-top: 5px;
     cursor: pointer;
-    z-index: 99 !important;
 }
 
 .imgDelete {
@@ -2391,13 +2381,17 @@ ul.no-bullets>a>li:hover {
     display: block;
     overflow-x: auto;
     table-layout: fixed !important;
-    word-wrap:break-word !important;
+    word-wrap: break-word !important;
     padding-bottom: 40px;
 }
 
 .divTable {
     display: block;
     word-wrap:break-word !important;
+}
+
+.divActivetable, .divScheduledtable {
+    display: none;
 }
 
 th {
@@ -2466,7 +2460,254 @@ td {
     margin-left: 5px;
 }
 
+.btnView {
+    font-family: 'GilroyMedium' !important;
+    background-color: #2D9CFC;
+    padding: 7px 15px;
+    color: white;
+    font-size: 0.9rem;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: -5px;
+}
 
+.divView {
+    position: fixed;
+    right: -350px;
+    border-left: 1px solid #414141;
+    width: 350px;
+    z-index: 999999999;
+    transition: right 0.1s linear;
+    height: 100vh;
+    overflow: auto;
+    background-color: #15181A;
+
+    padding-top: 35px;
+}
+
+.pDivview {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.pDriverName {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.divDriverprof {
+    position: relative;
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.imgProfview {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.pDrivername  {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    text-align:center;
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+.pDrivernumber {
+    font-family: 'GilroyMedium' !important;
+    color: #f1cd79;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.conView {
+    display: none;
+    padding: 35px !important;
+}
+
+.pViewhead {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1rem;
+    text-align:center;
+    margin-bottom: 5px;
+}
+
+.pViewhead1 {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+.pViewloc {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.pViewname {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+}
+
+.conLoading {
+    position: relative;
+    height: 100vh;
+}
+
+.divWarning {
+    position: relative;
+    height: 95vh;
+    display: none;
+    padding: 0px;
+    width: 100%;
+}
+
+.pSomething {
+    font-family: 'GilroyMedium' !important;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.divWarningsub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 18px;
+    width: 100% !important;
+}
+
+
+:root {
+    --circle-height: 6px;
+    --loader-width: 250px;
+  }
+
+.loaderview {
+  width: var(--loader-width);
+  height: var(--circle-height);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.loaderview::after {
+  content: '';
+  display: block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, var(--bg-color), rgba(0,0,0,0) 10%, rgba(0,0,0,0), rgba(0,0,0,0) 90%, var(--bg-color) );
+}
+.loaderview span {
+  display: inline-block;
+  width: var(--circle-height);
+  height: var(--circle-height);
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  left: calc(-1 * var(--circle-height));
+  -webkit-animation: slide infinite 1.5s cubic-bezier(0.43, 0.6, 0.55, 0.38);
+  animation: slide infinite 1.5s cubic-bezier(0.43, 0.6, 0.55, 0.38);
+}
+
+.loaderview span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.loaderview span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loaderview span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.loaderview span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@-webkit-keyframes slide {
+  from {
+    left: calc(-1 * var(--circle-height));
+  }
+  to {
+    left: calc(100% + var(--circle-height));
+  }
+}
+@-o-keyframes slide {
+  from {
+    left: calc(-1 * var(--circle-height));
+  }
+  to {
+    left: calc(100% + var(--circle-height));
+  }
+}
+@-moz-keyframes slide {
+  from {
+    left: calc(-1 * var(--circle-height));
+  }
+  to {
+    left: calc(100% + var(--circle-height));
+  }
+}
+@keyframes slide {
+  from {
+    left: calc(-1 * var(--circle-height));
+  }
+  to {
+    left: calc(100% + var(--circle-height));
+  }
+}
+
+
+
+.liView {
+    color: white;
+}
+
+
+.pBookingdate, .pViewprice {
+    font-family: 'GilroyMedium' !important;
+    color: #f1cd79;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.imgCloseview {
+    float:left;
+    width: 14px;
+    cursor: pointer;
+}
+
+.imgCloseview1 {
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    width: 14px;
+    cursor: pointer;
+}
 
 .imgCancel {
     background-color: #ED3450;
@@ -4718,7 +4959,7 @@ video {
 }
 
 .divOnline {
-    width:11px;
+    width: 11px;
     height: 11px;
     border-radius: 20px;
     background-color: #ef5350;
@@ -4747,7 +4988,7 @@ video {
     width: 35px;
     padding: 10px;
     border-radius: 10px;
-    margin-right:  2px;
+    margin-right: 2px;
     cursor: pointer;
 }
 
@@ -4757,13 +4998,12 @@ video {
     width: 35px;
     padding: 10px;
     border-radius: 10px;
-    margin-right:  5px;
+    margin-right: 5px;
     cursor: pointer;
 }
 
 .closeChat:hover, .minimizeChat:hover {
     background-color: #15181A !important;
-
 }
 
 .divChatbox {

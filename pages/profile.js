@@ -22,7 +22,7 @@ import ReactPaginate from "react-paginate";
 import { PubNubProvider, usePubNub } from "pubnub-react";
 
 export default function profile() {
-  var potareason = ""
+  var potareason = "";
   const router = useRouter();
   const refreshPage = refreshcard;
   var cancel;
@@ -83,6 +83,22 @@ export default function profile() {
   const [othercancel, setOthercancel] = React.useState("");
   var holdclear = false;
 
+  const [driverprof, setDriverprof] = React.useState("");
+  const [drivername, setDrivername] = React.useState("");
+  const [drivernumber, setDrivernumber] = React.useState("");
+  const [bookingdate, setBookingdate] = React.useState("");
+  const [viewPrice, setViewprice] = React.useState("");
+  const [viewbookingdata, setViewbookingdata] = React.useState([]);
+  const [viewpickupstatus, setViewpickupstatus] = React.useState("");
+  const [viewPickuploc, setViewpickuploc] = React.useState("");
+  const [viewPickupname, setViewpickupname] = React.useState("");
+
+  const [bookingidtable, setBookingidtable] = React.useState("");
+  var canceltableid;
+
+  const [tableactivebooking, setTableactivebooking] = React.useState([]);
+  const [tablescheduled, setTablesheduled] = React.useState([]);
+
   function handleFile(e) {
     const reader = new FileReader();
 
@@ -99,11 +115,9 @@ export default function profile() {
   var x;
 
   const status = [
-    { value: "Complete", label: "Complete" },
-    { value: "Looking for Driver", label: "Looking for Driver" },
-    { value: "In Transit", label: "In Transit" },
     { value: "a", label: "All" },
-    { value: "Canceled", label: "Canceled" },
+    { value: "Active", label: "Active" },
+    { value: "Scheduled", label: "Scheduled" },
   ];
 
   const pubnub = new PubNub({
@@ -121,11 +135,8 @@ export default function profile() {
   }
 
   useEffect(() => {
-
     $("#__next ").css("background-color", "#212427");
   }, []);
-
-  function gettimeloadtimer() {}
 
   useEffect(() => {
     if (localStorage.getItem("theme") == "true") {
@@ -140,11 +151,45 @@ export default function profile() {
         "style",
         "color: #212121 !important;font-weight: bold"
       );
-  
     }
   }, [tabledata]);
 
-
+  useEffect(() => {
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
+    const apiUrlscheduled =
+      appglobal.api.base_api + appglobal.api.scheduled_booking;
+    axios
+      .post(apiUrlall, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        console.log(result.data.data);
+        setTableactivebooking(result.data.data);
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("pota error");
+      });
+    axios
+      .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        setTablesheduled(result.data.data);
+        console.log(result);
+        console.log("success scheduled");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("pota error scheduled");
+      });
+  }, []);
 
   function gotoTrack(e) {
     var trackid = $(e.currentTarget)
@@ -153,7 +198,7 @@ export default function profile() {
       .parent("tr")
 
       .children()
-      .closest("td:nth-child(2)")
+      .closest("td:nth-child(3)")
       .html();
     tabledata
       .filter((event) => event.tracking_id == trackid)
@@ -202,23 +247,22 @@ export default function profile() {
   }
 
   function trylang() {
-    opencancelBooking();
- 
+    console.log(bookingidtable);
   }
 
   function reason1() {
-    console.log("tagnian ")
-    setCancelreason("Wrong input address")
+    console.log("tagnian ");
+    setCancelreason("Wrong input address");
     potareason = "Wrong input address";
   }
 
   function reason2() {
-    setCancelreason("It's too expensive")
+    setCancelreason("It's too expensive");
     potareason = "It's too expensive";
   }
 
   function reason3() {
-    setCancelreason("Can't find a driver")
+    setCancelreason("Can't find a driver");
     potareason = "Can't find a driver";
   }
 
@@ -232,22 +276,35 @@ export default function profile() {
 
   function btnNocancel() {
     swal.close();
-    $("#exampleModal").modal("hide")
-    $("#modalRebook").modal("hide")
+    $("#exampleModal").modal("hide");
+    $("#modalRebook").modal("hide");
     $(".modal-backdrop").hide();
 
-    if (lateststatus == "On hold")  {
-      console.log(lateststatus)
-      $("#modalRebook").modal("show")
+    if (lateststatus == "On hold") {
+      console.log(lateststatus);
+      $("#modalRebook").modal("show");
       $(".modal-backdrop").show();
-    } 
+    }
   }
 
- 
+  function consoleid() {
+    console.log(bookingidtable);
+  }
 
-  function opencancelBooking() {
-    $("#exampleModal").modal("hide")
-    $("#modalRebook").modal("hide")
+  function opencancelBooking(e) {
+    var trackid = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+
+      .children()
+      .closest("td:nth-child(2)")
+      .html();
+    setBookingidtable(trackid);
+    canceltableid = trackid;
+    console.log(trackid);
+    $("#exampleModal").modal("hide");
+    $("#modalRebook").modal("hide");
     $(".modal-backdrop").hide();
     swal(
       <div className="divCancel">
@@ -263,24 +320,22 @@ export default function profile() {
               <p className="pCancelsub" style={{ marginBottom: "8px" }}>
                 Select reason
               </p>
-              
+
               <Select
                 options={date}
                 styles={cancel_white}
                 placeholder="Select.."
-                onChange = {handlechangeCancel}
+                onChange={handlechangeCancel}
               />
-              
+
               <textarea
                 className="txtDriver txtAreacancel"
-              
-                onChange = {changeCancel}
+                onChange={changeCancel}
                 rows={3}
                 cols={30}
-
                 style={{ marginTop: "10px", display: "none", color: "black" }}
               ></textarea>
-              <p className = "pSpecify">Please specify your reason.</p>
+              <p className="pSpecify">Please specify your reason.</p>
             </div>
             <div className="col-lg-6 col-sm-6 col-6">
               <button className="btnYes" onClick={cancelbook}>
@@ -296,7 +351,6 @@ export default function profile() {
         </div>
       </div>
     );
-    
   }
 
   function cancelBooking(e) {
@@ -463,7 +517,7 @@ export default function profile() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       if ($("#table> tbody > :visible").length == 0) {
         $(".pNo").show();
-        if(tabledata) {
+        if (tabledata) {
           $(".reactPaginate").hide();
         }
       } else {
@@ -500,89 +554,122 @@ export default function profile() {
   }
 
   function cancelbook() {
-  console.log(potareason);
-   if (potareason) {
-    console.log(latestbook);
-    const options = {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "content-type": "application/json",
-        Authorization: "Bearer " + AuthService.getToken(),
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-      },
-    };
-    const apiUrl = appglobal.api.base_api + appglobal.api.cancel_booking;
-
-    axios
-      .post(
-        apiUrl,
-        {
-          booking_id: latestbook,
-          who_cancel: "Customer",
-          reason_for_cancel: potareason,
+    if (potareason) {
+      const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+          Authorization: "Bearer " + AuthService.getToken(),
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
         },
-        options
-      )
-      .then((result) => {
-        console.log(result);
-        setCanceluser(true);
-        clearInterval(window.interval);
-        $("#exampleModal").modal("hide");
-        $(".modal-backdrop").hide();
-        $("#modalRebook").modal("hide");
+      };
+      const apiUrl = appglobal.api.base_api + appglobal.api.cancel_booking;
 
-        localStorage.removeItem("latestbookingdate");
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #00C853" }}
-              >
-                <div className="col-lg-2">
-                  <img src="Image/success.png" style={{ width: "32px" }}></img>
+      axios
+        .post(
+          apiUrl,
+          {
+            booking_id: canceltableid,
+            who_cancel: "Customer",
+            reason_for_cancel: potareason,
+          },
+          options
+        )
+        .then((result) => {
+          console.log(result.response);
+          try {
+            if (result.response.status == 500) {
+              swal(
+                <div style={{ width: "450px", padding: "10px" }}>
+                  <div className="container">
+                    <div
+                      className="row align-items-center"
+                      style={{ borderLeft: "3px solid #c62828" }}
+                    >
+                      <div className="col-lg-2">
+                        <img
+                          src="Image/warning.png"
+                          style={{ width: "32px" }}
+                        ></img>
+                      </div>
+                      <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <p className="pError">Error</p>
+                        <p className="pErrorSub">
+                          Someting went wrong. PLease try again later or you may
+                          contact our customer support.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Verified</p>
-                  <p className="pErrorSub">
-                    Your booking is successfully cancelled.
-                  </p>
+              );
+            }
+          } catch (e) {
+            refresh();
+            setCanceluser(true);
+            clearInterval(window.interval);
+            $("#exampleModal").modal("hide");
+            $(".modal-backdrop").hide();
+            $("#modalRebook").modal("hide");
+            canceltableid = "";
+            localStorage.removeItem("latestbookingdate");
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #00C853" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/success.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Verified</p>
+                      <p className="pErrorSub">
+                        Your booking is successfully cancelled.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #c62828" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/warning.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Error</p>
+                    <p className="pErrorSub">
+                      Someting went wrong. PLease try again later or you may
+                      contact our customer support.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-        refresh();
-      })
-      .catch((err) => {
-        swal(
-          <div style={{ width: "450px", padding: "10px" }}>
-            <div className="container">
-              <div
-                className="row align-items-center"
-                style={{ borderLeft: "3px solid #c62828" }}
-              >
-                <div className="col-lg-2">
-                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
-                </div>
-                <div className="col-lg-10" style={{ textAlign: "left" }}>
-                  <p className="pError">Error</p>
-                  <p className="pErrorSub">
-                    Someting went wrong. PLease try again later or you may
-                    contact our customer support.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      });
-   
-   }else {
-     console.log(cancelreason)
-    $(".pSpecify").show();
-   }
+          );
+        });
+    } else {
+      console.log(cancelreason);
+      $(".pSpecify").show();
+    }
   }
 
   function successMessage() {
@@ -617,12 +704,15 @@ export default function profile() {
       },
     };
     const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;
+    const apiUrlscheduled =
+      appglobal.api.base_api + appglobal.api.scheduled_booking;
+      const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
-        console.log(result.data.data[0].status)
-        setLateststatus(result.data.data[0].status)
+        console.log(result.data.data[0].status);
+        setLateststatus(result.data.data[0].status);
         tablemap = result.data.data;
         setCount(result.data.meta.total);
         if (result.data.data.length === 0) {
@@ -640,6 +730,28 @@ export default function profile() {
       .catch((err) => {
         console.log(err);
       });
+    axios
+      .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options)
+      .then((result) => {
+        setTablesheduled(result.data.data);
+        console.log(result);
+        console.log("success scheduled");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("pota error scheduled");
+      });
+      axios
+      .post(apiUrlall, { customer_id: AuthService.getId() }, options)
+      .then((result) => {
+        console.log(result.data.data);
+        setTableactivebooking(result.data.data);
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("pota error");
+      });
   }
 
   function driverfound() {
@@ -655,8 +767,20 @@ export default function profile() {
     holdclear = true;
   }
 
-  useEffect(() => {
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        AuthService.logout();
+        router.push("/");
+      }
+      return error;
+    }
+  );
 
+  useEffect(() => {
     global.config.place.deliver.table_id = Number(
       localStorage.getItem("activeid")
     );
@@ -674,7 +798,6 @@ export default function profile() {
           setCleartimer(true);
           refresh();
         } else if (mes.message.status == "Ongoing") {
-   
           clearInterval(window.interval);
           holdclear = true;
           setCleartimer(true);
@@ -736,11 +859,9 @@ export default function profile() {
   const date = [
     { value: "1", label: "Wrong input address" },
     { value: "2", label: "It's too expensive" },
-    { value: "3", label: "Can't find a driver"},
-    { value: "4", label: "Others"}
+    { value: "3", label: "Can't find a driver" },
+    { value: "4", label: "Others" },
   ];
-
- 
 
   const user_type = [
     { value: "driver", label: "Driver" },
@@ -855,7 +976,6 @@ export default function profile() {
       width: "100%",
     }),
   };
-
 
   const cancel_black = {
     control: (base, state) => ({
@@ -1093,7 +1213,9 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
+        console.log("trasaction history");
         console.log(result);
+
         setTabledata(result.data.data);
 
         if (result.data.data) {
@@ -1319,6 +1441,69 @@ export default function profile() {
       });
   }
 
+  function closeView() {
+    $(".divView").css("right", "-350px");
+  }
+
+  function viewBook(e) {
+    $(".conLoading").show();
+    $(".conView").hide();
+    $(".divWarning").hide();
+    $(".divView").css("right", "0px");
+    var trackid = $(e.currentTarget)
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(2)")
+      .html();
+    console.log(trackid);
+
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    const apiUrl = appglobal.api.base_api + appglobal.api.showdriver_location;
+
+    axios
+      .post(apiUrl, { tracking_id: { trackid } }, options)
+      .then((result) => {
+        console.log(result.data);
+        $(".conLoading").hide();
+        $(".conView").fadeIn(200);
+        setDrivername(
+          result.data.data.booking_details.driver.fname +
+            " " +
+            result.data.data.booking_details.driver.lname
+        );
+        setDriverprof(
+          "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+            result.data.data.booking_details.driver.profile_pic
+        );
+
+        setDrivernumber(result.data.data.booking_details.driver.mobile_no);
+        setBookingdate(
+          moment(result.data.data.booking_details.driver.created_at).format("l")
+        );
+        setViewprice(result.data.data.booking_details.total);
+        setViewbookingdata(
+          result.data.data.booking_details.booking_drop_off_location
+        );
+        setViewpickupstatus(result.data.data.booking_details.status);
+        setViewpickuploc(result.data.data.booking_details.pick_up_address);
+        setViewpickupname(result.data.data.booking_details.contact_name);
+      })
+      .catch((err) => {
+        console.log(err);
+        $(".conView").hide();
+        $(".divWarning").show();
+      });
+  }
+
   function rebook() {
     const options = {
       headers: {
@@ -1341,7 +1526,24 @@ export default function profile() {
         console.log(result);
       })
       .catch((err) => {
-        console.log(err);
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">Something went wrong.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       });
   }
 
@@ -1512,46 +1714,57 @@ export default function profile() {
   }
 
   function handlestatuschange(value) {
+    var statuslabel = value;
     var value = value.value.toLowerCase();
-    console.log(value.label)
+    console.log(value.label);
     setStatus(value.label);
 
-    $("#table > tbody > tr").filter(function () {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-
-      if ($("#table> tbody > :visible").length == 0) {
+    if (statuslabel.label == "Active") {
+      $(".divHistory, .reactPaginate, .divScheduledtable").hide();
+      $(".divActivetable").fadeIn(150);
+      if (tableactivebooking.length == 0) {
+        console.log("walang laman");
+        $(".pNo").show();
+      } else {
+        console.log("walang laman");
+        $(".pNo").hide();
+      }
+      console.log("gumana");
+    } else if (statuslabel.label == "All") {
+      $(".divHistory, .reactPaginate").fadeIn(150);
+      $(".divActivetable, .divScheduledtable").hide();
+      if (tabledata.length == 0) {
         $(".pNo").show();
       } else {
         $(".pNo").hide();
       }
-    });
-    $("tbody").each(function () {
-      var list = $(this).children("tr");
-      $(this).html(list.get());
-    });
+    } else if (statuslabel.label == "Scheduled") {
+      $(".divHistory, .reactPaginate, .divActivetable").hide();
+      $(".divScheduledtable").fadeIn(150);
+      if (tablescheduled.length == 0) {
+        $(".pNo").show();
+      } else {
+        $(".pNo").hide();
+      }
+    }
   }
 
   function handlechangeCancel(event) {
     $(".pSpecify").hide();
-    if(event.value == 1) {
-      $(".txtAreacancel").fadeOut(200)
+    if (event.value == 1) {
+      $(".txtAreacancel").fadeOut(200);
       reason1();
-    }else if (event.value == 2) {
-      $(".txtAreacancel").fadeOut(200)
+    } else if (event.value == 2) {
+      $(".txtAreacancel").fadeOut(200);
       reason2();
-    }else if (event.value == 3) {
-      $(".txtAreacancel").fadeOut(200)
+    } else if (event.value == 3) {
+      $(".txtAreacancel").fadeOut(200);
       reason3();
-    }else if (event.value == 4) {
+    } else if (event.value == 4) {
       reason4();
-      $(".txtAreacancel").fadeIn(200)
+      $(".txtAreacancel").fadeIn(200);
     }
-     
- }
-
- 
-
-
+  }
 
   function handleChangeemail(e) {
     setEmail(e.target.value);
@@ -2255,6 +2468,94 @@ export default function profile() {
         <div className="divChatbox">
           <Chat></Chat>
         </div>
+        <div className="divView">
+          <div className="conLoading">
+            <div className="loaderview">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div className="divWarning">
+            <img
+              src="Image/close.png"
+              className="img-fluid imgCloseview1"
+              onClick={closeView}
+            ></img>
+            <div className="divWarningsub">
+              <img
+                src="Image/warningview.png"
+                className="img-fluid imgviewwarning mx-auto d-flex"
+                style={{ width: "70px" }}
+              ></img>
+              <p className="pSomething">
+                Sorry, your booking was cancelled. You can try to book again and
+                our JGO Riders will assist you.
+              </p>
+            </div>
+          </div>
+          <div className="container conView">
+            <div className="row" style={{ marginTop: "-40px" }}>
+              <div className="col-lg-12">
+                <img
+                  src="Image/close.png"
+                  className="img-fluid imgCloseview"
+                  onClick={closeView}
+                ></img>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="divDriverprof">
+                  <img
+                    src={driverprof}
+                    className="img-fluid imgProfview mx-auto d-flex"
+                  ></img>
+                </div>
+                <p className="pDrivername">{drivername}</p>
+                <p className="pDrivernumber">{drivernumber}</p>
+              </div>
+            </div>
+            <div className="row" style={{ borderBottom: "1px solid #424242" }}>
+              <div className="col-lg-6">
+                <p className="pViewhead">Date</p>
+                <p className="pBookingdate">{bookingdate}</p>
+              </div>
+              <div className="col-lg-6">
+                <p className="pViewhead">Price</p>
+                <p className="pViewprice">&#8369;{viewPrice}</p>
+              </div>
+            </div>
+            <div className="row" style={{ marginTop: "10px" }}>
+              <div className="col-lg-12">
+                <p className="pViewhead1">Bookings</p>
+              </div>
+              <div className="col-lg-12" style={{ marginTop: "8px" }}>
+                <ul className="ulView">
+                  <li className="liView">
+                    <p className={statusColor(viewpickupstatus)}>
+                      {viewpickupstatus}
+                    </p>
+                    <p className="pViewloc">{viewPickuploc}</p>
+                    <p className="pViewname">{viewPickupname}</p>
+                  </li>
+                </ul>
+                {viewbookingdata.map((event, index) => (
+                  <ul>
+                    <li className="liView">
+                      <p className={statusColor(event.status)}>
+                        {event.status}
+                      </p>
+                      <p className="pViewloc">{event.drop_off_address}</p>
+                      <p className="pViewname">{event.contact_name}</p>
+                    </li>
+                  </ul>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="divSidebar">
           <div className="divMenuSide">
             <div className="divIcon">
@@ -2382,106 +2683,368 @@ export default function profile() {
                 type="text"
                 className="txtSearch"
                 placeholder="Search id, tracking number or location"
-                onKeyUp = {searchTable}
+                onKeyUp={searchTable}
               ></input>
             </div>
           </div>
         </div>
         <div className="row" style={{ marginTop: "20px" }}>
-          <div className="col-lg-12" >
-           <div className = "divTable">
-           <div className="table-responsive" >
-              <table className="table tabledata" id="table" onMouseOver={hovertable}>
-                <thead>
-                  <tr style={{ backgroundColor: "transparent" }}>
-                    <th>Action</th>
-                    <th>Tracking ID</th>
-                    <th>Price</th>
-                    <th>Pickup Address</th>
-                    <th>Drop Location</th>
-                  </tr>
-                </thead>
-                <tbody
-                
+          <div className="col-lg-12">
+            <div className="divTable divHistory">
+              <div className="table-responsive">
+                <table
+                  className="table tabledata"
+                  id="table"
+                  onMouseOver={hovertable}
                 >
-                  {tabledata.map((event, index) => (
-                    <tr key={event.id}>
-                      <td className="tdButton">
-                        {event.status == "Complete" ||
-                        event.status == "Canceled" ? (
-                          <p className="pNoaction">No action required</p>
-                        ) : (
-                          <div
-                            className="form-inline"
-                            style={{ marginTop: "10px" }}
-                          >
-                            <button
-                              className="btnTrackingprof"
-                              onClick={gotoTrack}
-                            >
-                              Track
+                  <thead>
+                    <tr style={{ backgroundColor: "transparent" }}>
+                      <th>Action</th>
+                      <th className="d-none">Id</th>
+                      <th>Tracking ID</th>
+                      <th>Price</th>
+                      <th>Pickup Address</th>
+                      <th>Drop Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tabledata.map((event, index) => (
+                      <tr key={event.id}>
+                        <td className="tdButton">
+                          {event.status == "Complete" ||
+                          event.status == "Canceled" ? (
+                            <button className="btnView" onClick={viewBook}>
+                              View
                             </button>
-                            <button
-                              className="btnCancel"
-                              onClick={opencancelBooking}
+                          ) : event.status == "On hold" ? (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
                             >
-                              Cancel
-                            </button>
-                          </div>
-                        )}
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {event.tracking_id}
-                      </td>
-                      <td
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight"
-                            : "tddark"
-                        }
-                      >
-                        {event.total}
-                      </td>
+                              <button
+                                className="btnTrackingprof"
+                                onClick={rebook}
+                              >
+                                Rebook
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <button
+                                className="btnTrackingprof"
+                                onClick={gotoTrack}
+                              >
+                                Track
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                        <td className="d-none">{event.id}</td>
 
-                      <td 
-                        className={
-                          localStorage.getItem("theme_status") == "light"
-                            ? "tdlight tdPickup"
-                            : "tddark tdPickup" 
-                        }
-                      >
-                        <span className={statusColor(event.status)}>
-                          {event.status}
-                        </span>
-                        {event.pick_up_address}
-                      </td>
-                      {event.booking_drop_off_location.map((event) => (
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.tracking_id}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.total}
+                        </td>
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
                               ? "tdlight tdPickup"
                               : "tddark tdPickup"
                           }
-                          key={event.id}
                         >
                           <span className={statusColor(event.status)}>
                             {event.status}
                           </span>
-                          {event.drop_off_address}
+                          {event.pick_up_address}
                         </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        {event.booking_drop_off_location.map((event) => (
+                          <td
+                            className={
+                              localStorage.getItem("theme_status") == "light"
+                                ? "tdlight tdPickup"
+                                : "tddark tdPickup"
+                            }
+                            key={event.id}
+                          >
+                            <span className={statusColor(event.status)}>
+                              {event.status}
+                            </span>
+                            {event.drop_off_address}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-           </div>
+
+            <div className="divTable divActivetable">
+              <div className="table-responsive">
+                <table
+                  className="table tabledata"
+                  id="table"
+                  onMouseOver={hovertable}
+                >
+                  <thead>
+                    <tr style={{ backgroundColor: "transparent" }}>
+                      <th>Action</th>
+                      <th className="d-none">Id</th>
+                      <th>Tracking ID</th>
+                      <th>Price</th>
+                      <th>Pickup Address</th>
+                      <th>Drop Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableactivebooking.map((event, index) => (
+                      <tr key={event.id}>
+                        <td className="tdButton">
+                          {event.status == "Complete" ||
+                          event.status == "Canceled" ? (
+                            <button className="btnView" onClick={viewBook}>
+                              View
+                            </button>
+                          ) : event.status == "On hold" ? (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <button
+                                className="btnTrackingprof"
+                                onClick={rebook}
+                              >
+                                Rebook
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <button
+                                className="btnTrackingprof"
+                                onClick={gotoTrack}
+                              >
+                                Track
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                        <td className="d-none">{event.id}</td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.tracking_id}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.total}
+                        </td>
+
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight tdPickup"
+                              : "tddark tdPickup"
+                          }
+                        >
+                          <span className={statusColor(event.status)}>
+                            {event.status}
+                          </span>
+                          {event.pick_up_address}
+                        </td>
+                        {event.booking_drop_off_location.map((event) => (
+                          <td
+                            className={
+                              localStorage.getItem("theme_status") == "light"
+                                ? "tdlight tdPickup"
+                                : "tddark tdPickup"
+                            }
+                            key={event.id}
+                          >
+                            <span className={statusColor(event.status)}>
+                              {event.status}
+                            </span>
+                            {event.drop_off_address}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="divTable divScheduledtable">
+              <div className="table-responsive">
+                <table
+                  className="table tabledata"
+                  id="table"
+                  onMouseOver={hovertable}
+                >
+                  <thead>
+                    <tr style={{ backgroundColor: "transparent" }}>
+                      <th>Action</th>
+                      <th className="d-none">Id</th>
+                      <th>Tracking ID</th>
+                      <th>Price</th>
+                      <th>Pickup Address</th>
+                      <th>Drop Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablescheduled.map((event, index) => (
+                      <tr key={event.id}>
+                        <td className="tdButton">
+                          {event.status == "Complete" ||
+                          event.status == "Canceled" ? (
+                            <button className="btnView" onClick={viewBook}>
+                              View
+                            </button>
+                          ) : event.status == "On hold" ? (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <button
+                                className="btnTrackingprof"
+                                onClick={rebook}
+                              >
+                                Rebook
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <div
+                              className="form-inline"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <button
+                                className="btnTrackingprof"
+                                onClick={gotoTrack}
+                              >
+                                Track
+                              </button>
+                              <button
+                                className="btnCancel"
+                                onClick={opencancelBooking}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                        <td className="d-none">{event.id}</td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.tracking_id}
+                        </td>
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.total}
+                        </td>
+
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight tdPickup"
+                              : "tddark tdPickup"
+                          }
+                        >
+                          <span className={statusColor(event.status)}>
+                            {event.status}
+                          </span>
+                          {event.pick_up_address}
+                        </td>
+                        {event.booking_drop_off_location.map((event) => (
+                          <td
+                            className={
+                              localStorage.getItem("theme_status") == "light"
+                                ? "tdlight tdPickup"
+                                : "tddark tdPickup"
+                            }
+                            key={event.id}
+                          >
+                            <span className={statusColor(event.status)}>
+                              {event.status}
+                            </span>
+                            {event.drop_off_address}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <div className="Box">
               <span></span>
               <span></span>
@@ -2693,7 +3256,7 @@ export default function profile() {
             <p className="pSettingsTitle">General Settings</p>
             <div>
               <input type="checkbox" id="switch" />
-              <label className="label" for="switch">
+              <label className="label" htmlFor="switch">
                 Toggle
               </label>
               <span className="spanCheckSettings">
@@ -3089,7 +3652,7 @@ export default function profile() {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
-                    <p className="pModalVerify">Jgo Wallet - Top up</p>
+                    <p className="pModalVerify">JGO Wallet - Top up</p>
                     <p className="pModalTitleSub">
                       Choose between multipe options and select confirm.
                     </p>
@@ -3329,7 +3892,11 @@ export default function profile() {
                     className="col-lg-12 mx-auto d-flex"
                     style={{ marginTop: "10px" }}
                   >
-                    <a className="btn btnConfirmTopup" onClick={saveprof1}>
+                    <a
+                      className="btn btnConfirmTopup"
+                      onClick={saveprof1}
+                      style={{ color: "white" }}
+                    >
                       Confirm
                       <span style={{ marginLeft: "60px" }}>
                         <b></b>
@@ -3441,8 +4008,8 @@ export default function profile() {
                     </div>
                     <p className="pSearching">No driver found</p>
                     <p className="pSearchsub">
-                      We cannot found your driver, you can rebook or cancel your
-                      booking.
+                      Sorry it looks like some of our riders are busy, you can
+                      click rebook or cancel your booking.
                     </p>
                     <a className="btn btnCheck" onClick={rebook}>
                       Rebook

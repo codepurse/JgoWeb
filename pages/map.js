@@ -51,6 +51,8 @@ export default function map() {
   const [zoningfee, setZoningfee] = React.useState("");
   const [statusschedule, setStatusschedule] = React.useState("");
   const [scheduletime, setScheduledTime] = React.useState("");
+  const [formattime, setFormattime] = React.useState("");
+  const [formatdate, setFormatdate] = React.useState("");
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -73,6 +75,11 @@ export default function map() {
   }
 
   function changeScheduled(date) {
+    console.log(moment(date).format("YYYY-MM-DD" + " Date"));
+    console.log(moment(date).format("h:mm:ss" + " time"));
+    setFormattime(moment(date).format("h:mm:ss"));
+    setFormatdate(moment(date).format("YYYY-MM-DD"));
+    $(".react-datepicker__input-container input").css("borderColor","#2c2c2c")
     setScheduledTime(date);
   }
 
@@ -1928,6 +1935,11 @@ export default function map() {
         if (payment == "cod") {
           formdata.set("is_collection_point", codloc);
         }
+        if (statusschedule == "true") {
+          formdata.set("scheduled_time", formattime);
+          formdata.set("scheduled_date",formatdate);
+        }
+
         formdata.set("weight", weight);
 
         formdata.set(
@@ -2772,6 +2784,34 @@ export default function map() {
               </div>
             </div>
           );
+        } else if (statusschedule == "true") {
+            if(scheduletime == "") {
+              x = 0;
+              swal(
+                <div style={{ width: "450px", padding: "10px" }}>
+                  <div className="container">
+                    <div
+                      className="row align-items-center"
+                      style={{ borderLeft: "3px solid #FFE900" }}
+                    >
+                      <div className="col-lg-2">
+                        <img
+                          src="Image/complain.png"
+                          style={{ width: "32px" }}
+                        ></img>
+                      </div>
+                      <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <p className="pError">Warning</p>
+                        <p className="pErrorSub">
+                         Please input a valid date.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+              $(".react-datepicker__input-container input").css("borderColor","red")
+            }
         }
       })
       .promise()
@@ -4373,6 +4413,7 @@ export default function map() {
                     onChange={changeScheduled}
                     showTimeSelect
                     withPortal
+                    minDate={new Date()}
                     placeholderText="Click to select a date"
                     filterTime={filterPassedTime}
                     dateFormat="MMMM d, yyyy h:mm aa"
@@ -4490,7 +4531,7 @@ export default function map() {
               <p className="pMode">Mode of payment</p>
               <p className="pModeSub">
                 Please make a payment below to start your booking process. If
-                your payment methos is not there you can add your own below.
+                your payment method is not there you can add your own below.
               </p>
             </div>
             <div className="modal-body mode modalPayment">
@@ -4541,7 +4582,7 @@ export default function map() {
                   </div>
                   <div className="col-lg-6">
                     <p className="pCod">JGO Wallet</p>
-                    <p className="pCodSub">Deducted in your Jgo wallet</p>
+                    <p className="pCodSub">Deducted in your JGO wallet</p>
                     <p className="pWalletModal1">
                       {wallet}
                       <span className="pPoints">points</span>
