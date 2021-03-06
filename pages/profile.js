@@ -95,6 +95,7 @@ export default function profile() {
 
   const [bookingidtable, setBookingidtable] = React.useState("");
   var canceltableid;
+  var drivertableid;
 
   const [tableactivebooking, setTableactivebooking] = React.useState([]);
   const [tablescheduled, setTablesheduled] = React.useState([]);
@@ -198,7 +199,7 @@ export default function profile() {
       .parent("tr")
 
       .children()
-      .closest("td:nth-child(3)")
+      .closest("td:nth-child(4)")
       .html();
     tabledata
       .filter((event) => event.tracking_id == trackid)
@@ -296,12 +297,19 @@ export default function profile() {
       .parent("div")
       .parent("td")
       .parent("tr")
-
       .children()
       .closest("td:nth-child(2)")
       .html();
+      var driverid = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(3)")
+      .html();
     setBookingidtable(trackid);
     canceltableid = trackid;
+    drivertableid = driverid;
     console.log(trackid);
     $("#exampleModal").modal("hide");
     $("#modalRebook").modal("hide");
@@ -572,6 +580,7 @@ export default function profile() {
           {
             booking_id: canceltableid,
             who_cancel: "Customer",
+            driver_id: drivertableid,
             reason_for_cancel: potareason,
           },
           options
@@ -670,6 +679,7 @@ export default function profile() {
       console.log(cancelreason);
       $(".pSpecify").show();
     }
+    drivertableid = "";
   }
 
   function successMessage() {
@@ -2701,6 +2711,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
+                      <th className = "d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
                       <th>Pickup Address</th>
@@ -2755,7 +2766,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
-
+                        <td className = "d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
