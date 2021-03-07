@@ -2714,6 +2714,7 @@ export default function profile() {
                       <th className = "d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
+                      <th>Type</th>
                       <th>Pickup Address</th>
                       <th>Drop Location</th>
                     </tr>
@@ -2785,7 +2786,15 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-
+                        <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.schedule === null ? "Same day" : "Schedule"}
+                        </td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2833,6 +2842,7 @@ export default function profile() {
                       <th className="d-none">Id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
+                   
                       <th>Pickup Address</th>
                       <th>Drop Location</th>
                     </tr>
@@ -2903,7 +2913,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-
+                       
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
