@@ -96,6 +96,7 @@ export default function profile() {
   const [bookingidtable, setBookingidtable] = React.useState("");
   var canceltableid;
   var drivertableid;
+  var rebooktableid;
 
   const [tableactivebooking, setTableactivebooking] = React.useState([]);
   const [tablescheduled, setTablesheduled] = React.useState([]);
@@ -578,7 +579,7 @@ export default function profile() {
         .post(
           apiUrl,
           {
-            booking_id: canceltableid,
+            booking_id: canceltableid ? canceltableid : latestbook,
             who_cancel: "Customer",
             driver_id: drivertableid,
             reason_for_cancel: potareason,
@@ -1036,7 +1037,7 @@ export default function profile() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 120) {
+            if (min > 20) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -1073,7 +1074,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 120) {
+        if (min > 20) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -1094,6 +1095,17 @@ export default function profile() {
   }
 
   useEffect(() => {
+
+    if (scheduledbook == 1) {
+      scheduledbook = 0;
+      $("#modalScheduled").modal("show")
+    }
+
+    $("#modalScheduled").on('hidden.bs.modal', function () {
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+   })
+
     if (localStorage.getItem("goSupport") == "true") {
       $(".ulDashboard>li").removeClass("activeUl");
       $(".conSupport").fadeIn(250);
@@ -1159,10 +1171,7 @@ export default function profile() {
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
             console.log(result.data.data.status);
-            if (result.data.data.status == "On hold") {
-              $("#exampleModal").modal("hide");
-              $("#modalRebook").modal("show");
-            }
+            
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
             localStorage.removeItem("latestbook");
@@ -1234,10 +1243,8 @@ export default function profile() {
               (event) => event.id === Number(localStorage.getItem("activeid"))
             )
             .map((data) =>
-              data.status == "Looking for Driver"
+              data.status == "Looking for Driver" && data.schedule == null
                 ? $("#exampleModal").modal("show")
-                : data.status == "On hold"
-                ? $("#modalRebook").modal("show")("#exampleModal").modal("hide")
                 : console.log("")
             );
         }
@@ -1265,7 +1272,7 @@ export default function profile() {
         setACtivecount(active.length);
       })
       .catch((err) => {
-        console.log(err);
+      
       });
 
     const apiUrl1 = appglobal.api.base_api + appglobal.api.customer_profile;
@@ -1515,6 +1522,7 @@ export default function profile() {
   }
 
   function rebook() {
+   
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1533,6 +1541,63 @@ export default function profile() {
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
+        console.log(result);
+      })
+      .catch((err) => {
+        swal(
+          <div style={{ width: "450px", padding: "10px" }}>
+            <div className="container">
+              <div
+                className="row align-items-center"
+                style={{ borderLeft: "3px solid #e53935" }}
+              >
+                <div className="col-lg-2">
+                  <img src="Image/warning.png" style={{ width: "32px" }}></img>
+                </div>
+                <div className="col-lg-10" style={{ textAlign: "left" }}>
+                  <p className="pError">Error</p>
+                  <p className="pErrorSub">Something went wrong.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      });
+  }
+
+  function rebooktable(e) {
+    var bookid = $(e.currentTarget)
+    .parent("div")
+    .parent("td")
+    .parent("tr")
+    .children()
+    .closest("td:nth-child(2)")
+    .html();
+    rebooktableid = bookid;
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const api = appglobal.api.base_api + appglobal.api.retry_booking;
+    axios
+      .post(api, { booking_id: bookid }, options)
+      .then((result) => {
+       if (latestbook == bookid) {
+        $("#exampleModal").modal("show");
+        $("#modalRebook").modal("hide");
+        holdTimer();
+       } else {
+         console.log(latestbook);
+         console.log(bookid);
+       }
+
+        refresh();
+        localStorage.setItem("latestbookingdate", moment(new Date()));
         console.log(result);
       })
       .catch((err) => {
@@ -2735,7 +2800,7 @@ export default function profile() {
                             >
                               <button
                                 className="btnTrackingprof"
-                                onClick={rebook}
+                                onClick={rebooktable}
                               >
                                 Rebook
                               </button>
@@ -3558,7 +3623,7 @@ export default function profile() {
           </div>
         </div>
       </div>
-      s
+      
       <div
         className="modal fade"
         id="exampleModal"
@@ -4050,6 +4115,47 @@ export default function profile() {
           </div>
         </div>
       </div>
+
+    
+      <div
+        className="modal fade"
+        id="modalScheduled"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content" style={{ borderRadius: "20px" }}>
+            <div className="modal-body text-center modalSearch">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div
+                      className="mx-auto"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "150px",
+                      }}
+                    >
+                      <img
+                        src="Image/found.gif"
+                        className="img-fluid mx-auto d-flex imgLoading"
+                      ></img>
+                    </div>
+                    <p className="pSearching">Scheduled successfully.</p>
+                    <p className="pSearchsub">
+                      Thank your for using Jgo. Your parcel will be delivered with the given time and date.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </>
   );
 }

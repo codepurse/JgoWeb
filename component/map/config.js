@@ -35,3 +35,5 @@ durationmap = ""
 addservices = [];
 
 refreshcard = 0;
+
+scheduledbook = 0;

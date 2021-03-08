@@ -5,6 +5,8 @@ $(document).ready(function () {
     $(".fixed-top").css("z-index", "9");
   }
 
+ 
+
   var getLastPartOfUrl = function ($url) {
     var url = $url;
     var urlsplit = url.split("/");
@@ -21,7 +23,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#exampleModal").on("hidden.bs.modal", function () {
+  $("#exampleModal, #modalRebook").on("hidden.bs.modal", function () {
     $(".modal-backdrop").hide();
   });
 

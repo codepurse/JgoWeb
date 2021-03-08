@@ -53,6 +53,8 @@ export default function map() {
   const [scheduletime, setScheduledTime] = React.useState("");
   const [formattime, setFormattime] = React.useState("");
   const [formatdate, setFormatdate] = React.useState("");
+  const [numberbooking , setNumberbooking] = React.useState("");
+
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -471,6 +473,31 @@ export default function map() {
       </div>
     );
   }
+
+  useEffect(() => {
+    const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+    const api = appglobal.api.base_api + appglobal.api.all_booking;
+    axios
+    .post(api, { customer_id: AuthService.getId() }, options1)
+    .then((result) => {
+      console.log(result.data.count);
+      setNumberbooking(result.data.count)
+      console.log("success all booking");
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("pota error");
+    });
+  }, [])
+
 
   useEffect(() => {
     setBaserate(localStorage.getItem("baserate"));
@@ -1938,6 +1965,7 @@ export default function map() {
         if (statusschedule == "true") {
           formdata.set("scheduled_time", formattime);
           formdata.set("scheduled_date",formatdate);
+          scheduledbook = 1;
         }
 
         formdata.set("weight", weight);
@@ -2757,7 +2785,34 @@ export default function map() {
     $(".divStopOff:visible")
       .find(".txtValidation")
       .each(function () {
-        if ($(this).val() == "") {
+
+        if (numberbooking > 10) {
+          x = 0;
+          swal(
+            <div style={{ width: "450px", padding: "10px" }}>
+              <div className="container">
+                <div
+                  className="row align-items-center"
+                  style={{ borderLeft: "3px solid #FFE900" }}
+                >
+                  <div className="col-lg-2">
+                    <img
+                      src="Image/complain.png"
+                      style={{ width: "32px" }}
+                    ></img>
+                  </div>
+                  <div className="col-lg-10" style={{ textAlign: "left" }}>
+                    <p className="pError">Warning</p>
+                    <p className="pErrorSub">
+                      Maximum booking limit.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        else if ($(this).val() == "") {
           x = 0;
           $(this).css("border", "1px solid #f44336");
           $(this).closest(".divHide").find(".divAdd").fadeIn(200);
