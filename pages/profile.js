@@ -300,7 +300,59 @@ export default function profile() {
   }
 
   function opencancelBooking(e) {
-    var trackid = $(e.currentTarget)
+    
+    var addresstable = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(5)")
+      .html();
+
+
+    var statustable = $(e.currentTarget)
+    .parent("div")
+    .parent("td")
+    .parent("tr")
+    .children()
+    .closest("td:nth-child(6)")
+    .html();
+
+
+      var now = moment(new Date()); //todays date
+      var end = moment(addresstable); // another date
+      var duration = now.diff(end,"seconds")
+     
+
+
+    if (duration > 30  && statustable == "Driver found") {
+      console.log(duration)
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #e53935" }}
+            >
+              <div className="col-lg-2">
+                <img
+                  src="Image/warning.png"
+                  style={{ width: "32px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">This booking cannot be cancel. Please contact our customer support</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    
+    } else {
+      console.log(duration);
+      console.log(statustable);
+      var trackid = $(e.currentTarget)
       .parent("div")
       .parent("td")
       .parent("tr")
@@ -366,6 +418,9 @@ export default function profile() {
         </div>
       </div>
     );
+    }
+
+   
   }
 
   function cancelBooking(e) {
@@ -1040,7 +1095,7 @@ export default function profile() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 60) {
+            if (min > 30) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -1077,7 +1132,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 60) {
+        if (min > 30) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -1246,7 +1301,7 @@ export default function profile() {
               (event) => event.id === Number(localStorage.getItem("activeid"))
             )
             .map((data) =>
-              data.status == "Looking for Driver" && data.schedule == null
+              data.status == "Looking for Driver" && data.is_scheduled == 0
                 ? $("#exampleModal").modal("show")
                 : console.log("")
             );
@@ -1580,14 +1635,15 @@ export default function profile() {
        if (latestbook == bookid) {
         $("#exampleModal").modal("show");
         $("#modalRebook").modal("hide");
+        localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
+
        } else {
          console.log(latestbook);
          console.log(bookid);
        }
 
         refresh();
-        localStorage.setItem("latestbookingdate", moment(new Date()));
         console.log(result);
       })
       .catch((err) => {
@@ -2770,6 +2826,8 @@ export default function profile() {
                       <th className="d-none">Id</th>
                       <th className = "d-none">Driver id</th>
                       <th>Tracking ID</th>
+                      <th className="d-none">date</th>
+                      <th className="d-none">Status</th>
                       <th>Price</th>
                       <th>Type</th>
                       <th>Pickup Address</th>
@@ -2834,6 +2892,8 @@ export default function profile() {
                         >
                           {event.tracking_id}
                         </td>
+                        <td  className="d-none">{event.updated_at}</td>
+                           <td  className="d-none">{event.status}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2850,7 +2910,7 @@ export default function profile() {
                               : "tddark"
                           }
                         >
-                          {event.schedule === null ? "Same day" : "Schedule"}
+                          {event.is_scheduled == 0 ? "Same day" : "Schedule"}
                         </td>
                         <td
                           className={
@@ -2920,7 +2980,7 @@ export default function profile() {
                             >
                               <button
                                 className="btnTrackingprof"
-                                onClick={rebook}
+                                onClick={rebooktable}
                               >
                                 Rebook
                               </button>
