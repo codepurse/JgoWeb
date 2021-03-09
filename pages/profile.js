@@ -288,11 +288,7 @@ export default function profile() {
     $("#modalRebook").modal("hide");
     $(".modal-backdrop").hide();
 
-    if (lateststatus == "On hold") {
-      console.log(lateststatus);
-      $("#modalRebook").modal("show");
-      $(".modal-backdrop").show();
-    }
+ 
   }
 
   function consoleid() {
@@ -2957,6 +2953,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
+                      <th className = "d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
                    
@@ -3012,6 +3009,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
+                        <td className = "d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"

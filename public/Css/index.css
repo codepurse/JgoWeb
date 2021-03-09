@@ -2458,6 +2458,7 @@ td {
     border-radius: 5px;
     margin-top: -5px;
     margin-left: 5px;
+     min-width: 70px;
 }
 
 .btnView {
@@ -2469,6 +2470,8 @@ td {
     border: 0px;
     border-radius: 5px;
     margin-top: -5px;
+    min-width: 70px;
+    margin-left: 5px;
 }
 
 .divView {

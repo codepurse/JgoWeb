@@ -2986,15 +2986,38 @@ export default function map() {
   }
 
   function selectTime(e) {
-    $(".divTime").css("border-color", "#2c2c2c");
+ 
+   
+   if(e.currentTarget.classList.contains("divTime2")) {
+    swal(
+      <div style={{ width: "450px", padding: "10px" }}>
+        <div className="container">
+          <div
+            className="row align-items-center"
+            style={{ borderLeft: "3px solid #FFE900" }}
+          >
+            <div className="col-lg-2">
+              <img
+                src="Image/complain.png"
+                style={{ width: "32px" }}
+              ></img>
+            </div>
+            <div
+              className="col-lg-10"
+              style={{ textAlign: "left" }}
+            >
+              <p className="pError">Error</p>
+              <p className="pErrorSub">This feature is under development.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+   }else {
+        $(".divTime").css("border-color", "#2c2c2c");
     $(".imgChecktime").hide();
     $(e.currentTarget).css("border-color", "#FADD5D");
     $(e.currentTarget).find(".imgChecktime").show();
-   
-   if(e.currentTarget.classList.contains("divTime2")) {
-    $(".react-datepicker__input-container ").attr("style", "display: block !important")
-    setStatusschedule("true")
-   }else {
     $(".divTime").css("height","auto");
     $(".react-datepicker__input-container ").attr("style", "display: none !important")
     setStatusschedule("false")
