@@ -2728,6 +2728,7 @@ td {
     border: 0px;
     margin-top: -5px;
     margin-left: 5px;
+    min-width: 70px;
 }
 
 .pNoaction {
@@ -2760,7 +2761,7 @@ td {
     margin-bottom: 5px;
 }
 
-.driverfound {
+.driverfound, .schedule {
     font-size: 0.9rem;
     color: #28A829;
     display: block;

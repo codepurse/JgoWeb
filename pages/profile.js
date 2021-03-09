@@ -137,6 +137,10 @@ export default function profile() {
   }
 
   useEffect(() => {
+    setInterval(function(){
+      refresh()
+   }, 10000);
+   
     $("#__next ").css("background-color", "#212427");
   }, []);
 
@@ -172,9 +176,10 @@ export default function profile() {
     axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result.data.data);
+        console.log(result.data.count);
         setTableactivebooking(result.data.data);
-        console.log("success");
+        console.log("success all booking");
+        setACtivecount(result.data.count)
       })
       .catch((err) => {
         console.log(err);
@@ -209,7 +214,8 @@ export default function profile() {
           number.status == "Canceled" ||
           number.status == "Complete" ||
           number.status == "On hold" ||
-          number.status == "Looking for Driver"
+          number.status == "Looking for Driver" ||
+          number.status == "Scheduled"
         ) {
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -705,6 +711,8 @@ export default function profile() {
   }
 
   function refresh() {
+    var countactive;
+    var countscheduled;
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -730,13 +738,7 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-        const active = result.data.data.filter(
-          (obj) =>
-            obj.status == "Looking for Driver" ||
-            obj.status == "Driver found" ||
-            obj.status == "Arrived at Pick Up"
-        );
-        setACtivecount(active.length);
+      
       })
       .catch((err) => {
         console.log(err);
@@ -755,9 +757,10 @@ export default function profile() {
       axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result.data.data);
+        console.log(result.data.count);
         setTableactivebooking(result.data.data);
         console.log("success");
+        setACtivecount(result.data.count)
       })
       .catch((err) => {
         console.log(err);
@@ -1037,7 +1040,7 @@ export default function profile() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 20) {
+            if (min > 60) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -1074,7 +1077,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 20) {
+        if (min > 60) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
@@ -1263,13 +1266,7 @@ export default function profile() {
           $(".pNo").show();
         }
 
-        const active = result.data.data.filter(
-          (obj) =>
-            obj.status == "Looking for Driver" ||
-            obj.status == "Driver found" ||
-            obj.status == "Arrived at Pick Up"
-        );
-        setACtivecount(active.length);
+      
       })
       .catch((err) => {
       
@@ -1353,13 +1350,6 @@ export default function profile() {
           $(".pNo").show();
         }
 
-        const active = result.data.data.filter(
-          (obj) =>
-            obj.status == "Looking for Driver" ||
-            obj.status == "Driver found" ||
-            obj.status == "Arrived at Pick Up"
-        );
-        setACtivecount(active.length);
       })
       .catch((err) => {
         console.log(apiUrl);
@@ -1958,6 +1948,8 @@ export default function profile() {
         return "cancel";
       case "On hold":
         return "onhold";
+      case "Scheduled":
+        return "schedule"
     }
   };
 
