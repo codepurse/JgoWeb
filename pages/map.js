@@ -2787,7 +2787,7 @@ export default function map() {
       .find(".txtValidation")
       .each(function () {
 
-        if (numberbooking > 10) {
+        if (numberbooking == 10) {
           x = 0;
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
