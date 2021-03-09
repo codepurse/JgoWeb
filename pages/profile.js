@@ -1489,11 +1489,7 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         $("#modalRebook").modal("show");
-        try {
-          swal.close()
-        }catch(e) {
-          
-        }
+        swal.close()
         clearInterval(window.interval);
         refresh();
       })
