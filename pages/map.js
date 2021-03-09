@@ -4494,6 +4494,7 @@ export default function map() {
                     minDate={new Date()}
                     placeholderText="Click to select a date"
                     filterTime={filterPassedTime}
+                    disabled
                     dateFormat="MMMM d, yyyy h:mm aa"
                   />
                   </div>
