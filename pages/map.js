@@ -2761,6 +2761,7 @@ export default function map() {
   }
 
   function gotoPayment() {
+    $(".pWalletno").hide();
     console.log(coordinate);
     var countlocation = 0;
     locationCod.splice(0, locationCod.length);
