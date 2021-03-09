@@ -246,7 +246,7 @@ export default function profile() {
                 .parent("td")
                 .parent("tr")
                 .children()
-                .closest("td:nth-child(2)")
+                .closest("td:nth-child(4)")
                 .html(),
             "_blank"
           );

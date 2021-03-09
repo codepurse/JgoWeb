@@ -10,6 +10,7 @@ import AuthService from "../services/auth.service";
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
+  clearInterval(window.interval);
   useEffect(() => {
     $(".modal-backdrop").hide();
   }, []);

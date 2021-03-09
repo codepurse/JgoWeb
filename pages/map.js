@@ -475,6 +475,7 @@ export default function map() {
   }
 
   useEffect(() => {
+    clearInterval(window.interval);
     const options1 = {
       headers: {
         Accept: "application/json, text/plain, */*",
