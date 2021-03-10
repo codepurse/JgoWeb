@@ -1107,7 +1107,7 @@ export default function profile() {
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 30) {
+            if (min > 120) {
               console.log(latestbook);
               holdbook();
               if (router.pathname === "/profile") {
@@ -1144,7 +1144,7 @@ export default function profile() {
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 30) {
+        if (min > 120) {
           console.log(latestbook);
           holdbook();
           $(".modal-backdrop").show();
