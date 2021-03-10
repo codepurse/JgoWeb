@@ -4476,7 +4476,7 @@ export default function map() {
                   <div className="form-inline">
                     <img
                       src="Image/clock.png"
-                      className="img-fluid"
+                      className="img-fluid imgClock"
                       style={{ width: "25px" }}
                     ></img>
                     <p className="pTime">Time</p>

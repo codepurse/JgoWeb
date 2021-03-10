@@ -432,15 +432,15 @@ $(document).ready(function () {
       "#283148"
     );
     $(
-      ".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook1"
+      ".btnAddStopoff, .pAdditional, .pAdditonalBox, .pPayment, .pPriceSub, .btnBook1, .pDivtime"
     ).css("font-weight", "600");
     $(".pPrice").css("font-weight", "bold");
     $(".txtAdditional").css({
       "border-color": "lightgray",
       "background-color": "#F3F3F4",
     });
-    $(".txtAdditional").css("color", "#212121");
-    $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-control").attr(
+    $(".txtAdditional, .pDivtime").css("color", "#212121");
+    $(".css-1g6gooi, .css-b8ldur-Input, .css-yk16xz-contro, .pDivtimesub").attr(
       "style",
       "color: #424242 !important"
     );
@@ -470,7 +470,7 @@ $(document).ready(function () {
     $(".mode").removeClass("modalPayment");
     $(".divCod").css("background-color", "white");
     $(".btnPayment").attr("style", "color: #212121 !important");
-    $(".imgRefresh, .imgInfo").css("filter", "invert(1) brightness(500%)");
+    $(".imgRefresh, .imgInfo, .imgClock").css("filter", "invert(1) brightness(500%)");
     $(".mode").css("background-color", "rgb(243,244,248)");
     $(".pagination").attr("style", "color: #21212 1 !important");
     $(".pagination > li").attr("style", "color: #212121 !important");
@@ -485,7 +485,7 @@ $(document).ready(function () {
     );
 
     $(".modalSearch").css("background-color", "#F6F5F0");
-    $(".pSearching, .pCancelbook, .pModalVerify, .pReport, .pPoints, .pWalletModal1").css(
+    $(".pSearching, .pCancelbook, .pModalVerify, .pReport, .pPoints, .pWalletModal1 , .pTime").css(
       "color",
       "#212121"
     );
