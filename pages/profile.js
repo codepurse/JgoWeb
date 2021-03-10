@@ -187,7 +187,7 @@ export default function profile() {
       .post(apiUrlall, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
         console.log(result.data.count);
-        setTableactivebooking(result.data.data);
+        setTableactivebooking(result.data.data.reverse());
         console.log("success all booking");
         setACtivecount(result.data.count)
       })
@@ -819,7 +819,7 @@ export default function profile() {
       .post(apiUrlall, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         console.log(result.data.count);
-        setTableactivebooking(result.data.data);
+        setTableactivebooking(result.data.data.reverse());
         console.log("success");
         setACtivecount(result.data.count)
       })
