@@ -52,6 +52,10 @@ export default function App() {
     }
   }, []);
 
+  function trylang() {
+    console.log(addressDrop.label);
+  }
+
   function getAdd() {
     var str = global.config.place.deliver.pickoff;
     fullscreen = "false";
@@ -233,7 +237,29 @@ export default function App() {
     var str = value.label;
     console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
-    if (n === true) {
+    if (value.label == addressDrop.label) {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Google maps could not found location please check your network connection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    else if (n === true) {
       setPlaceidpick(results[0].place_id)
       setAddress(value);
       setCoordinates(latLng);
@@ -269,8 +295,29 @@ export default function App() {
     setPlaceiddrop
     console.log(latLng);
     var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");
-  
-    if (n === true) {
+    if (value.label == address.label) {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
+            <div
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
+            >
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">
+                  Google maps could not found location please check your network connection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    else if (n === true) {
       setPlaceiddrop(results[0].place_id);
       setAddressDrop(value);
       setCoordinatesDrop(latLng);
@@ -363,7 +410,7 @@ export default function App() {
 
   return (
     <div className="col-lg-6 colDeliver">
-      <p className="pTitle text-center">Book your delivery now!</p>
+      <p className="pTitle text-center" onClick = {trylang}>Book your delivery now!</p>
       <div className="box">
         <div className="form-inline" onClick={() => (click = 0)}>
           <GooglePlacesAutocomplete

@@ -2825,6 +2825,15 @@ td {
     margin-bottom: 0px;
 }
 
+.driverfoundtrack {
+    font-family: 'GilroyMedium';
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #28A829;
+    text-transform: capitalize;
+    margin-bottom: 0px;
+}
+
 .arrived, .complete {
     background-color: #25394F;
     font-size: 0.9rem;

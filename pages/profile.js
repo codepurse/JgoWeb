@@ -2827,7 +2827,7 @@ export default function profile() {
               <input
                 type="text"
                 className="txtSearch"
-                placeholder="Search id, tracking number or location"
+                placeholder="Tracking number or location"
                 onKeyUp={searchTable}
               ></input>
             </div>
@@ -2850,6 +2850,7 @@ export default function profile() {
                       <th>Tracking ID</th>
                       <th className="d-none">date</th>
                       <th className="d-none">Status</th>
+                      <th>Payment method</th>
                       <th>Price</th>
                       <th>Type</th>
                       <th>Pickup Address</th>
@@ -2916,6 +2917,16 @@ export default function profile() {
                         </td>
                         <td  className="d-none">{event.updated_at}</td>
                            <td  className="d-none">{event.status}</td>
+                           <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.payment_history.payment_method}
+                        </td>
+                          
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
