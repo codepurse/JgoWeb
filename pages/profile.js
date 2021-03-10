@@ -966,7 +966,7 @@ export default function profile() {
     }),
     container: (base) => ({
       ...base,
-      width: "150px",
+      width: "200px",
     }),
   };
 
@@ -1020,7 +1020,7 @@ export default function profile() {
     }),
     container: (base) => ({
       ...base,
-      width: "150px",
+      width: "200px",
     }),
   };
 
@@ -2810,7 +2810,7 @@ export default function profile() {
               <Select
                 options={status}
                 styles={isToggled ? customStyles1 : customStyles}
-                placeholder="Select status"
+                placeholder="Select booking type"
                 value={statusdropdown}
                 onChange={handlestatuschange}
               />
@@ -3059,7 +3059,7 @@ export default function profile() {
                           }
                         >
                           <span className={statusColor(event.status)}>
-                            {event.status + " - " + event.reason_for_cancel  == null ? "" : event.reason_for_cancel}
+                          {event.status} - {event.reason_for_cancel  == null ? "" :  event.reason_for_cancel}
                           </span>
                           {event.pick_up_address}
                         </td>
