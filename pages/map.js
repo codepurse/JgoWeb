@@ -2788,7 +2788,7 @@ export default function map() {
       .find(".txtValidation")
       .each(function () {
 
-        if (numberbooking == 10) {
+        if (numberbooking > 9) {
           x = 0;
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
@@ -2806,7 +2806,7 @@ export default function map() {
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Warning</p>
                     <p className="pErrorSub">
-                      Maximum booking limit.
+                     Maximum booking allowed is 10.
                     </p>
                   </div>
                 </div>

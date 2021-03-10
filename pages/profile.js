@@ -48,6 +48,8 @@ export default function profile() {
   const [latestbooktrack, setLatestbooktrack] = React.useState("");
   const [lateststatus, setLateststatus] = React.useState("");
 
+  var pageactive;
+
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [mname, setMname] = React.useState("");
@@ -64,6 +66,8 @@ export default function profile() {
   const [profile_name, setProfilename] = React.useState("");
   const [profile_pic, setprofilepic] = React.useState("");
   const [newimage, setNewimage] = React.useState([]);
+
+  const [pagenow, setPagenow]  = React.useState("");
 
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
@@ -136,13 +140,19 @@ export default function profile() {
     }
   }
 
+  
+
   useEffect(() => {
-    setInterval(function(){
-      refresh()
-   }, 10000);
+   startTimer();
    
     $("#__next ").css("background-color", "#212427");
   }, []);
+
+  function startTimer() {
+    window.refreshInterval= setInterval(function(){
+      refresh();
+  }, 5000);
+  }
 
   useEffect(() => {
     if (localStorage.getItem("theme") == "true") {
@@ -255,7 +265,7 @@ export default function profile() {
   }
 
   function trylang() {
-    console.log(bookingidtable);
+    console.log(pagenow);
   }
 
   function reason1() {
@@ -1354,6 +1364,14 @@ export default function profile() {
   }, []);
 
   function changePage(e) {
+    var x = e.selected + 1;
+    if (x > 1) {
+      console.log("mas mataas")
+      clearInterval(window.refreshInterval);
+    }else {
+      startTimer();
+    }
+
     $(".Box").show();
     $("tbody tr").hide();
     if (localStorage.getItem("theme") == "true") {
@@ -1362,7 +1380,7 @@ export default function profile() {
     }
 
     console.log(e.selected + 1);
-    var x = e.selected + 1;
+    
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1380,6 +1398,8 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         setTabledata(result.data.data);
+        console.log("page " + x)
+        setPagenow(x)
         $("table").fadeIn(150);
         if (result.data.data) {
           result.data.data
