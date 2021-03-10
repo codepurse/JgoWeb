@@ -959,6 +959,12 @@ export default function map() {
     }
   }
 
+   function numOnly(event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace(/[^0-9]/g, "");
+    event.currentTarget.value = numbers;
+  }
+
   {
     /* Passing number in additional details based on click value */
   }
@@ -3122,6 +3128,7 @@ export default function map() {
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
+                         onInput={numOnly}
                       />
                     </div>
                     <div className="col-lg-12">
@@ -3193,6 +3200,7 @@ export default function map() {
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
+                        onInput={numOnly}
                       />
                     </div>
                     <div className="col-lg-6">
@@ -3283,6 +3291,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3371,6 +3380,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                           onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3459,6 +3469,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3547,6 +3558,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3633,6 +3645,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3719,6 +3732,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3805,6 +3819,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3891,6 +3906,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -3977,6 +3993,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4063,6 +4080,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4149,6 +4167,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4235,6 +4254,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4321,6 +4341,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
+                           onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">

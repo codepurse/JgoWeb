@@ -1532,7 +1532,7 @@ export default function profile() {
       .parent("td")
       .parent("tr")
       .children()
-      .closest("td:nth-child(2)")
+      .closest("td:nth-child(4)")
       .html();
     console.log(trackid);
 
@@ -2846,6 +2846,7 @@ export default function profile() {
                       <th className="d-none">Status</th>
                       <th>Price</th>
                       <th>Type</th>
+                      <th></th>
                       <th>Pickup Address</th>
                       <th>Drop Location</th>
                     </tr>
@@ -2919,6 +2920,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
+                      
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2927,6 +2929,16 @@ export default function profile() {
                           }
                         >
                           {event.is_scheduled == 0 ? "Same day" : "Schedule"}
+                        </td>
+
+                           <td
+                          className={
+                            localStorage.getItem("theme_status") == "light"
+                              ? "tdlight"
+                              : "tddark"
+                          }
+                        >
+                          {event.reason_for_cancel}
                         </td>
                         <td
                           className={
