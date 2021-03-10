@@ -68,6 +68,7 @@ export default function profile() {
   const [newimage, setNewimage] = React.useState([]);
 
   const [pagenow, setPagenow]  = React.useState("");
+  const [forcepage, setForcepage] = React.useState(0);
 
   const [listcard, setListcard] = React.useState([]);
   const [verify, setVerify] = React.useState("");
@@ -148,10 +149,14 @@ export default function profile() {
     $("#__next ").css("background-color", "#212427");
   }, []);
 
+  var myTimer = null;
+
   function startTimer() {
-    window.refreshInterval= setInterval(function(){
+    window.intervalrefresh = setInterval(() => {
+     
       refresh();
-  }, 5000);
+    
+    }, 10000);
   }
 
   useEffect(() => {
@@ -265,7 +270,7 @@ export default function profile() {
   }
 
   function trylang() {
-    console.log(pagenow);
+  
   }
 
   function reason1() {
@@ -683,6 +688,7 @@ export default function profile() {
               );
             }
           } catch (e) {
+            
             refresh();
             setCanceluser(true);
             clearInterval(window.interval);
@@ -1367,7 +1373,7 @@ export default function profile() {
     var x = e.selected + 1;
     if (x > 1) {
       console.log("mas mataas")
-      clearInterval(window.refreshInterval);
+      clearInterval(window.intervalrefresh);
     }else {
       startTimer();
     }
@@ -3220,6 +3226,7 @@ export default function profile() {
                 breakLabel={"..."}
                 breakClassName={"break-me"}
                 pageCount={pages}
+              
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={2}
                 onPageChange={changePage}
