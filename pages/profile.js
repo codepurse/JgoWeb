@@ -48,8 +48,6 @@ export default function profile() {
   const [latestbooktrack, setLatestbooktrack] = React.useState("");
   const [lateststatus, setLateststatus] = React.useState("");
 
-  var pageactive;
-
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [mname, setMname] = React.useState("");
@@ -67,7 +65,7 @@ export default function profile() {
   const [profile_pic, setprofilepic] = React.useState("");
   const [newimage, setNewimage] = React.useState([]);
 
-  const [pagenow, setPagenow]  = React.useState("");
+  const [pagenow, setPagenow] = React.useState("");
   const [forcepage, setForcepage] = React.useState(0);
 
   const [listcard, setListcard] = React.useState([]);
@@ -102,7 +100,7 @@ export default function profile() {
   var canceltableid;
   var drivertableid;
   var rebooktableid;
-
+  var pageactivetable;
   const [tableactivebooking, setTableactivebooking] = React.useState([]);
   const [tablescheduled, setTablesheduled] = React.useState([]);
 
@@ -141,11 +139,9 @@ export default function profile() {
     }
   }
 
-  
-
   useEffect(() => {
-   startTimer();
-   
+    startTimer();
+
     $("#__next ").css("background-color", "#212427");
   }, []);
 
@@ -153,9 +149,7 @@ export default function profile() {
 
   function startTimer() {
     window.intervalrefresh = setInterval(() => {
-     
       refresh();
-    
     }, 10000);
   }
 
@@ -194,7 +188,7 @@ export default function profile() {
         console.log(result.data.count);
         setTableactivebooking(result.data.data.reverse());
         console.log("success all booking");
-        setACtivecount(result.data.count)
+        setACtivecount(result.data.count);
       })
       .catch((err) => {
         console.log(err);
@@ -270,7 +264,7 @@ export default function profile() {
   }
 
   function trylang() {
-  
+    console.log(window.pageactive);
   }
 
   function reason1() {
@@ -302,8 +296,6 @@ export default function profile() {
     $("#exampleModal").modal("hide");
     $("#modalRebook").modal("hide");
     $(".modal-backdrop").hide();
-
- 
   }
 
   function consoleid() {
@@ -311,7 +303,6 @@ export default function profile() {
   }
 
   function opencancelBooking(e) {
-    
     var addresstable = $(e.currentTarget)
       .parent("div")
       .parent("td")
@@ -320,24 +311,20 @@ export default function profile() {
       .closest("td:nth-child(5)")
       .html();
 
-
     var statustable = $(e.currentTarget)
-    .parent("div")
-    .parent("td")
-    .parent("tr")
-    .children()
-    .closest("td:nth-child(6)")
-    .html();
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(6)")
+      .html();
 
+    var now = moment(new Date()); //todays date
+    var end = moment(addresstable); // another date
+    var duration = now.diff(end, "seconds");
 
-      var now = moment(new Date()); //todays date
-      var end = moment(addresstable); // another date
-      var duration = now.diff(end,"seconds")
-     
-
-
-    if (duration > 30  && statustable == "Driver found") {
-      console.log(duration)
+    if (duration > 30 && statustable == "Driver found") {
+      console.log(duration);
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -346,92 +333,89 @@ export default function profile() {
               style={{ borderLeft: "3px solid #e53935" }}
             >
               <div className="col-lg-2">
-                <img
-                  src="Image/warning.png"
-                  style={{ width: "32px" }}
-                ></img>
+                <img src="Image/warning.png" style={{ width: "32px" }}></img>
               </div>
               <div className="col-lg-10" style={{ textAlign: "left" }}>
                 <p className="pError">Error</p>
-                <p className="pErrorSub">This booking cannot be cancel. Please contact our customer support</p>
+                <p className="pErrorSub">
+                  This booking cannot be cancel. Please contact our customer
+                  support
+                </p>
               </div>
             </div>
           </div>
         </div>
       );
-    
     } else {
       console.log(duration);
       console.log(statustable);
       var trackid = $(e.currentTarget)
-      .parent("div")
-      .parent("td")
-      .parent("tr")
-      .children()
-      .closest("td:nth-child(2)")
-      .html();
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(2)")
+        .html();
       var driverid = $(e.currentTarget)
-      .parent("div")
-      .parent("td")
-      .parent("tr")
-      .children()
-      .closest("td:nth-child(3)")
-      .html();
-    setBookingidtable(trackid);
-    canceltableid = trackid;
-    drivertableid = driverid;
-    console.log(trackid);
-    $("#exampleModal").modal("hide");
-    $("#modalRebook").modal("hide");
-    $(".modal-backdrop").hide();
-    swal(
-      <div className="divCancel">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-12 text-left">
-              <p className="pCancelheader">Cancel Booking</p>
-              <p className="pCancelsub">
-                Before you cancel, please let us know the reason
-              </p>
-            </div>
-            <div className="col-lg-12 text-left">
-              <p className="pCancelsub" style={{ marginBottom: "8px" }}>
-                Select reason
-              </p>
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(3)")
+        .html();
+      setBookingidtable(trackid);
+      canceltableid = trackid;
+      drivertableid = driverid;
+      console.log(trackid);
+      $("#exampleModal").modal("hide");
+      $("#modalRebook").modal("hide");
+      $(".modal-backdrop").hide();
+      swal(
+        <div className="divCancel">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-12 text-left">
+                <p className="pCancelheader">Cancel Booking</p>
+                <p className="pCancelsub">
+                  Before you cancel, please let us know the reason
+                </p>
+              </div>
+              <div className="col-lg-12 text-left">
+                <p className="pCancelsub" style={{ marginBottom: "8px" }}>
+                  Select reason
+                </p>
 
-              <Select
-                options={date}
-                styles={cancel_white}
-                placeholder="Select.."
-                onChange={handlechangeCancel}
-              />
+                <Select
+                  options={date}
+                  styles={cancel_white}
+                  placeholder="Select.."
+                  onChange={handlechangeCancel}
+                />
 
-              <textarea
-                className="txtDriver txtAreacancel"
-                onChange={changeCancel}
-                rows={3}
-                cols={30}
-                style={{ marginTop: "10px", display: "none", color: "black" }}
-              ></textarea>
-              <p className="pSpecify">Please specify your reason.</p>
-            </div>
-            <div className="col-lg-6 col-sm-6 col-6">
-              <button className="btnYes" onClick={cancelbook}>
-                Yes
-              </button>
-            </div>
-            <div className="col-lg-6 col-sm-6 col-6">
-              <button className="btnNo" onClick={btnNocancel}>
-                No
-              </button>
+                <textarea
+                  className="txtDriver txtAreacancel"
+                  onChange={changeCancel}
+                  rows={3}
+                  cols={30}
+                  style={{ marginTop: "10px", display: "none", color: "black" }}
+                ></textarea>
+                <p className="pSpecify">Please specify your reason.</p>
+              </div>
+              <div className="col-lg-6 col-sm-6 col-6">
+                <button className="btnYes" onClick={cancelbook}>
+                  Yes
+                </button>
+              </div>
+              <div className="col-lg-6 col-sm-6 col-6">
+                <button className="btnNo" onClick={btnNocancel}>
+                  No
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
     }
-
-   
   }
 
   function cancelBooking(e) {
@@ -688,7 +672,6 @@ export default function profile() {
               );
             }
           } catch (e) {
-            
             refresh();
             setCanceluser(true);
             clearInterval(window.interval);
@@ -778,6 +761,7 @@ export default function profile() {
   }
 
   function refresh() {
+    console.log(window.pageactive);
     var countactive;
     var countscheduled;
     const options = {
@@ -789,12 +773,18 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;
+
+    const apiUrl =
+      appglobal.api.base_api + appglobal.api.transaction_history;
+
+    const apiUrlpage =
+      appglobal.api.base_api + appglobal.api.transaction_history_page + window.pageactive;
+
     const apiUrlscheduled =
       appglobal.api.base_api + appglobal.api.scheduled_booking;
-      const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
+    const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
     axios
-      .post(apiUrl, { customer_id: AuthService.getId() }, options)
+      .post(window.pageactive > 1 ? apiUrlpage : apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
         console.log(result.data.data[0].status);
@@ -805,7 +795,6 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-      
       })
       .catch((err) => {
         console.log(err);
@@ -821,13 +810,13 @@ export default function profile() {
         console.log(err);
         console.log("pota error scheduled");
       });
-      axios
+    axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         console.log(result.data.count);
         setTableactivebooking(result.data.data.reverse());
         console.log("success");
-        setACtivecount(result.data.count)
+        setACtivecount(result.data.count);
       })
       .catch((err) => {
         console.log(err);
@@ -1165,16 +1154,15 @@ export default function profile() {
   }
 
   useEffect(() => {
-
     if (scheduledbook == 1) {
       scheduledbook = 0;
-      $("#modalScheduled").modal("show")
+      $("#modalScheduled").modal("show");
     }
 
-    $("#modalScheduled").on('hidden.bs.modal', function () {
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-   })
+    $("#modalScheduled").on("hidden.bs.modal", function () {
+      $("body").removeClass("modal-open");
+      $(".modal-backdrop").remove();
+    });
 
     if (localStorage.getItem("goSupport") == "true") {
       $(".ulDashboard>li").removeClass("activeUl");
@@ -1241,7 +1229,7 @@ export default function profile() {
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
             console.log(result.data.data.status);
-            
+
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
             localStorage.removeItem("latestbook");
@@ -1332,12 +1320,8 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-
-      
       })
-      .catch((err) => {
-      
-      });
+      .catch((err) => {});
 
     const apiUrl1 = appglobal.api.base_api + appglobal.api.customer_profile;
     axios
@@ -1371,12 +1355,8 @@ export default function profile() {
 
   function changePage(e) {
     var x = e.selected + 1;
-    if (x > 1) {
-      console.log("mas mataas")
-      clearInterval(window.intervalrefresh);
-    }else {
-      startTimer();
-    }
+    setPagenow(x);
+    window.pageactive = x;
 
     $(".Box").show();
     $("tbody tr").hide();
@@ -1385,8 +1365,8 @@ export default function profile() {
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
 
-    console.log(e.selected + 1);
-    
+    console.log("page pota" + e.selected + 1);
+
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1404,8 +1384,7 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         setTabledata(result.data.data);
-        console.log("page " + x)
-        setPagenow(x)
+
         $("table").fadeIn(150);
         if (result.data.data) {
           result.data.data
@@ -1426,7 +1405,6 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-
       })
       .catch((err) => {
         console.log(apiUrl);
@@ -1515,7 +1493,7 @@ export default function profile() {
       .then((result) => {
         console.log(result);
         $("#modalRebook").modal("show");
-        swal.close()
+        swal.close();
         clearInterval(window.interval);
         refresh();
       })
@@ -1589,7 +1567,6 @@ export default function profile() {
   }
 
   function rebook() {
-   
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1634,12 +1611,12 @@ export default function profile() {
 
   function rebooktable(e) {
     var bookid = $(e.currentTarget)
-    .parent("div")
-    .parent("td")
-    .parent("tr")
-    .children()
-    .closest("td:nth-child(2)")
-    .html();
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(2)")
+      .html();
     rebooktableid = bookid;
     const options = {
       headers: {
@@ -1654,16 +1631,15 @@ export default function profile() {
     axios
       .post(api, { booking_id: bookid }, options)
       .then((result) => {
-       if (latestbook == bookid) {
-        $("#exampleModal").modal("show");
-        $("#modalRebook").modal("hide");
-        localStorage.setItem("latestbookingdate", moment(new Date()));
-        holdTimer();
-
-       } else {
-         console.log(latestbook);
-         console.log(bookid);
-       }
+        if (latestbook == bookid) {
+          $("#exampleModal").modal("show");
+          $("#modalRebook").modal("hide");
+          localStorage.setItem("latestbookingdate", moment(new Date()));
+          holdTimer();
+        } else {
+          console.log(latestbook);
+          console.log(bookid);
+        }
 
         refresh();
         console.log(result);
@@ -2027,7 +2003,7 @@ export default function profile() {
       case "On hold":
         return "onhold";
       case "Scheduled":
-        return "schedule"
+        return "schedule";
     }
   };
 
@@ -2846,7 +2822,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
-                      <th className = "d-none">Driver id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th className="d-none">date</th>
                       <th className="d-none">Status</th>
@@ -2905,7 +2881,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
-                        <td className = "d-none">{event.driver_id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2915,9 +2891,9 @@ export default function profile() {
                         >
                           {event.tracking_id}
                         </td>
-                        <td  className="d-none">{event.updated_at}</td>
-                           <td  className="d-none">{event.status}</td>
-                           <td
+                        <td className="d-none">{event.updated_at}</td>
+                        <td className="d-none">{event.status}</td>
+                        <td
                           className={
                             localStorage.getItem("theme_status") == "light"
                               ? "tdlight"
@@ -2926,7 +2902,7 @@ export default function profile() {
                         >
                           {event.payment_history.payment_method}
                         </td>
-                          
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2936,7 +2912,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-                      
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2955,7 +2931,10 @@ export default function profile() {
                           }
                         >
                           <span className={statusColor(event.status)}>
-                            {event.status} - {event.reason_for_cancel  == null ? "" :  event.reason_for_cancel}
+                            {event.status} -{" "}
+                            {event.reason_for_cancel == null
+                              ? ""
+                              : event.reason_for_cancel}
                           </span>
                           {event.pick_up_address}
                         </td>
@@ -2992,10 +2971,10 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
-                      <th className = "d-none">Driver id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
-                   
+
                       <th>Pickup Address</th>
                       <th>Drop Location</th>
                     </tr>
@@ -3048,7 +3027,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
-                        <td className = "d-none">{event.driver_id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -3067,7 +3046,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-                       
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -3076,7 +3055,10 @@ export default function profile() {
                           }
                         >
                           <span className={statusColor(event.status)}>
-                          {event.status} - {event.reason_for_cancel  == null ? "" :  event.reason_for_cancel}
+                            {event.status} -{" "}
+                            {event.reason_for_cancel == null
+                              ? ""
+                              : event.reason_for_cancel}
                           </span>
                           {event.pick_up_address}
                         </td>
@@ -3237,7 +3219,6 @@ export default function profile() {
                 breakLabel={"..."}
                 breakClassName={"break-me"}
                 pageCount={pages}
-              
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={2}
                 onPageChange={changePage}
@@ -3713,7 +3694,7 @@ export default function profile() {
           </div>
         </div>
       </div>
-      
+
       <div
         className="modal fade"
         id="exampleModal"
@@ -4206,7 +4187,6 @@ export default function profile() {
         </div>
       </div>
 
-    
       <div
         className="modal fade"
         id="modalScheduled"
@@ -4236,7 +4216,8 @@ export default function profile() {
                     </div>
                     <p className="pSearching">Scheduled successfully.</p>
                     <p className="pSearchsub">
-                      Thank your for using Jgo. Your parcel will be delivered with the given time and date.
+                      Thank your for using Jgo. Your parcel will be delivered
+                      with the given time and date.
                     </p>
                   </div>
                 </div>
@@ -4245,7 +4226,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

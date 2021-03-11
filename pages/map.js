@@ -53,7 +53,7 @@ export default function map() {
   const [scheduletime, setScheduledTime] = React.useState("");
   const [formattime, setFormattime] = React.useState("");
   const [formatdate, setFormatdate] = React.useState("");
-  const [numberbooking , setNumberbooking] = React.useState("");
+  const [numberbooking, setNumberbooking] = React.useState("");
 
   const locationCod = [];
   var loopservices = 0;
@@ -69,19 +69,19 @@ export default function map() {
 
   var fullscreen = "false";
 
-  const filterPassedTime = time => {
+  const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
 
     return currentDate.getTime() < selectedDate.getTime();
-  }
+  };
 
   function changeScheduled(date) {
     console.log(moment(date).format("YYYY-MM-DD" + " Date"));
     console.log(moment(date).format("h:mm:ss" + " time"));
     setFormattime(moment(date).format("h:mm:ss"));
     setFormatdate(moment(date).format("YYYY-MM-DD"));
-    $(".react-datepicker__input-container input").css("borderColor","#2c2c2c")
+    $(".react-datepicker__input-container input").css("borderColor", "#2c2c2c");
     setScheduledTime(date);
   }
 
@@ -487,18 +487,17 @@ export default function map() {
     };
     const api = appglobal.api.base_api + appglobal.api.all_booking;
     axios
-    .post(api, { customer_id: AuthService.getId() }, options1)
-    .then((result) => {
-      console.log(result.data.count);
-      setNumberbooking(result.data.count)
-      console.log("success all booking");
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log("pota error");
-    });
-  }, [])
-
+      .post(api, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        console.log(result.data.count);
+        setNumberbooking(result.data.count);
+        console.log("success all booking");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("pota error");
+      });
+  }, []);
 
   useEffect(() => {
     setBaserate(localStorage.getItem("baserate"));
@@ -689,7 +688,8 @@ export default function map() {
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           address: value.label,
@@ -700,7 +700,8 @@ export default function map() {
         coordinate.push(destination);
         console.log(coordinate);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
       swal(
@@ -749,7 +750,8 @@ export default function map() {
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           lat: latLng.lat,
@@ -757,9 +759,11 @@ export default function map() {
           id: "2",
         };
         coordinate.push(destination);
-        getRate();
+        getRateloop();
+        getRatewallet();
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
       swal(
@@ -849,7 +853,8 @@ export default function map() {
           (places_data[objIndex].address = value.label),
           console.log(coordinate);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           address: value.label,
@@ -859,7 +864,8 @@ export default function map() {
         };
         coordinate.push(destination);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
       console.log(coordinate);
@@ -917,7 +923,8 @@ export default function map() {
     if (addlistservice.indexOf(idservice) < 0) {
       addlistservice.push(idservice);
       console.log(addlistservice);
-      getRate();
+      getRateloop()
+      getRatewallet();
     } else {
       for (var i in addlistservice) {
         if (addlistservice[i] == idservice) {
@@ -943,7 +950,8 @@ export default function map() {
         $("p", e.currentTarget).css("color", "black");
       }
     }
-    getRate();
+    getRateloop()
+    getRatewallet();
   }
 
   {
@@ -959,7 +967,7 @@ export default function map() {
     }
   }
 
-   function numOnly(event) {
+  function numOnly(event) {
     let value = event.currentTarget.value;
     let numbers = value.replace(/[^0-9]/g, "");
     event.currentTarget.value = numbers;
@@ -1038,7 +1046,8 @@ export default function map() {
         (places_data[objIndex].lng = coordinates.lng),
         (places_data[objIndex].address = coordinates.address),
         console.log(coordinate);
-      getRate();
+      getRateloop();
+      getRatewallet();
       router.push("/map");
     } else if (click === 2) {
       coordinates.lat = global.config.place.deliver.pickofflat;
@@ -1053,7 +1062,8 @@ export default function map() {
         (places_data[objIndex].lng = coordinates.lng),
         (places_data[objIndex].address = coordinates.address),
         console.log(coordinate);
-      getRate();
+      getRateloop();
+      getRatewallet();
       router.push("/map");
     } else if (click > 2) {
       var x = "setStop" + click;
@@ -1151,7 +1161,8 @@ export default function map() {
           (places_data[objIndex].address = coordinates.address),
           console.log(coordinate);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       } catch (e) {
         const destination = {
           address: global.config.place.deliver.pickoff,
@@ -1161,7 +1172,8 @@ export default function map() {
         };
         coordinate.push(destination);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     }
     swal.close();
@@ -1244,184 +1256,14 @@ export default function map() {
     $(".div1:visible").each(function () {
       $(this).attr("style", "display: block !important");
     });
-    getRate();
+    getRateloop();
+    getRatewallet();
   }
 
   function getRatewallet() {
+    $(".imgInfo").hide();
     $(".pPrice").hide();
     $(".divLoading").show();
-    let ratedata = new FormData();
-    ratedata.set("payment_method", "jgowallet");
-    ratedata.set("weight", weight);
-    ratedata.set("pick_up_latitude", coordinate[0].lat);
-    ratedata.set("pick_up_longitude", coordinate[0].lng);
-    ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
-    ratedata.set(
-      "drop_off_locations[0][drop_off_longitude]",
-      coordinate[1].lng
-    );
-    ratedata.set("drop_off_locations[0][booking_order]", "1");
-
-    if (coordinate[2]) {
-      ratedata.set(
-        "drop_off_locations[1][drop_off_latitude]",
-        coordinate[2].lat
-      );
-      ratedata.set(
-        "drop_off_locations[1][drop_off_longitude]",
-        coordinate[2].lng
-      );
-      ratedata.set("drop_off_locations[1][booking_order]", "2");
-    }
-    if (coordinate[3]) {
-      ratedata.set(
-        "drop_off_locations[2][drop_off_latitude]",
-        coordinate[3].lat
-      );
-      ratedata.set(
-        "drop_off_locations[2][drop_off_longitude]",
-        coordinate[3].lng
-      );
-      ratedata.set("drop_off_locations[2][booking_order]", "3");
-    }
-    if (coordinate[4]) {
-      ratedata.set(
-        "drop_off_locations[3][drop_off_latitude]",
-        coordinate[4].lat
-      );
-      ratedata.set(
-        "drop_off_locations[3][drop_off_longitude]",
-        coordinate[4].lng
-      );
-      ratedata.set("drop_off_locations[3][booking_order]", "4");
-    }
-    if (coordinate[5]) {
-      ratedata.set(
-        "drop_off_locations[4][drop_off_latitude]",
-        coordinate[5].lat
-      );
-      ratedata.set(
-        "drop_off_locations[4][drop_off_longitude]",
-        coordinate[5].lng
-      );
-      ratedata.set("drop_off_locations[4][booking_order]", "5");
-    }
-    if (coordinate[6]) {
-      ratedata.set(
-        "drop_off_locations[5][drop_off_latitude]",
-        coordinate[6].lat
-      );
-      ratedata.set(
-        "drop_off_locations[5][drop_off_longitude]",
-        coordinate[6].lng
-      );
-      ratedata.set("drop_off_locations[5][booking_order]", "6");
-    }
-    if (coordinate[7]) {
-      ratedata.set(
-        "drop_off_locations[6][drop_off_latitude]",
-        coordinate[7].lat
-      );
-      ratedata.set(
-        "drop_off_locations[6][drop_off_longitude]",
-        coordinate[7].lng
-      );
-      ratedata.set("drop_off_locations[6][booking_order]", "7");
-    }
-    if (coordinate[8]) {
-      ratedata.set(
-        "drop_off_locations[7][drop_off_latitude]",
-        coordinate[8].lat
-      );
-      ratedata.set(
-        "drop_off_locations[7][drop_off_longitude]",
-        coordinate[8].lng
-      );
-      ratedata.set("drop_off_locations[7][booking_order]", "8");
-    }
-    if (coordinate[9]) {
-      ratedata.set(
-        "drop_off_locations[8][drop_off_latitude]",
-        coordinate[9].lat
-      );
-      ratedata.set(
-        "drop_off_locations[8][drop_off_longitude]",
-        coordinate[9].lng
-      );
-      ratedata.set("drop_off_locations[8][booking_order]", "9");
-    }
-    if (coordinate[10]) {
-      ratedata.set(
-        "drop_off_locations[9][drop_off_latitude]",
-        coordinate[10].lat
-      );
-      ratedata.set(
-        "drop_off_locations[9][drop_off_longitude]",
-        coordinate[10].lng
-      );
-      ratedata.set("drop_off_locations[9][booking_order]", "10");
-    }
-    if (coordinate[11]) {
-      ratedata.set(
-        "drop_off_locations[10][drop_off_latitude]",
-        coordinate[11].lat
-      );
-      ratedata.set(
-        "drop_off_locations[10][drop_off_longitude]",
-        coordinate[11].lng
-      );
-      ratedata.set("drop_off_locations[10][booking_order]", "11");
-    }
-    if (coordinate[12]) {
-      ratedata.set(
-        "drop_off_locations[11][drop_off_latitude]",
-        coordinate[12].lat
-      );
-      ratedata.set(
-        "drop_off_locations[11][drop_off_longitude]",
-        coordinate[12].lng
-      );
-      ratedata.set("drop_off_locations[11][booking_order]", "12");
-    }
-    if (coordinate[13]) {
-      ratedata.set(
-        "drop_off_locations[12][drop_off_latitude]",
-        coordinate[13].lat
-      );
-      ratedata.set(
-        "drop_off_locations[12][drop_off_longitude]",
-        coordinate[13].lng
-      );
-      ratedata.set("drop_off_locations[12][booking_order]", "13");
-    }
-    if (coordinate[14]) {
-      ratedata.set(
-        "drop_off_locations[13][drop_off_latitude]",
-        coordinate[14].lat
-      );
-      ratedata.set(
-        "drop_off_locations[13][drop_off_longitude]",
-        coordinate[14].lng
-      );
-      ratedata.set("drop_off_locations[13][booking_order]", "14");
-    }
-    if (coordinate[15]) {
-      ratedata.set(
-        "drop_off_locations[14][drop_off_latitude]",
-        coordinate[15].lat
-      );
-      ratedata.set(
-        "drop_off_locations[14][drop_off_longitude]",
-        coordinate[15].lng
-      );
-      ratedata.set("drop_off_locations[14]booking_order]", "15");
-    }
-
-    addlistservice.map((addservice) => {
-      ratedata.set("additional_services[" + loopservices + "]", addservice),
-        (loopservices = loopservices + 1);
-    });
-
     const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
     const options = {
       headers: {
@@ -1430,17 +1272,104 @@ export default function map() {
         Authorization: "Bearer " + AuthService.getToken(),
       },
     };
-
+    let ratedata = new FormData();
+    var i;
+    var j;
+    ratedata.set("payment_method", "jgowallet");
+    ratedata.set("weight", weight);
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+        coordinate[i].lat
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+        coordinate[i].lng
+      );
+      ratedata.set("drop_off_locations[" + j + "]" + "[booking_order]", i.toString());
+    }
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
+    });
     axios
-      .post(apiUrl_rate, ratedata, options)
-      .then((result) => {
-        console.log(result);
-        var price = result.data.price;
-        setPricejgowallet(Number(price).toFixed(2));
-        $(".divLoading").hide();
-        $(".pPrice").show();
-      })
-      .catch((err) => {});
+    .post(apiUrl_rate, ratedata, options)
+    .then((result) => {
+      var price = result.data.price;
+      setPricejgowallet(Number(price).toFixed(2));
+      $(".divLoading").hide();
+      $(".pPrice").show();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+
+  function getRateloop() {
+    $(".imgInfo").hide();
+    $(".pPrice").hide();
+    $(".divLoading").show();
+    const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+      },
+    };
+    let ratedata = new FormData();
+    var i;
+    var j;
+    ratedata.set("payment_method", "cod");
+    ratedata.set("weight", weight);
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+        coordinate[i].lat
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+        coordinate[i].lng
+      );
+      ratedata.set("drop_off_locations[" + j + "]" + "[booking_order]", i.toString());
+    }
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
+    });
+    axios
+    .post(apiUrl_rate, ratedata, options)
+    .then((result) => {
+      for (var pair of ratedata.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      console.log(result);
+      var price = result.data.price;
+      setPrice(Number(price).toFixed(2));
+      setListdistance(result.data.distance);
+      $(".imgInfo").show();
+      $(".divLoading").hide();
+      $(".pPrice").show();
+      try {
+        setBaserate(result.data.breakdown.base_rate);
+        setPerkm(result.data.breakdown.per_km);
+        setPlatformfee(result.data.breakdown.platform_fee);
+        setTotaldropoff(result.data.breakdown.totalAdditionalDropOffRate);
+        setTotalkm(result.data.breakdown.totalKilometerRate);
+        setSmsfee(result.data.breakdown.vonage_fee);
+        setWeightfee(result.data.breakdown.weight_fee);
+        setZoningfee(result.data.breakdown.zoning_fee);
+      } catch (e) {}
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   function getRate() {
@@ -1611,7 +1540,7 @@ export default function map() {
         "drop_off_locations[14][drop_off_longitude]",
         coordinate[15].lng
       );
-      ratedata.set("drop_off_locations[14]booking_order]", "15");
+      ratedata.set("drop_off_locations[14][booking_order]", "15");
     }
 
     addlistservice.map((addservice) => {
@@ -1960,7 +1889,10 @@ export default function map() {
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
-        formdata.set("duration", Math.floor(Number(durationmap / 60)) + " mins");
+        formdata.set(
+          "duration",
+          Math.floor(Number(durationmap / 60)) + " mins"
+        );
         formdata.set("payment_method", payment);
         if (payment == "debit_credit") {
           formdata.set("client_token", cardtoken);
@@ -1971,7 +1903,7 @@ export default function map() {
         }
         if (statusschedule == "true") {
           formdata.set("scheduled_time", formattime);
-          formdata.set("scheduled_date",formatdate);
+          formdata.set("scheduled_date", formatdate);
           scheduledbook = 1;
         }
 
@@ -2793,7 +2725,6 @@ export default function map() {
     $(".divStopOff:visible")
       .find(".txtValidation")
       .each(function () {
-
         if (numberbooking > 9) {
           x = 0;
           swal(
@@ -2811,16 +2742,13 @@ export default function map() {
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Warning</p>
-                    <p className="pErrorSub">
-                     Maximum booking allowed is 10.
-                    </p>
+                    <p className="pErrorSub">Maximum booking allowed is 10.</p>
                   </div>
                 </div>
               </div>
             </div>
           );
-        }
-        else if ($(this).val() == "") {
+        } else if ($(this).val() == "") {
           x = 0;
           $(this).css("border", "1px solid #f44336");
           $(this).closest(".divHide").find(".divAdd").fadeIn(200);
@@ -2848,39 +2776,40 @@ export default function map() {
             </div>
           );
         } else if (statusschedule == "true") {
-            if(scheduletime == "") {
-              x = 0;
-              swal(
-                <div style={{ width: "450px", padding: "10px" }}>
-                  <div className="container">
-                    <div
-                      className="row align-items-center"
-                      style={{ borderLeft: "3px solid #FFE900" }}
-                    >
-                      <div className="col-lg-2">
-                        <img
-                          src="Image/complain.png"
-                          style={{ width: "32px" }}
-                        ></img>
-                      </div>
-                      <div className="col-lg-10" style={{ textAlign: "left" }}>
-                        <p className="pError">Warning</p>
-                        <p className="pErrorSub">
-                         Please input a valid date.
-                        </p>
-                      </div>
+          if (scheduletime == "") {
+            x = 0;
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #FFE900" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/complain.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Warning</p>
+                      <p className="pErrorSub">Please input a valid date.</p>
                     </div>
                   </div>
                 </div>
-              );
-              $(".react-datepicker__input-container input").css("borderColor","red")
-            }
+              </div>
+            );
+            $(".react-datepicker__input-container input").css(
+              "borderColor",
+              "red"
+            );
+          }
         }
       })
       .promise()
       .done(function () {
         if (x == 1) {
-          getRate();
+          getRateloop();
           getRatewallet();
           setMethod();
           $("#exampleModalCenter").modal("toggle");
@@ -2994,42 +2923,37 @@ export default function map() {
   }
 
   function selectTime(e) {
- 
-   
-   if(e.currentTarget.classList.contains("divTime2")) {
-    swal(
-      <div style={{ width: "450px", padding: "10px" }}>
-        <div className="container">
-          <div
-            className="row align-items-center"
-            style={{ borderLeft: "3px solid #FFE900" }}
-          >
-            <div className="col-lg-2">
-              <img
-                src="Image/complain.png"
-                style={{ width: "32px" }}
-              ></img>
-            </div>
+    if (e.currentTarget.classList.contains("divTime2")) {
+      swal(
+        <div style={{ width: "450px", padding: "10px" }}>
+          <div className="container">
             <div
-              className="col-lg-10"
-              style={{ textAlign: "left" }}
+              className="row align-items-center"
+              style={{ borderLeft: "3px solid #FFE900" }}
             >
-              <p className="pError">Error</p>
-              <p className="pErrorSub">This feature is under development.</p>
+              <div className="col-lg-2">
+                <img src="Image/complain.png" style={{ width: "32px" }}></img>
+              </div>
+              <div className="col-lg-10" style={{ textAlign: "left" }}>
+                <p className="pError">Error</p>
+                <p className="pErrorSub">This feature is under development.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-   }else {
-        $(".divTime").css("border-color", "#2c2c2c");
-    $(".imgChecktime").hide();
-    $(e.currentTarget).css("border-color", "#FADD5D");
-    $(e.currentTarget).find(".imgChecktime").show();
-    $(".divTime").css("height","auto");
-    $(".react-datepicker__input-container ").attr("style", "display: none !important")
-    setStatusschedule("false")
-   }
+      );
+    } else {
+      $(".divTime").css("border-color", "#2c2c2c");
+      $(".imgChecktime").hide();
+      $(e.currentTarget).css("border-color", "#FADD5D");
+      $(e.currentTarget).find(".imgChecktime").show();
+      $(".divTime").css("height", "auto");
+      $(".react-datepicker__input-container ").attr(
+        "style",
+        "display: none !important"
+      );
+      setStatusschedule("false");
+    }
   }
 
   return (
@@ -3076,7 +3000,8 @@ export default function map() {
               {" "}
               <img
                 src="Image/mapgps.svg"
-                className="img-fluid imgGps" onClick = {tryduration}
+                className="img-fluid imgGps"
+                onClick={getRateloop}
                 style={{ marginRight: "10px" }}
               ></img>{" "}
               Pickup
@@ -3128,7 +3053,7 @@ export default function map() {
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
-                         onInput={numOnly}
+                        onInput={numOnly}
                       />
                     </div>
                     <div className="col-lg-12">
@@ -3380,7 +3305,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
-                           onInput={numOnly}
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4341,7 +4266,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
-                           onInput={numOnly}
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4510,24 +4435,20 @@ export default function map() {
                       We will book your delivery with your given time and date.
                     </p>
                     <DatePicker
-                    selected={scheduletime}
-                    onChange={changeScheduled}
-                    showTimeSelect
-                    withPortal
-                    minDate={new Date()}
-                    placeholderText="Click to select a date"
-                    filterTime={filterPassedTime}
-                    disabled
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                  />
+                      selected={scheduletime}
+                      onChange={changeScheduled}
+                      showTimeSelect
+                      withPortal
+                      minDate={new Date()}
+                      placeholderText="Click to select a date"
+                      filterTime={filterPassedTime}
+                      disabled
+                      dateFormat="MMMM d, yyyy h:mm aa"
+                    />
                   </div>
                 </div>
-                <div className = "col-lg-6">
-
-                </div>
-                <div className="col-lg-6">
-                  
-                </div>
+                <div className="col-lg-6"></div>
+                <div className="col-lg-6"></div>
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
