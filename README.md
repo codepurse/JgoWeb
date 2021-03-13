@@ -3,7 +3,7 @@
 
 This repository is for the developer of Jgo web app.
 
-### Plugins
+### Installation
 Install the dependencies and devDependencies and start the server.
 ```sh
 npm install
