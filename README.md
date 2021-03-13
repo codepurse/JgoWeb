@@ -10,23 +10,23 @@ You might want to install the below plugins to completely run the web app.
 `react-google-places-autocomplete`  - **For the autosearch places** \
 `react-geocode`  - **To get the address based on lat and lng**\
 `react-leaflet`  - **React laeflet**\
-`leaflet`  - **React leaflet dependency**
-`next`  - **React framework**
-`react`  - **Main framework**
-`nextjs-progressbar`  - **Progress bar animation**
-`philippines`  - **List of region and cities**
-`pubnub`  - **Used in chat and getting the response of the driver**
-`pubnub-react`  - **Pubnub dependency**
-`react-datepicker`  - **Datepicker made in react**
-`react-dom`  - **React dependency**
-`react-facebook-login`  - **Used to login using facebook**
-`react-google-login`  - **Used to login using google**
-`react-paginate`  - **Pagination in table**
-`react-perfect-scrollbar`  - **To change the scrollbar style**
-`react-select`  - **Select box made in react**
-`swweetalert`  - **Alert box**
-`@sweetalert/with-react`  - **Sweet alert dependecy in react**
-`axios`  - **Used to fetch data in api**
+`leaflet`  - **React leaflet dependency**\
+`next`  - **React framework**\
+`react`  - **Main framework**\
+`nextjs-progressbar`  - **Progress bar animation**\
+`philippines`  - **List of region and cities**\
+`pubnub`  - **Used in chat and getting the response of the driver**\
+`pubnub-react`  - **Pubnub dependency**\
+`react-datepicker`  - **Datepicker made in react**\
+`react-dom`  - **React dependency**\
+`react-facebook-login`  - **Used to login using facebook**\
+`react-google-login`  - **Used to login using google**\
+`react-paginate`  - **Pagination in table**\
+`react-perfect-scrollbar`  - **To change the scrollbar style**\
+`react-select`  - **Select box made in react**\
+`swweetalert`  - **Alert box**\
+`@sweetalert/with-react`  - **Sweet alert dependecy in react**\
+`axios`  - **Used to fetch data in api**\
 
 
 
