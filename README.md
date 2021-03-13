@@ -4,6 +4,13 @@
 This repository is for the developer of Jgo web app.
 
 ### Plugins
+Install the dependencies and devDependencies and start the server.
+```sh
+npm install
+npm run dev
+```
+
+### Plugins
 You might want to install the below plugins to completely run the web app.
 
 `react-google-maps` - **For the map** \
