@@ -1,7 +1,15 @@
 # Jgo [![Build Status](https://i.ibb.co/tqgywhd/Build-Development-lightgrey.png)](https://travis-ci.org/joemccann/dillinger)
 [![Next Js](https://i.ibb.co/CKgz0J3/output-onlinepngtools.png)](https://nextjs.org)
 
-This repository is for the developer of Jgo web app.
+This readme is all about the following pages and components
+
+- map.js
+- delivery.js
+- profile.js
+- chat.js
+- tracking.js
+- tracking/number.js
+- login.js
 
 ### Installation
 Install the dependencies and devDependencies and start the server.
