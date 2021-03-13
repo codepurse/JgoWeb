@@ -35,7 +35,8 @@ You might want to install the below plugins to completely run the web app.
 `@sweetalert/with-react`  - **Sweet alert dependecy in react**\
 `axios`  - **Used to fetch data in api**\
 
-
+### Api's
+All api's are declared on`/services/auto.service.js`
 
 ### Autoplace search
 The places are restricted only in the **PH**.
