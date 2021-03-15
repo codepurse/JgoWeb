@@ -46,6 +46,11 @@ You might want to install the below plugins to completely run the web app.
 ### Api's
 All api's are declared on`/services/auto.service.js`
 
+### Login
+Before you book you need to login. Login have 3 ways you can either use your normal account, facebook or google.\
+If you use facebook or google to login but your email is not existing you will automatically redirect to signup page with your email, first and last name.
+
+
 ### Autoplace search
 The places are restricted only in the **PH**.
 ```javascript
