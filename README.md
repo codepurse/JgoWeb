@@ -49,6 +49,8 @@ All api's are declared on`/services/auto.service.js`
 ### Login
 Before you book you need to login. Login have 3 ways you can either use your normal account, facebook or google.\
 If you use facebook or google to login but your email is not existing you will automatically redirect to signup page with your email, first and last name.
+#### Succesfull login
+
 
 
 ### Autoplace search
