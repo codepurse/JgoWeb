@@ -77,7 +77,7 @@ export default function map() {
   };
 
   function changeScheduled(date) {
-    setFormattime(moment(date).format("h:mm:ss"));
+    setFormattime(moment(date).format("H:mm"));
     setFormatdate(moment(date).format("YYYY-MM-DD"));
     $(".react-datepicker__input-container input").css("borderColor", "#2c2c2c");
     setScheduledTime(date);
@@ -219,6 +219,7 @@ export default function map() {
         global.config.place.deliver.pickofflat = localStorage.getItem(
           "pickofflat"
         );
+
         global.config.place.deliver.pickofflng = localStorage.getItem(
           "pickofflng"
         );
@@ -665,7 +666,11 @@ export default function map() {
       str.includes("Cainta, Rizal") ||
       str.includes("Cavite, Philippines");
     if (n === true) {
+      localStorage.setItem("pickofflat",latLng.lat);
+      localStorage.setItem("pickofflng",latLng.lng);
+      localStorage.setItem("address",value.label);
       setAddress(value);
+  
       setCoordinates(latLng);
       try {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -726,6 +731,9 @@ export default function map() {
       str.includes("Cainta, Rizal") ||
       str.includes("Cavite, Philippines");
     if (n === true) {
+       localStorage.setItem("dropofflat",latLng.lat);
+      localStorage.setItem("dropofflng",latLng.lng);
+      localStorage.setItem("addressDrop",value.label);
       setAddressDrop(value);
       setCoordinatesDrop(latLng);
       try {
@@ -1795,7 +1803,11 @@ export default function map() {
             axios
               .post(apiUrl, formdata, options)
               .then((result) => {
-                if (result.data.status == "Failed") {
+                for(var pair of formdata.entries()){
+                  console.log(pair[0], pair[1]);
+              }
+                console.log(result)
+                if (result.data.status == "Failed" || result.data.status == "failed" ) {
                   $(".btnPayment").removeClass("btn--loading");
 
                   swal(
@@ -1826,11 +1838,16 @@ export default function map() {
                     </div>
                   );
                 } else {
+                   console.log(result)
+    for(var pair of formdata.entries()){
+        console.log(pair[0], pair[1]);
+    }
                   localStorage.setItem("activeid", result.data.data);
                   router.push("/profile");
                 }
               })
               .catch((err) => {
+                consoel.log(err)
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -2234,6 +2251,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
+                        maxLength = "12"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2306,6 +2324,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
+                        maxLength = "12"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2397,6 +2416,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength = "12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2486,6 +2506,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength = "12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"

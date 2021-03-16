@@ -786,7 +786,7 @@ export default function profile() {
       .post(window.pageactive > 1 ? apiUrlpage : apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
- 
+console.log(result.data.data) 
         setLateststatus(result.data.data[0].status);
         tablemap = result.data.data;
         setCount(result.data.meta.total);
