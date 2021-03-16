@@ -10,9 +10,8 @@ import AuthService from "../services/auth.service";
 import Footer from "../component/footer";
 import Componentdidmount from "../component/componentdidmount";
 function index() {
-  
   useEffect(() => {
-    clearInterval(window.interval);
+    clearInterval(window.intervalrefresh);
     $(".modal-backdrop").hide();
   }, []);
 
@@ -155,7 +154,9 @@ function index() {
                 <p className="pIconText">FOOD</p>
                 <p className="pDesc">
                   Our on – the JGO riders can deliver your food for you or to
-                  whoever you wish to share your food with.
+                  whoever you wish to share your food with. 7. CLOTHING: We can
+                  also carry and bring your clothing to the areas that we are
+                  available in.
                 </p>
                 <button className="btnBookServices" onClick={book}>
                   BOOK A DELIVERY

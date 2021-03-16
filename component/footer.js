@@ -18,11 +18,13 @@ export class footer extends Component {
               className="form-inline divButtonFooter"
               style={{ marginTop: "5px", marginLeft: "25px" }}
             >
+              <Link href = "https://apps.apple.com/ph/app/jgo-delivery/id1540719035">
               <img
                 src="Image/appstore.png"
                 className="img-fluidi imgButton"
                 style={{ width: "150px", marginLeft: "15px", cursor: "pointer" }}
               ></img>
+              </Link>
               
               <Link href = "https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
               <img

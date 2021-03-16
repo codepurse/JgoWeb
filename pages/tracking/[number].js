@@ -95,7 +95,7 @@ function Post() {
       axios
         .post(apiUrl, { tracking_id: { number } }, options)
         .then((result) => {
-          console.log(result.data.data);
+        
           setDropoffloc(
             result.data.data.booking_details.booking_drop_off_location
           );
@@ -155,7 +155,7 @@ function Post() {
   }
 
   useEffect(() => {
-    console.log(appglobal.api.base_api + appglobal.api.showdriver_location);
+  
     let scripts = [{ src: "../Script/jgo.js" }];
     scripts.map((item) => {
       const script = document.createElement("script");
@@ -185,7 +185,7 @@ function Post() {
         } else {
           $(".conSearchtrack").hide();
           $(".conTracking").fadeIn(150);
-          console.log(result.data.data);
+         
           setDropoffloc(
             result.data.data.booking_details.booking_drop_off_location
           );
@@ -499,7 +499,7 @@ function Post() {
                   );
                 }
               } catch (e) {
-                console.log(e);
+              
               }
             })()}
           </div>

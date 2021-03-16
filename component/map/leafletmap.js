@@ -53,14 +53,13 @@ class MapExample extends Component {
 }
 
   handleClick(e) {
-    console.log(e.latlng.lat);
-    console.log(e.latlng.lng);
+
     Geocode.setApiKey("AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4");
 
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       (response) => {
         const address = response.results[0].formatted_address;
-        console.log(address);
+   
         global.config.place.deliver.pickoff = address;
         global.config.place.deliver.pickofflat = e.latlng.lat;
         global.config.place.deliver.dropofflang = e.latlng.lng;

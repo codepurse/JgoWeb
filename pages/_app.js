@@ -1,7 +1,7 @@
-import 'react-perfect-scrollbar/dist/css/styles.css';
+
 import 'react-slideshow-image/dist/styles.css';
-import "react-datepicker/dist/react-datepicker.css";
 import App from 'next/app'
+import "react-datepicker/dist/react-datepicker.css";
 import 'leaflet/dist/leaflet.css';
 function MyApp({ Component, pageProps }) {
     return <Component {...pageProps} />

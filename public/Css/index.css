@@ -1248,6 +1248,10 @@ hr {
     width: 18px;
 }
 
+.react-datepicker__input-container {
+    display: none !important;
+}
+
 
 .react-datepicker__input-container input {
     font-family: "GilroyMedium";

@@ -157,13 +157,15 @@ function driver() {
     "Image/slide2.jpg",
     "Image/slide3.jpg",
     "Image/slide4.jpg",
-    "Image/slide5.jpg",
+    "Image/slide5.jpg"
   ];
   const properties = {
     transitionDuration: 200,
     autoplay: false,
     arrows: false,
   };
+
+
 
   function HandleChangeRegion(e) {
     try {
@@ -191,7 +193,7 @@ function driver() {
         }));
       setCities(data);
     } catch (e) {
-      console.log(e);
+    
     }
   }
 
@@ -200,7 +202,7 @@ function driver() {
       setcitydropdown(e.value.label);
       setcity(e.label);
     } catch (e) {
-      console.log(e);
+      
     }
   }
 
@@ -213,38 +215,37 @@ function driver() {
   }
 
   useEffect(() => {
-    $("#carouselExampleIndicators").on(
-      "slid.bs.carousel",
-      function onSlide(ev) {
-        var id = ev.relatedTarget.id;
-        switch (id) {
-          case "1":
-            slideRef.current.goTo(0);
+    clearInterval(window.intervalrefresh);
+    $("#carouselExampleIndicators").on("slid.bs.carousel", function onSlide(ev) {
+      var id = ev.relatedTarget.id;
+      switch (id) {
+        case "1":
+          slideRef.current.goTo(0);
             return false;
-            break;
-          case "2":
-            slideRef.current.goTo(1);
-            return false;
-            break;
-          case "3":
-            slideRef.current.goTo(2);
-            break;
-          case "4":
-            slideRef.current.goTo(3);
-            break;
-          case "5":
-            slideRef.current.goTo(4);
-            break;
-          default:
-          //the id is none of the above
-        }
+          break;
+        case "2":
+          slideRef.current.goTo(1);
+          return false;
+          break;
+        case "3":
+           slideRef.current.goTo(2);
+          break;
+        case "4":
+          slideRef.current.goTo(3);
+          break;
+        case "5":
+          slideRef.current.goTo(4);
+          break;
+        default:
+        //the id is none of the above
       }
-    );
+    });
 
     if (localStorage.getItem("showmodal") == 1) {
       $("#driverModal").modal("toggle");
       localStorage.setItem("showmodal", "0");
     } else {
+      
     }
     setErrvehicle("1");
     console.clear();
@@ -252,7 +253,7 @@ function driver() {
   }, []);
 
   function fname_change(e) {
-    console.log(errormess);
+   
     setfname(e.target.value);
     $(".pFname").css("color", "white");
     $(".txtFname").css("borderColor", "#2c2c2c");
@@ -516,7 +517,7 @@ function driver() {
 
     if (clear == 0) {
       submitClick = 1;
-      console.log("submitting");
+    
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -564,7 +565,7 @@ function driver() {
           submitClick = 0;
         })
         .catch((err) => {
-          console.log(err.response);
+
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -677,8 +678,6 @@ function driver() {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-       
-
         <meta charSet="utf-8" />
         <meta name="description" content="JGO Delivery Maasahan! Abangan!" />
         <title>JGO Delivery Maasahan! Abangan!</title>
@@ -734,17 +733,15 @@ function driver() {
                 DOWNLOAD NOW
               </p>
               <div className="row">
+                <Link href = "https://apps.apple.com/ph/app/jgo-delivery/id1540719035">
                 <div className="col-lg-12" style={{ padding: "2px" }}>
                   <img
                     src="Image/appstore.png"
                     className="img-fluid imgButton"
-                    style={{
-                      width: "205px",
-                      marginLeft: "15px",
-                      cursor: "pointer",
-                    }}
+                    style={{ width: "205px", marginLeft: "15px", cursor: "pointer" }}
                   ></img>
                 </div>
+                </Link>
                 <Link href="https://play.google.com/store/apps/details?id=ph.com.jgo.delivery">
                   <div className="col-lg-12" style={{ padding: "2px" }}>
                     <img
@@ -890,7 +887,7 @@ function driver() {
                           style={{ backgroundImage: `url(${slideImages[2]})` }}
                         ></div>
                       </div>
-                      <div className="each-slide">
+                       <div className="each-slide">
                         <div
                           style={{ backgroundImage: `url(${slideImages[3]})` }}
                         ></div>
@@ -1304,11 +1301,7 @@ function driver() {
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">
-                  <a
-                    className="btn btnSubmitDriver"
-                    onClick={submit}
-                    style={{ color: "white" }}
-                  >
+                  <a className="btn btnSubmitDriver" onClick={submit} style = {{color: "white"}}>
                     SIGNUP
                     <span style={{ marginLeft: "40px" }}>
                       <b></b>

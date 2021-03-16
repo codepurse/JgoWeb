@@ -48,8 +48,6 @@ export default function profile() {
   const [latestbooktrack, setLatestbooktrack] = React.useState("");
   const [lateststatus, setLateststatus] = React.useState("");
 
-  var pageactive;
-
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [mname, setMname] = React.useState("");
@@ -67,7 +65,7 @@ export default function profile() {
   const [profile_pic, setprofilepic] = React.useState("");
   const [newimage, setNewimage] = React.useState([]);
 
-  const [pagenow, setPagenow]  = React.useState("");
+  const [pagenow, setPagenow] = React.useState("");
   const [forcepage, setForcepage] = React.useState(0);
 
   const [listcard, setListcard] = React.useState([]);
@@ -102,16 +100,18 @@ export default function profile() {
   var canceltableid;
   var drivertableid;
   var rebooktableid;
-
+  var pageactivetable;
   const [tableactivebooking, setTableactivebooking] = React.useState([]);
   const [tablescheduled, setTablesheduled] = React.useState([]);
+
+  const [latestdate, setLatestdate] = React.useState("");
 
   function handleFile(e) {
     const reader = new FileReader();
 
     let file = e.target.files[0];
     setProfilename(file.name);
-    console.log(file);
+
     setNewimage(file);
     $(".imgProfileDash").attr("src", window.URL.createObjectURL(file));
     setprofilepic(file);
@@ -141,11 +141,9 @@ export default function profile() {
     }
   }
 
-  
-
   useEffect(() => {
-   startTimer();
-   
+    startTimer();
+
     $("#__next ").css("background-color", "#212427");
   }, []);
 
@@ -153,9 +151,7 @@ export default function profile() {
 
   function startTimer() {
     window.intervalrefresh = setInterval(() => {
-     
       refresh();
-    
     }, 10000);
   }
 
@@ -191,25 +187,22 @@ export default function profile() {
     axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result.data.count);
+
         setTableactivebooking(result.data.data.reverse());
-        console.log("success all booking");
-        setACtivecount(result.data.count)
+     
+        setACtivecount(result.data.count);
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error");
+       
       });
     axios
       .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
         setTablesheduled(result.data.data);
-        console.log(result);
-        console.log("success scheduled");
+ 
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error scheduled");
+        
       });
   }, []);
 
@@ -270,11 +263,11 @@ export default function profile() {
   }
 
   function trylang() {
-  
+    console.log(latestbook);
   }
 
   function reason1() {
-    console.log("tagnian ");
+    
     setCancelreason("Wrong input address");
     potareason = "Wrong input address";
   }
@@ -302,16 +295,13 @@ export default function profile() {
     $("#exampleModal").modal("hide");
     $("#modalRebook").modal("hide");
     $(".modal-backdrop").hide();
-
- 
   }
 
   function consoleid() {
-    console.log(bookingidtable);
+    
   }
 
   function opencancelBooking(e) {
-    
     var addresstable = $(e.currentTarget)
       .parent("div")
       .parent("td")
@@ -320,24 +310,20 @@ export default function profile() {
       .closest("td:nth-child(5)")
       .html();
 
-
     var statustable = $(e.currentTarget)
-    .parent("div")
-    .parent("td")
-    .parent("tr")
-    .children()
-    .closest("td:nth-child(6)")
-    .html();
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(6)")
+      .html();
 
+    var now = moment(new Date()); //todays date
+    var end = moment(addresstable); // another date
+    var duration = now.diff(end, "seconds");
 
-      var now = moment(new Date()); //todays date
-      var end = moment(addresstable); // another date
-      var duration = now.diff(end,"seconds")
-     
-
-
-    if (duration > 30  && statustable == "Driver found") {
-      console.log(duration)
+    if (duration > 30 && statustable == "Driver found") {
+  
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -346,92 +332,88 @@ export default function profile() {
               style={{ borderLeft: "3px solid #e53935" }}
             >
               <div className="col-lg-2">
-                <img
-                  src="Image/warning.png"
-                  style={{ width: "32px" }}
-                ></img>
+                <img src="Image/warning.png" style={{ width: "32px" }}></img>
               </div>
               <div className="col-lg-10" style={{ textAlign: "left" }}>
                 <p className="pError">Error</p>
-                <p className="pErrorSub">This booking cannot be cancel. Please contact our customer support</p>
+                <p className="pErrorSub">
+                  This booking cannot be cancel. Please contact our customer
+                  support
+                </p>
               </div>
             </div>
           </div>
         </div>
       );
-    
     } else {
-      console.log(duration);
-      console.log(statustable);
+    
       var trackid = $(e.currentTarget)
-      .parent("div")
-      .parent("td")
-      .parent("tr")
-      .children()
-      .closest("td:nth-child(2)")
-      .html();
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(2)")
+        .html();
       var driverid = $(e.currentTarget)
-      .parent("div")
-      .parent("td")
-      .parent("tr")
-      .children()
-      .closest("td:nth-child(3)")
-      .html();
-    setBookingidtable(trackid);
-    canceltableid = trackid;
-    drivertableid = driverid;
-    console.log(trackid);
-    $("#exampleModal").modal("hide");
-    $("#modalRebook").modal("hide");
-    $(".modal-backdrop").hide();
-    swal(
-      <div className="divCancel">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-12 text-left">
-              <p className="pCancelheader">Cancel Booking</p>
-              <p className="pCancelsub">
-                Before you cancel, please let us know the reason
-              </p>
-            </div>
-            <div className="col-lg-12 text-left">
-              <p className="pCancelsub" style={{ marginBottom: "8px" }}>
-                Select reason
-              </p>
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(3)")
+        .html();
+      setBookingidtable(trackid);
+      canceltableid = trackid;
+      drivertableid = driverid;
+    
+      $("#exampleModal").modal("hide");
+      $("#modalRebook").modal("hide");
+      $(".modal-backdrop").hide();
+      swal(
+        <div className="divCancel">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-12 text-left">
+                <p className="pCancelheader">Cancel Booking</p>
+                <p className="pCancelsub">
+                  Before you cancel, please let us know the reason
+                </p>
+              </div>
+              <div className="col-lg-12 text-left">
+                <p className="pCancelsub" style={{ marginBottom: "8px" }}>
+                  Select reason
+                </p>
 
-              <Select
-                options={date}
-                styles={cancel_white}
-                placeholder="Select.."
-                onChange={handlechangeCancel}
-              />
+                <Select
+                  options={date}
+                  styles={cancel_white}
+                  placeholder="Select.."
+                  onChange={handlechangeCancel}
+                />
 
-              <textarea
-                className="txtDriver txtAreacancel"
-                onChange={changeCancel}
-                rows={3}
-                cols={30}
-                style={{ marginTop: "10px", display: "none", color: "black" }}
-              ></textarea>
-              <p className="pSpecify">Please specify your reason.</p>
-            </div>
-            <div className="col-lg-6 col-sm-6 col-6">
-              <button className="btnYes" onClick={cancelbook}>
-                Yes
-              </button>
-            </div>
-            <div className="col-lg-6 col-sm-6 col-6">
-              <button className="btnNo" onClick={btnNocancel}>
-                No
-              </button>
+                <textarea
+                  className="txtDriver txtAreacancel"
+                  onChange={changeCancel}
+                  rows={3}
+                  cols={30}
+                  style={{ marginTop: "10px", display: "none", color: "black" }}
+                ></textarea>
+                <p className="pSpecify">Please specify your reason.</p>
+              </div>
+              <div className="col-lg-6 col-sm-6 col-6">
+                <button className="btnYes" onClick={cancelbook}>
+                  Yes
+                </button>
+              </div>
+              <div className="col-lg-6 col-sm-6 col-6">
+                <button className="btnNo" onClick={btnNocancel}>
+                  No
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
     }
-
-   
   }
 
   function cancelBooking(e) {
@@ -559,7 +541,7 @@ export default function profile() {
               options
             )
             .then((result) => {
-              console.log(result);
+         
               $("#exampleModal").modal("hide");
               $(".modal-backdrop").hide();
               clearInterval(window.interval);
@@ -659,7 +641,7 @@ export default function profile() {
           options
         )
         .then((result) => {
-          console.log(result.response);
+       
           try {
             if (result.response.status == 500) {
               swal(
@@ -688,7 +670,6 @@ export default function profile() {
               );
             }
           } catch (e) {
-            
             refresh();
             setCanceluser(true);
             clearInterval(window.interval);
@@ -723,7 +704,7 @@ export default function profile() {
           }
         })
         .catch((err) => {
-          console.log(err);
+     
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -750,7 +731,7 @@ export default function profile() {
           );
         });
     } else {
-      console.log(cancelreason);
+
       $(".pSpecify").show();
     }
     drivertableid = "";
@@ -778,6 +759,8 @@ export default function profile() {
   }
 
   function refresh() {
+    $("#modalScheduled").modal("hide");
+    
     var countactive;
     var countscheduled;
     const options = {
@@ -789,15 +772,21 @@ export default function profile() {
         xsrfHeaderName: "X-XSRF-TOKEN",
       },
     };
-    const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;
+
+    const apiUrl =
+      appglobal.api.base_api + appglobal.api.transaction_history;
+
+    const apiUrlpage =
+      appglobal.api.base_api + appglobal.api.transaction_history_page + window.pageactive;
+
     const apiUrlscheduled =
       appglobal.api.base_api + appglobal.api.scheduled_booking;
-      const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
+    const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;
     axios
-      .post(apiUrl, { customer_id: AuthService.getId() }, options)
+      .post(window.pageactive > 1 ? apiUrlpage : apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
-        console.log(result.data.data[0].status);
+ 
         setLateststatus(result.data.data[0].status);
         tablemap = result.data.data;
         setCount(result.data.meta.total);
@@ -805,33 +794,29 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-      
       })
       .catch((err) => {
-        console.log(err);
+      
       });
     axios
       .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTablesheduled(result.data.data);
-        console.log(result);
-        console.log("success scheduled");
+    
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error scheduled");
+        
       });
-      axios
+    axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result.data.count);
+       
         setTableactivebooking(result.data.data.reverse());
-        console.log("success");
-        setACtivecount(result.data.count)
+     
+        setACtivecount(result.data.count);
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error");
+      
       });
   }
 
@@ -867,9 +852,9 @@ export default function profile() {
     );
     const listener = {
       message: (message) => {
-        console.log(message);
+    
         setMessage(message.message.status);
-        console.log(message.message.status);
+      
         let mes = message;
         x;
 
@@ -890,7 +875,7 @@ export default function profile() {
         } else if (mes.message.status == "Complete All") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
-          console.log(canceluser);
+        
           if (canceluser == false) {
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
@@ -1092,7 +1077,7 @@ export default function profile() {
       method: "get",
     })
       .then((response) => {
-        console.log(response.data.datetime);
+
         setIpdate(response.data.datetime);
 
         var now = moment(response.data.datetime); //todays date
@@ -1102,16 +1087,16 @@ export default function profile() {
 
         window.interval = setInterval(() => {
           min = min + 1;
-          console.log(min + "seconds timer");
+    
 
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 120) {
-              console.log(latestbook);
+            if (min > 30) {
+         
               holdbook();
               if (router.pathname === "/profile") {
-                console.log(router.pathname);
+           
 
                 $(".modal-backdrop").show();
               } else {
@@ -1126,7 +1111,7 @@ export default function profile() {
         $(".modal-backdrop").show();
       })
       .catch((err) => {
-        console.log(err);
+
       });
   }
 
@@ -1138,18 +1123,17 @@ export default function profile() {
 
     window.interval = setInterval(() => {
       min = min + 1;
-      console.log(min);
-      console.log(holdclear);
+  
 
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 120) {
-          console.log(latestbook);
+        if (min > 30) {
+    
           holdbook();
           $(".modal-backdrop").show();
           if (router.pathname === "/profile") {
-            console.log(router.pathname);
+           
 
             $(".modal-backdrop").show();
           } else {
@@ -1165,16 +1149,15 @@ export default function profile() {
   }
 
   useEffect(() => {
-
     if (scheduledbook == 1) {
       scheduledbook = 0;
-      $("#modalScheduled").modal("show")
+      $("#modalScheduled").modal("show");
     }
 
-    $("#modalScheduled").on('hidden.bs.modal', function () {
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-   })
+    $("#modalScheduled").on("hidden.bs.modal", function () {
+      $("body").removeClass("modal-open");
+      $(".modal-backdrop").remove();
+    });
 
     if (localStorage.getItem("goSupport") == "true") {
       $(".ulDashboard>li").removeClass("activeUl");
@@ -1187,14 +1170,14 @@ export default function profile() {
       localStorage.removeItem("goSupport");
     }
     if (localStorage.getItem("latestbookingdate")) {
-      console.log(localStorage.getItem("latestbookingdate"));
+    
     } else {
-      console.log("no latest booking date");
+      
     }
   }, []);
 
   useEffect(() => {
-    console.log(getApi);
+ 
     if (localStorage.getItem("saveprof") == 1) {
       successMessage();
       localStorage.removeItem("saveprof");
@@ -1214,23 +1197,24 @@ export default function profile() {
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result);
+    
         if (!result.data.data) {
-          console.log("no latest booking");
+          console.log("no latest booking")
         } else {
-          console.log(result);
+        
 
           localStorage.setItem(
             "latestbookingdate",
             result.data.data.created_at
           );
+          setLatestbook(result.data.data.created_at);
           localStorage.setItem(
             "updatebookingdate",
             result.data.data.updated_at
           );
-          console.log(result.data.data.updated_at + " Updated booking date");
+      
           setLateststatus(result.data.data.status);
-          console.log(result.data.data.status);
+    
 
           if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
@@ -1240,8 +1224,8 @@ export default function profile() {
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
-            console.log(result.data.data.status);
-            
+         
+
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
             localStorage.removeItem("latestbook");
@@ -1252,7 +1236,7 @@ export default function profile() {
     const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
-      console.log(result.data);
+
       setListcard(result.data.user_card_details);
     });
 
@@ -1263,7 +1247,7 @@ export default function profile() {
       "/open_tickets";
 
     axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-      console.log(result.data);
+
       setListticket(result.data);
     });
 
@@ -1302,8 +1286,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log("trasaction history");
-        console.log(result);
+       
 
         setTabledata(result.data.data);
 
@@ -1332,18 +1315,14 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-
-      
       })
-      .catch((err) => {
-      
-      });
+      .catch((err) => {});
 
     const apiUrl1 = appglobal.api.base_api + appglobal.api.customer_profile;
     axios
       .post(apiUrl1, { id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result.data.data);
+      
         setTableprofile(result.data.data);
         setFname(result.data.data.fname);
         setMname(result.data.data.mname);
@@ -1365,18 +1344,14 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(err);
+   
       });
   }, []);
 
   function changePage(e) {
     var x = e.selected + 1;
-    if (x > 1) {
-      console.log("mas mataas")
-      clearInterval(window.intervalrefresh);
-    }else {
-      startTimer();
-    }
+    setPagenow(x);
+    window.pageactive = x;
 
     $(".Box").show();
     $("tbody tr").hide();
@@ -1385,8 +1360,8 @@ export default function profile() {
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
 
-    console.log(e.selected + 1);
     
+
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1402,10 +1377,9 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result);
+    
         setTabledata(result.data.data);
-        console.log("page " + x)
-        setPagenow(x)
+
         $("table").fadeIn(150);
         if (result.data.data) {
           result.data.data
@@ -1426,11 +1400,9 @@ export default function profile() {
           $(".reactPaginate").hide();
           $(".pNo").show();
         }
-
       })
       .catch((err) => {
-        console.log(apiUrl);
-        console.log(err);
+       
       });
   }
 
@@ -1513,15 +1485,14 @@ export default function profile() {
     axios
       .post(api, { booking_id: localStorage.getItem("latestbook") }, options)
       .then((result) => {
-        console.log(result);
+      
         $("#modalRebook").modal("show");
-        swal.close()
+        swal.close();
         clearInterval(window.interval);
         refresh();
       })
       .catch((err) => {
-        console.log(latestbook);
-        console.log(err);
+   
       });
   }
 
@@ -1540,7 +1511,7 @@ export default function profile() {
       .children()
       .closest("td:nth-child(4)")
       .html();
-    console.log(trackid);
+
 
     const options = {
       headers: {
@@ -1556,7 +1527,7 @@ export default function profile() {
     axios
       .post(apiUrl, { tracking_id: { trackid } }, options)
       .then((result) => {
-        console.log(result.data);
+     
         $(".conLoading").hide();
         $(".conView").fadeIn(200);
         setDrivername(
@@ -1582,14 +1553,13 @@ export default function profile() {
         setViewpickupname(result.data.data.booking_details.contact_name);
       })
       .catch((err) => {
-        console.log(err);
+       
         $(".conView").hide();
         $(".divWarning").show();
       });
   }
 
   function rebook() {
-   
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1608,7 +1578,7 @@ export default function profile() {
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
-        console.log(result);
+       
       })
       .catch((err) => {
         swal(
@@ -1634,12 +1604,12 @@ export default function profile() {
 
   function rebooktable(e) {
     var bookid = $(e.currentTarget)
-    .parent("div")
-    .parent("td")
-    .parent("tr")
-    .children()
-    .closest("td:nth-child(2)")
-    .html();
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(2)")
+      .html();
     rebooktableid = bookid;
     const options = {
       headers: {
@@ -1654,19 +1624,17 @@ export default function profile() {
     axios
       .post(api, { booking_id: bookid }, options)
       .then((result) => {
-       if (latestbook == bookid) {
-        $("#exampleModal").modal("show");
-        $("#modalRebook").modal("hide");
-        localStorage.setItem("latestbookingdate", moment(new Date()));
-        holdTimer();
-
-       } else {
-         console.log(latestbook);
-         console.log(bookid);
-       }
+        if (latestbook == bookid) {
+          $("#exampleModal").modal("show");
+          $("#modalRebook").modal("hide");
+          localStorage.setItem("latestbookingdate", moment(new Date()));
+          holdTimer();
+        } else {
+       
+        }
 
         refresh();
-        console.log(result);
+    
       })
       .catch((err) => {
         swal(
@@ -1691,7 +1659,7 @@ export default function profile() {
   }
 
   function getcardToken(e) {
-    console.log($(e.currentTarget).find(".p9Sub").text());
+   
     listcard
       .filter(
         (event) =>
@@ -1725,11 +1693,10 @@ export default function profile() {
 
   function getVerify(e) {
     $(".btnVerify").addClass("btn--loading");
-    console.log(clienttoken);
-    console.log(verify);
+
     var amountverify = Math.floor(verify);
     var amountverifyfloat = parseFloat(amountverify).toFixed(2);
-    console.log(amountverifyfloat);
+
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1751,7 +1718,7 @@ export default function profile() {
         options
       )
       .then((result) => {
-        console.log(result);
+     
         if (
           result.data.data.cardDetails.cardStatus == 5 ||
           result.data.data.cardDetails.cardStatus == 3
@@ -1799,7 +1766,7 @@ export default function profile() {
           const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
           axios.post(apiUrl2, {}, options1).then((result) => {
-            console.log(result.data);
+           
             setListcard(result.data.user_card_details);
           });
           swal(
@@ -1859,20 +1826,20 @@ export default function profile() {
   function handlestatuschange(value) {
     var statuslabel = value;
     var value = value.value.toLowerCase();
-    console.log(value.label);
+  
     setStatus(value.label);
 
     if (statuslabel.label == "Active") {
       $(".divHistory, .reactPaginate, .divScheduledtable").hide();
       $(".divActivetable").fadeIn(150);
       if (tableactivebooking.length == 0) {
-        console.log("walang laman");
+       
         $(".pNo").show();
       } else {
-        console.log("walang laman");
+     
         $(".pNo").hide();
       }
-      console.log("gumana");
+
     } else if (statuslabel.label == "All") {
       $(".divHistory, .reactPaginate").fadeIn(150);
       $(".divActivetable, .divScheduledtable").hide();
@@ -1973,7 +1940,7 @@ export default function profile() {
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
-          console.log(result);
+ 
           $("#modalChangepass").modal("toggle");
           $(".modal-backdrop").hide();
           AuthService.logout();
@@ -2027,7 +1994,7 @@ export default function profile() {
       case "On hold":
         return "onhold";
       case "Scheduled":
-        return "schedule"
+        return "schedule";
     }
   };
 
@@ -2182,14 +2149,14 @@ export default function profile() {
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
-          console.log(result);
+       
           $(".btnSave").removeClass("btn--loading");
           localStorage.setItem("saveprof", "1");
-          console.log(newimage);
+        
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err);
+     
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -2283,13 +2250,13 @@ export default function profile() {
       axios
         .put(apiUrl, data, options)
         .then((result) => {
-          console.log(result);
+     
           $("#modalForm").modal("toggle");
           $(".btConfirmTopup").removeClass("btn--loading");
           $("#modalTopup").modal("toggle");
         })
         .catch((err) => {
-          console.log(err);
+        
           $(".btnSave").removeClass("btn--loading");
         });
     }
@@ -2309,7 +2276,7 @@ export default function profile() {
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
-        console.log(result);
+    
         if (result.data.data.redirectUrl) {
           window.open(result.data.data.redirectUrl, "_blank");
         } else {
@@ -2345,7 +2312,7 @@ export default function profile() {
       })
       .catch((err) => {
         $(".btnVerify1").removeClass("btn--loading");
-        console.log(err);
+   
       });
   }
 
@@ -2376,12 +2343,12 @@ export default function profile() {
     axios
       .post(apiUrl, formdata, options)
       .then((result) => {
-        console.log(result.data);
+ 
         $(".btnAddcard").removeClass("btn--loading");
 
         if (result.data.encoded_xml) {
           $("#paymentrequest").val(result.data.encoded_xml);
-          console.log(result.data.encoded_xml);
+       
           document.getElementById("paygate_frm").submit();
         } else {
           swal(
@@ -2414,7 +2381,7 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }
 
@@ -2543,7 +2510,7 @@ export default function profile() {
             "/open_tickets";
 
           axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-            console.log(result.data);
+     
             setListticket(result.data);
           });
         })
@@ -2846,7 +2813,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
-                      <th className = "d-none">Driver id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th className="d-none">date</th>
                       <th className="d-none">Status</th>
@@ -2905,7 +2872,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
-                        <td className = "d-none">{event.driver_id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2915,18 +2882,18 @@ export default function profile() {
                         >
                           {event.tracking_id}
                         </td>
-                        <td  className="d-none">{event.updated_at}</td>
-                           <td  className="d-none">{event.status}</td>
-                           <td
+                        <td className="d-none">{event.updated_at}</td>
+                        <td className="d-none">{event.status}</td>
+                        <td
                           className={
                             localStorage.getItem("theme_status") == "light"
                               ? "tdlight"
                               : "tddark"
                           }
                         >
-                          {event.payment_history.payment_method}
+                          {event.payment_history == undefined ? "" :event.payment_history.payment_method}
                         </td>
-                          
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2936,7 +2903,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-                      
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -2955,7 +2922,10 @@ export default function profile() {
                           }
                         >
                           <span className={statusColor(event.status)}>
-                            {event.status} - {event.reason_for_cancel  == null ? "" :  event.reason_for_cancel}
+                            {event.status} -{" "}
+                            {event.reason_for_cancel == null
+                              ? ""
+                              : event.reason_for_cancel}
                           </span>
                           {event.pick_up_address}
                         </td>
@@ -2992,10 +2962,10 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
-                      <th className = "d-none">Driver id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
-                   
+
                       <th>Pickup Address</th>
                       <th>Drop Location</th>
                     </tr>
@@ -3048,7 +3018,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
-                        <td className = "d-none">{event.driver_id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -3067,7 +3037,7 @@ export default function profile() {
                         >
                           {event.total}
                         </td>
-                       
+
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -3076,7 +3046,10 @@ export default function profile() {
                           }
                         >
                           <span className={statusColor(event.status)}>
-                          {event.status} - {event.reason_for_cancel  == null ? "" :  event.reason_for_cancel}
+                            {event.status} -{" "}
+                            {event.reason_for_cancel == null
+                              ? ""
+                              : event.reason_for_cancel}
                           </span>
                           {event.pick_up_address}
                         </td>
@@ -3113,6 +3086,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
                       <th>Pickup Address</th>
@@ -3167,6 +3141,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -3237,7 +3212,6 @@ export default function profile() {
                 breakLabel={"..."}
                 breakClassName={"break-me"}
                 pageCount={pages}
-              
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={2}
                 onPageChange={changePage}
@@ -3713,7 +3687,7 @@ export default function profile() {
           </div>
         </div>
       </div>
-      
+
       <div
         className="modal fade"
         id="exampleModal"
@@ -4206,7 +4180,6 @@ export default function profile() {
         </div>
       </div>
 
-    
       <div
         className="modal fade"
         id="modalScheduled"
@@ -4234,9 +4207,9 @@ export default function profile() {
                         className="img-fluid mx-auto d-flex imgLoading"
                       ></img>
                     </div>
-                    <p className="pSearching">Scheduled successfully.</p>
+                    <p className="pSearching">Booking successfully set.</p>
                     <p className="pSearchsub">
-                      Thank your for using Jgo. Your parcel will be delivered with the given time and date.
+                      Thank your for using Jgo. We'll let you know who your driver is closer to the pickup-time.    
                     </p>
                   </div>
                 </div>
@@ -4245,7 +4218,6 @@ export default function profile() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

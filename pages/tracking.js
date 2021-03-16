@@ -92,7 +92,7 @@ export default function tracking() {
           }else {
             router.push("/tracking/" + id);
           }
-          console.log(result.data.data.booking_details.status);
+     
         })
         .catch((err) => {
 

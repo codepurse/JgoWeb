@@ -562,7 +562,7 @@ export default function faq() {
                   <div className="accordion-content">
                     <p>
                       You may request payout of earnings daily from 8:00 AM to
-                      5:00 PM <br /> Maaaring mag request ng payout daily mula
+                      2:00 PM <br /> Maaaring mag request ng payout daily mula
                       8:00 AM hanggang 2:00 PM
                     </p>
                   </div>
@@ -647,7 +647,7 @@ export default function faq() {
               <p className="pContact1">Email Us</p>
             </div>
             <div className="col-lg-6">
-              <p className="pContact2">Contact your assigned Account Manager</p>
+              <p className="pContact2">info@jgo.com.ph</p>
             </div>
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
@@ -655,7 +655,7 @@ export default function faq() {
               <p className="pContact1">Message Us</p>
             </div>
             <div className="col-lg-6">
-              <p className="pContact2">Contact us via In-App Chat </p>
+              <p className="pContact2">Contact us via Facebook, Instagram and our JGO Support </p>
             </div>
           </div>
           <div className="row" style={{ borderBottom: "1px solid gray" }}>
@@ -671,7 +671,7 @@ export default function faq() {
               <p className="pContact1">Call Us</p>
             </div>
             <div className="col-lg-6">
-              <p className="pContact2">(02) 85634498</p>
+              <p className="pContact2">(02) 8563-4498</p>
             </div>
           </div>
         </div>

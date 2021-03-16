@@ -33,18 +33,18 @@ function MapDirectionsRenderer(props) {
       (result, status) => {
         durationmap = 0;
         {
-          Object.keys(result.routes[0].legs).map(
-            (keyname, i) =>
-              (durationmap =
-                Number(durationmap) +
-                Number(result.routes[0].legs[keyname].duration.value)),
-              
-          );
+          try {
+            Object.keys(result.routes[0].legs).map(
+              (keyname, i) =>
+                (durationmap =
+                  Number(durationmap) +
+                  Number(result.routes[0].legs[keyname].duration.value))
+            );
+          } catch (error) {}
         }
 
         if (status === google.maps.DirectionsStatus.OK) {
           setDirections(result);
-          console.log(result);
         } else {
         }
       }
@@ -359,7 +359,9 @@ const Map = withGoogleMap((props) => (
     {props.markers.map((marker, index) => {
       const position = { lat: marker.lat, lng: marker.lng };
 
-      return <Marker key={index} position={position} icon = "Image/navigation.png" />;
+      return (
+        <Marker key={index} position={position} icon="Image/navigation.png" />
+      );
     })}
     <MapDirectionsRenderer
       places={props.markers}

@@ -53,7 +53,7 @@ export default function map() {
   const [scheduletime, setScheduledTime] = React.useState("");
   const [formattime, setFormattime] = React.useState("");
   const [formatdate, setFormatdate] = React.useState("");
-  const [numberbooking , setNumberbooking] = React.useState("");
+  const [numberbooking, setNumberbooking] = React.useState("");
 
   const locationCod = [];
   var loopservices = 0;
@@ -69,19 +69,17 @@ export default function map() {
 
   var fullscreen = "false";
 
-  const filterPassedTime = time => {
+  const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
 
     return currentDate.getTime() < selectedDate.getTime();
-  }
+  };
 
   function changeScheduled(date) {
-    console.log(moment(date).format("YYYY-MM-DD" + " Date"));
-    console.log(moment(date).format("h:mm:ss" + " time"));
     setFormattime(moment(date).format("h:mm:ss"));
     setFormatdate(moment(date).format("YYYY-MM-DD"));
-    $(".react-datepicker__input-container input").css("borderColor","#2c2c2c")
+    $(".react-datepicker__input-container input").css("borderColor", "#2c2c2c");
     setScheduledTime(date);
   }
 
@@ -244,7 +242,7 @@ export default function map() {
           id: "2",
         };
         coordinate.push(destination);
-        console.log(coordinate);
+
         global.config.place.deliver.refresh = "1";
       }
     } else {
@@ -292,7 +290,6 @@ export default function map() {
         if (clearstop == 0) {
           $(".div1:visible")
             .each(function () {
-              console.log($(this).css("display"));
               $(this).attr("style", "display: block");
             })
             .promise()
@@ -476,6 +473,7 @@ export default function map() {
 
   useEffect(() => {
     clearInterval(window.interval);
+    clearInterval(window.intervalrefresh);
     const options1 = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -487,20 +485,16 @@ export default function map() {
     };
     const api = appglobal.api.base_api + appglobal.api.all_booking;
     axios
-    .post(api, { customer_id: AuthService.getId() }, options1)
-    .then((result) => {
-      console.log(result.data.count);
-      setNumberbooking(result.data.count)
-      console.log("success all booking");
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log("pota error");
-    });
-  }, [])
-
+      .post(api, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+        setNumberbooking(result.data.count);
+      })
+      .catch((err) => {});
+  }, []);
 
   useEffect(() => {
+
+    
     setBaserate(localStorage.getItem("baserate"));
     setPerkm(localStorage.getItem("perkm"));
     setPlatformfee(localStorage.getItem("platform"));
@@ -514,7 +508,6 @@ export default function map() {
   useEffect(() => {
     $("#__next ").css("background-color", "#1E2025");
 
-    console.log(AuthService.getId() + " My id");
     $(".modal-backdrop").hide();
     window.reactFunction = () => {
       swal(
@@ -567,7 +560,6 @@ export default function map() {
     });
     var price_total = localStorage.getItem("price");
     setPrice(Number(price_total).toFixed(2));
-    console.log(localStorage.getItem("price"));
 
     const options1 = {
       headers: {
@@ -583,18 +575,15 @@ export default function map() {
     axios
       .get(api, options1)
       .then((result) => {
-        console.log(result.data.data);
         setAddservices(result.data.data);
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch((err) => {});
 
     const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
       setListcard(result.data.user_card_details);
-      console.log(result.data.user_card_details);
+
       if (result.data.user_card_details) {
         $("pNocard").show();
       } else {
@@ -613,11 +602,7 @@ export default function map() {
       .post(apilatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
         if (!result.data.data) {
-          console.log("no latest booking");
         } else {
-          console.log(AuthService.getId());
-          console.log("booking available");
-          console.log(result.data.data);
           setLatestbook(result.data.data.id);
         }
       });
@@ -672,7 +657,7 @@ export default function map() {
   const handleChange = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    console.log(value.label);
+
     var str = value.label;
     var n =
       str.includes("Metro Manila") ||
@@ -687,9 +672,9 @@ export default function map() {
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
-          console.log(coordinate);
-        router.push("/map");
-        getRate();
+          router.push("/map");
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           address: value.label,
@@ -698,9 +683,10 @@ export default function map() {
           id: "1",
         };
         coordinate.push(destination);
-        console.log(coordinate);
+
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
       swal(
@@ -732,7 +718,7 @@ export default function map() {
   const handleChangeDrop = async (value) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    console.log(value.label);
+
     var str = value.label;
     var n =
       str.includes("Metro Manila") ||
@@ -747,9 +733,9 @@ export default function map() {
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
-          console.log(coordinate);
-        router.push("/map");
-        getRate();
+          router.push("/map");
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           lat: latLng.lat,
@@ -757,9 +743,11 @@ export default function map() {
           id: "2",
         };
         coordinate.push(destination);
-        getRate();
+        getRateloop();
+        getRatewallet();
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
       swal(
@@ -792,7 +780,7 @@ export default function map() {
   const handleChangeStop = async (value, e) => {
     const results = await geocodeByAddress(value.label);
     const latLng = await getLatLng(results[0]);
-    console.log(value.label);
+
     var str = value.label;
     var n =
       str.includes("Metro Manila") ||
@@ -841,15 +829,15 @@ export default function map() {
       }
 
       setcoordinateStop(latLng);
-      console.log(value.label);
+
       try {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
         (places_data[objIndex].lat = latLng.lat),
           (places_data[objIndex].lng = latLng.lng),
           (places_data[objIndex].address = value.label),
-          console.log(coordinate);
-        router.push("/map");
-        getRate();
+          router.push("/map");
+        getRateloop();
+        getRatewallet();
       } catch (err) {
         const destination = {
           address: value.label,
@@ -859,10 +847,10 @@ export default function map() {
         };
         coordinate.push(destination);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     } else {
-      console.log(coordinate);
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -903,7 +891,6 @@ export default function map() {
       $(".imgWeight1").fadeOut(150);
       $(".imgWeight2").fadeIn(150);
     }
-    console.log(e.target.value);
   }
 
   function setWeightrate(e) {
@@ -916,8 +903,9 @@ export default function map() {
 
     if (addlistservice.indexOf(idservice) < 0) {
       addlistservice.push(idservice);
-      console.log(addlistservice);
-      getRate();
+
+      getRateloop();
+      getRatewallet();
     } else {
       for (var i in addlistservice) {
         if (addlistservice[i] == idservice) {
@@ -926,8 +914,6 @@ export default function map() {
           break;
         }
       }
-
-      console.log(addlistservice);
     }
     if (localStorage.getItem("theme_status") == "light") {
       $(".boxAdditional").css("background-color", "transparent");
@@ -943,7 +929,8 @@ export default function map() {
         $("p", e.currentTarget).css("color", "black");
       }
     }
-    getRate();
+    getRateloop();
+    getRatewallet();
   }
 
   {
@@ -952,14 +939,11 @@ export default function map() {
   function updateInputValue(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].detailsname = evt.target.value),
-        console.log(coordinate);
-    } catch (err) {
-      console.log(err);
-    }
+      places_data[objIndex].detailsname = evt.target.value;
+    } catch (err) {}
   }
 
-   function numOnly(event) {
+  function numOnly(event) {
     let value = event.currentTarget.value;
     let numbers = value.replace(/[^0-9]/g, "");
     event.currentTarget.value = numbers;
@@ -971,16 +955,11 @@ export default function map() {
   function updateInputValueNumber(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].detailsnumber = evt.target.value),
-        console.log(coodinate);
-    } catch (err) {
-      console.log(evt.target.value);
-    }
+      places_data[objIndex].detailsnumber = evt.target.value;
+    } catch (err) {}
   }
 
-  function numberonly(e) {
-    console.log("asdas");
-  }
+  function numberonly(e) {}
 
   {
     /* Passing address in additional details based on click value */
@@ -988,11 +967,8 @@ export default function map() {
   function updateInputValueAdd(evt) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].detailsAdd = evt.target.value),
-        console.log(coordinate);
-    } catch (err) {
-      console.log(evt.target.value);
-    }
+      places_data[objIndex].detailsAdd = evt.target.value;
+    } catch (err) {}
   }
 
   const [category_type, setCategory] = React.useState("");
@@ -1000,22 +976,16 @@ export default function map() {
   function handleChangeCategory(event) {
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
-      (places_data[objIndex].category = event.value), console.log(coordinate);
-    } catch (err) {
-      console.log(event.value);
-    }
+      places_data[objIndex].category = event.value;
+    } catch (err) {}
   }
 
   function handleChangeLocation(event) {
     setcodLoc(event.value);
     setCodselectlocation({ value: event.value, label: event.label });
-    console.log(event.label);
   }
 
-  function tryduration() {
-    console.log(Number(durationmap));
-    console.log(Math.floor(Number(durationmap) / 60));
-  }
+  function tryduration() {}
 
   {
     /* Passing lat, Lng and geocode of the address in component this function is for the custom map */
@@ -1036,9 +1006,9 @@ export default function map() {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
-        (places_data[objIndex].address = coordinates.address),
-        console.log(coordinate);
-      getRate();
+        (places_data[objIndex].address = coordinates.address);
+      getRateloop();
+      getRatewallet();
       router.push("/map");
     } else if (click === 2) {
       coordinates.lat = global.config.place.deliver.pickofflat;
@@ -1051,9 +1021,10 @@ export default function map() {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       (places_data[objIndex].lat = coordinates.lat),
         (places_data[objIndex].lng = coordinates.lng),
-        (places_data[objIndex].address = coordinates.address),
-        console.log(coordinate);
-      getRate();
+        (places_data[objIndex].address = coordinates.address);
+
+      getRateloop();
+      getRatewallet();
       router.push("/map");
     } else if (click > 2) {
       var x = "setStop" + click;
@@ -1148,10 +1119,11 @@ export default function map() {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
         (places_data[objIndex].lat = coordinates.lat),
           (places_data[objIndex].lng = coordinates.lng),
-          (places_data[objIndex].address = coordinates.address),
-          console.log(coordinate);
+          (places_data[objIndex].address = coordinates.address);
+
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       } catch (e) {
         const destination = {
           address: global.config.place.deliver.pickoff,
@@ -1161,7 +1133,8 @@ export default function map() {
         };
         coordinate.push(destination);
         router.push("/map");
-        getRate();
+        getRateloop();
+        getRatewallet();
       }
     }
     swal.close();
@@ -1232,196 +1205,24 @@ export default function map() {
       setStop15(null);
     }
 
-    console.log(e.currentTarget.id);
     for (var i = 0; i < places_data.length; i++) {
       if (places_data[i].id == e.currentTarget.id) {
         places_data.splice(i, 1);
       }
     }
 
-    console.log(places_data);
     router.push("/map");
     $(".div1:visible").each(function () {
       $(this).attr("style", "display: block !important");
     });
-    getRate();
+    getRateloop();
+    getRatewallet();
   }
 
   function getRatewallet() {
+    $(".imgInfo").hide();
     $(".pPrice").hide();
     $(".divLoading").show();
-    let ratedata = new FormData();
-    ratedata.set("payment_method", "jgowallet");
-    ratedata.set("weight", weight);
-    ratedata.set("pick_up_latitude", coordinate[0].lat);
-    ratedata.set("pick_up_longitude", coordinate[0].lng);
-    ratedata.set("drop_off_locations[0][drop_off_latitude]", coordinate[1].lat);
-    ratedata.set(
-      "drop_off_locations[0][drop_off_longitude]",
-      coordinate[1].lng
-    );
-    ratedata.set("drop_off_locations[0][booking_order]", "1");
-
-    if (coordinate[2]) {
-      ratedata.set(
-        "drop_off_locations[1][drop_off_latitude]",
-        coordinate[2].lat
-      );
-      ratedata.set(
-        "drop_off_locations[1][drop_off_longitude]",
-        coordinate[2].lng
-      );
-      ratedata.set("drop_off_locations[1][booking_order]", "2");
-    }
-    if (coordinate[3]) {
-      ratedata.set(
-        "drop_off_locations[2][drop_off_latitude]",
-        coordinate[3].lat
-      );
-      ratedata.set(
-        "drop_off_locations[2][drop_off_longitude]",
-        coordinate[3].lng
-      );
-      ratedata.set("drop_off_locations[2][booking_order]", "3");
-    }
-    if (coordinate[4]) {
-      ratedata.set(
-        "drop_off_locations[3][drop_off_latitude]",
-        coordinate[4].lat
-      );
-      ratedata.set(
-        "drop_off_locations[3][drop_off_longitude]",
-        coordinate[4].lng
-      );
-      ratedata.set("drop_off_locations[3][booking_order]", "4");
-    }
-    if (coordinate[5]) {
-      ratedata.set(
-        "drop_off_locations[4][drop_off_latitude]",
-        coordinate[5].lat
-      );
-      ratedata.set(
-        "drop_off_locations[4][drop_off_longitude]",
-        coordinate[5].lng
-      );
-      ratedata.set("drop_off_locations[4][booking_order]", "5");
-    }
-    if (coordinate[6]) {
-      ratedata.set(
-        "drop_off_locations[5][drop_off_latitude]",
-        coordinate[6].lat
-      );
-      ratedata.set(
-        "drop_off_locations[5][drop_off_longitude]",
-        coordinate[6].lng
-      );
-      ratedata.set("drop_off_locations[5][booking_order]", "6");
-    }
-    if (coordinate[7]) {
-      ratedata.set(
-        "drop_off_locations[6][drop_off_latitude]",
-        coordinate[7].lat
-      );
-      ratedata.set(
-        "drop_off_locations[6][drop_off_longitude]",
-        coordinate[7].lng
-      );
-      ratedata.set("drop_off_locations[6][booking_order]", "7");
-    }
-    if (coordinate[8]) {
-      ratedata.set(
-        "drop_off_locations[7][drop_off_latitude]",
-        coordinate[8].lat
-      );
-      ratedata.set(
-        "drop_off_locations[7][drop_off_longitude]",
-        coordinate[8].lng
-      );
-      ratedata.set("drop_off_locations[7][booking_order]", "8");
-    }
-    if (coordinate[9]) {
-      ratedata.set(
-        "drop_off_locations[8][drop_off_latitude]",
-        coordinate[9].lat
-      );
-      ratedata.set(
-        "drop_off_locations[8][drop_off_longitude]",
-        coordinate[9].lng
-      );
-      ratedata.set("drop_off_locations[8][booking_order]", "9");
-    }
-    if (coordinate[10]) {
-      ratedata.set(
-        "drop_off_locations[9][drop_off_latitude]",
-        coordinate[10].lat
-      );
-      ratedata.set(
-        "drop_off_locations[9][drop_off_longitude]",
-        coordinate[10].lng
-      );
-      ratedata.set("drop_off_locations[9][booking_order]", "10");
-    }
-    if (coordinate[11]) {
-      ratedata.set(
-        "drop_off_locations[10][drop_off_latitude]",
-        coordinate[11].lat
-      );
-      ratedata.set(
-        "drop_off_locations[10][drop_off_longitude]",
-        coordinate[11].lng
-      );
-      ratedata.set("drop_off_locations[10][booking_order]", "11");
-    }
-    if (coordinate[12]) {
-      ratedata.set(
-        "drop_off_locations[11][drop_off_latitude]",
-        coordinate[12].lat
-      );
-      ratedata.set(
-        "drop_off_locations[11][drop_off_longitude]",
-        coordinate[12].lng
-      );
-      ratedata.set("drop_off_locations[11][booking_order]", "12");
-    }
-    if (coordinate[13]) {
-      ratedata.set(
-        "drop_off_locations[12][drop_off_latitude]",
-        coordinate[13].lat
-      );
-      ratedata.set(
-        "drop_off_locations[12][drop_off_longitude]",
-        coordinate[13].lng
-      );
-      ratedata.set("drop_off_locations[12][booking_order]", "13");
-    }
-    if (coordinate[14]) {
-      ratedata.set(
-        "drop_off_locations[13][drop_off_latitude]",
-        coordinate[14].lat
-      );
-      ratedata.set(
-        "drop_off_locations[13][drop_off_longitude]",
-        coordinate[14].lng
-      );
-      ratedata.set("drop_off_locations[13][booking_order]", "14");
-    }
-    if (coordinate[15]) {
-      ratedata.set(
-        "drop_off_locations[14][drop_off_latitude]",
-        coordinate[15].lat
-      );
-      ratedata.set(
-        "drop_off_locations[14][drop_off_longitude]",
-        coordinate[15].lng
-      );
-      ratedata.set("drop_off_locations[14]booking_order]", "15");
-    }
-
-    addlistservice.map((addservice) => {
-      ratedata.set("additional_services[" + loopservices + "]", addservice),
-        (loopservices = loopservices + 1);
-    });
-
     const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
     const options = {
       headers: {
@@ -1430,15 +1231,110 @@ export default function map() {
         Authorization: "Bearer " + AuthService.getToken(),
       },
     };
-
+    let ratedata = new FormData();
+    var i;
+    var j;
+    ratedata.set("payment_method", "jgowallet");
+    ratedata.set("weight", weight);
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+        coordinate[i].lat
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+        coordinate[i].lng
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[booking_order]",
+        i.toString()
+      );
+    }
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
+    });
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
-        console.log(result);
         var price = result.data.price;
         setPricejgowallet(Number(price).toFixed(2));
         $(".divLoading").hide();
         $(".pPrice").show();
+      })
+      .catch((err) => {});
+  }
+
+
+  function trylang() {
+    var c;
+    for (c = 0; c < listdistance.length; ++c) {
+      console.log(
+        "drop_off_locations[" + c + "]" + "[distance]",
+        listdistance[c]
+      );
+    }
+
+  }
+
+  function getRateloop() {
+    $(".imgInfo").hide();
+    $(".pPrice").hide();
+    $(".divLoading").show();
+    const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
+    const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+      },
+    };
+    let ratedata = new FormData();
+    var i;
+    var j;
+    ratedata.set("payment_method", "cod");
+    ratedata.set("weight", weight);
+    ratedata.set("pick_up_latitude", coordinate[0].lat);
+    ratedata.set("pick_up_longitude", coordinate[0].lng);
+    for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+        coordinate[i].lat
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+        coordinate[i].lng
+      );
+      ratedata.set(
+        "drop_off_locations[" + j + "]" + "[booking_order]",
+        i.toString()
+      );
+    }
+    addlistservice.map((addservice) => {
+      ratedata.set("additional_services[" + loopservices + "]", addservice),
+        (loopservices = loopservices + 1);
+    });
+    axios
+      .post(apiUrl_rate, ratedata, options)
+      .then((result) => {
+        var price = result.data.price;
+        setPrice(Number(price).toFixed(2));
+        setListdistance(result.data.distance);
+        $(".imgInfo").show();
+        $(".divLoading").hide();
+        $(".pPrice").show();
+        try {
+          setBaserate(result.data.breakdown.base_rate);
+          setPerkm(result.data.breakdown.per_km);
+          setPlatformfee(result.data.breakdown.platform_fee);
+          setTotaldropoff(result.data.breakdown.totalAdditionalDropOffRate);
+          setTotalkm(result.data.breakdown.totalKilometerRate);
+          setSmsfee(result.data.breakdown.vonage_fee);
+          setWeightfee(result.data.breakdown.weight_fee);
+          setZoningfee(result.data.breakdown.zoning_fee);
+        } catch (e) {}
       })
       .catch((err) => {});
   }
@@ -1611,7 +1507,7 @@ export default function map() {
         "drop_off_locations[14][drop_off_longitude]",
         coordinate[15].lng
       );
-      ratedata.set("drop_off_locations[14]booking_order]", "15");
+      ratedata.set("drop_off_locations[14][booking_order]", "15");
     }
 
     addlistservice.map((addservice) => {
@@ -1631,11 +1527,6 @@ export default function map() {
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
-        for (var pair of ratedata.entries()) {
-          console.log(pair[0] + ", " + pair[1]);
-        }
-
-        console.log(result);
         var price = result.data.price;
         setPrice(Number(price).toFixed(2));
         setListdistance(result.data.distance);
@@ -1653,9 +1544,7 @@ export default function map() {
           setZoningfee(result.data.breakdown.zoning_fee);
         } catch (e) {}
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }
 
   function getCard() {
@@ -1673,7 +1562,6 @@ export default function map() {
     const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
-      console.log(result.data);
       $(".divLoading").hide();
       setListcard(result.data.user_card_details);
       if (result.data.user_card_details) {
@@ -1755,7 +1643,7 @@ export default function map() {
         );
       } else {
         clickpayment = 1;
-        console.log(addlistservice);
+
         $(".btnPayment").addClass("btn--loading");
         const options = {
           headers: {
@@ -1766,173 +1654,25 @@ export default function map() {
         };
 
         let ratedata = new FormData();
-        ratedata.set("payment_method", payment);
+        var i;
+        var j;
+        ratedata.set("payment_method", "cod");
         ratedata.set("weight", weight);
         ratedata.set("pick_up_latitude", coordinate[0].lat);
         ratedata.set("pick_up_longitude", coordinate[0].lng);
-        ratedata.set(
-          "drop_off_locations[0][drop_off_latitude]",
-          coordinate[1].lat
-        );
-        ratedata.set(
-          "drop_off_locations[0][drop_off_longitude]",
-          coordinate[1].lng
-        );
-        ratedata.set("drop_off_locations[0][booking_order]", "1");
-
-        if (coordinate[2]) {
+        for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
           ratedata.set(
-            "drop_off_locations[1][drop_off_latitude]",
-            coordinate[2].lat
+            "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+            coordinate[i].lat
           );
           ratedata.set(
-            "drop_off_locations[1][drop_off_longitude]",
-            coordinate[2].lng
-          );
-          ratedata.set("drop_off_locations[1][booking_order]", "2");
-        }
-        if (coordinate[3]) {
-          ratedata.set(
-            "drop_off_locations[2][drop_off_latitude]",
-            coordinate[3].lat
+            "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+            coordinate[i].lng
           );
           ratedata.set(
-            "drop_off_locations[2][drop_off_longitude]",
-            coordinate[3].lng
+            "drop_off_locations[" + j + "]" + "[booking_order]",
+            i.toString()
           );
-          ratedata.set("drop_off_locations[2][booking_order]", "3");
-        }
-        if (coordinate[4]) {
-          ratedata.set(
-            "drop_off_locations[3][drop_off_latitude]",
-            coordinate[4].lat
-          );
-          ratedata.set(
-            "drop_off_locations[3][drop_off_longitude]",
-            coordinate[4].lng
-          );
-          ratedata.set("drop_off_locations[3][booking_order]", "4");
-        }
-        if (coordinate[5]) {
-          ratedata.set(
-            "drop_off_locations[4][drop_off_latitude]",
-            coordinate[5].lat
-          );
-          ratedata.set(
-            "drop_off_locations[4][drop_off_longitude]",
-            coordinate[5].lng
-          );
-          ratedata.set("drop_off_locations[4][booking_order]", "5");
-        }
-        if (coordinate[6]) {
-          ratedata.set(
-            "drop_off_locations[5][drop_off_latitude]",
-            coordinate[6].lat
-          );
-          ratedata.set(
-            "drop_off_locations[5][drop_off_longitude]",
-            coordinate[6].lng
-          );
-          ratedata.set("drop_off_locations[5][booking_order]", "6");
-        }
-        if (coordinate[7]) {
-          ratedata.set(
-            "drop_off_locations[6][drop_off_latitude]",
-            coordinate[7].lat
-          );
-          ratedata.set(
-            "drop_off_locations[6][drop_off_longitude]",
-            coordinate[7].lng
-          );
-          ratedata.set("drop_off_locations[6][booking_order]", "7");
-        }
-        if (coordinate[8]) {
-          ratedata.set(
-            "drop_off_locations[7][drop_off_latitude]",
-            coordinate[8].lat
-          );
-          ratedata.set(
-            "drop_off_locations[7][drop_off_longitude]",
-            coordinate[8].lng
-          );
-          ratedata.set("drop_off_locations[7][booking_order]", "8");
-        }
-        if (coordinate[9]) {
-          ratedata.set(
-            "drop_off_locations[8][drop_off_latitude]",
-            coordinate[9].lat
-          );
-          ratedata.set(
-            "drop_off_locations[8][drop_off_longitude]",
-            coordinate[9].lng
-          );
-          ratedata.set("drop_off_locations[8][booking_order]", "9");
-        }
-        if (coordinate[10]) {
-          ratedata.set(
-            "drop_off_locations[9][drop_off_latitude]",
-            coordinate[10].lat
-          );
-          ratedata.set(
-            "drop_off_locations[9][drop_off_longitude]",
-            coordinate[10].lng
-          );
-          ratedata.set("drop_off_locations[9][booking_order]", "10");
-        }
-        if (coordinate[11]) {
-          ratedata.set(
-            "drop_off_locations[10][drop_off_latitude]",
-            coordinate[11].lat
-          );
-          ratedata.set(
-            "drop_off_locations[10][drop_off_longitude]",
-            coordinate[11].lng
-          );
-          ratedata.set("drop_off_locations[10][booking_order]", "11");
-        }
-        if (coordinate[12]) {
-          ratedata.set(
-            "drop_off_locations[11][drop_off_latitude]",
-            coordinate[12].lat
-          );
-          ratedata.set(
-            "drop_off_locations[11][drop_off_longitude]",
-            coordinate[12].lng
-          );
-          ratedata.set("drop_off_locations[11][booking_order]", "12");
-        }
-        if (coordinate[13]) {
-          ratedata.set(
-            "drop_off_locations[12][drop_off_latitude]",
-            coordinate[13].lat
-          );
-          ratedata.set(
-            "drop_off_locations[12][drop_off_longitude]",
-            coordinate[13].lng
-          );
-          ratedata.set("drop_off_locations[12][booking_order]", "13");
-        }
-        if (coordinate[14]) {
-          ratedata.set(
-            "drop_off_locations[13][drop_off_latitude]",
-            coordinate[14].lat
-          );
-          ratedata.set(
-            "drop_off_locations[13][drop_off_longitude]",
-            coordinate[14].lng
-          );
-          ratedata.set("drop_off_locations[13][booking_order]", "14");
-        }
-        if (coordinate[15]) {
-          ratedata.set(
-            "drop_off_locations[14][drop_off_latitude]",
-            coordinate[15].lat
-          );
-          ratedata.set(
-            "drop_off_locations[14][drop_off_longitude]",
-            coordinate[15].lng
-          );
-          ratedata.set("drop_off_locations[14]booking_order]", "15");
         }
 
         if (addlistservice === undefined || addlistservice.length == 0) {
@@ -1948,20 +1688,21 @@ export default function map() {
         }
 
         let formdata = new FormData();
+        var a;
+        var b;
+        var c;
         formdata.set("customer_id", AuthService.getId());
 
         formdata.set("contact_name", coordinate[0].detailsname);
         formdata.set("contact_number", coordinate[0].detailsnumber);
-        if (coordinate[0].detailsAdd) {
-          formdata.set("note", coordinate[0].detailsAdd);
-        } else {
-          formdata.set("note", "No notes to display");
-        }
+        formdata.set("payment_method", payment);
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
-        formdata.set("duration", Math.floor(Number(durationmap / 60)) + " mins");
-        formdata.set("payment_method", payment);
+        formdata.set(
+          "duration",
+          Math.floor(Number(durationmap / 60)) + " mins"
+        );
         if (payment == "debit_credit") {
           formdata.set("client_token", cardtoken);
         } else {
@@ -1971,668 +1712,61 @@ export default function map() {
         }
         if (statusschedule == "true") {
           formdata.set("scheduled_time", formattime);
-          formdata.set("scheduled_date",formatdate);
+          formdata.set("scheduled_date", formatdate);
           scheduledbook = 1;
         }
-
         formdata.set("weight", weight);
 
-        formdata.set(
-          "drop_off_locations[0][drop_off_address]",
-          addressDrop.label
-        );
-        formdata.set(
-          "drop_off_locations[0][drop_off_latitude]",
-          coordinate[1].lat
-        );
-        formdata.set(
-          "drop_off_locations[0][drop_off_longitude]",
-          coordinate[1].lng
-        );
-        formdata.set("drop_off_locations[0][booking_order]", "1");
-        formdata.set(
-          "drop_off_locations[0][contact_name]",
-          coordinate[1].detailsname
-        );
-        formdata.set(
-          "drop_off_locations[0][contact_number]",
-          coordinate[1].detailsnumber
-        );
-
-        if (coordinate[1].detailsAdd) {
+        for (c = 0; c < listdistance.length; ++c) {
           formdata.set(
-            "drop_off_locations[0][notes]",
-            coordinate[1].detailsAdd
+            "drop_off_locations[" + c + "]" + "[distance]",
+            listdistance[c]
           );
-        } else {
-          formdata.set("drop_off_locations[0][notes]", "No notes to display");
         }
 
-        if (coordinate[1].category) {
-          formdata.set(
-            "drop_off_locations[0][category_id]",
-            coordinate[1].category
-          );
-        } else {
-          formdata.set("drop_off_locations[0][category_id]", "6");
-        }
-        formdata.set("drop_off_locations[0][distance]", "5.4");
-
-        if (listdistance[0]) {
-          formdata.set("drop_off_locations[0][distance]", listdistance[0]);
-        } else {
-          formdata.set("drop_off_locations[0][distance]", "5.4");
-        }
-
-        if (coordinate[2]) {
-          formdata.set(
-            "drop_off_locations[1][drop_off_address]",
-            coordinate[2].address
-          );
-          formdata.set(
-            "drop_off_locations[1][drop_off_latitude]",
-            coordinate[2].lat
-          );
-          formdata.set(
-            "drop_off_locations[1][drop_off_longitude]",
-            coordinate[2].lng
-          );
-          formdata.set("drop_off_locations[1][booking_order]", "2");
-          formdata.set(
-            "drop_off_locations[1][contact_name]",
-            coordinate[2].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[1][contact_number]",
-            coordinate[2].detailsnumber
-          );
-
-          if (coordinate[2].category) {
-            formdata.set(
-              "drop_off_locations[1][category_id]",
-              coordinate[2].category
-            );
+        for (a = 1, b = 0; a < coordinate.length; ++a, ++b) {
+          if (coordinate[b].detailsAdd) {
+            formdata.set("note", coordinate[a].detailsAdd);
           } else {
-            formdata.set("drop_off_locations[1][category_id]", "6");
-          }
-          if (listdistance[1]) {
-            formdata.set("drop_off_locations[1][distance]", listdistance[1]);
-          } else {
-            formdata.set("drop_off_locations[1][distance]", "5.4");
+            formdata.set("note", "No notes to display");
           }
 
-          if (coordinate[2].detailsAdd) {
+          if (coordinate[b].category) {
             formdata.set(
-              "drop_off_locations[1][notes]",
-              coordinate[2].detailsAdd
+              "drop_off_locations[" + b + "]" + "[category_id]",
+              coordinate[a].category
             );
           } else {
-            formdata.set("drop_off_locations[1][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[3]) {
-          formdata.set(
-            "drop_off_locations[2][drop_off_address]",
-            coordinate[3].address
-          );
-          formdata.set(
-            "drop_off_locations[2][drop_off_latitude]",
-            coordinate[3].lat
-          );
-          formdata.set(
-            "drop_off_locations[2][drop_off_longitude]",
-            coordinate[3].lng
-          );
-          formdata.set("drop_off_locations[2][booking_order]", "3");
-          formdata.set(
-            "drop_off_locations[2][contact_name]",
-            coordinate[3].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[2][contact_number]",
-            coordinate[3].detailsnumber
-          );
-          if (coordinate[3].category) {
             formdata.set(
-              "drop_off_locations[2][category_id]",
-              coordinate[3].category
+              "drop_off_locations[" + b + "]" + "[category_id]",
+              "6"
             );
-          } else {
-            formdata.set("drop_off_locations[2][category_id]", "6");
-          }
-          if (listdistance[2]) {
-            formdata.set("drop_off_locations[2][distance]", listdistance[2]);
-          } else {
-            formdata.set("drop_off_locations[2][distance]", "5.4");
           }
 
-          if (coordinate[3].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[2][notes]",
-              coordinate[3].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[2][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[4]) {
           formdata.set(
-            "drop_off_locations[3][drop_off_address]",
-            coordinate[4].address
+            "drop_off_locations[" + b + "]" + "[drop_off_address]",
+            coordinate[a].address
           );
           formdata.set(
-            "drop_off_locations[3][drop_off_latitude]",
-            coordinate[4].lat
+            "drop_off_locations[" + b + "]" + "[drop_off_latitude]",
+            coordinate[a].lat
           );
           formdata.set(
-            "drop_off_locations[3][drop_off_longitude]",
-            coordinate[4].lng
-          );
-          formdata.set("drop_off_locations[3][booking_order]", "4");
-          formdata.set(
-            "drop_off_locations[3][contact_name]",
-            coordinate[4].detailsname
+            "drop_off_locations[" + b + "]" + "[drop_off_longitude]",
+            coordinate[a].lng
           );
           formdata.set(
-            "drop_off_locations[3][contact_number]",
-            coordinate[4].detailsnumber
-          );
-          if (coordinate[4].category) {
-            formdata.set(
-              "drop_off_locations[3][category_id]",
-              coordinate[4].category
-            );
-          } else {
-            formdata.set("drop_off_locations[3][category_id]", "6");
-          }
-          if (listdistance[3]) {
-            formdata.set("drop_off_locations[3][distance]", listdistance[3]);
-          } else {
-            formdata.set("drop_off_locations[3][distance]", "5.4");
-          }
-
-          if (coordinate[4].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[3][notes]",
-              coordinate[4].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[3][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[5]) {
-          formdata.set(
-            "drop_off_locations[4][drop_off_address]",
-            coordinate[5].address
+            "drop_off_locations[" + b + "]" + "[booking_order]",
+            a.toString()
           );
           formdata.set(
-            "drop_off_locations[4][drop_off_latitude]",
-            coordinate[5].lat
+            "drop_off_locations[" + b + "]" + "[contact_name]",
+            coordinate[a].detailsname
           );
           formdata.set(
-            "drop_off_locations[4][drop_off_longitude]",
-            coordinate[5].lng
+            "drop_off_locations[" + b + "]" + "[contact_number]",
+            coordinate[a].detailsnumber
           );
-          formdata.set("drop_off_locations[4][booking_order]", "5");
-          formdata.set(
-            "drop_off_locations[4][contact_name]",
-            coordinate[5].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[4][contact_number]",
-            coordinate[5].detailsnumber
-          );
-          if (coordinate[5].category) {
-            formdata.set(
-              "drop_off_locations[4][category_id]",
-              coordinate[5].category
-            );
-          } else {
-            formdata.set("drop_off_locations[4][category_id]", "6");
-          }
-          if (listdistance[4]) {
-            formdata.set("drop_off_locations[4][distance]", listdistance[4]);
-          } else {
-            formdata.set("drop_off_locations[4][distance]", "5.4");
-          }
-
-          if (coordinate[5].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[4][notes]",
-              coordinate[5].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[4][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[6]) {
-          formdata.set(
-            "drop_off_locations[5][drop_off_address]",
-            coordinate[6].address
-          );
-          formdata.set(
-            "drop_off_locations[5][drop_off_latitude]",
-            coordinate[6].lat
-          );
-          formdata.set(
-            "drop_off_locations[5][drop_off_longitude]",
-            coordinate[6].lng
-          );
-          formdata.set("drop_off_locations[5][booking_order]", "6");
-          formdata.set(
-            "drop_off_locations[5][contact_name]",
-            coordinate[6].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[5][contact_number]",
-            coordinate[6].detailsnumber
-          );
-          if (coordinate[6].category) {
-            formdata.set(
-              "drop_off_locations[5][category_id]",
-              coordinate[6].category
-            );
-          } else {
-            formdata.set("drop_off_locations[5][category_id]", "6");
-          }
-          if (listdistance[0]) {
-            formdata.set("drop_off_locations[5][distance]", listdistance[5]);
-          } else {
-            formdata.set("drop_off_locations[5][distance]", "5.4");
-          }
-
-          if (coordinate[6].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[5][notes]",
-              coordinate[6].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[5][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[7]) {
-          formdata.set(
-            "drop_off_locations[6][drop_off_address]",
-            coordinate[7].address
-          );
-          formdata.set(
-            "drop_off_locations[6][drop_off_latitude]",
-            coordinate[7].lat
-          );
-          formdata.set(
-            "drop_off_locations[6][drop_off_longitude]",
-            coordinate[7].lng
-          );
-          formdata.set("drop_off_locations[6][booking_order]", "7");
-          formdata.set(
-            "drop_off_locations[6][contact_name]",
-            coordinate[7].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[6][contact_number]",
-            coordinate[7].detailsnumber
-          );
-          if (coordinate[7].category) {
-            formdata.set(
-              "drop_off_locations[6][category_id]",
-              coordinate[7].category
-            );
-          } else {
-            formdata.set("drop_off_locations[6][category_id]", "6");
-          }
-          if (listdistance[6]) {
-            formdata.set("drop_off_locations[6][distance]", listdistance[6]);
-          } else {
-            formdata.set("drop_off_locations[6][distance]", "5.4");
-          }
-
-          if (coordinate[7].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[6][notes]",
-              coordinate[7].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[5][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[8]) {
-          formdata.set(
-            "drop_off_locations[7][drop_off_address]",
-            coordinate[8].address
-          );
-          formdata.set(
-            "drop_off_locations[7][drop_off_latitude]",
-            coordinate[8].lat
-          );
-          formdata.set(
-            "drop_off_locations[7][drop_off_longitude]",
-            coordinate[8].lng
-          );
-          formdata.set("drop_off_locations[7][booking_order]", "8");
-          formdata.set(
-            "drop_off_locations[7][contact_name]",
-            coordinate[8].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[7][contact_number]",
-            coordinate[8].detailsnumber
-          );
-          if (coordinate[8].category) {
-            formdata.set(
-              "drop_off_locations[7][category_id]",
-              coordinate[8].category
-            );
-          } else {
-            formdata.set("drop_off_locations[7][category_id]", "6");
-          }
-          if (listdistance[7]) {
-            formdata.set("drop_off_locations[7][distance]", listdistance[7]);
-          } else {
-            formdata.set("drop_off_locations[7][distance]", "5.4");
-          }
-
-          if (coordinate[8].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[7][notes]",
-              coordinate[8].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[7][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[9]) {
-          formdata.set(
-            "drop_off_locations[8][drop_off_address]",
-            coordinate[9].address
-          );
-          formdata.set(
-            "drop_off_locations[8][drop_off_latitude]",
-            coordinate[9].lat
-          );
-          formdata.set(
-            "drop_off_locations[8][drop_off_longitude]",
-            coordinate[9].lng
-          );
-          formdata.set("drop_off_locations[8][booking_order]", "9");
-          formdata.set(
-            "drop_off_locations[8][contact_name]",
-            coordinate[9].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[8][contact_number]",
-            coordinate[9].detailsnumber
-          );
-          if (coordinate[9].category) {
-            formdata.set(
-              "drop_off_locations[8][category_id]",
-              coordinate[9].category
-            );
-          } else {
-            formdata.set("drop_off_locations[8][category_id]", "6");
-          }
-          if (listdistance[9]) {
-            formdata.set("drop_off_locations[8][distance]", listdistance[8]);
-          } else {
-            formdata.set("drop_off_locations[8][distance]", "5.4");
-          }
-
-          if (coordinate[9].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[8][notes]",
-              coordinate[9].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[8][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[10]) {
-          formdata.set(
-            "drop_off_locations[9][drop_off_address]",
-            coordinate[10].address
-          );
-          formdata.set(
-            "drop_off_locations[9][drop_off_latitude]",
-            coordinate[10].lat
-          );
-          formdata.set(
-            "drop_off_locations[9][drop_off_longitude]",
-            coordinate[10].lng
-          );
-          formdata.set("drop_off_locations[9][booking_order]", "10");
-          formdata.set(
-            "drop_off_locations[9][contact_name]",
-            coordinate[10].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[9][contact_number]",
-            coordinate[10].detailsnumber
-          );
-          if (coordinate[10].category) {
-            formdata.set(
-              "drop_off_locations[9][category_id]",
-              coordinate[10].category
-            );
-          } else {
-            formdata.set("drop_off_locations[9][category_id]", "6");
-          }
-          if (listdistance[10]) {
-            formdata.set("drop_off_locations[9][distance]", listdistance[9]);
-          } else {
-            formdata.set("drop_off_locations[9][distance]", "5.4");
-          }
-
-          if (coordinate[10].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[9][notes]",
-              coordinate[10].detailsAdd
-            );
-          } else {
-            formdata.set("drop_off_locations[9][notes]", "No notes to display");
-          }
-        }
-
-        if (coordinate[11]) {
-          formdata.set(
-            "drop_off_locations[10][drop_off_address]",
-            coordinate[11].address
-          );
-          formdata.set(
-            "drop_off_locations[10][drop_off_latitude]",
-            coordinate[11].lat
-          );
-          formdata.set(
-            "drop_off_locations[10][drop_off_longitude]",
-            coordinate[11].lng
-          );
-          formdata.set("drop_off_locations[10][booking_order]", "11");
-          formdata.set(
-            "drop_off_locations[10][contact_name]",
-            coordinate[11].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[10][contact_number]",
-            coordinate[11].detailsnumber
-          );
-          if (coordinate[11].category) {
-            formdata.set(
-              "drop_off_locations[10][category_id]",
-              coordinate[11].category
-            );
-          } else {
-            formdata.set("drop_off_locations[10][category_id]", "6");
-          }
-          if (listdistance[11]) {
-            formdata.set("drop_off_locations[10][distance]", listdistance[10]);
-          } else {
-            formdata.set("drop_off_locations[10][distance]", "5.4");
-          }
-
-          if (coordinate[11].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[10][notes]",
-              coordinate[11].detailsAdd
-            );
-          } else {
-            formdata.set(
-              "drop_off_locations[10][notes]",
-              "No notes to display"
-            );
-          }
-        }
-
-        if (coordinate[12]) {
-          formdata.set(
-            "drop_off_locations[11][drop_off_address]",
-            coordinate[12].address
-          );
-          formdata.set(
-            "drop_off_locations[11][drop_off_latitude]",
-            coordinate[12].lat
-          );
-          formdata.set(
-            "drop_off_locations[11][drop_off_longitude]",
-            coordinate[12].lng
-          );
-          formdata.set("drop_off_locations[11][booking_order]", "12");
-          formdata.set(
-            "drop_off_locations[11][contact_name]",
-            coordinate[12].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[11][contact_number]",
-            coordinate[12].detailsnumber
-          );
-          if (coordinate[12].category) {
-            formdata.set(
-              "drop_off_locations[11][category_id]",
-              coordinate[12].category
-            );
-          } else {
-            formdata.set("drop_off_locations[11][category_id]", "6");
-          }
-          if (listdistance[12]) {
-            formdata.set("drop_off_locations[11][distance]", listdistance[11]);
-          } else {
-            formdata.set("drop_off_locations[11][distance]", "5.4");
-          }
-
-          if (coordinate[12].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[11][notes]",
-              coordinate[12].detailsAdd
-            );
-          } else {
-            formdata.set(
-              "drop_off_locations[11][notes]",
-              "No notes to display"
-            );
-          }
-        }
-
-        if (coordinate[13]) {
-          formdata.set(
-            "drop_off_locations[12][drop_off_address]",
-            coordinate[13].address
-          );
-          formdata.set(
-            "drop_off_locations[12][drop_off_latitude]",
-            coordinate[13].lat
-          );
-          formdata.set(
-            "drop_off_locations[12][drop_off_longitude]",
-            coordinate[13].lng
-          );
-          formdata.set("drop_off_locations[12][booking_order]", "13");
-          formdata.set(
-            "drop_off_locations[12][contact_name]",
-            coordinate[13].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[12][contact_number]",
-            coordinate[13].detailsnumber
-          );
-          if (coordinate[13].category) {
-            formdata.set(
-              "drop_off_locations[12][category_id]",
-              coordinate[13].category
-            );
-          } else {
-            formdata.set("drop_off_locations[12][category_id]", "6");
-          }
-          if (listdistance[13]) {
-            formdata.set("drop_off_locations[12][distance]", listdistance[12]);
-          } else {
-            formdata.set("drop_off_locations[12][distance]", "5.4");
-          }
-
-          if (coordinate[13].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[12][notes]",
-              coordinate[13].detailsAdd
-            );
-          } else {
-            formdata.set(
-              "drop_off_locations[12][notes]",
-              "No notes to display"
-            );
-          }
-        }
-
-        if (coordinate[14]) {
-          formdata.set(
-            "drop_off_locations[13][drop_off_address]",
-            coordinate[14].address
-          );
-          formdata.set(
-            "drop_off_locations[13][drop_off_latitude]",
-            coordinate[14].lat
-          );
-          formdata.set(
-            "drop_off_locations[13][drop_off_longitude]",
-            coordinate[14].lng
-          );
-          formdata.set("drop_off_locations[13][booking_order]", "14");
-          formdata.set(
-            "drop_off_locations[13][contact_name]",
-            coordinate[14].detailsname
-          );
-          formdata.set(
-            "drop_off_locations[13][contact_number]",
-            coordinate[14].detailsnumber
-          );
-          if (coordinate[14].category) {
-            formdata.set(
-              "drop_off_locations[13][category_id]",
-              coordinate[14].category
-            );
-          } else {
-            formdata.set("drop_off_locations[13][category_id]", "6");
-          }
-          if (listdistance[14]) {
-            formdata.set("drop_off_locations[13][distance]", listdistance[13]);
-          } else {
-            formdata.set("drop_off_locations[13][distance]", "5.4");
-          }
-
-          if (coordinate[14].detailsAdd) {
-            formdata.set(
-              "drop_off_locations[13][notes]",
-              coordinate[14].detailsAdd
-            );
-          } else {
-            formdata.set(
-              "drop_off_locations[13][notes]",
-              "No notes to display"
-            );
-          }
         }
 
         if (addlistservice === undefined || addlistservice.length == 0) {
@@ -2654,7 +1788,6 @@ export default function map() {
         axios
           .post(apiUrl_rate, ratedata, options)
           .then((result) => {
-            console.log(result);
             formdata.set("price", parseFloat(result.data.price));
 
             var price = parseFloat(result.data.price);
@@ -2662,10 +1795,9 @@ export default function map() {
             axios
               .post(apiUrl, formdata, options)
               .then((result) => {
-                console.log(result);
                 if (result.data.status == "Failed") {
                   $(".btnPayment").removeClass("btn--loading");
-                  console.log(cardtoken);
+
                   swal(
                     <div style={{ width: "450px", padding: "10px" }}>
                       <div className="container">
@@ -2695,16 +1827,10 @@ export default function map() {
                   );
                 } else {
                   localStorage.setItem("activeid", result.data.data);
-                  for (var pair of formdata.entries()) {
-                    console.log(pair[0] + ", " + pair[1]);
-                  }
                   router.push("/profile");
                 }
               })
               .catch((err) => {
-                for (var pair of formdata.entries()) {
-                  console.log(pair[0] + ", " + pair[1]);
-                }
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -2769,7 +1895,7 @@ export default function map() {
 
   function gotoPayment() {
     $(".pWalletno").hide();
-    console.log(coordinate);
+
     var countlocation = 0;
     locationCod.splice(0, locationCod.length);
 
@@ -2793,7 +1919,6 @@ export default function map() {
     $(".divStopOff:visible")
       .find(".txtValidation")
       .each(function () {
-
         if (numberbooking > 9) {
           x = 0;
           swal(
@@ -2811,16 +1936,13 @@ export default function map() {
                   </div>
                   <div className="col-lg-10" style={{ textAlign: "left" }}>
                     <p className="pError">Warning</p>
-                    <p className="pErrorSub">
-                     Maximum booking allowed is 10.
-                    </p>
+                    <p className="pErrorSub">Maximum booking allowed is 10.</p>
                   </div>
                 </div>
               </div>
             </div>
           );
-        }
-        else if ($(this).val() == "") {
+        } else if ($(this).val() == "") {
           x = 0;
           $(this).css("border", "1px solid #f44336");
           $(this).closest(".divHide").find(".divAdd").fadeIn(200);
@@ -2848,39 +1970,40 @@ export default function map() {
             </div>
           );
         } else if (statusschedule == "true") {
-            if(scheduletime == "") {
-              x = 0;
-              swal(
-                <div style={{ width: "450px", padding: "10px" }}>
-                  <div className="container">
-                    <div
-                      className="row align-items-center"
-                      style={{ borderLeft: "3px solid #FFE900" }}
-                    >
-                      <div className="col-lg-2">
-                        <img
-                          src="Image/complain.png"
-                          style={{ width: "32px" }}
-                        ></img>
-                      </div>
-                      <div className="col-lg-10" style={{ textAlign: "left" }}>
-                        <p className="pError">Warning</p>
-                        <p className="pErrorSub">
-                         Please input a valid date.
-                        </p>
-                      </div>
+          if (scheduletime == "") {
+            x = 0;
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #FFE900" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/complain.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Warning</p>
+                      <p className="pErrorSub">Please input a valid date.</p>
                     </div>
                   </div>
                 </div>
-              );
-              $(".react-datepicker__input-container input").css("borderColor","red")
-            }
+              </div>
+            );
+            $(".react-datepicker__input-container input").css(
+              "borderColor",
+              "red"
+            );
+          }
         }
       })
       .promise()
       .done(function () {
         if (x == 1) {
-          getRate();
+          getRateloop();
           getRatewallet();
           setMethod();
           $("#exampleModalCenter").modal("toggle");
@@ -2964,14 +2087,13 @@ export default function map() {
     $(".imgCheck").hide();
     $(".divCod").css("border", "1px solid #373A41");
     $(e.currentTarget).find(".imgCheck").fadeIn(150);
-    console.log(wallet);
-    console.log(price);
+
     $(e.currentTarget).css("border", "1px solid #FDBF00");
     var walletvalue = Math.floor(wallet);
     var pricevalue = Math.floor(price);
     if (walletvalue < pricevalue) {
       $(".pWalletno").show();
-      console.log(wallet + ":" + price);
+
       setPayment("");
     } else {
       setPayment("jgowallet");
@@ -2994,42 +2116,28 @@ export default function map() {
   }
 
   function selectTime(e) {
- 
-   
-   if(e.currentTarget.classList.contains("divTime2")) {
-    swal(
-      <div style={{ width: "450px", padding: "10px" }}>
-        <div className="container">
-          <div
-            className="row align-items-center"
-            style={{ borderLeft: "3px solid #FFE900" }}
-          >
-            <div className="col-lg-2">
-              <img
-                src="Image/complain.png"
-                style={{ width: "32px" }}
-              ></img>
-            </div>
-            <div
-              className="col-lg-10"
-              style={{ textAlign: "left" }}
-            >
-              <p className="pError">Error</p>
-              <p className="pErrorSub">This feature is under development.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-   }else {
-        $(".divTime").css("border-color", "#2c2c2c");
-    $(".imgChecktime").hide();
-    $(e.currentTarget).css("border-color", "#FADD5D");
-    $(e.currentTarget).find(".imgChecktime").show();
-    $(".divTime").css("height","auto");
-    $(".react-datepicker__input-container ").attr("style", "display: none !important")
-    setStatusschedule("false")
-   }
+    if (e.currentTarget.classList.contains("divTime2")) {
+      $(".divTime").css("border-color", "#2c2c2c");
+      $(".imgChecktime").hide();
+      $(e.currentTarget).css("border-color", "#FADD5D");
+      $(e.currentTarget).find(".imgChecktime").show();
+      $(".react-datepicker__input-container ").attr(
+        "style",
+        "display: block !important"
+      );
+      setStatusschedule("true");
+    } else {
+      $(".divTime").css("border-color", "#2c2c2c");
+      $(".imgChecktime").hide();
+      $(e.currentTarget).css("border-color", "#FADD5D");
+      $(e.currentTarget).find(".imgChecktime").show();
+      $(".divTime").css("height", "auto");
+      $(".react-datepicker__input-container ").attr(
+        "style",
+        "display: none !important"
+      );
+      setStatusschedule("false");
+    }
   }
 
   return (
@@ -3076,7 +2184,8 @@ export default function map() {
               {" "}
               <img
                 src="Image/mapgps.svg"
-                className="img-fluid imgGps" onClick = {tryduration}
+                className="img-fluid imgGps"
+                onClick={trylang}
                 style={{ marginRight: "10px" }}
               ></img>{" "}
               Pickup
@@ -3128,7 +2237,7 @@ export default function map() {
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
-                         onInput={numOnly}
+                        onInput={numOnly}
                       />
                     </div>
                     <div className="col-lg-12">
@@ -3380,7 +2489,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
-                           onInput={numOnly}
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4341,7 +3450,7 @@ export default function map() {
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
-                           onInput={numOnly}
+                          onInput={numOnly}
                         />
                       </div>
                       <div className="col-lg-6">
@@ -4483,6 +3592,29 @@ export default function map() {
                   </div>
                 </div>
                 <div className="col-lg-6">
+                  <div className="divTime divTime2" onClick={selectTime}>
+                    <img
+                      src="Image/check.png"
+                      className="img-fluid imgChecktime"
+                      style={{ display: "none" }}
+                    ></img>
+                    <p className="pDivtime">Schedule</p>
+                    <p className="pDivtimesub">
+                      We will book your delivery with your given time and date.
+                    </p>
+                    <DatePicker
+                      selected={scheduletime}
+                      onChange={changeScheduled}
+                      showTimeSelect
+                      withPortal
+                      minDate={new Date()}
+                      placeholderText="Click to select a date"
+                      filterTime={filterPassedTime}
+                      dateFormat="MMMM d, yyyy h:mm aa"
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-6">
                   <div
                     className="divTime divTime1"
                     style={{ borderColor: "#FADD5D" }}
@@ -4498,36 +3630,9 @@ export default function map() {
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-6">
-                  <div className="divTime divTime2" onClick={selectTime}>
-                    <img
-                      src="Image/check.png"
-                      className="img-fluid imgChecktime"
-                      style={{ display: "none" }}
-                    ></img>
-                    <p className="pDivtime">Schedule</p>
-                    <p className="pDivtimesub">
-                      We will book your delivery with your given time and date.
-                    </p>
-                    <DatePicker
-                    selected={scheduletime}
-                    onChange={changeScheduled}
-                    showTimeSelect
-                    withPortal
-                    minDate={new Date()}
-                    placeholderText="Click to select a date"
-                    filterTime={filterPassedTime}
-                    disabled
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                  />
-                  </div>
-                </div>
-                <div className = "col-lg-6">
-
-                </div>
-                <div className="col-lg-6">
-                  
-                </div>
+               
+                <div className="col-lg-6"></div>
+                <div className="col-lg-6"></div>
               </div>
               <div className="row" style={{ marginTop: "20px" }}>
                 <div className="col-lg-12">

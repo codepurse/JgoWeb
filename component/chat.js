@@ -55,7 +55,7 @@ useEffect(() => {
             Object.keys(response.channels).map((keyName, i) => {
               try {
                 var x = JSON.parse(JSON.stringify(response.channels[keyName]));
-                console.log(x[0].channel);
+          
                 setLenght(response.channels[channels].length)
                 setMessages(response.channels[channels]);
                 
@@ -99,7 +99,7 @@ useEffect(() => {
                       );
 
                       if (x[0].channel == channel_id) {
-                        console.log(minimize)
+                    
                         setLenght(response.channels[channels].length)
                         setMessages(response.channels[channels]);
                         if (($(".conChatbox").height() + 400) < 500) {
@@ -113,7 +113,7 @@ useEffect(() => {
                       var myscroll = $(".rowChat");
                       myscroll.scrollTop(myscroll.get(0).scrollHeight);
                     } catch (e) {
-                      console.log(e);
+                     
                     }
                   });
                 } catch (e) {}
@@ -223,7 +223,7 @@ useEffect(() => {
             <div className="form-inline">
               <div className="divOnline"></div>
               <p className="pSupportchat">
-                JGO Support 
+                Jgo Support 
               </p>
             </div>
           </div>
@@ -289,7 +289,7 @@ useEffect(() => {
                       }
                     }
                   } catch (e) {
-                    console.log(e);
+                   
                   }
                 })}
               </div>
