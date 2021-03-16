@@ -116,7 +116,7 @@ export default function training() {
                   sa JGO Rider Test.
                 </p>
                 <div className="mx-auto text-center">
-                  <Link href = "https://docs.google.com/forms/d/1ZJS6n5Mj_jo9KcROoglK1YfCTfcUQLJn9z-QAnh_KCo/prefill?gxids=7628">
+                  <Link href = "https://docs.google.com/forms/d/e/1FAIpQLSfTtc5NeALFBmCbu4HkKc_iixWwPShe1bdurZ1J4nRZ-d-5HQ/viewform">
                     <a>
                     <button className="btnBegin">BEGIN TEST</button>
                     </a>

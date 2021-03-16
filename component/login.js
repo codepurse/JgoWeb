@@ -121,7 +121,7 @@ export class login extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log(response.profileObj);
+  
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -147,11 +147,11 @@ export class login extends Component {
           this.setState({ lname: response.profileObj.familyName });
           $("#modalRegister").modal("toggle");
         } else {
-          console.log(result.data);
+      
           localStorage.setItem("google", JSON.stringify(result.data));
           window.location.reload();
         }
-        console.log(result.data);
+    
       })
       .catch((err) => {
         swal(
@@ -179,7 +179,7 @@ export class login extends Component {
   };
 
   responseFacebook = (response) => {
-    console.log(response);
+  
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -209,13 +209,12 @@ export class login extends Component {
         } else {
           localStorage.setItem("fb", JSON.stringify(result.data));
           window.location.reload();
-          console.log(result.data);
+      
         }
-        console.log(result.data.status);
+    
       })
       .catch((err) => {
-        console.log(err);
-        console.log(response);
+       
       });
   };
 
@@ -279,9 +278,9 @@ export class login extends Component {
     if (firstchar == "0" || firstchar == 0) {
       var str = str.replace(/^./, "63");
       this.setState({ otpnumber: str });
-      console.log(str);
+  
     } else {
-      console.log(str);
+   
     }
 
     if (clear == 0 && submit == 0) {
@@ -296,7 +295,7 @@ export class login extends Component {
       axios
         .post(apiUrl, { mobile_no: this.state.mobile }, options)
         .then((result) => {
-          console.log(result);
+     
           const options = {
             headers: {
               Accept: "application/json, text/plain, */*",
@@ -312,7 +311,7 @@ export class login extends Component {
               submit == 0;
               clear == 0;
               $(".btn").removeClass("btn--loading");
-              console.log(result.data);
+           
               localStorage.setItem("requestid", result.data.request_id);
               this.setState({ requestid: result.data.request_id });
               sessionStorage.setItem("otp", "1");
@@ -323,7 +322,7 @@ export class login extends Component {
               $("#modalOtp").modal("toggle");
             })
             .catch((err) => {
-              console.log(err.response.data.error);
+           
 
               if (
                 err.response.data.error ==
@@ -333,7 +332,7 @@ export class login extends Component {
                 var end = moment(localStorage.getItem("createotpdate")); // another date
                 var duration = moment.duration(now.diff(end));
                 var min = Math.floor(duration.asSeconds());
-                console.log(min);
+           
                 if (min > 40) {
                   const options = {
                     headers: {
@@ -350,7 +349,7 @@ export class login extends Component {
                   axios
                     .post(apiUrl, options)
                     .then((result) => {
-                      console.log(result.data);
+                     
                       const options = {
                         headers: {
                           Accept: "application/json, text/plain, */*",
@@ -362,7 +361,7 @@ export class login extends Component {
                         appglobal.api.send_otp +
                         this.state.otpnumber;
                       axios.post(apiUrl, options).then((result) => {
-                        console.log(result.data);
+                     
                         this.setState({ seconds: 300 });
 
                         clearInterval(interval);
@@ -371,7 +370,7 @@ export class login extends Component {
                     })
 
                     .catch((err) => {
-                      console.log(err);
+                  
                       $(".btn").removeClass("btn--loading");
 
                       swal(
@@ -463,7 +462,7 @@ export class login extends Component {
             });
         })
         .catch((err) => {
-          console.log(err);
+        
           $(".btn").removeClass("btn--loading");
 
           swal(
@@ -503,7 +502,7 @@ export class login extends Component {
       if (this.state.seconds == 0) {
         clearInterval(interval);
         this.setState({ seconds: "EXPIRED" });
-        console.log("stop");
+     
       }
     }, 1000);
   }
@@ -519,9 +518,9 @@ export class login extends Component {
     if (firstchar == "0" || firstchar == 0) {
       var str = str.replace(/^./, "63");
       this.setState({ otpnumber: str });
-      console.log(str);
+   
     } else {
-      console.log(str);
+ 
     }
     localStorage.setItem("mobileno", this.state.mobile);
   }
@@ -589,7 +588,7 @@ export class login extends Component {
     var end = moment(localStorage.getItem("createotpdate")); // another date
     var duration = moment.duration(now.diff(end));
     var min = Math.floor(duration.asSeconds());
-    console.log(min);
+   
     if (min > 40) {
       const options = {
         headers: {
@@ -606,7 +605,7 @@ export class login extends Component {
       axios
         .post(apiUrl, options)
         .then((result) => {
-          console.log(result.data);
+        
           const options = {
             headers: {
               Accept: "application/json, text/plain, */*",
@@ -618,7 +617,7 @@ export class login extends Component {
             appglobal.api.send_otp +
             this.state.otpnumber;
           axios.post(apiUrl, options).then((result) => {
-            console.log(result.data);
+        
             this.setState({ expired: false });
             this.setState({ otprequest: true });
             this.setState({ seconds: 300 });
@@ -626,7 +625,7 @@ export class login extends Component {
         })
 
         .catch((err) => {
-          console.log(err);
+        
           $(".btn").removeClass("btn--loading");
 
           swal(
@@ -746,7 +745,7 @@ export class login extends Component {
         .then((result) => {
           if (result.request.status == "200") {
             localStorage.setItem("token", JSON.stringify(result.data.data));
-            console.log(result.data);
+           
             document.getElementById("username").innerHTML =
               result.data.data.user.name;
 
@@ -825,7 +824,7 @@ export class login extends Component {
   city(event) {
     this.setState({ city_dropdown: event.value.label });
     this.setState({ city: event.value });
-    console.log(event.value);
+  
   }
   country(event) {
     this.setState({ country: event.target.value });
@@ -867,7 +866,7 @@ export class login extends Component {
 
   handleFile(e) {
     let file = e.target.files[0];
-    console.log(file);
+
     this.setState({ profile_name: file.name });
     this.setState({ profile: file });
   }
@@ -897,7 +896,7 @@ export class login extends Component {
     axios
       .post(apiUrl, {}, options)
       .then((result) => {
-        console.log(result);
+     
         sessionStorage.setItem("otp", "0");
         const options1 = {
           headers: {
@@ -991,7 +990,7 @@ export class login extends Component {
       })
       .catch((err) => {
         $(".btn").removeClass("btn--loading");
-        console.log(apiUrl);
+     
         swal(
           <div style={{ width: "450px", padding: "10px" }}>
             <div className="container">
@@ -1054,7 +1053,7 @@ export class login extends Component {
               </div>
             </div>
           );
-          console.log(result);
+        
         })
         .catch((err) => {
           $(".btnSendissue").removeClass("btn--loading");
@@ -1542,7 +1541,7 @@ export class login extends Component {
                       <a
                         className="btn btnotp"
                         onClick={this.register.bind(this)}
-                        style={{ marginTop: "18px", color: "white" }}
+                        style={{ marginTop: "18px",color: "white" }}
                       >
                         Confirm
                         <span style={{ marginLeft: "40px" }}>

@@ -104,12 +104,14 @@ export default function profile() {
   const [tableactivebooking, setTableactivebooking] = React.useState([]);
   const [tablescheduled, setTablesheduled] = React.useState([]);
 
+  const [latestdate, setLatestdate] = React.useState("");
+
   function handleFile(e) {
     const reader = new FileReader();
 
     let file = e.target.files[0];
     setProfilename(file.name);
-    console.log(file);
+
     setNewimage(file);
     $(".imgProfileDash").attr("src", window.URL.createObjectURL(file));
     setprofilepic(file);
@@ -185,25 +187,22 @@ export default function profile() {
     axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result.data.count);
+
         setTableactivebooking(result.data.data.reverse());
-        console.log("success all booking");
+     
         setACtivecount(result.data.count);
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error");
+       
       });
     axios
       .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
         setTablesheduled(result.data.data);
-        console.log(result);
-        console.log("success scheduled");
+ 
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error scheduled");
+        
       });
   }, []);
 
@@ -264,11 +263,11 @@ export default function profile() {
   }
 
   function trylang() {
-    console.log(window.pageactive);
+    console.log(latestbook);
   }
 
   function reason1() {
-    console.log("tagnian ");
+    
     setCancelreason("Wrong input address");
     potareason = "Wrong input address";
   }
@@ -299,7 +298,7 @@ export default function profile() {
   }
 
   function consoleid() {
-    console.log(bookingidtable);
+    
   }
 
   function opencancelBooking(e) {
@@ -324,7 +323,7 @@ export default function profile() {
     var duration = now.diff(end, "seconds");
 
     if (duration > 30 && statustable == "Driver found") {
-      console.log(duration);
+  
       swal(
         <div style={{ width: "450px", padding: "10px" }}>
           <div className="container">
@@ -347,8 +346,7 @@ export default function profile() {
         </div>
       );
     } else {
-      console.log(duration);
-      console.log(statustable);
+    
       var trackid = $(e.currentTarget)
         .parent("div")
         .parent("td")
@@ -366,7 +364,7 @@ export default function profile() {
       setBookingidtable(trackid);
       canceltableid = trackid;
       drivertableid = driverid;
-      console.log(trackid);
+    
       $("#exampleModal").modal("hide");
       $("#modalRebook").modal("hide");
       $(".modal-backdrop").hide();
@@ -543,7 +541,7 @@ export default function profile() {
               options
             )
             .then((result) => {
-              console.log(result);
+         
               $("#exampleModal").modal("hide");
               $(".modal-backdrop").hide();
               clearInterval(window.interval);
@@ -643,7 +641,7 @@ export default function profile() {
           options
         )
         .then((result) => {
-          console.log(result.response);
+       
           try {
             if (result.response.status == 500) {
               swal(
@@ -706,7 +704,7 @@ export default function profile() {
           }
         })
         .catch((err) => {
-          console.log(err);
+     
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -733,7 +731,7 @@ export default function profile() {
           );
         });
     } else {
-      console.log(cancelreason);
+
       $(".pSpecify").show();
     }
     drivertableid = "";
@@ -761,7 +759,8 @@ export default function profile() {
   }
 
   function refresh() {
-    console.log(window.pageactive);
+    $("#modalScheduled").modal("hide");
+    
     var countactive;
     var countscheduled;
     const options = {
@@ -787,7 +786,7 @@ export default function profile() {
       .post(window.pageactive > 1 ? apiUrlpage : apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTabledata(result.data.data);
-        console.log(result.data.data[0].status);
+ 
         setLateststatus(result.data.data[0].status);
         tablemap = result.data.data;
         setCount(result.data.meta.total);
@@ -797,30 +796,27 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(err);
+      
       });
     axios
       .post(apiUrlscheduled, { customer_id: AuthService.getId() }, options)
       .then((result) => {
         setTablesheduled(result.data.data);
-        console.log(result);
-        console.log("success scheduled");
+    
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error scheduled");
+        
       });
     axios
       .post(apiUrlall, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result.data.count);
+       
         setTableactivebooking(result.data.data.reverse());
-        console.log("success");
+     
         setACtivecount(result.data.count);
       })
       .catch((err) => {
-        console.log(err);
-        console.log("pota error");
+      
       });
   }
 
@@ -856,9 +852,9 @@ export default function profile() {
     );
     const listener = {
       message: (message) => {
-        console.log(message);
+    
         setMessage(message.message.status);
-        console.log(message.message.status);
+      
         let mes = message;
         x;
 
@@ -879,7 +875,7 @@ export default function profile() {
         } else if (mes.message.status == "Complete All") {
           refresh();
         } else if (mes.message.status == "Cancelled") {
-          console.log(canceluser);
+        
           if (canceluser == false) {
             swal(
               <div style={{ width: "450px", padding: "10px" }}>
@@ -1081,7 +1077,7 @@ export default function profile() {
       method: "get",
     })
       .then((response) => {
-        console.log(response.data.datetime);
+
         setIpdate(response.data.datetime);
 
         var now = moment(response.data.datetime); //todays date
@@ -1091,16 +1087,16 @@ export default function profile() {
 
         window.interval = setInterval(() => {
           min = min + 1;
-          console.log(min + "seconds timer");
+    
 
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 120) {
-              console.log(latestbook);
+            if (min > 30) {
+         
               holdbook();
               if (router.pathname === "/profile") {
-                console.log(router.pathname);
+           
 
                 $(".modal-backdrop").show();
               } else {
@@ -1115,7 +1111,7 @@ export default function profile() {
         $(".modal-backdrop").show();
       })
       .catch((err) => {
-        console.log(err);
+
       });
   }
 
@@ -1127,18 +1123,17 @@ export default function profile() {
 
     window.interval = setInterval(() => {
       min = min + 1;
-      console.log(min);
-      console.log(holdclear);
+  
 
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 120) {
-          console.log(latestbook);
+        if (min > 30) {
+    
           holdbook();
           $(".modal-backdrop").show();
           if (router.pathname === "/profile") {
-            console.log(router.pathname);
+           
 
             $(".modal-backdrop").show();
           } else {
@@ -1175,14 +1170,14 @@ export default function profile() {
       localStorage.removeItem("goSupport");
     }
     if (localStorage.getItem("latestbookingdate")) {
-      console.log(localStorage.getItem("latestbookingdate"));
+    
     } else {
-      console.log("no latest booking date");
+      
     }
   }, []);
 
   useEffect(() => {
-    console.log(getApi);
+ 
     if (localStorage.getItem("saveprof") == 1) {
       successMessage();
       localStorage.removeItem("saveprof");
@@ -1202,23 +1197,24 @@ export default function profile() {
     axios
       .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
       .then((result) => {
-        console.log(result);
+    
         if (!result.data.data) {
-          console.log("no latest booking");
+          console.log("no latest booking")
         } else {
-          console.log(result);
+        
 
           localStorage.setItem(
             "latestbookingdate",
             result.data.data.created_at
           );
+          setLatestbook(result.data.data.created_at);
           localStorage.setItem(
             "updatebookingdate",
             result.data.data.updated_at
           );
-          console.log(result.data.data.updated_at + " Updated booking date");
+      
           setLateststatus(result.data.data.status);
-          console.log(result.data.data.status);
+    
 
           if (result.data.data.status == "Looking for Driver") {
             loadHoldtimer();
@@ -1228,7 +1224,7 @@ export default function profile() {
           setLatestbook(result.data.data.id);
           if (result.data.data.id) {
             setLatestbook(result.data.data.id);
-            console.log(result.data.data.status);
+         
 
             localStorage.setItem("latestbook", result.data.data.id);
           } else {
@@ -1240,7 +1236,7 @@ export default function profile() {
     const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
     axios.post(apiUrl2, {}, options1).then((result) => {
-      console.log(result.data);
+
       setListcard(result.data.user_card_details);
     });
 
@@ -1251,7 +1247,7 @@ export default function profile() {
       "/open_tickets";
 
     axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-      console.log(result.data);
+
       setListticket(result.data);
     });
 
@@ -1290,8 +1286,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log("trasaction history");
-        console.log(result);
+       
 
         setTabledata(result.data.data);
 
@@ -1327,7 +1322,7 @@ export default function profile() {
     axios
       .post(apiUrl1, { id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result.data.data);
+      
         setTableprofile(result.data.data);
         setFname(result.data.data.fname);
         setMname(result.data.data.mname);
@@ -1349,7 +1344,7 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(err);
+   
       });
   }, []);
 
@@ -1365,7 +1360,7 @@ export default function profile() {
       $(".pagination > li > a").attr("style", "color: #212121 !important");
     }
 
-    console.log("page pota" + e.selected + 1);
+    
 
     const options = {
       headers: {
@@ -1382,7 +1377,7 @@ export default function profile() {
     axios
       .post(apiUrl, { customer_id: AuthService.getId() }, options)
       .then((result) => {
-        console.log(result);
+    
         setTabledata(result.data.data);
 
         $("table").fadeIn(150);
@@ -1407,8 +1402,7 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(apiUrl);
-        console.log(err);
+       
       });
   }
 
@@ -1491,15 +1485,14 @@ export default function profile() {
     axios
       .post(api, { booking_id: localStorage.getItem("latestbook") }, options)
       .then((result) => {
-        console.log(result);
+      
         $("#modalRebook").modal("show");
         swal.close();
         clearInterval(window.interval);
         refresh();
       })
       .catch((err) => {
-        console.log(latestbook);
-        console.log(err);
+   
       });
   }
 
@@ -1518,7 +1511,7 @@ export default function profile() {
       .children()
       .closest("td:nth-child(4)")
       .html();
-    console.log(trackid);
+
 
     const options = {
       headers: {
@@ -1534,7 +1527,7 @@ export default function profile() {
     axios
       .post(apiUrl, { tracking_id: { trackid } }, options)
       .then((result) => {
-        console.log(result.data);
+     
         $(".conLoading").hide();
         $(".conView").fadeIn(200);
         setDrivername(
@@ -1560,7 +1553,7 @@ export default function profile() {
         setViewpickupname(result.data.data.booking_details.contact_name);
       })
       .catch((err) => {
-        console.log(err);
+       
         $(".conView").hide();
         $(".divWarning").show();
       });
@@ -1585,7 +1578,7 @@ export default function profile() {
         refresh();
         localStorage.setItem("latestbookingdate", moment(new Date()));
         holdTimer();
-        console.log(result);
+       
       })
       .catch((err) => {
         swal(
@@ -1637,12 +1630,11 @@ export default function profile() {
           localStorage.setItem("latestbookingdate", moment(new Date()));
           holdTimer();
         } else {
-          console.log(latestbook);
-          console.log(bookid);
+       
         }
 
         refresh();
-        console.log(result);
+    
       })
       .catch((err) => {
         swal(
@@ -1667,7 +1659,7 @@ export default function profile() {
   }
 
   function getcardToken(e) {
-    console.log($(e.currentTarget).find(".p9Sub").text());
+   
     listcard
       .filter(
         (event) =>
@@ -1701,11 +1693,10 @@ export default function profile() {
 
   function getVerify(e) {
     $(".btnVerify").addClass("btn--loading");
-    console.log(clienttoken);
-    console.log(verify);
+
     var amountverify = Math.floor(verify);
     var amountverifyfloat = parseFloat(amountverify).toFixed(2);
-    console.log(amountverifyfloat);
+
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1727,7 +1718,7 @@ export default function profile() {
         options
       )
       .then((result) => {
-        console.log(result);
+     
         if (
           result.data.data.cardDetails.cardStatus == 5 ||
           result.data.data.cardDetails.cardStatus == 3
@@ -1775,7 +1766,7 @@ export default function profile() {
           const apiUrl2 = appglobal.api.base_api + appglobal.api.card_details;
 
           axios.post(apiUrl2, {}, options1).then((result) => {
-            console.log(result.data);
+           
             setListcard(result.data.user_card_details);
           });
           swal(
@@ -1835,20 +1826,20 @@ export default function profile() {
   function handlestatuschange(value) {
     var statuslabel = value;
     var value = value.value.toLowerCase();
-    console.log(value.label);
+  
     setStatus(value.label);
 
     if (statuslabel.label == "Active") {
       $(".divHistory, .reactPaginate, .divScheduledtable").hide();
       $(".divActivetable").fadeIn(150);
       if (tableactivebooking.length == 0) {
-        console.log("walang laman");
+       
         $(".pNo").show();
       } else {
-        console.log("walang laman");
+     
         $(".pNo").hide();
       }
-      console.log("gumana");
+
     } else if (statuslabel.label == "All") {
       $(".divHistory, .reactPaginate").fadeIn(150);
       $(".divActivetable, .divScheduledtable").hide();
@@ -1949,7 +1940,7 @@ export default function profile() {
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
-          console.log(result);
+ 
           $("#modalChangepass").modal("toggle");
           $(".modal-backdrop").hide();
           AuthService.logout();
@@ -2158,14 +2149,14 @@ export default function profile() {
       axios
         .post(apiUrl, formdata, options)
         .then((result) => {
-          console.log(result);
+       
           $(".btnSave").removeClass("btn--loading");
           localStorage.setItem("saveprof", "1");
-          console.log(newimage);
+        
           window.location.reload();
         })
         .catch((err) => {
-          console.log(err);
+     
           swal(
             <div style={{ width: "450px", padding: "10px" }}>
               <div className="container">
@@ -2259,13 +2250,13 @@ export default function profile() {
       axios
         .put(apiUrl, data, options)
         .then((result) => {
-          console.log(result);
+     
           $("#modalForm").modal("toggle");
           $(".btConfirmTopup").removeClass("btn--loading");
           $("#modalTopup").modal("toggle");
         })
         .catch((err) => {
-          console.log(err);
+        
           $(".btnSave").removeClass("btn--loading");
         });
     }
@@ -2285,7 +2276,7 @@ export default function profile() {
     axios
       .post(apiUrl, { platform: "web" }, options)
       .then((result) => {
-        console.log(result);
+    
         if (result.data.data.redirectUrl) {
           window.open(result.data.data.redirectUrl, "_blank");
         } else {
@@ -2321,7 +2312,7 @@ export default function profile() {
       })
       .catch((err) => {
         $(".btnVerify1").removeClass("btn--loading");
-        console.log(err);
+   
       });
   }
 
@@ -2352,12 +2343,12 @@ export default function profile() {
     axios
       .post(apiUrl, formdata, options)
       .then((result) => {
-        console.log(result.data);
+ 
         $(".btnAddcard").removeClass("btn--loading");
 
         if (result.data.encoded_xml) {
           $("#paymentrequest").val(result.data.encoded_xml);
-          console.log(result.data.encoded_xml);
+       
           document.getElementById("paygate_frm").submit();
         } else {
           swal(
@@ -2390,7 +2381,7 @@ export default function profile() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }
 
@@ -2519,7 +2510,7 @@ export default function profile() {
             "/open_tickets";
 
           axios.get(apiUrl_view_tickets, {}, options1).then((result) => {
-            console.log(result.data);
+     
             setListticket(result.data);
           });
         })
@@ -2900,7 +2891,7 @@ export default function profile() {
                               : "tddark"
                           }
                         >
-                          {event.payment_history.payment_method}
+                          {event.payment_history == undefined ? "" :event.payment_history.payment_method}
                         </td>
 
                         <td
@@ -3095,6 +3086,7 @@ export default function profile() {
                     <tr style={{ backgroundColor: "transparent" }}>
                       <th>Action</th>
                       <th className="d-none">Id</th>
+                      <th className="d-none">Driver id</th>
                       <th>Tracking ID</th>
                       <th>Price</th>
                       <th>Pickup Address</th>
@@ -3149,6 +3141,7 @@ export default function profile() {
                           )}
                         </td>
                         <td className="d-none">{event.id}</td>
+                        <td className="d-none">{event.driver_id}</td>
                         <td
                           className={
                             localStorage.getItem("theme_status") == "light"
@@ -4214,10 +4207,9 @@ export default function profile() {
                         className="img-fluid mx-auto d-flex imgLoading"
                       ></img>
                     </div>
-                    <p className="pSearching">Scheduled successfully.</p>
+                    <p className="pSearching">Booking successfully set.</p>
                     <p className="pSearchsub">
-                      Thank your for using Jgo. Your parcel will be delivered
-                      with the given time and date.
+                      Thank your for using Jgo. We'll let you know who your driver is closer to the pickup-time.    
                     </p>
                   </div>
                 </div>
