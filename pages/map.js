@@ -494,8 +494,6 @@ export default function map() {
   }, []);
 
   useEffect(() => {
-
-    
     setBaserate(localStorage.getItem("baserate"));
     setPerkm(localStorage.getItem("perkm"));
     setPlatformfee(localStorage.getItem("platform"));
@@ -666,11 +664,11 @@ export default function map() {
       str.includes("Cainta, Rizal") ||
       str.includes("Cavite, Philippines");
     if (n === true) {
-      localStorage.setItem("pickofflat",latLng.lat);
-      localStorage.setItem("pickofflng",latLng.lng);
-      localStorage.setItem("address",value.label);
+      localStorage.setItem("pickofflat", latLng.lat);
+      localStorage.setItem("pickofflng", latLng.lng);
+      localStorage.setItem("address", value.label);
       setAddress(value);
-  
+
       setCoordinates(latLng);
       try {
         var objIndex = places_data.findIndex((obj) => obj.id == click);
@@ -731,9 +729,9 @@ export default function map() {
       str.includes("Cainta, Rizal") ||
       str.includes("Cavite, Philippines");
     if (n === true) {
-       localStorage.setItem("dropofflat",latLng.lat);
-      localStorage.setItem("dropofflng",latLng.lng);
-      localStorage.setItem("addressDrop",value.label);
+      localStorage.setItem("dropofflat", latLng.lat);
+      localStorage.setItem("dropofflng", latLng.lng);
+      localStorage.setItem("addressDrop", value.label);
       setAddressDrop(value);
       setCoordinatesDrop(latLng);
       try {
@@ -945,6 +943,7 @@ export default function map() {
     /* Passing name in additional details based on click value */
   }
   function updateInputValue(evt) {
+    $(evt.currentTarget).css("border", "1px solid #2c2c2c");
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       places_data[objIndex].detailsname = evt.target.value;
@@ -961,6 +960,7 @@ export default function map() {
     /* Passing number in additional details based on click value */
   }
   function updateInputValueNumber(evt) {
+    $(evt.currentTarget).css("border", "1px solid #2c2c2c");
     try {
       var objIndex = places_data.findIndex((obj) => obj.id == click);
       places_data[objIndex].detailsnumber = evt.target.value;
@@ -1275,7 +1275,6 @@ export default function map() {
       .catch((err) => {});
   }
 
-
   function trylang() {
     var c;
     for (c = 0; c < listdistance.length; ++c) {
@@ -1284,7 +1283,6 @@ export default function map() {
         listdistance[c]
       );
     }
-
   }
 
   function getRateloop() {
@@ -1803,11 +1801,14 @@ export default function map() {
             axios
               .post(apiUrl, formdata, options)
               .then((result) => {
-                for(var pair of formdata.entries()){
+                for (var pair of formdata.entries()) {
                   console.log(pair[0], pair[1]);
-              }
-                console.log(result)
-                if (result.data.status == "Failed" || result.data.status == "failed" ) {
+                }
+                console.log(result);
+                if (
+                  result.data.status == "Failed" ||
+                  result.data.status == "failed"
+                ) {
                   $(".btnPayment").removeClass("btn--loading");
 
                   swal(
@@ -1838,16 +1839,16 @@ export default function map() {
                     </div>
                   );
                 } else {
-                   console.log(result)
-    for(var pair of formdata.entries()){
-        console.log(pair[0], pair[1]);
-    }
+                  console.log(result);
+                  for (var pair of formdata.entries()) {
+                    console.log(pair[0], pair[1]);
+                  }
                   localStorage.setItem("activeid", result.data.data);
                   router.push("/profile");
                 }
               })
               .catch((err) => {
-                consoel.log(err)
+                consoel.log(err);
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -1960,33 +1961,75 @@ export default function map() {
             </div>
           );
         } else if ($(this).val() == "") {
-          x = 0;
-          $(this).css("border", "1px solid #f44336");
-          $(this).closest(".divHide").find(".divAdd").fadeIn(200);
-          swal(
-            <div style={{ width: "450px", padding: "10px" }}>
-              <div className="container">
-                <div
-                  className="row align-items-center"
-                  style={{ borderLeft: "3px solid #FFE900" }}
-                >
-                  <div className="col-lg-2">
-                    <img
-                      src="Image/complain.png"
-                      style={{ width: "32px" }}
-                    ></img>
-                  </div>
-                  <div className="col-lg-10" style={{ textAlign: "left" }}>
-                    <p className="pError">Warning</p>
-                    <p className="pErrorSub">
-                      Please enter contact name and number in all locations.
-                    </p>
+          if ($(this).val() == "") {
+            x = 0;
+            $(this).css("border", "1px solid #f44336");
+            $(this).closest(".divHide").find(".divAdd").fadeIn(200);
+            swal(
+              <div style={{ width: "450px", padding: "10px" }}>
+                <div className="container">
+                  <div
+                    className="row align-items-center"
+                    style={{ borderLeft: "3px solid #FFE900" }}
+                  >
+                    <div className="col-lg-2">
+                      <img
+                        src="Image/complain.png"
+                        style={{ width: "32px" }}
+                      ></img>
+                    </div>
+                    <div className="col-lg-10" style={{ textAlign: "left" }}>
+                      <p className="pError">Warning</p>
+                      <p className="pErrorSub">
+                        Please enter contact name and number in all locations.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        } else if (statusschedule == "true") {
+            );
+          } else if ($(this).val() != "") {
+
+            
+
+          
+          }
+        } else if ($(this).val() != "") {
+          $(".txtNumber").each(function () {
+            if ($(this).val() != "") {
+              if ($(this).val().length < 11) {
+                $(this).css("border", "1px solid red");
+                x = 0;
+                swal(
+                  <div style={{ width: "450px", padding: "10px" }}>
+                    <div className="container">
+                      <div
+                        className="row align-items-center"
+                        style={{ borderLeft: "3px solid #FFE900" }}
+                      >
+                        <div className="col-lg-2">
+                          <img
+                            src="Image/complain.png"
+                            style={{ width: "32px" }}
+                          ></img>
+                        </div>
+                        <div className="col-lg-10" style={{ textAlign: "left" }}>
+                          <p className="pError">Warning</p>
+                          <p className="pErrorSub">
+                            Input a valid contact number.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              } 
+            } 
+          });
+        }
+        
+        
+        else if (statusschedule == "true") {
           if (scheduletime == "") {
             x = 0;
             swal(
@@ -2251,7 +2294,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        maxLength = "12"
+                        maxLength="12"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2324,7 +2367,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        maxLength = "12"
+                        maxLength="12"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2416,7 +2459,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength = "12"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2506,7 +2549,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength = "12"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3651,7 +3694,7 @@ export default function map() {
                     </p>
                   </div>
                 </div>
-               
+
                 <div className="col-lg-6"></div>
                 <div className="col-lg-6"></div>
               </div>
