@@ -201,7 +201,7 @@ export default function App() {
           localStorage.setItem("perkm", result.data.breakdown.per_km);
           localStorage.setItem("platform",result.data.breakdown.platform_fee);
           localStorage.setItem("adddropoff",result.data.breakdown.totalAdditionalDropOffRate);
-          localStorage.setItem("totalkm",result.data.breakdown.totalKilometerRate);
+          localStorage.setItem("totalkm",result.data.breakdown.totalDistance);
           localStorage.setItem("smsfee",result.data.breakdown.vonage_fee);
           localStorage.setItem("weightfee",result.data.breakdown.weight_fee);
           localStorage.setItem("zoningfee",result.data.breakdown.zoning_fee);

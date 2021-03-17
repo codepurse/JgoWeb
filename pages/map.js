@@ -494,6 +494,7 @@ export default function map() {
   }, []);
 
   useEffect(() => {
+    $(".modal-backdrop").hide();
     setBaserate(localStorage.getItem("baserate"));
     setPerkm(localStorage.getItem("perkm"));
     setPlatformfee(localStorage.getItem("platform"));
@@ -900,7 +901,7 @@ export default function map() {
   }
 
   function setWeightrate(e) {
-    getRate();
+    getRateloop();
   }
 
   function getservice(e) {
@@ -1326,6 +1327,7 @@ export default function map() {
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
         var price = result.data.price;
+        console.log(result)
         setPrice(Number(price).toFixed(2));
         setListdistance(result.data.distance);
         $(".imgInfo").show();
@@ -1336,7 +1338,7 @@ export default function map() {
           setPerkm(result.data.breakdown.per_km);
           setPlatformfee(result.data.breakdown.platform_fee);
           setTotaldropoff(result.data.breakdown.totalAdditionalDropOffRate);
-          setTotalkm(result.data.breakdown.totalKilometerRate);
+          setTotalkm(result.data.breakdown.totalDistance);
           setSmsfee(result.data.breakdown.vonage_fee);
           setWeightfee(result.data.breakdown.weight_fee);
           setZoningfee(result.data.breakdown.zoning_fee);
@@ -2639,6 +2641,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2815,6 +2818,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2989,6 +2993,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3163,6 +3168,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3250,6 +3256,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3337,6 +3344,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3424,6 +3432,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3511,6 +3520,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
+                          maxLength="12"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
