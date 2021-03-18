@@ -1277,13 +1277,7 @@ export default function map() {
   }
 
   function trylang() {
-    var c;
-    for (c = 0; c < listdistance.length; ++c) {
-      console.log(
-        "drop_off_locations[" + c + "]" + "[distance]",
-        listdistance[c]
-      );
-    }
+   console.log(statusschedule)
   }
 
   function getRateloop() {
@@ -1990,12 +1984,7 @@ export default function map() {
                 </div>
               </div>
             );
-          } else if ($(this).val() != "") {
-
-            
-
-          
-          }
+          } 
         } else if ($(this).val() != "") {
           $(".txtNumber").each(function () {
             if ($(this).val() != "") {
@@ -2029,9 +2018,8 @@ export default function map() {
             } 
           });
         }
-        
-        
-        else if (statusschedule == "true") {
+        if (statusschedule == "true") {
+      
           if (scheduletime == "") {
             x = 0;
             swal(
