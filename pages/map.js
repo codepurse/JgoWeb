@@ -473,6 +473,8 @@ export default function map() {
   }
 
   useEffect(() => {
+    getRateloop();
+    getRatewallet();
     clearInterval(window.interval);
     clearInterval(window.intervalrefresh);
     const options1 = {
@@ -1658,7 +1660,7 @@ export default function map() {
         let ratedata = new FormData();
         var i;
         var j;
-        ratedata.set("payment_method", "cod");
+        ratedata.set("payment_method", payment);
         ratedata.set("weight", weight);
         ratedata.set("pick_up_latitude", coordinate[0].lat);
         ratedata.set("pick_up_longitude", coordinate[0].lng);
