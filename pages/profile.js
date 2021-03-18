@@ -4209,7 +4209,7 @@ console.log(result.data.data)
                     </div>
                     <p className="pSearching">Booking successfully set.</p>
                     <p className="pSearchsub">
-                      Thank your for using Jgo. We'll let you know who your driver is closer to the pickup-time.    
+                      Thank your for using Jgo. Kindly wait while we look for your driver.    
                     </p>
                   </div>
                 </div>
