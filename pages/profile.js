@@ -123,7 +123,7 @@ export default function profile() {
 
   const status = [
     { value: "a", label: "All" },
-    { value: "Active", label: "Active" },
+    { value: "Same day", label: "Same day" },
     { value: "Scheduled", label: "Scheduled" },
   ];
 
@@ -1829,7 +1829,7 @@ console.log(result.data.data)
   
     setStatus(value.label);
 
-    if (statuslabel.label == "Active") {
+    if (statuslabel.label == "Same day") {
       $(".divHistory, .reactPaginate, .divScheduledtable").hide();
       $(".divActivetable").fadeIn(150);
       if (tableactivebooking.length == 0) {
