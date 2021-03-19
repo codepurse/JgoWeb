@@ -2768,7 +2768,7 @@ console.log(result.data.data)
           <div className="col-lg-12 form-inline">
             <p className="pTotalBookings">
               {count} Total Bookings
-              <span className="pActiveBookings">{activeCount} Active</span>
+              <span className="pActiveBookings">{activeCount} Ongoing booking</span>
             </p>
           </div>
           <div className="col-lg-7 form-inline">
