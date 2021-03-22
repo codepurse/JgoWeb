@@ -1092,7 +1092,7 @@ console.log(result.data.data)
           if (holdclear === true) {
             clearInterval(window.interval);
           } else {
-            if (min > 30) {
+            if (min > 120) {
          
               holdbook();
               if (router.pathname === "/profile") {
@@ -1128,7 +1128,7 @@ console.log(result.data.data)
       if (holdclear === true) {
         clearInterval(window.interval);
       } else {
-        if (min > 30) {
+        if (min > 120) {
     
           holdbook();
           $(".modal-backdrop").show();
