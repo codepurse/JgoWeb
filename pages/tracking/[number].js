@@ -330,7 +330,7 @@ function Post() {
             >
               <div className="row row">
                 <div className="col-lg-12">
-                  <p className="pPickTrack">PICKOFF LOCATION</p>
+                  <p className="pPickTrack">PICKUP LOCATION</p>
                   <p className="pFullname pPickLock">{pickup}</p>
                 </div>
               </div>
