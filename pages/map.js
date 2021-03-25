@@ -1263,10 +1263,14 @@ export default function map() {
         i.toString()
       );
     }
-    addlistservice.map((addservice) => {
+    
+
+    {/* 
+  addlistservice.map((addservice) => {
       ratedata.set("additional_services[" + loopservices + "]", addservice),
         (loopservices = loopservices + 1);
     });
+*/}  
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
@@ -1518,7 +1522,6 @@ export default function map() {
       ratedata.set("additional_services[" + loopservices + "]", addservice),
         (loopservices = loopservices + 1);
     });
-
     const apiUrl_rate = appglobal.api.base_api + appglobal.api.calculate_rate;
     const options = {
       headers: {
@@ -1679,7 +1682,9 @@ export default function map() {
           );
         }
 
-        if (addlistservice === undefined || addlistservice.length == 0) {
+      {/*
+      
+         if (addlistservice === undefined || addlistservice.length == 0) {
           ratedata.set("additional_services", []);
         } else {
           addlistservice.map((addservice) => {
@@ -1690,6 +1695,7 @@ export default function map() {
               (loopservices = loopservices + 1);
           });
         }
+      */}
 
         let formdata = new FormData();
         var a;
@@ -1773,7 +1779,8 @@ export default function map() {
           );
         }
 
-        if (addlistservice === undefined || addlistservice.length == 0) {
+       {/*
+       if (addlistservice === undefined || addlistservice.length == 0) {
           formdata.set("additional_services[]", "");
         } else {
           addlistservice.map((addservice) => {
@@ -1784,6 +1791,7 @@ export default function map() {
               (loopservices = loopservices + 1);
           });
         }
+       */}
 
         const apiUrl_rate =
           appglobal.api.base_api + appglobal.api.calculate_rate;
@@ -1846,7 +1854,7 @@ export default function map() {
                 }
               })
               .catch((err) => {
-                consoel.log(err);
+               
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
