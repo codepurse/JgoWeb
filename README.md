@@ -48,11 +48,15 @@ All api's are declared on`/services/auto.service.js`
 
 ### Login
 Before you book you need to login. Login have 3 ways you can either use your normal account, facebook or google.\
-If you use facebook or google to login but your email is not existing you will automatically redirect to signup page with your email, first and last name.
+
+#### Login using facebook and google
+If you login using facebook or google , the 3rd party api will automatically response the id, email, first_name and last_name. The resonsed data will be automatically transfer to the state. After we transter the response we will call the api register for the 3rd party api and the parameter is the same as the response. IF the email is not registered the modal will be shown but the email, first name and last name is already declared if not the api will response a token. 
+
 #### Succesfull login
 The JWT token will automatically store in localstorage
 
-
+### Deliver component
+If you login succesfully the component login will be hidden and the deliver component will be shown. It composed of 2 Autoplaced search ( picup and dropoff ) and 2 custom map for each location.
 
 ### Autoplace search
 The places are restricted only in the **PH**.
@@ -63,7 +67,13 @@ The places are restricted only in the **PH**.
     	},
     }}
 ```
-The boundaries between places are not yet implemented. 
+
+#### How autolaces works
+Everytime the user enter a location the autoplace will reponse an array. It consist of lat,lat, name of the address, id of the addres and etc.\
+`const results = await geocodeByAddress(value.label);` - To get the address.\
+`const latLng = await getLatLng(results[0]);` - To get the lat and lng.\
+The boundaries are implemented only in Metro manila, Cavite, Rizal and laguna.\
+`var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");`
 
 ### Custom Search
 If the address is not available in the autosearch the user can click the map icon beside of the search bar. The popup map will show and the user can drag the marker on the map and click set. It will get the latitude, longitude and the geocode address based on the coordinates.
