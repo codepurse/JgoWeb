@@ -383,6 +383,60 @@ For selecting a time, the function name is `selectTime`. divtime2 is the classNa
   }
 ```
 
+#### Weight
+The default value of weight is "0-5kg". There are 4 choices `0.5kg , 6-10kg, 11-15kg, 16-20kg`. The function name is getWeight. The logic is, the function will run if the user ** Stop and release the mouse **
+```javscript
+ function getWeight(e) {
+    $(".pWeight").text(e.target.value);
+    if (e.target.value < 6) {
+      setWeight("0-5KG");
+      $(".imgWeight1").fadeIn(150);
+      $(".imgWeight2").fadeOut(150);
+    } else if (e.target.value < 11) {
+      setWeight("6-10KG");
+    } else if (e.target.value < 16) {
+      setWeight("11-15KG");
+      $(".imgWeight1").fadeOut(150);
+      $(".imgWeight2").fadeIn(150);
+    } else if (e.target.value < 21) {
+      setWeight("16-20KG");
+      $(".imgWeight1").fadeOut(150);
+      $(".imgWeight2").fadeIn(150);
+    }
+  }
+  
+ function setWeightrate(e) {
+    getRateloop();
+  }
+```
+
+#### Breadown expenses 
+The popup will show if you select the **?** icon near in the price. The value of the breakdown is based on the resposne of api for rate. You can console the result if you want.
+
+
+#### Placing payment
+Before you place a payment there are multiple conditions you should not met. If you met the ff of these it will not continue in payment.\
+| CONDITION | DEFINITION |
+| ------ | ------ |
+| Booking > 9 | If the booking is greater than 10. Count is start in 0 |
+| $(this).val() == "" | If theres a missing name and contact number |
+| $(this).val().length < 11 | If the contact number is invalid |
+| if (scheduletime == "")| If scheduled time is null |
+
+If the condition did not met, it will now show the modal. There are 2 options Cod and JgoWallet. If cod is selected you need to select the payment location in dropdown. The payment location data is based on `coordinates` array which is on the global config. Everytime the user click the "Place order" button it will map the `coordinate` array then push the data into new array which is `locationCod`.
+```javascript
+   var countlocation = 0;
+    locationCod.splice(0, locationCod.length);
+
+    const promises = coordinate.map((event) =>
+      locationCod.push({
+        value: Number(event.id) - 1,
+        label: event.address,
+      })
+    );
+```
+
+
 
 # Driver
 
