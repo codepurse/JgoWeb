@@ -183,27 +183,6 @@ After that, if the user click the set button. It wil replace the current value o
 ```
 
 
-### Custom Search
-If the address is not available in the autosearch the user can click the map icon beside of the search bar. The popup map will show and the user can drag the marker on the map and click set. It will get the latitude, longitude and the geocode address based on the coordinates.
-
-```javascript
-   onPositionChanged: () => {
-      const position = refs.marker.getPosition();
-      console.log(position.lat());
-      Geocode.fromLatLng(position.lat(), position.lng()).then(
-        (response) => {
-          const address = response.results[0].formatted_address;
-          console.log(address);
-          global.config.place.deliver.pickoff = address;
-          global.config.place.deliver.pickofflat = position.lat();
-          global.config.place.deliver.dropofflang = position.lng();
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    };
-```
 
 Im using react-google-maps, so the issue is it cannot render 2 maps in the same page. So in custom search in  `/map` I used react-leaflet. The map component was rendered using 
 `Dynamic from "next/dynamic` since NextJs is SSR.
@@ -213,20 +192,6 @@ const Leaflet = dynamic(
     () => import('../map/leafletmap'),
     { ssr: false }
   )
-```
-
-### Storage
-
-Everthing including lat, lng, address ,dropoff and pickoff are thrown in config.js. It holds the array of lat  lng and the  address `coordinate = [];`
-When the user type the needed details in `/delivery` the data will be thrown in localstorage.
-
-```javacript
-    localStorage.setItem("address", address.label);
-    localStorage.setItem("addressDrop", addressDrop.label);
-    localStorage.setItem("pickofflat", coordinates.lat);
-    localStorage.setItem("pickofflng",coordinates.lng);
-    localStorage.setItem("dropofflat",coordinatesDrop.lat);
-    localStorage.setItem("dropofflng", coordinatesDrop.lng);
 ```
 
 Since NextJs is SSR the localstorage will be undefined in every run, because localstorage is a DOM of the browser not the NextJs itself. So to make it work I put a conditional statement.
@@ -261,7 +226,9 @@ module.exports = global.config = {
 
 ### Map
 
-The coordinates given by the user will automatically render the driver route in the map. The destination will be on **alphabetical letters**. The map can render 15 routes but for now the maximus is 3 routes. **Since the map needs coordinates before its load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map are already have a value.** Check the storage section of this readme.
+The coordinates given by the user will automatically render the driver route in the map. The map can render 15 routes. **Since the map needs coordinates before it load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map have already a value.** Check the delivery section of this readme.\
+The function of autocomplete search is the same as delivery component. The pickoff autocomplete function is named `handlechange` the dropoff named `handleChangedrop` and the remaining stopoff named `handleChangestop`\
+Like in delivery component, pero location has a onclick variable named `click` so logic will be.
 
 ![alt text](https://i.ibb.co/C8HDLxL/2020-10-14-14-20-44-localhost-fe21694942f5.png)
 
