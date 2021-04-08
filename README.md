@@ -140,6 +140,48 @@ IF the result is success we will get all the breakdown expenses and the price. T
           router.push("/map");
 ```
 
+### Custom map in delivery component
+There are 2 icons in the component 1 for pickup and 1 for dropoff. Everytime they click the custom map icon it will trigger the variable `click`. The value of pickoff is 0 and dropoff is 1. After that the modal will appear wit the custom map. The custom map is place in the `component/map/leafletmap.js`.\
+In the `leafletmap.js` theres a function named `handleclick` If the user click in the map it will get the address, lat and lng.
+
+```javscript
+     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
+      (response) => {
+        const address = response.results[0].formatted_address;
+   
+        global.config.place.deliver.pickoff = address;
+        global.config.place.deliver.pickofflat = e.latlng.lat;
+        global.config.place.deliver.dropofflang = e.latlng.lng;
+        this.setState({ address: address });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    this.setState({ currentPos: e.latlng });
+```
+After that, if the user click the set button. It wil replace the current value of the selected location. Its either 1 (Drop off) or 0 (Pickup). The name of the function is `getAdd`. 
+```javascript
+ if (click === 0) {
+        coordinates.lat = global.config.place.deliver.pickofflat;
+        coordinates.lng = global.config.place.deliver.dropofflang;
+        setAddress({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+      } else {
+        setAddressDrop({
+          value: global.config.place.deliver.pickoff,
+          label: global.config.place.deliver.pickoff,
+        });
+        coordinatesDrop.lat = global.config.place.deliver.pickofflat;
+        coordinatesDrop.lng = global.config.place.deliver.dropofflang;
+      }
+      swal.close();
+      global.config.place.deliver.pickoff = "";
+    }
+```
+
 
 ### Custom Search
 If the address is not available in the autosearch the user can click the map icon beside of the search bar. The popup map will show and the user can drag the marker on the map and click set. It will get the latitude, longitude and the geocode address based on the coordinates.
