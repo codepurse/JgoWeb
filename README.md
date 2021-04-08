@@ -73,7 +73,16 @@ Everytime the user enter a location the autoplace will reponse an array. It cons
 `const results = await geocodeByAddress(value.label);` - To get the address.\
 `const latLng = await getLatLng(results[0]);` - To get the lat and lng.\
 The boundaries are implemented only in Metro manila, Cavite, Rizal and laguna.\
-`var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");`
+\
+`var n = str.includes("Metro Manila")||str.includes("Laguna, Philippines")||str.includes("Cainta, Rizal")|| str.includes("Cavite, Philippines");`\
+if the selected address includes the following places. The `latlng` and `value` will be thrown in the state depends on what autoplaces you choose ( pickup or dropoff ).\
+```javascript
+  else if (n === true) {
+      setPlaceidpick(results[0].place_id)
+      setAddress(value);
+      setCoordinates(latLng);
+    }
+```
 
 ### Custom Search
 If the address is not available in the autosearch the user can click the map icon beside of the search bar. The popup map will show and the user can drag the marker on the map and click set. It will get the latitude, longitude and the geocode address based on the coordinates.
