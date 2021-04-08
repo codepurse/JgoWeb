@@ -228,22 +228,97 @@ module.exports = global.config = {
 
 The coordinates given by the user will automatically render the driver route in the map. The map can render 15 routes. **Since the map needs coordinates before it load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map have already a value.** Check the delivery section of this readme.\
 The function of autocomplete search is the same as delivery component. The pickoff autocomplete function is named `handlechange` the dropoff named `handleChangedrop` and the remaining stopoff named `handleChangestop`\
-Like in delivery component, per location has a onclick variable named `click` so logic will be.\
+Like in delivery component, per location has a onclick variable named `click` so logic will be.
 - Pickup => Click == 1
 - Dropoff => Click == 2 
 - Stopoff1 => Click == 3 up to 13.
 
-![alt text](https://i.ibb.co/C8HDLxL/2020-10-14-14-20-44-localhost-fe21694942f5.png)
+```javascript
+   try {
+        var objIndex = places_data.findIndex((obj) => obj.id == click);
+        (places_data[objIndex].lat = latLng.lat),
+          (places_data[objIndex].lng = latLng.lng),
+          (places_data[objIndex].address = value.label),
+          router.push("/map");
+        getRateloop();
+        getRatewallet();
+      } catch (err) {
+        const destination = {
+          address: value.label,
+          lat: latLng.lat,
+          lng: latLng.lng,
+          id: click,
+        };
+        coordinate.push(destination);
+        router.push("/map");
+        getRateloop();
+        getRatewallet();
+      }
+```
+The example is the above code. If theres no selected location it will automatically push in array `destination` if theres a data it will search the id based on `click` value then replace the current data.
 
 
 #### Additonal details
-Per destination the user can add another details like `{name,contact_number,blk_add}`
+Per destination the user can add another details like `{name,contact_number,notes}`\
+The function when you change a name is `updateInputValue`, contact_number is `updateInputValueNumber` and for notes is `updateInputValueAd`\
+Per function has the same logic like in autocomplete. If there a data it will replace with the new one.
+```javascript
+ try {
+      var objIndex = places_data.findIndex((obj) => obj.id == click);
+      places_data[objIndex].detailsAdd = evt.target.value;
+    } catch (err) {}
+```
+The above is an example for setting a name.
+
 
 #### Addtional Stopoff
-The client can add 10 stop destination but he needs to fill up the current stopoff before adding a new one. 
+The Usser can add upto 13 stop destination but he needs to fill up the current stopoff before adding a new one. All stop off are **STATIC** so it means all of them are on display none. The function name is btnAddstop.\
+The logic is it will check first all the **VISIBLE** stop off. If one of the visible stopoff is null the autocomplete will turn into red then a message box will appear.
+```javascript
+    $(".div1:visible")
+      .each(function () {
+        if (localStorage.getItem("theme_status") === "light") {
+          if (
+            $(this).find(".css-121v2h3-singleValue").text().length == 0 &&
+            $(this).css("display") == "table-footer-group"
+          ) {
+            $(this)
+              .find(".css-riax9o-control")
+              .css("border", "1px solid #ED3450");
+            window.reactFunction();
+            clearstop = 1;
+            return false;
+          }
+        } else {
+          if (
+            $(this).find(".css-5sz5u5-singleValue").text().length == 0 &&
+            $(this).css("display") == "table-footer-group"
+          ) {
+            $(this)
+              .find(".css-kvzrv0-control")
+              .css("border", "1px solid #ED3450");
+            window.reactFunction();
+            clearstop = 1;
+            return false;
+          }
+        }
+      })
+```
+If not a null value, theres a if condition where it will know if the stopoff value is null or not. So for example if the `stop3` is null the 1st stop off will be visible so on and so forth. Example code below. Btw you can change the if condition to looping if you want.
+```javascript
+      if (!stop3) {
+          $(".divStopoff1").appendTo(".divlistStop");
+           $(".divStopoff1").attr(
+              "style",
+            "display: table-footer-group !important"
+            );return false;
+        else if (!stop4) {
+         $(".divStopoff2").appendTo(".divlistStop");
+             $(".divStopoff2").attr(
+              style","display: table-footer-group !important"
+           );
+```
 
-#### Category / Addtional Service
-The client can choose only one.
 
 
 # Driver
