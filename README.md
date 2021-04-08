@@ -319,6 +319,69 @@ If not a null value, theres a if condition where it will know if the stopoff val
            );
 ```
 
+#### Custom map in map.js
+Custom is map is so very likely in delivery.js. Almost same code.
+
+#### Delete stopoff
+If you delete an address it will hide the div that youve selected and remove the value on state depends on what is the value of `click`. The function name is deleteAdd.
+```javascript
+ $(e.currentTarget)
+      .closest(".div1")
+      .find(".css-kvzrv0-control")
+      .css("border", "1px solid #2c2c2c");
+    $(e.currentTarget).closest(".divStopOff").hide();
+    $(e.currentTarget).closest(".divStopOff").find(".txtAdditional").val("");
+```
+The above code is hiding the div then delete the value inside the autoplace complete.
+```javascript
+    if (e.currentTarget.id == 3) {
+      setStop3(null);
+    }
+    if (e.currentTarget.id == 4) {
+      setStop4(null);
+    }
+    ...
+```
+The above code is to delete the state data depends on `click` value.
+
+#### Time in map.js
+Time have 2 options schedule and same day booking. If the user select scheduled it will require to input a time that is not less than than the current time and date. The function name for schedule is `changeScheduled`. The format time is **24 hr** . The below code is an example. 
+```javascript
+  function changeScheduled(date) {
+    setFormattime(moment(date).format("H:mm"));
+    setFormatdate(moment(date).format("YYYY-MM-DD"));
+    $(".react-datepicker__input-container input").css("borderColor", "#2c2c2c");
+    setScheduledTime(date);
+  }
+```
+For selecting a time, the function name is `selectTime`. divtime2 is the className of scheduledTime. So if you select divTime2 the statusschedule will be true else it will turn to false. Check the code below.
+```javascript
+ function selectTime(e) {
+    if (e.currentTarget.classList.contains("divTime2")) {
+      $(".divTime").css("border-color", "#2c2c2c");
+      $(".imgChecktime").hide();
+      $(e.currentTarget).css("border-color", "#FADD5D");
+      $(e.currentTarget).find(".imgChecktime").show();
+      $(".react-datepicker__input-container ").attr(
+        "style",
+        "display: block !important"
+      );
+      setStatusschedule("true");
+    } else {
+      $(".divTime").css("border-color", "#2c2c2c");
+      $(".imgChecktime").hide();
+      $(e.currentTarget).css("border-color", "#FADD5D");
+      $(e.currentTarget).find(".imgChecktime").show();
+      $(".divTime").css("height", "auto");
+      $(".react-datepicker__input-container ").attr(
+        "style",
+        "display: none !important"
+      );
+      setStatusschedule("false");
+    }
+  }
+  }
+```
 
 
 # Driver
