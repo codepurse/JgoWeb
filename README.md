@@ -491,6 +491,18 @@ Next is calling the api for booking. Code below ( Not complete please check the 
 ```
 If theres an error. All error goes to `.catch((err)` if none it will proceed to `profile.js`
 
+### Getting the rate
+There are 2 functions for rate 1 for cod and Jgowallet. For cod the function name is `getRateloop();` for JgoWallet `getRatewallet();`\
+The following scenario will trigger the rate function.
+
+- Add address
+- Delete address 
+- Change address
+- 1st run of the page
+- Change weight
+
+
+
 
 
 # Driver
