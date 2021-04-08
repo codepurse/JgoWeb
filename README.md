@@ -228,7 +228,10 @@ module.exports = global.config = {
 
 The coordinates given by the user will automatically render the driver route in the map. The map can render 15 routes. **Since the map needs coordinates before it load; I used `localstorage` to get the first input of user in dropoff and pickoff in `/delivery` so whenever the user refresh the site the pickoff, dropoff and map have already a value.** Check the delivery section of this readme.\
 The function of autocomplete search is the same as delivery component. The pickoff autocomplete function is named `handlechange` the dropoff named `handleChangedrop` and the remaining stopoff named `handleChangestop`\
-Like in delivery component, pero location has a onclick variable named `click` so logic will be.
+Like in delivery component, per location has a onclick variable named `click` so logic will be.\
+- Pickup => Click == 1
+- Dropoff => Click == 2 
+- Stopoff1 => Click == 3 up to 13.
 
 ![alt text](https://i.ibb.co/C8HDLxL/2020-10-14-14-20-44-localhost-fe21694942f5.png)
 
