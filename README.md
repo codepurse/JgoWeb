@@ -84,6 +84,63 @@ if the selected address includes the following places. The `latlng` and `value` 
     }
 ```
 
+#### Submit button in delivery component
+If the user click the submit button. We will push the address, lat, lng and ID in `coordinates` array so that in the map page the selected place will be seen in the map.
+```javascript
+      const origin = {
+        address: address.label,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        id: "1",
+      };
+      coordinate.push(origin);
+      const destination = {
+        address: addressDrop.label,
+        lat: coordinatesDrop.lat,
+        lng: coordinatesDrop.lng,
+        id: "2",
+      };
+      coordinate.push(destination);
+```
+after that, We will pass `adress` , `lat` and `lng` in Localstorage. Why? Because the maps will not run if theres no coordinates. So evertime the user access the map pages it will automatically get the coordinates in the localstorage.
+
+```javascript
+  localStorage.setItem("address", address.label);
+      localStorage.setItem("addressDrop", addressDrop.label);
+      localStorage.setItem("pickofflat", coordinates.lat);
+      localStorage.setItem("pickofflng", coordinates.lng);
+      localStorage.setItem("dropofflat", coordinatesDrop.lat);
+      localStorage.setItem("dropofflng", coordinatesDrop.lng);
+
+      global.config.place.deliver.pickoff = address.label;
+      global.config.place.deliver.dropoff = addressDrop.label;
+
+      global.config.place.deliver.pickofflat = coordinatesDrop.lat;
+      global.config.place.deliver.pickofflang = coordinatesDrop.lng;
+
+      global.config.place.deliver.dropofflat = coordinatesDrop.lat;
+      global.config.place.deliver.dropofflang = coordinatesDrop.lng;
+```
+
+#### Getting rate in delivery component
+After we pass all variables needed in localstorage. We will call now the rateAPi the parameter are in the code. Be aware that the weight is already set at `0-5kg` and payment_metod is `cod`.\
+IF the result is success we will get all the breakdown expenses and the price. Then it will proceed to map.js .\
+```javascript
+         localStorage.setItem("baserate", result.data.breakdown.base_rate);
+          localStorage.setItem("perkm", result.data.breakdown.per_km);
+          localStorage.setItem("platform",result.data.breakdown.platform_fee);
+          localStorage.setItem("adddropoff",result.data.breakdown.totalAdditionalDropOffRate);
+          localStorage.setItem("totalkm",result.data.breakdown.totalDistance);
+          localStorage.setItem("smsfee",result.data.breakdown.vonage_fee);
+          localStorage.setItem("weightfee",result.data.breakdown.weight_fee);
+          localStorage.setItem("zoningfee",result.data.breakdown.zoning_fee);
+       
+          localStorage.setItem("price", Math.floor(result.data.price));
+          $(".btn").removeClass("btn--loading");
+          router.push("/map");
+```
+
+
 ### Custom Search
 If the address is not available in the autosearch the user can click the map icon beside of the search bar. The popup map will show and the user can drag the marker on the map and click set. It will get the latitude, longitude and the geocode address based on the coordinates.
 
