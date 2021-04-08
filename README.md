@@ -385,7 +385,7 @@ For selecting a time, the function name is `selectTime`. divtime2 is the classNa
 
 #### Weight
 The default value of weight is "0-5kg". There are 4 choices `0.5kg , 6-10kg, 11-15kg, 16-20kg`. The function name is getWeight. The logic is, the function will run if the user ** Stop and release the mouse **
-```javscript
+```javascript
  function getWeight(e) {
     $(".pWeight").text(e.target.value);
     if (e.target.value < 6) {
@@ -435,6 +435,61 @@ If the condition did not met, it will now show the modal. There are 2 options Co
       })
     );
 ```
+
+If the client choose JgoWallet the price should be lower than the wallet balance. The wallet is set in `useffect` function. Check the code below.
+```javascript
+  const apiUrl_wallet =
+      appglobal.api.base_api + appglobal.api.customer_profile;
+    axios.post(apiUrl_wallet, {}, options1).then((result) => {
+      setWallet(result.data.data.get_jgo_wallet.balance);
+    });
+```
+After the user select a payment method. First it will call the api for getting the rate. Why do we need to call the rate first? because we need the price to call the booking api. 
+```javascript
+        let ratedata = new FormData();
+        var i;
+        var j;
+        ratedata.set("payment_method", payment);
+        ratedata.set("weight", weight);
+        ratedata.set("pick_up_latitude", coordinate[0].lat);
+        ratedata.set("pick_up_longitude", coordinate[0].lng);
+        for (i = 1, j = 0; i < coordinate.length; ++i, ++j) {
+          ratedata.set(
+            "drop_off_locations[" + j + "]" + "[drop_off_latitude]",
+            coordinate[i].lat
+          );
+          ratedata.set(
+            "drop_off_locations[" + j + "]" + "[drop_off_longitude]",
+            coordinate[i].lng
+          );
+          ratedata.set(
+            "drop_off_locations[" + j + "]" + "[booking_order]",
+            i.toString()
+          );
+        }
+```
+Next is calling the api for booking. Code below ( Not complete please check the code manually )
+```javascript
+        const apiUrl_rate =
+          appglobal.api.base_api + appglobal.api.calculate_rate;
+        const apiUrl = appglobal.api.base_api + appglobal.api.booking;
+
+        axios
+          .post(apiUrl_rate, ratedata, options)
+          .then((result) => {
+            formdata.set("price", parseFloat(result.data.price));
+
+            var price = parseFloat(result.data.price);
+
+            axios
+              .post(apiUrl, formdata, options)
+              .then((result) => {
+                for (var pair of formdata.entries()) {
+                  console.log(pair[0], pair[1]);
+                }
+                console.log(result);
+```
+If theres an error. All error goes to `.catch((err)` if none it will proceed to `profile.js`
 
 
 
