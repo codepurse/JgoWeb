@@ -523,7 +523,26 @@ In total bookings I get the total count of array in the api. The api that i used
 In ongoing bookings the api that I used is `const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;` and the active count is `setACtivecount(result.data.count);` basically all the data are loaded in the api. If you want you can console.log() the response to view the result.\
 
 #### Type of booking
-There 3 options to view the booking. All, Scheduled and Same day. Every bookings have seperated `<div>`. So it means all the sameday and ascheduled div are on display none and the ALL div default as block.
+There 3 options to view the booking. All, Scheduled and Same day. Every bookings have seperated `<div>`. So it means all sameday and scheduled div are using display none and the ALL div default as block. So if you select a booking table type it will show what youve selected and the remaining table.\
+Also in dashboard you can search using tracking number or location. ** Search works only in table ** not technically in all result of api. If the lenght is null the paginate will hide and the text "No Result found" will show.
+```javascript
+  function searchTable(e) {
+    var value = $(e.currentTarget).val().toLowerCase();
+    $("#table> tbody > tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      if ($("#table> tbody > :visible").length == 0) {
+        $(".pNo").show();
+        if (tabledata) {
+          $(".reactPaginate").hide();
+        }
+      } else {
+        $(".pNo").hide();
+      }
+    });
+  }
+
+```
+
 
 
 
