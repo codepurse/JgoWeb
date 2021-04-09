@@ -520,7 +520,10 @@ In the dashboard page. You can view all the data in Bookings, Profile and your w
 ### Booking in dashboard
 In booking tab you can see the number of all total bookings and ongoing bookings. All of the data again are loaded in `useeffect` function.\
 In total bookings I get the total count of array in the api. The api that i used is `const apiUrl = appglobal.api.base_api + appglobal.api.transaction_history;` and the count data is `setCount(result.data.meta.total);`.\
-In ongoing bookings the api that I used is `const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;` and the active count is `setACtivecount(result.data.count);` basically all the data are loaded in the api. If you want you can console.log() the response to view the result.
+In ongoing bookings the api that I used is `const apiUrlall = appglobal.api.base_api + appglobal.api.all_booking;` and the active count is `setACtivecount(result.data.count);` basically all the data are loaded in the api. If you want you can console.log() the response to view the result.\
+
+#### Type of booking
+There 3 options to view the booking. All, Scheduled and Same day. Every bookings have seperated `<div>`. So it means all the sameday and ascheduled div are on display none and the ALL div default as block.
 
 
 
