@@ -44,7 +44,19 @@ You might want to install the below plugins to completely run the web app.
 `axios`  - **Used to fetch data in api**\
 
 ### Api's
-All api's are declared on`/services/auto.service.js`
+All api's are declared on`/services/auto.service.js` .\
+The project used axios for connecting to Api's. Some axios headers need tokens. Dont edit the header options because thats the fix format to connect to server.
+```javascript
+ const options1 = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        Authorization: "Bearer " + AuthService.getToken(),
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+```
 
 ### Login
 Before you book you need to login. Login have 3 ways you can either use your normal account, facebook or google.\
