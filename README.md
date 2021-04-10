@@ -57,6 +57,7 @@ The project used axios for connecting to Api's. Some axios headers need tokens. 
       },
     };
 ```
+For staging api, change the base_api in `setvices/api.service.js` to `"https://staging-api.jgo.com.ph"`. **Dont change the other Apis that are declared**.
 
 ### Login
 Before you book you need to login. Login have 3 ways you can either use your normal account, facebook or google.\
@@ -881,6 +882,10 @@ If the user open another chat, it will not create another chatbox rather it will
 ```
 #### Sending a message
 Seding message function is trigger when the user click enter or send button. The function name is `sendMessage`
+
+#Logout
+It will route to `logout.js` and call the `api/logout` and remove the localstorage `Authservice.logout` that holds the token then route to the homepage.
+
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
