@@ -714,6 +714,103 @@ The saveprof is set to 1 so when the page reloaded theres a condition that if th
       localStorage.removeItem("saveprof");
     }
 ```
+
+### Settings page
+In settings tab you can change the theme and change your password.\
+
+#### Theme
+When using light theme all codes are loaded in `public/Script/jgo.js`. All of them are hard coded, once the user switch the theme it will reload the page then set the current theme. Theme is set in localStorage so it means the theme is atumatically applied when the user view the page.
+```javascript
+  $("#switch").click(function () {
+    if ($(this).prop("checked") == true) {
+      var theme = true;
+      localStorage.setItem("theme", JSON.stringify(theme));
+      localStorage.setItem("theme_status", "light");
+      window.location.reload();
+    } else if ($(this).prop("checked") == false) {
+      var theme = false;
+      localStorage.setItem("theme", JSON.stringify(theme));
+      localStorage.setItem("theme_status", "false");
+      window.location.reload();
+    }
+  });
+```
+And all the css light theme are set on function `light`.
+
+#### Change password
+When the user click the change password button a modal will appear. The id of the modal is `modalChangepass`.\
+All of the input fields are required. Basically all the state that are bind in the input fields will thrown into the api parameter. The function name is `btnchangepass`
+
+### Payment
+The online payment method available for now is Jgowallet. The Jgowallet ballance are loaded in `useefect` function. Its the same api that the project used to get the profile details. `setWallet(result.data.data.get_jgo_wallet.balance);` \
+If the user wants to topup all the profile credentials are needed. If incomplete a modal form will appear or else the modal Top . The function name is `topup`.
+```javascript
+  if (
+      !address ||
+      !fname ||
+      !lname ||
+      !mname ||
+      !zip ||
+      !country ||
+      !state1 ||
+      !city ||
+      !mobile ||
+      !emailprof ||
+      !zip
+    ) {
+      $("#modalForm").modal("toggle");
+    } else {
+      $("#modalTopup").modal("toggle");
+    }
+  }
+```
+In Modal topup modal there are 3 choices. `300, 600 and 900` per choices have their own function. `set300, set600 and set900` function. If you select the 300 the state will change to 300 same as 600 and 900.
+```javascript
+  function set300(e) {
+    setTopup("300");
+    $(".divPricewallet").css("border-left", "2px solid lightgray");
+    $(e.currentTarget).css("border-left", "2px solid #3BCD67");
+    $(".spanCheck").css("color", "gray");
+    $(e.currentTarget).find(".spanCheck").css("color", "#3BCD67");
+  }
+```
+If the user select and amount then proceed to continue. A function name `goTopup` will trigger. The logic is we have to pass all needed credentials in the form ( Lname, mname and etc ) with the selected amount.
+```javascript
+  let formdata = new FormData();
+    formdata.set("fname", fname);
+    formdata.set("mname", mname);
+    formdata.set("lname", lname);
+    formdata.set("platform", "web");
+    formdata.set("email", emailprof);
+    formdata.set("state", state1);
+    formdata.set("city", city);
+    formdata.set("address1", address);
+    formdata.set("country", country);
+    formdata.set("mobile_no", mobile);
+    formdata.set("lname", lname);
+    formdata.set("zip", zip);
+    formdata.set("amount", topupamount);
+```
+If the response of the api is success it will trigger the hidden form. The hidden form is place below of the `<Componentdidmount>` component.
+```javascript
+  <div style={{ display: "none" }}>
+        <form
+          id="paygate_frm"
+          action="https://testpti.payserv.net/webpayment/Default.aspx"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="paymentrequest"
+            id="paymentrequest"
+            value=""
+          ></input>
+          <input type="submit" id="submitpayment" value="Submit" />
+        </form>
+      </div>
+```
+It will automatically go to paynamics page.
+
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
