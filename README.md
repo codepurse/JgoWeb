@@ -592,8 +592,61 @@ If the status is not `In transit or Ongoing` a message box will appear ( cannot 
           );
 ```
 
-
-
+#### Cancel booking 
+In cancelling a booking theres a condition that if the status is `Driver found` and the `Duration` is longer than 30 secs you cannot cancel the booking.
+```javascript
+ var addresstable = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(5)")
+      .html();
+```
+The above code is to get the current date of the booking
+```javascript
+   var statustable = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(6)")
+      .html();
+```
+The above code is to get the status of the booking.\
+Now we have to get the difference between the date today and the given date.
+```javascript
+   var now = moment(new Date()); //todays date
+   var end = moment(addresstable); // another date
+   var duration = now.diff(end, "seconds");
+```
+If the duration is greater than 30 and the status is `driver found` you cannot cancel the booking. If not, we wil get the `tracking_id` and the `driver_id`.
+```javascript
+ var trackid = $(e.currentTarget)
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(2)")
+        .html();
+```
+The above code is to get the tracking_id
+```javascript
+  var driverid = $(e.currentTarget)
+        .parent("div")
+        .parent("td")
+        .parent("tr")
+        .children()
+        .closest("td:nth-child(3)")
+        .html();
+```
+The we have to pass the variable to the state so we can call the api.
+```javascript
+  setBookingidtable(trackid);
+  canceltableid = trackid;
+  drivertableid = driverid;
+```
+After that a modal will popup where you have to type the reason why you want to cancel the booking. The function name for changing the reasong is `handlechangeCance`. If the user selected the yest button it will call the `cancelBook` function.
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
