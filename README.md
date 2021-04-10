@@ -540,9 +540,57 @@ Also in dashboard you can search using tracking number or location. ** Search wo
       }
     });
   }
-
 ```
+#### Table data
+Since every table have seperated div, it means they have their own state thats hold every data.
+| STATE / VARIABLE | TABLE |
+| ------ | ------ |
+| tabledata | All booking |
+| tableactivebooking | Active booking |
+| tablescheduled | Scheduled booking |
 
+The project used map function to populate the table.
+```javascript
+tabledata.map((event, index)
+```
+In table theres a table row named `Action` in this part you can `View, track, cancel or rebook` the selected booking.
+| STATUS | ACTION |
+| ------ | ------ |
+| Complete | View |
+| On hold | Rebook and Cancel |
+| Ongoing | Track and Cancel |
+
+#### View booking
+When the user click the view button it will show the `Driver_name, number, price, booking_date and locations`. The function name is `viewBook`.\
+Basically it will get the tracking id in table on which row youve selected then pass the tracking_id into the api then setting all the needed state. \
+** Dont change the table format some function will not work **
+```javascript
+var trackid = $(e.currentTarget)
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(4)")
+      .html();
+```
+The above code is getting the tracking id in the table.
+
+#### Track booking
+Its the same logic like view booking it will get the tracking_id in table then it will proceed to another page `/tracking/$tracking_id_here`. \
+If the status is not `In transit or Ongoing` a message box will appear ( cannot track the current booking ) \
+ ** Dont change the table format some function will not work **
+```javascript
+   window.open(
+            "/tracking/" +
+              $(e.currentTarget)
+                .parent("div")
+                .parent("td")
+                .parent("tr")
+                .children()
+                .closest("td:nth-child(4)")
+                .html(),
+            "_blank"
+          );
+```
 
 
 
