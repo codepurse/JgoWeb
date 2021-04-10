@@ -672,6 +672,48 @@ The above code is to get the latest booking id.
  holdTimer();
 ```
 Thea above code is the know if the booking id and latest is match.
+
+### Profile page
+Basically all details in profile page are loaded in `useeffect`
+```javascript
+    const apiUrl1 = appglobal.api.base_api + appglobal.api.customer_profile;
+    axios
+      .post(apiUrl1, { id: AuthService.getId() }, options)
+      .then((result) => {
+        setTableprofile(result.data.data);
+        setFname(result.data.data.fname);
+        setMname(result.data.data.mname);
+        setLname(result.data.data.lname);
+        setEmailprof(result.data.data.email);
+        setAddress(result.data.data.address);
+        setCountry(result.data.data.country);
+        setMobile(result.data.data.mobile_no);
+        setState(result.data.data.state);
+        setZip(result.data.data.zip);
+        setCity(result.data.data.city);
+        setWallet(result.data.data.get_jgo_wallet.balance);
+
+        if (result.data.data.profile_pic) {
+          setProfle(
+            "https://jgo-storage.s3.ap-southeast-1.amazonaws.com/" +
+              result.data.data.profile_pic
+          );
+        }
+      })
+```
+If the user edit then save theres a condition that you should met. \
+`Fname, Lname, Email, mobile, address` should not be null. After that variable `clear` should be 0. Clear = 1 means button are already click. The function name is `saveProf`. IF the api response is success it will automaricaly and set the localstorage `saveprof` to 1.
+```javascript
+localStorage.setItem("saveprof", "1");
+  window.location.reload();
+```
+The saveprof is set to 1 so when the page reloaded theres a condition that if the value is 1 a mesasge box will appear.
+```javascript
+  if (localStorage.getItem("saveprof") == 1) {
+      successMessage();
+      localStorage.removeItem("saveprof");
+    }
+```
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
