@@ -66,7 +66,8 @@ Before you book you need to login. Login have 3 ways you can either use your nor
 If you login using facebook or google , the 3rd party api will automatically response the id, email, first_name and last_name. The resonsed data will be automatically transfer to the state. After we transter the response we will call the api register for the 3rd party api and the parameter is the same as the response. IF the email is not registered the modal will be shown but the email, first name and last name is already declared if not the api will response a token. 
 
 #### Succesfull login
-The JWT token will automatically store in localstorage
+The JWT token will automatically store in localstorage depends on that 3rd party that they used.\
+
 
 ### Deliver component
 If you login succesfully the component login will be hidden and the deliver component will be shown. It composed of 2 Autoplaced search ( picup and dropoff ) and 2 custom map for each location.
