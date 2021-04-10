@@ -647,6 +647,31 @@ The we have to pass the variable to the state so we can call the api.
   drivertableid = driverid;
 ```
 After that a modal will popup where you have to type the reason why you want to cancel the booking. The function name for changing the reasong is `handlechangeCance`. If the user selected the yest button it will call the `cancelBook` function.
+
+#### Rebook function
+In rebook we need to get the bookid, call the api then pass the bookid to the params of the api. The function name is `rebookTable`.
+```javascript
+ var bookid = $(e.currentTarget)
+      .parent("div")
+      .parent("td")
+      .parent("tr")
+      .children()
+      .closest("td:nth-child(2)")
+      .html();
+    rebooktableid = bookid;
+```
+Take note, if the booking id is the same as latest booking id it will show the modal animation "Searching for driver" then the timer will start. The timer is set to 120secs after 120secs it will automatically hold the latest booking. The latest booking id is set in `useeffect`.
+```javascript
+   setLatestbook(result.data.data.created_at);
+```
+The above code is to get the latest booking id.
+```javascript
+ $("#exampleModal").modal("show");
+ $("#modalRebook").modal("hide");
+ localStorage.setItem("latestbookingdate", moment(new Date()));
+ holdTimer();
+```
+Thea above code is the know if the booking id and latest is match.
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
