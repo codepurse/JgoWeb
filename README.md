@@ -811,6 +811,76 @@ If the response of the api is success it will trigger the hidden form. The hidde
 ```
 It will automatically go to paynamics page.
 
+### Support tab
+In this tab you can issue a concern to the customer support.\
+IF the user click the "Create issue" button it will show a modal that have an input fields `booking_id, title and description`. Title and description are required. Once they succesfully created an issue and open chat button will be available. If they choose to open chat a chatbox will be shown. The chatbox is a component rendered in `component/chat`. In order work the chatbox we need to get the channel_id which is hidden on the table. The function name is `getChannel`
+```javascript
+ var x = $(e.currentTarget).find("td:nth-child(6)").text();
+ channel_id = [`${x}`];
+```
+The channel_id variable is declared in `../component/map/config"`.  After we fetch the channel_in in the table we will now create a channel in pubnub.\
+First we will pass the channel_id in an new variable.
+```javascript
+const channels = channel_id;
+```
+Next, We create a channel using the new variable that we created.
+```javascript
+useEffect(() => {
+    pubnub.fetchMessages(
+      {
+        channels: channels,
+      },
+  }, [channels]);
+```
+Next, We will fetch the messages in the channel. While we fethe the data I added a scroll function which automatically scroll down everyime a new message appear.
+```javascript
+ try {
+     var x = JSON.parse(JSON.stringify(response.channels[keyName])); 
+     
+       setLenght(response.channels[channels].length)
+      setMessages(response.channels[channels]);
+                
+      var myscroll = $(".rowChat");
+      myscroll.scrollTop(myscroll.get(0).scrollHeight);
+     catch (e) {} 
+```
+The above code is declared using `useeffect` in `component/chat.js`\
+There a new function that added that will know if theres another person in your channel. If more than 2 the red circle in the chatbox will turn to green.
+```javascript
+   presence: function (presenceEvent) {
+        
+        if (presenceEvent.occupancy > 2) {
+          $(".divOnline").css("background-color", "#2E7D32");
+        } else {
+          $(".divOnline").css("background-color", "#ef5350");
+        }
+      },
+```
+If the user open another chat, it will not create another chatbox rather it will remove all the messages in the chatbox and replace with the new that thegram fetch in the new channell. But the thing is it will not remove the old channel it will rather add a new one, so it means you have 2 channel running in the background. So we add another `useeffect` function that will fetch the messages that are only registered in the current channel.
+```javacript
+ try {
+                      var x = JSON.parse(
+                        JSON.stringify(response.channels[keyName])
+                      );
+
+                      if (x[0].channel == channel_id) {
+                    
+                        setLenght(response.channels[channels].length)
+                        setMessages(response.channels[channels]);
+                        if (($(".conChatbox").height() + 400) < 500) {
+                          $(".spanCount").show();
+                          playSound();
+                        }else {
+                         
+                        }
+                      }
+
+                      var myscroll = $(".rowChat");
+                      myscroll.scrollTop(myscroll.get(0).scrollHeight);
+                    } catch (e) {
+```
+#### Sending a message
+Seding message function is trigger when the user click enter or send button. The function name is `sendMessage`
 # Driver
 
 Below is the process how the driver will send his profile. The form is composed of 20 field ( 13 required fields )\
