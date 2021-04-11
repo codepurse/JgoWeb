@@ -82,7 +82,7 @@ The JWT token will automatically store in localstorage depends on that 3rd party
 | Normal   |  localStorage.setItem("token", JSON.stringify(result.data.data)); |
 
 
-
+### Signup
 
 ### Deliver component
 If you login succesfully the component login will be hidden and the deliver component will be shown. It composed of 2 Autoplaced search ( picup and dropoff ) and 2 custom map for each location.
