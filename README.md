@@ -83,6 +83,93 @@ The JWT token will automatically store in localstorage depends on that 3rd party
 
 
 ### Signup
+In signup theres a multiple condition that the user should not met. If the user met the following below the variable clear will be 1. The function name is `goOtp`
+- First name, Last name, Email, Mobile number, Passsword and Confirm password.
+- Password should be 6-16 Characters.
+- If mobile number is already registered.
+
+If none of these arent met the variable clear will be 0.
+Next we need to check if the mobile number is registered or not. Thers an axios function that holds the number and the api for checking if registed or not.
+```javascript
+ const options = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "content-type": "application/json",
+        },
+      };
+      const apiUrl = appglobal.api.base_api + appglobal.api.check_number;
+      axios
+        .post(apiUrl, { mobile_no: this.state.mobile }, options)
+        .then((result) => {
+```
+if success it will call another axios function that will send a otp. \
+In order to send an otp in mobile number, the number should start in 63. So thres a conditionnal statement that will know if the number start in 0.
+```javascript
+    var str = this.state.mobile;
+    var firstchar = str.charAt(0);
+    if (firstchar == "0" || firstchar == 0) {
+      var str = str.replace(/^./, "63");
+      this.setState({ otpnumber: str });
+    } else {
+    }
+```
+If success, We will get the `request_id` and `timestamp` of the response. Then modal for otp will appear and the functiion `timer` will trigger.\
+The timer is set to 5mins. If timer expired you can use again your number to register.
+```javascript
+ axios
+            .post(apiUrl, {}, options)
+            .then((result) => {
+              this.setState({ expired: false });
+              submit == 0;
+              clear == 0;
+              $(".btn").removeClass("btn--loading");
+           
+              localStorage.setItem("requestid", result.data.request_id);
+              this.setState({ requestid: result.data.request_id });
+              sessionStorage.setItem("otp", "1");
+              localStorage.setItem("createotpdate", result.data.timestamp);
+              $("#modalRegister").modal("toggle");
+              this.timer();
+              this.setState({ otprequest: true });
+              $("#modalOtp").modal("toggle");
+            })
+```
+If user refresh or try to register again with the same number. It will detect if the created otp date is greater than 40secs. If less than 40 it will automatically cancel the ongoing otp then send a new one. If greater than 40 you have to wait to 5 mins to register again with that number.
+```javascript
+ const apiUrl =
+                    appglobal.api.base_api +
+                    appglobal.api.cancel_otp +
+                    localStorage.getItem("requestid") +
+                    "/" +
+                    this.state.otpnumber;
+                  axios
+                    .post(apiUrl, options)
+                    .then((result) => {
+                     
+                      const options = {
+                        headers: {
+                          Accept: "application/json, text/plain, */*",
+                          "content-type": "application/json",
+                        },
+                      };
+                      const apiUrl =
+                        appglobal.api.base_api +
+                        appglobal.api.send_otp +
+                        this.state.otpnumber;
+                      axios.post(apiUrl, options).then((result) => {
+                     
+                        this.setState({ seconds: 300 });
+
+                        clearInterval(interval);
+                        this.timer();
+                      });
+                    })
+```
+Make sure set the seconds state to 300 and clear the interval then run the timer again.
+
+
+## Forgot password
+Basically put the email address and it call the api. The function name is `send`.
 
 ### Deliver component
 If you login succesfully the component login will be hidden and the deliver component will be shown. It composed of 2 Autoplaced search ( picup and dropoff ) and 2 custom map for each location.
