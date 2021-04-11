@@ -1,7 +1,8 @@
 # Jgo [![Build Status](https://i.ibb.co/tqgywhd/Build-Development-lightgrey.png)](https://travis-ci.org/joemccann/dillinger)
 [![Next Js](https://i.ibb.co/CKgz0J3/output-onlinepngtools.png)](https://nextjs.org)
 
-This readme is all about the following pages and components
+This readme is all about the following pages and components.\
+**It is required that you have basic knowledge in react and next js to understand the flow.**
 
 - map.js
 - delivery.js
@@ -988,6 +989,54 @@ Seding message function is trigger when the user click enter or send button. The
 
 #Logout
 It will route to `logout.js` and call the `api/logout` and remove the localstorage `Authservice.logout` that holds the token then route to the homepage.
+
+
+# Tracking page
+Tracking page are loaded in `pages/tracking/$tracking_id_here`. The tracking number is must be in router.query `  const { number } = router.query;`. It is normal sometimes if you saw the 404 page before the tracking because we have to get the response of the api to load the page. Basically all data are loaded in `useeffect` function. Once its loaded it will map and populate and div.\
+In first `useeffect` function it has a state [number]; it means it loaded in the first run of the page.
+```javascript
+  }, [number]);
+```
+The `useefect` function that has state [dropoff_loc]. This is to get the all the location then make it visible to the map.
+```javascript
+  useEffect(() => {
+    if (dropoff_loc) {
+      {
+        dropoff_loc.map((event, index) => {
+          const dropoff = {
+            id: 4,
+            name: "",
+            lat: parseFloat(event.drop_off_latitude),
+            lng: parseFloat(event.drop_off_longitude),
+            icon: "../Image/navigation.png",
+          };
+          tracks.push(dropoff);
+        });
+      }
+    }
+    router.push("/tracking/" + number);
+  }, [dropoff_loc]);
+```
+The `useefect` function that has state [driver_loc]. This is to get the location of the driver and make it visible to the map.
+```javascript
+ useEffect(() => {
+    if (driver_loc) {
+      const dropoff = {
+        id: 4,
+        name: "",
+        lat: parseFloat(driver_loc.driver_latitude),
+        lng: parseFloat(driver_loc.driver_longitude),
+        icon: "../Image/rider.png",
+      };
+      tracks.push(dropoff);
+    }
+    router.push("/tracking/" + number);
+  }, [driver_loc]);
+```
+The array that I used based on the code is `tracks`. It is declared in `component/map/config.js`.
+
+#### Refresh page in tracking
+Every 10 secs the value is refresh not totally the page. The fucntion is `useefect` but with interval `10000`.
 
 # Driver
 
