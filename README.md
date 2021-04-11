@@ -64,9 +64,24 @@ Before you book you need to login. Login have 3 ways you can either use your nor
 
 #### Login using facebook and google
 If you login using facebook or google , the 3rd party api will automatically response the id, email, first_name and last_name. The resonsed data will be automatically transfer to the state. After we transter the response we will call the api register for the 3rd party api and the parameter is the same as the response. IF the email is not registered the modal will be shown but the email, first name and last name is already declared if not the api will response a token. 
+```javascript
+ if (result.data.status === "failed") {
+     this.setState({ email: response.profileObj.email });
+     this.setState({ fname: response.profileObj.givenName });
+     this.setState({ lname: response.profileObj.familyName });
+     $("#modalRegister").modal("toggle");
+  } 
+```
 
 #### Succesfull login
-The JWT token will automatically store in localstorage depends on that 3rd party that they used.\
+The JWT token will automatically store in localstorage depends on that 3rd party that they used. In localstorage it includes `name, id and token`
+| 3RD PARTY | STORAGE |
+| ------ | ------ |
+| Facebook |  localStorage.setItem("facebook", JSON.stringify(result.data));   |
+| Google   |  localStorage.setItem("google", JSON.stringify(result.data));     |
+| Normal   |  localStorage.setItem("token", JSON.stringify(result.data.data)); |
+
+
 
 
 ### Deliver component
