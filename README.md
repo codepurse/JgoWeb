@@ -20,7 +20,7 @@ npm run dev
 ```
 
 ### Plugins
-You might want to install the below plugins to completely run the web app.
+This is all the plugins that the proeject used. If you have questions in the plugins please read their own documentation.
 
 `react-google-maps` - **For the map** \
 `react-google-places-autocomplete`  - **For the autosearch places** \
@@ -1037,6 +1037,48 @@ The array that I used based on the code is `tracks`. It is declared in `componen
 
 #### Refresh page in tracking
 Every 10 secs the value is refresh not totally the page. The fucntion is `useefect` but with interval `10000`.
+
+## Ongoing booking process in dashboard
+For example the user proceed to book in map.js. In profile page a modal will appear. The logic is if the `latest_booking` status is `looking for driver` it will trigger the `loadHoldtimer` function which is for the `hold`. \
+The below code is an example.
+```javascript
+const apiUrllatest = appglobal.api.base_api + appglobal.api.latest_booking;
+    axios
+      .post(apiUrllatest, { customer_id: AuthService.getId() }, options1)
+      .then((result) => {
+    
+        if (!result.data.data) {
+          console.log("no latest booking")
+        } else {
+        
+          localStorage.setItem(
+            "latestbookingdate",
+            result.data.data.created_at
+          );
+          setLatestbook(result.data.data.created_at);
+          localStorage.setItem(
+            "updatebookingdate",
+            result.data.data.updated_at
+          );
+      
+          setLateststatus(result.data.data.status);
+    
+          if (result.data.data.status == "Looking for Driver") {
+            loadHoldtimer();
+          }
+
+```
+In `loadHoldtimer` function, it will automatically run the function if its already 2 mins. **Take note that the timer will only trigger if its the latest booking**\
+First we need to calculate the difference between 2 dates ( date of booking and current date today )
+```javascript
+        var now = moment(response.data.datetime); //todays date
+        var end = moment(localStorage.getItem("updatebookingdate")); // another date
+        var duration = moment.duration(now.diff(end));
+        var min = Math.floor(duration.asSeconds());
+```
+iF the value is greater than 120 it will hold the book and restat the timer.\
+### What if the user refresh the page?
+If the user refresh the page it will start the count where the difference start. So for example the difference of 2 dates is 30secs thats where the timer start.
 
 # Driver
 
