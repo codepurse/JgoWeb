@@ -1048,4 +1048,4 @@ Below is the process how the driver will send his profile. The form is composed 
   - IF the password did not match.
   - If the password is less than 6 and greater than 16
  
- if the validation is okay all state will be reset.
+ if the validation is okay all state will be reset. Basically its like a singup page.
