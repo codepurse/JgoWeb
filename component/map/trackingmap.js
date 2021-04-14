@@ -50,10 +50,7 @@ function MapDirectionsRenderer(props) {
       <DirectionsRenderer
         directions={directions}
         options={{
-          polylineOptions: {
-            strokeOpacity: 1,
-            strokeColor: "#424242",
-          },
+            suppressPolylines: true,
           markerOptions: {
             icon: {
               scaledSize: new google.maps.Size(35, 35),
