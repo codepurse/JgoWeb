@@ -54,7 +54,10 @@ export default function map() {
   const [formattime, setFormattime] = React.useState("");
   const [formatdate, setFormatdate] = React.useState("");
   const [numberbooking, setNumberbooking] = React.useState("");
-
+  const [changeMain, setchangeMain] = React.useState("");
+  
+  
+  var breakdown;
   const locationCod = [];
   var loopservices = 0;
   var clickpayment = 0;
@@ -953,6 +956,10 @@ export default function map() {
     } catch (err) {}
   }
 
+  function changeMainnote(e) {
+    setchangeMain(e.currentTarget.value);
+  }
+
   function numOnly(event) {
     let value = event.currentTarget.value;
     let numbers = value.replace(/[^0-9]/g, "");
@@ -1263,14 +1270,15 @@ export default function map() {
         i.toString()
       );
     }
-    
 
-    {/* 
+    {
+      /* 
   addlistservice.map((addservice) => {
       ratedata.set("additional_services[" + loopservices + "]", addservice),
         (loopservices = loopservices + 1);
     });
-*/}  
+*/
+    }
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
@@ -1283,7 +1291,7 @@ export default function map() {
   }
 
   function trylang() {
-   console.log(statusschedule)
+    console.log(statusschedule);
   }
 
   function getRateloop() {
@@ -1326,8 +1334,12 @@ export default function map() {
     axios
       .post(apiUrl_rate, ratedata, options)
       .then((result) => {
+
         var price = result.data.price;
-        console.log(result)
+        window.samplearray= result.data.breakdown;
+        console.log(window.samplearray);
+     
+        console.log(result);
         setPrice(Number(price).toFixed(2));
         setListdistance(result.data.distance);
         $(".imgInfo").show();
@@ -1344,7 +1356,9 @@ export default function map() {
           setZoningfee(result.data.breakdown.zoning_fee);
         } catch (e) {}
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   function getRate() {
@@ -1682,7 +1696,8 @@ export default function map() {
           );
         }
 
-      {/*
+        {
+          /*
       
          if (addlistservice === undefined || addlistservice.length == 0) {
           ratedata.set("additional_services", []);
@@ -1695,7 +1710,8 @@ export default function map() {
               (loopservices = loopservices + 1);
           });
         }
-      */}
+      */
+        }
 
         let formdata = new FormData();
         var a;
@@ -1704,11 +1720,22 @@ export default function map() {
         formdata.set("customer_id", AuthService.getId());
 
         formdata.set("contact_name", coordinate[0].detailsname);
-        formdata.set("contact_number", coordinate[0].detailsnumber);
+        formdata.set("contact_number", coordinate[0].detailsnumber.substring(1, coordinate[0].detailsnumber.length));
         formdata.set("payment_method", payment);
         formdata.set("pick_up_address", address.label);
         formdata.set("pick_up_latitude", coordinate[0].lat);
         formdata.set("pick_up_longitude", coordinate[0].lng);
+        if (changeMain) {
+          formdata.set("note", changeMain);
+        }else {
+          formdata.set("note", "No notes to display");
+        }
+
+        if (coordinate[0].detailsAdd) {
+          formdata.set("pick_up_note", coordinate[0].detailsAdd);
+        } else {
+          formdata.set("pick_up_note", "No notes to display");
+        }
         formdata.set(
           "duration",
           Math.floor(Number(durationmap / 60)) + " mins"
@@ -1735,10 +1762,16 @@ export default function map() {
         }
 
         for (a = 1, b = 0; a < coordinate.length; ++a, ++b) {
-          if (coordinate[b].detailsAdd) {
-            formdata.set("note", coordinate[a].detailsAdd);
+          if (coordinate[a].detailsAdd) {
+            formdata.set(
+              "drop_off_locations[" + b + "]" + "[notes]",
+              coordinate[a].detailsAdd
+            );
           } else {
-            formdata.set("note", "No notes to display");
+            formdata.set(
+              "drop_off_locations[" + b + "]" + "[notes]",
+              "No notes to display"
+            );
           }
 
           if (coordinate[b].category) {
@@ -1775,11 +1808,12 @@ export default function map() {
           );
           formdata.set(
             "drop_off_locations[" + b + "]" + "[contact_number]",
-            coordinate[a].detailsnumber
+            coordinate[a].detailsnumber.substring(1,coordinate[a].detailsnumber.length)
           );
         }
 
-       {/*
+        {
+          /*
        if (addlistservice === undefined || addlistservice.length == 0) {
           formdata.set("additional_services[]", "");
         } else {
@@ -1791,7 +1825,10 @@ export default function map() {
               (loopservices = loopservices + 1);
           });
         }
-       */}
+       */
+        }
+
+        formdata.set('breakdown',JSON.stringify(window.samplearray));
 
         const apiUrl_rate =
           appglobal.api.base_api + appglobal.api.calculate_rate;
@@ -1854,7 +1891,6 @@ export default function map() {
                 }
               })
               .catch((err) => {
-               
                 swal(
                   <div style={{ width: "450px", padding: "10px" }}>
                     <div className="container">
@@ -1994,7 +2030,7 @@ export default function map() {
                 </div>
               </div>
             );
-          } 
+          }
         } else if ($(this).val() != "") {
           $(".txtNumber").each(function () {
             if ($(this).val() != "") {
@@ -2014,7 +2050,10 @@ export default function map() {
                             style={{ width: "32px" }}
                           ></img>
                         </div>
-                        <div className="col-lg-10" style={{ textAlign: "left" }}>
+                        <div
+                          className="col-lg-10"
+                          style={{ textAlign: "left" }}
+                        >
                           <p className="pError">Warning</p>
                           <p className="pErrorSub">
                             Input a valid contact number.
@@ -2024,12 +2063,11 @@ export default function map() {
                     </div>
                   </div>
                 );
-              } 
-            } 
+              }
+            }
           });
         }
         if (statusschedule == "true") {
-      
           if (scheduletime == "") {
             x = 0;
             swal(
@@ -2294,7 +2332,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        maxLength="12"
+                        maxLength="11"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2367,7 +2405,7 @@ export default function map() {
                     <div className="col-lg-6">
                       <input
                         type="text"
-                        maxLength="12"
+                        maxLength="11"
                         className="txtNumber txtValidation txtAdditional"
                         onChange={(evt) => updateInputValueNumber(evt)}
                         placeholder="Contact Number"
@@ -2459,7 +2497,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2549,7 +2587,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2639,7 +2677,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2816,7 +2854,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -2991,7 +3029,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3166,7 +3204,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3254,7 +3292,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3342,7 +3380,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3430,7 +3468,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3518,7 +3556,7 @@ export default function map() {
                       <div className="col-lg-6">
                         <input
                           type="text"
-                          maxLength="12"
+                          maxLength="11"
                           className="txtNumber txtValidation  txtAdditional"
                           onChange={(evt) => updateInputValueNumber(evt)}
                           placeholder="Contact Number"
@@ -3651,6 +3689,23 @@ export default function map() {
                       </div>
                     </div>
                   ))}
+              </div>
+              <div className="row" style={{ marginTop: "10px" }}>
+                <div className="col-lg-12">
+                  <div className="form-inline">
+                    <img
+                      src="Image/writing.png"
+                      className="img-fluid imgClock"
+                      style={{ width: "25px" }}
+                    ></img>
+                    <p className="pTime">Note</p>
+                  </div>
+                </div>
+                <div className="col-lg-12">
+                  <textarea id="txtNotesarea"  rows="4" cols="50" placeholder = "Enter notes here." onChange = {changeMainnote}>
+                    
+                  </textarea>
+                </div>
               </div>
               <div className="row" style={{ marginTop: "10px" }}>
                 <div className="col-lg-12">

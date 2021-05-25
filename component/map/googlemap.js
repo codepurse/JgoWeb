@@ -11,10 +11,12 @@ import "./config";
 function MapDirectionsRenderer(props) {
   const [directions, setDirections] = useState(null);
   const [error, setError] = useState(null);
+  const {placesmaps} = props;
 
   useEffect(() => {
+     
     const { places, travelMode } = props;
-
+  
     const waypoints = places.map((p) => ({
       location: { lat: p.lat, lng: p.lng },
       stopover: true,
